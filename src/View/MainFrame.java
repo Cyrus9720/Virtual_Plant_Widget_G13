@@ -75,7 +75,7 @@ public class MainFrame extends JFrame {
         UIManager.put("OptionPane.messageFont", customFont);
         UIManager.put("OptionPane.background", new Color(225, 240, 218));
         UIManager.put("Panel.background", new Color(225, 240, 218));
-        ImageIcon customIcon = new ImageIcon("/Users/annagranberg/Documents/GitHub/Virtual_Plant_Widged_G13/src/Images/img.png");
+        ImageIcon customIcon = new ImageIcon("src/Images/img.png");
         Image originalCustomImage = customIcon.getImage();
         Image scaledIconImage = originalCustomImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         ImageIcon scaledPlantImageIcon = new ImageIcon(scaledIconImage);

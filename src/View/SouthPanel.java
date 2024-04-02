@@ -41,14 +41,14 @@ public class SouthPanel extends JPanel
         setBackground(new Color(225, 240, 218));
         setLayout(new FlowLayout(FlowLayout.LEADING));
 
-        ImageIcon threeHearts = new ImageIcon("Images/ThreeHearts.png");
+        ImageIcon threeHearts = new ImageIcon("src/Images/ThreeHearts.png");
         Image originalThreeHearts = threeHearts.getImage();
         Image scaledHeartsLivesImage = originalThreeHearts.getScaledInstance(100, 75, Image.SCALE_SMOOTH);
         ImageIcon scaledThreeHearts = new ImageIcon(scaledHeartsLivesImage);
         JLabel threeHeartsLabel = new JLabel(scaledThreeHearts);
         add(threeHeartsLabel);
 
-        ImageIcon progressbar = new ImageIcon("Images/almostEmptyProgressBar.png");
+        ImageIcon progressbar = new ImageIcon("src/Images/almostEmptyProgressBar.png");
         Image progressbarImage = progressbar.getImage();
         Image scaledProgressbarImage = progressbarImage.getScaledInstance(100, 75, Image.SCALE_SMOOTH);
         ImageIcon scaledProgressbar = new ImageIcon(scaledProgressbarImage);
@@ -67,7 +67,7 @@ public class SouthPanel extends JPanel
      * received sufficient water.
      */
     public void updateWaterProgress() {
-        ImageIcon progressbar = new ImageIcon("Images/fullProgressBar.png");
+        ImageIcon progressbar = new ImageIcon("src/Images/fullProgressBar.png");
         Image progressbarImage = progressbar.getImage();
         Image scaledProgressbarImage = progressbarImage.getScaledInstance(100, 75, Image.SCALE_SMOOTH);
         ImageIcon scaledProgressbar = new ImageIcon(scaledProgressbarImage);

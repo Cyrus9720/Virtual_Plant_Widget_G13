@@ -44,7 +44,7 @@ public class CenterPanel extends JPanel
         Border margin = BorderFactory.createEmptyBorder(6, 6, 6, 6);
         setBorder(new CompoundBorder(border, margin));
 
-        ImageIcon originalPlant = new ImageIcon("Images/plantIcon.png");
+        ImageIcon originalPlant = new ImageIcon("src/Images/plantIcon.png");
         Image originalPlantImage = originalPlant.getImage();
         Image scaledPlantImage = originalPlantImage.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         ImageIcon scaledPlantImageIcon = new ImageIcon(scaledPlantImage);
