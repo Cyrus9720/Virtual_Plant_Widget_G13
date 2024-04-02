@@ -48,7 +48,7 @@ public class SouthPanel extends JPanel
         JLabel threeHeartsLabel = new JLabel(scaledThreeHearts);
         add(threeHeartsLabel);
 
-        ImageIcon progressbar = new ImageIcon("Images/almostEmptyProgressBar.png");
+        ImageIcon progressbar = new ImageIcon("src/Images/almostEmptyProgressBar.png");
         Image progressbarImage = progressbar.getImage();
         Image scaledProgressbarImage = progressbarImage.getScaledInstance(100, 75, Image.SCALE_SMOOTH);
         ImageIcon scaledProgressbar = new ImageIcon(scaledProgressbarImage);
@@ -67,7 +67,7 @@ public class SouthPanel extends JPanel
      * received sufficient water.
      */
     public void updateWaterProgress() {
-        ImageIcon progressbar = new ImageIcon("Images/fullProgressBar.png");
+        ImageIcon progressbar = new ImageIcon("src/Images/fullProgressBar.png");
         Image progressbarImage = progressbar.getImage();
         Image scaledProgressbarImage = progressbarImage.getScaledInstance(100, 75, Image.SCALE_SMOOTH);
         ImageIcon scaledProgressbar = new ImageIcon(scaledProgressbarImage);

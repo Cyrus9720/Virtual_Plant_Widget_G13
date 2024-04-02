@@ -49,7 +49,7 @@ public class EastPanel extends JPanel
         GridLayout layout = new GridLayout(2, 1, 2, 2);  //fungerar inte!!
         JPanel pnlButtons = new JPanel();
 
-        ImageIcon waterButton = new ImageIcon("/Users/annagranberg/Documents/GitHub/Virtual_Plant_Widged_G13/src/Images/Watercan.png");
+        ImageIcon waterButton = new ImageIcon("src/Images/Watercan.png");
         Image originalWaterButtonImage = waterButton.getImage();
         Image scaledWaterButtonImage = originalWaterButtonImage.getScaledInstance(60,50, Image.SCALE_SMOOTH);
         ImageIcon scaledWaterIcon = new ImageIcon(scaledWaterButtonImage);
