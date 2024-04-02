@@ -1,14 +1,13 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Plant {
     private String name;
     private int nbrOfLives;
+    private PlantArt plantArt;
 
-    public Plant(String name) {
+    public Plant(String name, PlantArt plantArt) {
         this.name = name;
+        this.plantArt = plantArt;
         nbrOfLives = 3;
     }
 
