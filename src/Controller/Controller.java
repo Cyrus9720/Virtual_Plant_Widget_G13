@@ -1,5 +1,6 @@
 package Controller;
 import Model.Plant;
+import Model.PlantArt;
 import View.*;
 
 import java.util.ArrayList;
@@ -39,5 +40,18 @@ public class Controller
 
 
         }
+    }
+
+    /**
+     * Creates plants
+     * @author annagranberg
+     */
+
+    public void createPlant(){
+        Plant cactus = new Plant("Cactus", PlantArt.Cactus);
+        plantList.add(cactus);
+
+        Plant redRose = new Plant("Red rose", PlantArt.Rose);
+        plantList.add(redRose);
     }
 }
