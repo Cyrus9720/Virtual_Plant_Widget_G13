@@ -23,7 +23,7 @@ public class SouthPanel extends JPanel
         setBackground(new Color(225, 240, 218));
         setLayout(new FlowLayout(FlowLayout.LEADING));
 
-        ImageIcon threeHearts = new ImageIcon("/Users/annagranberg/Documents/GitHub/Virtual_Plant_Widged_G13/src/Images/ThreeHearts.png");
+        ImageIcon threeHearts = new ImageIcon("Images/ThreeHearts.png");
         Image originalThreeHearts = threeHearts.getImage();
         Image scaledHeartsLivesImage = originalThreeHearts.getScaledInstance(100, 75, Image.SCALE_SMOOTH);
         ImageIcon scaledThreeHearts = new ImageIcon(scaledHeartsLivesImage);
