@@ -16,7 +16,7 @@ import java.awt.*;
  */
 public class MainPanel extends JPanel
 {
-    private BorderLayout layout;
+    private BorderLayout layout; // Layout manager for the panel
 
     /**
      * Constructs a new MainPanel with the specified controller, width, and height.

@@ -16,9 +16,9 @@ import java.awt.*;
  */
 public class CenterPanel extends JPanel
 {
-    Controller controller;
-    private int width;
-    private int height;
+    Controller controller; // reference to the controller
+    private int width; // width used to control the size of panel
+    private int height; // height used to control the size of panel
 
     /**
      * Constructs a new CenterPanel with the specified controller, width, and height.

@@ -16,9 +16,9 @@ import java.awt.event.ActionListener;
  * @author annagranberg
  */
 public class MainFrame extends JFrame {
-    private Controller controller;
-    private int width = 1200;
-    private int height = 1000;
+    private Controller controller; // reference to controller
+    private int width = 1200; // dimensions for frame size
+    private int height = 1000; // dimensions for frame size
 
     /**
      * Constructs a new MainFrame with the specified controller.
