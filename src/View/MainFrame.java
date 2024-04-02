@@ -6,16 +6,34 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The MainFrame class represents the main frame of the application.
+ * This frame contains the main user interface components, including the main panel
+ * and menu bar, and is responsible for initializing and setting up the application window.
+ *
+ * This class extends {@link javax.swing.JFrame}.
+ *
+ * @author annagranberg
+ */
 public class MainFrame extends JFrame {
     private Controller controller;
     private int width = 1200;
     private int height = 1000;
 
+    /**
+     * Constructs a new MainFrame with the specified controller.
+     *
+     * @param controller The controller object responsible for handling user actions.
+     */
     public MainFrame(Controller controller) {
         this.controller = controller;
         setUpFrame();
     }
 
+    /**
+     * Sets up the main frame by configuring its properties, adding components, and making it visible.
+     * @author annagranberg
+     */
     public void setUpFrame() {
         setTitle("Virtual Plant Widget");
         setSize(width, height);
@@ -46,6 +64,10 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Displays a dialog box showing the game rules.
+     * @author annagranberg
+     */
     public void showRulesDialog()
     {
         String rules = "Game rules:\nComing soon... ";

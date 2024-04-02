@@ -8,6 +8,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The EastPanel class represents the panel containing plant care controls on the east side of the user interface.
+ * This panel includes buttons for performing various plant care actions, such as watering.
+ *
+ * This class extends {@link javax.swing.JPanel}.
+ *
+ * @author annagranberg
+ */
 public class EastPanel extends JPanel
 {
     private Controller controller;
@@ -15,6 +23,15 @@ public class EastPanel extends JPanel
     private ButtonGroup buttonGroup;
     private JButton Water;
 
+    /**
+     * Constructs a new EastPanel with the specified controller, width, and height.
+     *
+     * @param controller The controller object responsible for handling user actions.
+     * @param width The width of the panel.
+     * @param height The height of the panel.
+     *
+     * @author annagranberg
+     */
     public EastPanel(Controller controller, int width, int height)
     {
         this.controller = controller;
@@ -42,22 +59,13 @@ public class EastPanel extends JPanel
         Water.setBackground(new Color(225, 240, 218));
         pnlButtons.add(Water);
 
-        Water.addActionListener(new ActionListener()
-        {
-        public void actionPerformed(ActionEvent e)
-        {
-            JButton clickedButton = (JButton)e.getSource();
-            controller.buttonPressed(ButtonType.Water);
-
-        }
-    });
-
         Border border = this.getBorder();
         Border margin = BorderFactory.createEmptyBorder(6, 6, 6, 6);
         setBorder(new CompoundBorder(border, margin));
 
         add(pnlButtons);
 
+        // Adding ActionListener to the water button
         Water.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JButton clickedButton = (JButton) e.getSource();
