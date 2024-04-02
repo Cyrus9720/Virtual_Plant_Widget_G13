@@ -18,10 +18,10 @@ import java.awt.event.ActionListener;
  */
 public class EastPanel extends JPanel
 {
-    private Controller controller;
-    private int width, height;
-    private ButtonGroup buttonGroup;
-    private JButton Water;
+    private Controller controller; // Reference to controller
+    private int width, height; // Dimensions of the panel
+    private ButtonGroup buttonGroup; // Button group to manage buttons
+    private JButton Water; // Button for watering action
 
     /**
      * Constructs a new EastPanel with the specified controller, width, and height.
