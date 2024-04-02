@@ -10,9 +10,9 @@ import java.util.List;
  */
 public class Controller
 {
-    private MainFrame view;
-    private List<Plant> plantList;
-    private SouthPanel southPanel = new SouthPanel(this, 1200, 1000);
+    private MainFrame view;// Reference to the main view
+    private List<Plant> plantList; // List to store plant objects
+    private SouthPanel southPanel = new SouthPanel(this, 1200, 1000); // Reference to the south panel
 
     /**
      * Constructs a new Controller object.
