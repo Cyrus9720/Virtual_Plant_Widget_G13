@@ -28,7 +28,7 @@ public class CenterPanel extends JPanel
         Border margin = BorderFactory.createEmptyBorder(6, 6, 6, 6);
         setBorder(new CompoundBorder(border, margin));
 
-        ImageIcon originalPlant = new ImageIcon("/Users/annagranberg/Documents/GitHub/Virtual_Plant_Widged_G13/src/Images/plantIcon.png");
+        ImageIcon originalPlant = new ImageIcon("Images/plantIcon.png");
         Image originalPlantImage = originalPlant.getImage();
         Image scaledPlantImage = originalPlantImage.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         ImageIcon scaledPlantImageIcon = new ImageIcon(scaledPlantImage);
