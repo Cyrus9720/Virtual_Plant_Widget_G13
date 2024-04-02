@@ -1,8 +1,5 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Plant {
     private String name;
     private int nbrOfLives;

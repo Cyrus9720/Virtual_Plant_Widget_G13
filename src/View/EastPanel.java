@@ -72,5 +72,6 @@ public class EastPanel extends JPanel
                 controller.buttonPressed(ButtonType.Water);
             }
         });
+
     }
 }

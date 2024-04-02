@@ -49,12 +49,21 @@ public class MainFrame extends JFrame {
         JMenu alternatives = new JMenu("Alternatives");
         JMenuItem gameRules = new JMenuItem("Game Rules");
         gameRules.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 showRulesDialog();
             }
         });
+        JMenuItem differentPlants = new JMenuItem("Plants");
+        differentPlants.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchPlant();
+            }
+        });
 
         alternatives.add(gameRules);
+        alternatives.add(differentPlants);
         menuBar.add(alternatives);
 
         setJMenuBar(menuBar);
@@ -80,5 +89,9 @@ public class MainFrame extends JFrame {
         Image scaledIconImage = originalCustomImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         ImageIcon scaledPlantImageIcon = new ImageIcon(scaledIconImage);
         JOptionPane.showOptionDialog(null, rules, "Virtual Plant Widget", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, scaledPlantImageIcon, null, null);
+    }
+
+    public void switchPlant(){
+        //@todo implementera logik för att kunna växla mellan olika plantor
     }
 }
