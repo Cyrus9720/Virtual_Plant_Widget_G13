@@ -11,17 +11,10 @@ public class Plant {
     private int plantLevel;
     private PlantArt plantArt;
 
-    public Plant(String name, PlantArt plantArt) {
+    public Plant(String name, PlantArt plantArt, int timesWatered, ImageIcon plantPicture, int plantLevel) {
         this.name = name;
         this.plantArt = plantArt;
         nbrOfLives = 3;
-    }
-
-
-
-    public Plant(String name, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel) {
-        this.name = name;
-        this.nbrOfLives = 3;
         this.timesWatered = 0;
         this.plantPicture = plantPicture;
         this.plantLevel = 0;
