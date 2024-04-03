@@ -49,7 +49,7 @@ public class Controller
      * @author annagranberg
      */
 
-    public void createPlant(PlantArt plantArt){
+   /* public void createPlant(PlantArt plantArt){
         if(plantArt == PlantArt.Tomato_Plant){
             Plant tomatoPlant = new Plant("Tomato Plant", plantArt);
             plantList.add(tomatoPlant);
@@ -65,5 +65,5 @@ public class Controller
         }else if(plantArt == PlantArt.Sunflower){
             Plant sunflower = new Plant("Sunflower", PlantArt.Sunflower);
         }
-    }
+    }*/
 }
