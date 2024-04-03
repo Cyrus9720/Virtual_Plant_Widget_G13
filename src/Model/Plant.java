@@ -8,10 +8,11 @@ public class Plant {
     private int timesWatered;
     private Image plantPicture;
 
-    public Plant(String name) {
+    public Plant(String name, int nbrOfLives, int timesWatered, Image plantPicture) {
         this.name = name;
-        nbrOfLives = 3;
-        timesWatered = 0;
+        this.nbrOfLives = 3;
+        this.timesWatered = 0;
+        this.plantPicture = plantPicture;
     }
 
     public String getName() {
