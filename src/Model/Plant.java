@@ -1,18 +1,21 @@
 package Model;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Plant {
     private String name;
     private int nbrOfLives;
     private int timesWatered;
-    private Image plantPicture;
+    private ImageIcon plantPicture;
+    private int plantLevel;
 
-    public Plant(String name, int nbrOfLives, int timesWatered, Image plantPicture) {
+    public Plant(String name, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel) {
         this.name = name;
         this.nbrOfLives = 3;
         this.timesWatered = 0;
         this.plantPicture = plantPicture;
+        this.plantLevel = 0;
     }
 
     public String getName() {
@@ -39,12 +42,20 @@ public class Plant {
         this.timesWatered = timesWatered;
     }
 
-    public Image getPlantPicture() {
+    public ImageIcon getPlantPicture() {
         return plantPicture;
     }
 
-    public void setPlantPicture(Image plantPicture) {
+    public void setPlantPicture(ImageIcon plantPicture) {
         this.plantPicture = plantPicture;
+    }
+
+    public int getPlantLevel() {
+        return plantLevel;
+    }
+
+    public void setPlantLevel(int plantLevel) {
+        this.plantLevel = plantLevel;
     }
 }
 
