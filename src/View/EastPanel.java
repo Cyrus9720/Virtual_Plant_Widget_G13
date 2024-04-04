@@ -68,8 +68,9 @@ public class EastPanel extends JPanel
         // Adding ActionListener to the water button
         Water.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JButton clickedButton = (JButton) e.getSource();
-                controller.buttonPressed(ButtonType.Water);
+                if(e.getSource() == Water){
+                    controller.buttonPressed(ButtonType.Water);
+                }
             }
         });
 
