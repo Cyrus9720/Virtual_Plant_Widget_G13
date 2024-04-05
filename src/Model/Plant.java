@@ -19,39 +19,48 @@ public class Plant {
     }
 
     public void waterPlant() {
-
-        int i = 0;
         switch (plantLevel) {
             case 0:
-                setTimesWatered(i+1);
+                setTimesWatered(getTimesWatered() + 1);
                 System.out.println("Times watered: " + getTimesWatered());
-
-                plantLevel++;
-                System.out.println("Plantlevel: " + getPlantLevel());
+                System.out.println("Plant level: " + getPlantLevel());
+                if (getTimesWatered() == 1) {
+                    plantLevel++;
+                    setTimesWatered(0);
+                }
                 break;
 
             case 1:
-                setTimesWatered(i+1);
+                setTimesWatered(getTimesWatered() + 1);
                 System.out.println("Times watered: " + getTimesWatered());
-                System.out.println("Plantlevel: " + getPlantLevel());
-                if(timesWatered == 2)
+                System.out.println("Plant level: " + getPlantLevel());
+                if (getTimesWatered() == 2) {
                     plantLevel++;
+                    setTimesWatered(0);
+                }
                 break;
+
             case 2:
-                setTimesWatered(i+1);
-                System.out.println(getTimesWatered());
-                if(timesWatered == 3)
+                setTimesWatered(getTimesWatered() + 1);
+                System.out.println("Times watered: " + getTimesWatered());
+                System.out.println("Plant level: " + getPlantLevel());
+                if (getTimesWatered() == 3) {
                     plantLevel++;
+                    setTimesWatered(0);
+                }
                 break;
+
             case 3:
+                System.out.println("Plant level: " + getPlantLevel());
                 setTimesWatered(3);
                 break;
 
             default:
-
+                System.out.println("Invalid plant level");
                 break;
         }
     }
+
 
     public String getName() {
         return name;

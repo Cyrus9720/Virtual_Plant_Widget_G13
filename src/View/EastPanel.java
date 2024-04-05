@@ -70,7 +70,6 @@ public class EastPanel extends JPanel
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == Water){
                     controller.buttonPressed(ButtonType.Water);
-                    System.out.println("Button clicked");
                 }
             }
         });
