@@ -1,22 +1,19 @@
 package Model;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Rose extends Plant{
-    private ImageIcon plantPicture;
 
-    /**
-     *
-     * @param name
-     * @param timesWatered
-     * @param plantLevel
-     *
-     * @author annagranberg
-     */
-    public Rose(String name, int timesWatered, int plantLevel) {
-        super(name, PlantArt.Cactus, timesWatered, null, plantLevel);
-        this.plantPicture = new ImageIcon("src/Images/rose.png");
-
+    public Rose(String name, PlantArt plantArt, int timesWatered, ImageIcon plantPicture, int plantLevel) {
+        super(name, PlantArt.Rose, timesWatered, plantPicture, plantLevel);
     }
 
+    public void waterPlant() {
+        setTimesWatered(getTimesWatered() + 1);
+        if (getTimesWatered() == 3) {
+            setPlantLevel(getPlantLevel() + 1);
+            setTimesWatered(0);
+        }
+    }
 }
