@@ -5,8 +5,8 @@ import java.awt.*;
 
 public class Rose extends Plant{
 
-    public Rose(String name, PlantArt plantArt, int timesWatered, ImageIcon plantPicture, int plantLevel) {
-        super(name, PlantArt.Rose, timesWatered, plantPicture, plantLevel);
+    public Rose(String name, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel) {
+        super(name, nbrOfLives, timesWatered, plantPicture, plantLevel);
     }
 
     public void waterPlant() {
