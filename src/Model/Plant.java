@@ -21,6 +21,15 @@ public class Plant {
         System.out.println("Plant created");
     }
 
+    public void waterPlant() {
+        setTimesWatered(getTimesWatered() + 1);
+        if (getTimesWatered() == plantLevel + 1) {
+            setPlantLevel(getPlantLevel() + 1);
+            setTimesWatered(0);
+            System.out.println("Plant level " + plantLevel);
+        }
+    }
+
     public String getName() {
         return name;
     }
@@ -54,6 +63,7 @@ public class Plant {
     }
 
     public int getPlantLevel() {
+        System.out.println("Plant level " + plantLevel);
         return plantLevel;
     }
 

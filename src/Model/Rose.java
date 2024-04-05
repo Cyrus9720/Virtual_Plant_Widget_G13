@@ -11,9 +11,9 @@ public class Rose extends Plant{
 
     //hej
 
-    public void waterPlant() {
+    public void waterPlant(int plantLevel) {
         setTimesWatered(getTimesWatered() + 1);
-        if (getTimesWatered() == 3) {
+        if (getTimesWatered() == 1) {
             setPlantLevel(getPlantLevel() + 1);
             setTimesWatered(0);
         }

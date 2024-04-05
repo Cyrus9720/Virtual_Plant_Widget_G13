@@ -1,8 +1,10 @@
 package Controller;
 import Model.Plant;
 import Model.PlantArt;
+import Model.Rose;
 import View.*;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -14,6 +16,7 @@ public class Controller
     private MainFrame view;// Reference to the main view
     private List<Plant> plantList; // List to store plant objects
     private SouthPanel southPanel = new SouthPanel(this, 1200, 1000); // Reference to the south panel
+    private Plant plant;
 
     /**
      * Constructs a new Controller object.
@@ -26,6 +29,8 @@ public class Controller
         plantList = new ArrayList<>();
     }
 
+    private Plant rose = new Rose("Rose", PlantArt.Rose, 0, new ImageIcon("src/Images/Rose.png"), 0);
+
     /**
      * Handles button press events from the view.
      * @param button The type of button pressed.
@@ -35,13 +40,16 @@ public class Controller
     public void buttonPressed(ButtonType button)
     {
         switch (button)
-        {
-            case Water:
+        {case Water:
+                rose.waterPlant();
 
 
         }
     }
 
+    public Plant getrose() {
+        return plant;
+    }
     /**
      * Creates plants
      * @param plantArt The type of plant art
