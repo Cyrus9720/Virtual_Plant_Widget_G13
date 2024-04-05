@@ -18,6 +18,41 @@ public class Plant {
         this.plantLevel = 0;
     }
 
+    public void waterPlant() {
+
+        int i = 0;
+        switch (plantLevel) {
+            case 0:
+                setTimesWatered(i+1);
+                System.out.println("Times watered: " + getTimesWatered());
+
+                plantLevel++;
+                System.out.println("Plantlevel: " + getPlantLevel());
+                break;
+
+            case 1:
+                setTimesWatered(i+1);
+                System.out.println("Times watered: " + getTimesWatered());
+                System.out.println("Plantlevel: " + getPlantLevel());
+                if(timesWatered == 2)
+                    plantLevel++;
+                break;
+            case 2:
+                setTimesWatered(i+1);
+                System.out.println(getTimesWatered());
+                if(timesWatered == 3)
+                    plantLevel++;
+                break;
+            case 3:
+                setTimesWatered(3);
+                break;
+
+            default:
+
+                break;
+        }
+    }
+
     public String getName() {
         return name;
     }

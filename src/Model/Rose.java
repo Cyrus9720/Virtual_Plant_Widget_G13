@@ -9,11 +9,11 @@ public class Rose extends Plant{
         super(name, nbrOfLives, timesWatered, plantPicture, plantLevel);
     }
 
-    public void waterPlant() {
+    /*public void waterPlant() {
         setTimesWatered(getTimesWatered() + 1);
         if (getTimesWatered() == 3) {
             setPlantLevel(getPlantLevel() + 1);
             setTimesWatered(0);
         }
-    }
+    }*/
 }
