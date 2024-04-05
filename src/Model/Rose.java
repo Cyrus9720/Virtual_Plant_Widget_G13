@@ -9,6 +9,8 @@ public class Rose extends Plant{
         super(name, PlantArt.Rose, timesWatered, plantPicture, plantLevel);
     }
 
+    //hej
+
     public void waterPlant() {
         setTimesWatered(getTimesWatered() + 1);
         if (getTimesWatered() == 3) {
