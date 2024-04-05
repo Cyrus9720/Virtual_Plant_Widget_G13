@@ -23,10 +23,15 @@ public class Plant {
 
     public void waterPlant() {
         setTimesWatered(getTimesWatered() + 1);
+        if (plantLevel < 3) {
         if (getTimesWatered() == plantLevel + 1) {
             setPlantLevel(getPlantLevel() + 1);
             setTimesWatered(0);
             System.out.println("Plant level " + plantLevel);
+            if (plantLevel == 3) {
+                System.out.println("Plant is fully grown");
+                }
+            }
         }
     }
 
