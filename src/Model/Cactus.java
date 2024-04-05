@@ -1,7 +1,7 @@
 package Model;
 
 import javax.swing.*;
-
+/*
 public class Cactus extends Plant {
     private ImageIcon plantPicture;
 
@@ -12,7 +12,7 @@ public class Cactus extends Plant {
      * @param plantLevel
      *
      * @author annagranberg
-     */
+
     public Cactus(String name, int timesWatered, int plantLevel) {
         super(name, PlantArt.Cactus, timesWatered, null, plantLevel);
         this.plantPicture = new ImageIcon("src/Images/cactus.png");
@@ -24,3 +24,4 @@ public class Cactus extends Plant {
         return plantPicture;
     }
 }
+*/

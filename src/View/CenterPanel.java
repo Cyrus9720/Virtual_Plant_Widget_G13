@@ -45,8 +45,7 @@ public class CenterPanel extends JPanel
         setBorder(new CompoundBorder(border, margin));
 
 
-        ImageIcon originalPlant = new ImageIcon();
-        originalPlant =  controller.getImageIcon();
+        ImageIcon originalPlant = new ImageIcon("src/Images/cactus.png");
         Image originalPlantImage = originalPlant.getImage();
         Image scaledPlantImage = originalPlantImage.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         ImageIcon scaledPlantImageIcon = new ImageIcon(scaledPlantImage);

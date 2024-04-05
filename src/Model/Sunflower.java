@@ -1,7 +1,7 @@
 package Model;
 
 import javax.swing.*;
-
+/*
 public class Sunflower extends Plant{
     private ImageIcon plantPicture;
     public Sunflower(String name, int timesWatered, int plantLevel) {
@@ -10,3 +10,4 @@ public class Sunflower extends Plant{
 
     }
 }
+*/
