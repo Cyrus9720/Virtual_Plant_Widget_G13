@@ -41,29 +41,5 @@ public class Controller
 
         }
     }
-
-    /**
-     * Creates plants
-     * @param plantArt The type of plant art
-     *
-     * @author annagranberg
-     */
-
-   /* public void createPlant(PlantArt plantArt){
-        if(plantArt == PlantArt.Tomato_Plant){
-            Plant tomatoPlant = new Plant("Tomato Plant", plantArt);
-            plantList.add(tomatoPlant);
-        }else if( plantArt == PlantArt.Cactus){
-            Plant cactus = new Plant("Cactus", PlantArt.Cactus);
-            plantList.add(cactus);
-        } else if (plantArt == PlantArt.Rose) {
-            Plant redRose = new Plant("Red rose", PlantArt.Rose);
-            plantList.add(redRose);
-        } else if (plantArt == PlantArt.Orchid) {
-            Plant orchid = new Plant("Orchid", PlantArt.Orchid);
-            plantList.add(orchid);
-        }else if(plantArt == PlantArt.Sunflower){
-            Plant sunflower = new Plant("Sunflower", PlantArt.Sunflower);
-        }
-    }*/
+    
 }
