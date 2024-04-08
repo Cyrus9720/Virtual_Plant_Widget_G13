@@ -17,6 +17,7 @@ import java.awt.*;
 public class MainPanel extends JPanel
 {
     private BorderLayout layout; // Layout manager for the panel
+    private Controller controller; // Reference to controller
 
     /**
      * Constructs a new MainPanel with the specified controller, width, and height.
@@ -25,8 +26,8 @@ public class MainPanel extends JPanel
      * @param width The width of the main panel.
      * @param height The height of the main panel.
      */
-    public MainPanel(Controller controller, int width, int height)
-    {
+    public MainPanel(Controller controller, int width, int height) {
+        this.controller = controller;
         layout = new BorderLayout();
         setLayout(layout);
         setBackground(new Color(153, 188, 133));
@@ -38,7 +39,7 @@ public class MainPanel extends JPanel
         EastPanel eastPanel = new EastPanel(controller, width/2-60, height-130);
         add(eastPanel, BorderLayout.EAST);
 
-        CenterPanel centerPanel = new CenterPanel(controller, width, height);
+        CenterPanel centerPanel = new CenterPanel(width, height);
         add(centerPanel, BorderLayout.CENTER);
 
         SouthPanel northPanel = new SouthPanel(controller, width, 300);

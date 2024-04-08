@@ -1,54 +1,25 @@
 package View;
-import Controller.Controller;
+
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-/**
- * The CenterPanel class represents the central panel of the user interface.
- * This panel typically displays the main content of the application, such as the plant image.
- *
- * This class extends {@link javax.swing.JPanel}.
- *
- * @author annagranberg
- */
-public class CenterPanel extends JPanel
-{
-    Controller controller; // reference to the controller
-    private int width; // width used to control the size of panel
-    private int height; // height used to control the size of panel
+public class CenterPanel extends JPanel {
 
-    /**
-     * Constructs a new CenterPanel with the specified controller, width, and height.
-     *
-     * @param controller The controller object responsible for handling user actions.
-     * @param width The width of the panel.
-     * @param height The height of the panel.
-     */
-    public CenterPanel(Controller controller, int width, int height)
-    {
-        this.controller = controller;
-        this.width = width;
-        this.height = height;
+    private ImageIcon plantPicture;
+    private JLabel plantLabel;
 
-        TitledBorder titledBorder = BorderFactory.createTitledBorder("Insert plant name here..");
-        Font myFont = new Font("Bebas Neue", Font.BOLD, 12);
-        titledBorder.setTitleFont(myFont);
-        setBorder(titledBorder);
+    public CenterPanel(int width, int height) {
+        setPreferredSize(new Dimension(width, height));
+        setBackground(Color.WHITE);
 
-        setBackground(new Color(225, 240, 218));
+        plantPicture = new ImageIcon("src/Images/PotArt1.JPG"); // Default image
+        plantLabel = new JLabel(plantPicture);
+        add(plantLabel);
+    }
 
-        Border border = this.getBorder();
-        Border margin = BorderFactory.createEmptyBorder(6, 6, 6, 6);
-        setBorder(new CompoundBorder(border, margin));
-
-        ImageIcon originalPlant = new ImageIcon("src/Images/plantIcon.png");
-        Image originalPlantImage = originalPlant.getImage();
-        Image scaledPlantImage = originalPlantImage.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-        ImageIcon scaledPlantImageIcon = new ImageIcon(scaledPlantImage);
-        JLabel plantLabel = new JLabel(scaledPlantImageIcon);
-        add(plantLabel, BorderLayout.CENTER);
+    public void updatePlantImage(ImageIcon newImage) {
+        plantPicture = newImage;
+        plantLabel.setIcon(plantPicture);
+        repaint();  // Repaint the panel to update the image
     }
 }

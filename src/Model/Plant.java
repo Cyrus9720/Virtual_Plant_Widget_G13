@@ -1,7 +1,6 @@
 package Model;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
 
 public class Plant {
     private String name;
@@ -24,12 +23,12 @@ public class Plant {
     public void waterPlant() {
         setTimesWatered(getTimesWatered() + 1);
         if (plantLevel < 3) {
-        if (getTimesWatered() == plantLevel + 1) {
-            setPlantLevel(getPlantLevel() + 1);
-            setTimesWatered(0);
-            System.out.println("Plant level " + plantLevel);
-            if (plantLevel == 3) {
-                System.out.println("Plant is fully grown");
+            if (getTimesWatered() == plantLevel + 1) {
+                setPlantLevel(getPlantLevel() + 1);
+                setTimesWatered(0);
+                //System.out.println("Plant level " + plantLevel);
+                if (plantLevel == 3) {
+                    System.out.println("Plant is fully grown");
                 }
             }
         }
@@ -68,7 +67,7 @@ public class Plant {
     }
 
     public int getPlantLevel() {
-        System.out.println("Plant level " + plantLevel);
+        System.out.println("Plant level " + (plantLevel + 1));
         return plantLevel;
     }
 
@@ -76,4 +75,3 @@ public class Plant {
         this.plantLevel = plantLevel;
     }
 }
-

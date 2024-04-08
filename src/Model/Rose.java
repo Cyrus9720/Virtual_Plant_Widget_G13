@@ -1,21 +1,36 @@
 package Model;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
 
-public class Rose extends Plant{
+public class Rose extends Plant {
 
     public Rose(String name, PlantArt plantArt, int timesWatered, ImageIcon plantPicture, int plantLevel) {
-        super(name, PlantArt.Rose, timesWatered, plantPicture, plantLevel);
+        super(name, plantArt, timesWatered, plantPicture, plantLevel);
     }
 
-    //hej
+    @Override
+    public void setPlantLevel(int plantLevel) {
+        super.setPlantLevel(plantLevel);
+        updateImage();
+    }
 
-    public void waterPlant(int plantLevel) {
-        setTimesWatered(getTimesWatered() + 1);
-        if (getTimesWatered() == 1) {
-            setPlantLevel(getPlantLevel() + 1);
-            setTimesWatered(0);
+    private void updateImage() {
+        switch (getPlantLevel()) {
+            case 0:
+                setPlantPicture(new ImageIcon("src/Images/PotArt1.JPG"));
+                break;
+            case 1:
+                setPlantPicture(new ImageIcon("src/Images/RoseArt1.JPG"));
+                break;
+            case 2:
+                setPlantPicture(new ImageIcon("src/Images/RoseArt2.JPG"));
+                break;
+            case 3:
+                setPlantPicture(new ImageIcon("src/Images/RoseArt3.JPG"));
+                break;
+            default:
+                // Handle any other cases or provide a default image
+                break;
         }
     }
 }
