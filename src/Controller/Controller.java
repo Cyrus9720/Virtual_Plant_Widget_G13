@@ -39,6 +39,7 @@ public class Controller {
                 rose.waterPlant();
                 ImageIcon updatedImage = rose.getPlantPicture();
                 centerPanel.updatePlantImage(updatedImage);
+
                 break;
             // Handle other button types as needed
         }

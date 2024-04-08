@@ -67,7 +67,7 @@ public class Plant {
     }
 
     public int getPlantLevel() {
-        System.out.println("Plant level " + (plantLevel + 1));
+        System.out.println("Plant level " + (plantLevel));
         return plantLevel;
     }
 
