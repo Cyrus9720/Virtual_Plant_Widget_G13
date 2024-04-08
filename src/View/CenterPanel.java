@@ -13,7 +13,10 @@ public class CenterPanel extends JPanel {
         setBackground(Color.WHITE);
 
         plantPicture = new ImageIcon("src/Images/PotArt1.JPG"); // Default image
-        plantLabel = new JLabel(plantPicture);
+        Image plantPictureImage = plantPicture.getImage();
+        Image scaledPlantPictureImage = plantPictureImage.getScaledInstance(200,200, Image.SCALE_SMOOTH);
+        ImageIcon scaledPlantPictureIcon = new ImageIcon(scaledPlantPictureImage);
+        plantLabel = new JLabel(scaledPlantPictureIcon);
         add(plantLabel);
     }
 
