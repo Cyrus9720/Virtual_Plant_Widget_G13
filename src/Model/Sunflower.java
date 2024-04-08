@@ -1,13 +1,9 @@
 package Model;
 
 import javax.swing.*;
-/*
-public class Sunflower extends Plant{
-    private ImageIcon plantPicture;
-    public Sunflower(String name, int timesWatered, int plantLevel) {
-        super(name, PlantArt.Cactus, timesWatered, null, plantLevel);
-        this.plantPicture = new ImageIcon("src/Images/sunflower.png");
 
+public class Sunflower extends Plant{
+    public Sunflower(String name, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel) {
+        super(name, nbrOfLives, timesWatered, plantPicture, plantLevel);
     }
 }
-*/

@@ -1,6 +1,5 @@
 package Controller;
 import Model.Plant;
-import Model.PlantArt;
 import Model.Rose;
 import View.*;
 
