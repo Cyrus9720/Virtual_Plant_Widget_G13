@@ -2,9 +2,9 @@ package Model;
 
 import javax.swing.*;
 
-public class TomatoePlant extends Plant{
+public class TomatoPlant extends Plant{
 
-    public TomatoePlant(String name, PlantArt plantArt, int timesWatered, ImageIcon plantPicture, int plantLevel) {
+    public TomatoPlant(String name, PlantArt plantArt, int timesWatered, ImageIcon plantPicture, int plantLevel) {
         super(name, plantArt, timesWatered, plantPicture, plantLevel);
     }
 
