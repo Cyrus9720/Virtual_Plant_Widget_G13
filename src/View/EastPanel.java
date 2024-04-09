@@ -38,7 +38,7 @@ public class EastPanel extends JPanel
         this.height = height;
 
         setBackground(new Color(225, 240, 218));
-        setPreferredSize(new Dimension(800, 400));
+        setPreferredSize(new Dimension(150, 400));
 
         TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant care");
         Font myFont = new Font("Bebas Neue", Font.BOLD, 12);
