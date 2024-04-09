@@ -40,7 +40,7 @@ public class EastPanel extends JPanel
         this.height = height;
 
         setBackground(new Color(225, 240, 218));
-        setPreferredSize(new Dimension(width, 300));
+        setPreferredSize(new Dimension(125, 300));
 
         TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant care");
         Font myFont = new Font("Bebas Neue", Font.BOLD, 12);
@@ -58,7 +58,7 @@ public class EastPanel extends JPanel
         Water.setBorderPainted(false);
         Water.setContentAreaFilled(false);
         Water.setBackground(new Color(225, 240, 218));
-        pnlButtons.add(Water);
+        pnlButtons.add(Water, BorderLayout.NORTH);
 
         Border border = this.getBorder();
         Border margin = BorderFactory.createEmptyBorder(6, 6, 6, 6);
@@ -78,7 +78,7 @@ public class EastPanel extends JPanel
         });
 
         progressbarLabel = new JLabel(updateWaterProgress());
-        add(progressbarLabel);
+        add(progressbarLabel, BorderLayout.SOUTH);
 
     }
 
@@ -113,7 +113,7 @@ public class EastPanel extends JPanel
                     imagePath = "src/Images/thirdProgressBar.png";
                 } else if (timesWatered == 2){
                     imagePath = "src/Images/twoThirdsProgressBar.png";
-                } else {
+                } else if (timesWatered == 3){
                     imagePath = "src/Images/fullProgressBar.png";
                 }
                 break;
