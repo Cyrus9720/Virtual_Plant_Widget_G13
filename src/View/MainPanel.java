@@ -47,5 +47,6 @@ public class MainPanel extends JPanel
         setVisible(true);
 
         JLabel plantInfoLabel = new JLabel("Plant information");
+
     }
 }

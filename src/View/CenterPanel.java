@@ -1,6 +1,7 @@
 package View;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 public class CenterPanel extends JPanel {
@@ -17,6 +18,11 @@ public class CenterPanel extends JPanel {
         setBackground(new Color(225, 240, 218));
 
         plantPicture = new ImageIcon("src/Images/PotArt1.JPG"); // Default image
+
+        TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant name here");
+        Font myFont = new Font("Bebas Neue", Font.BOLD, 12);
+        titledBorder.setTitleFont(myFont);
+        setBorder(titledBorder);
 
         plantLabel = new JLabel();
         plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Scale image

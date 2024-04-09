@@ -30,7 +30,7 @@ public class Plant {
     }
 
     /**
-     * Method for wattering the plant and increasing the plant level
+     * Method for watering the plant and increasing the plant level
      * If the plant is not fully grown, increase the plant level
      * @return void
      * @author Cyrus Shaerpour
@@ -49,7 +49,7 @@ public class Plant {
         }
     }
 
-    //TODO: Lägg till javadocs efterhand när metoderna börjar användas.
+    //@TODO: Lägg till javadocs efterhand när metoderna börjar användas.
     public String getName() {
         return name;
     }
