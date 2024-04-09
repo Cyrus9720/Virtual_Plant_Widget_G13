@@ -59,4 +59,38 @@ public class Controller {
         }
     }
 
+    public int getTimesWatered(){
+        if (!plantList.isEmpty()) { // Check if plantList is not empty
+            Plant firstPlant = plantList.get(0); // Get the first plant if available
+            if (firstPlant != null) { // Check if the first plant is not null
+                System.out.println("times watered: " + firstPlant.getTimesWatered());
+                return firstPlant.getTimesWatered();
+
+            } else {
+                // Handle the case when the first plant is null
+                System.err.println("First plant is null");
+                return 0; // Return a default value or handle it based on your application logic
+            }
+        } else {
+            System.err.println("Plant list is empty");
+            return 0; // Return a default value or handle it based on your application logic
+        }
+    }
+
+    public int getPlantLevel(){
+        if (!plantList.isEmpty()) { // Check if plantList is not empty
+            Plant firstPlant = plantList.get(0); // Get the first plant if available
+            if (firstPlant != null) { // Check if the first plant is not null
+                return firstPlant.getPlantLevel();
+            } else {
+                // Handle the case when the first plant is null
+                System.err.println("First plant is null");
+                return 0; // Return a default value or handle it based on your application logic
+            }
+        } else {
+            System.err.println("Plant list is empty");
+            return 0; // Return a default value or handle it based on your application logic
+        }
+    }
+
 }

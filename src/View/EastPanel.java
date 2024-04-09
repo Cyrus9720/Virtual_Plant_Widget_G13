@@ -22,6 +22,8 @@ public class EastPanel extends JPanel
     private int width, height; // Dimensions of the panel
     private JButton Water; // Button for watering action
 
+    private JLabel progressbarLabel;
+
     /**
      * Constructs a new EastPanel with the specified controller, width, and height.
      *
@@ -38,7 +40,7 @@ public class EastPanel extends JPanel
         this.height = height;
 
         setBackground(new Color(225, 240, 218));
-        setPreferredSize(new Dimension(150, 400));
+        setPreferredSize(new Dimension(width, 300));
 
         TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant care");
         Font myFont = new Font("Bebas Neue", Font.BOLD, 12);
@@ -51,6 +53,7 @@ public class EastPanel extends JPanel
         Image originalWaterButtonImage = waterButton.getImage();
         Image scaledWaterButtonImage = originalWaterButtonImage.getScaledInstance(60,50, Image.SCALE_SMOOTH);
         ImageIcon scaledWaterIcon = new ImageIcon(scaledWaterButtonImage);
+
         Water = new JButton(scaledWaterIcon);
         Water.setBorderPainted(false);
         Water.setContentAreaFilled(false);
@@ -73,5 +76,62 @@ public class EastPanel extends JPanel
             }
         });
 
+        progressbarLabel = new JLabel(updateWaterProgress());
+        add(progressbarLabel);
+
     }
+
+    /**
+     * Updates the water progress indicator.
+     * This method updates the progress bar to indicate the water level of the plant.
+     * The water level depends on the plant's level and the number of times it has been watered.
+     *
+     * @return ImageIcon representing the water progress bar.
+     */
+    public ImageIcon updateWaterProgress() {
+        int timesWatered = controller.getTimesWatered();
+        int plantLevel = controller.getPlantLevel();
+
+        String imagePath;
+        switch (plantLevel) {
+            case 0:
+                imagePath = (timesWatered >= 1) ? "src/Images/fullProgressBar.png" : "src/Images/emptyProgressBar.png";
+                break;
+            case 1:
+                if (timesWatered == 2) {
+                    imagePath = "src/Images/fullProgressBar.png";
+                } else if (timesWatered == 1) {
+                    imagePath = "src/Images/halfProgressBar.png";
+                } else {
+                    imagePath = "src/Images/emptyProgressBar.png";
+                }
+                break;
+            case 2:
+                if (timesWatered == 3) {
+                    imagePath = "src/Images/fullProgressBar.png";
+                } else if (timesWatered == 2) {
+                    imagePath = "src/Images/twoThirdsProgressBar.PNG";
+                } else if (timesWatered == 1) {
+                    imagePath = "src/Images/thirdProgressBar.png";
+                } else {
+                    imagePath = "src/Images/emptyProgressBar.png";
+                }
+                break;
+            default:
+                // Handle other levels here if needed
+                imagePath = "src/Images/emptyProgressBar.png";
+                break;
+        }
+
+        ImageIcon progressBarIcon = new ImageIcon(imagePath);
+
+        // Skala bilden för att passa panelen
+        Image originalImage = progressBarIcon.getImage();
+        Image scaledImage = originalImage.getScaledInstance(100, 75, Image.SCALE_SMOOTH);
+
+        return new ImageIcon(scaledImage);
+    }
+
+
+
 }

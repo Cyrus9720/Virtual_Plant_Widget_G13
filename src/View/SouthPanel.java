@@ -49,32 +49,10 @@ public class SouthPanel extends JPanel
         threeHeartsLabel = new JLabel(updateAmountOfLife());
         add(threeHeartsLabel);
 
-        ImageIcon progressbar = new ImageIcon("src/Images/almostEmptyProgressBar.png");
-        Image progressbarImage = progressbar.getImage();
-        Image scaledProgressbarImage = progressbarImage.getScaledInstance(100, 75, Image.SCALE_SMOOTH);
-        ImageIcon scaledProgressbar = new ImageIcon(scaledProgressbarImage);
-        progressbarLabel = new JLabel(scaledProgressbar);
-        add(progressbarLabel);
-
         JLabel plantInfo = new JLabel("<html>More information about your plant, coming soon...</html>");
         plantInfo.setPreferredSize(new Dimension(100, 60));
         plantInfo.setFont(new Font("Bebas Neue", Font.BOLD, 10));
         add(plantInfo);
-    }
-
-    /**
-     * Updates the water progress indicator.
-     * This method updates the progress bar to indicate that the plant has
-     * received sufficient water.
-     */
-    public void updateWaterProgress() {
-        ImageIcon progressbar = new ImageIcon("src/Images/fullProgressBar.png");
-        Image progressbarImage = progressbar.getImage();
-        Image scaledProgressbarImage = progressbarImage.getScaledInstance(100, 75, Image.SCALE_SMOOTH);
-        ImageIcon scaledProgressbar = new ImageIcon(scaledProgressbarImage);
-
-        progressbarLabel = new JLabel(scaledProgressbar);
-        add(progressbarLabel);
     }
 
     public ImageIcon updateAmountOfLife() {
@@ -106,7 +84,7 @@ public class SouthPanel extends JPanel
         if (heartsIcon != null) {
             // Update the icon for the hearts label
             Image originalHearts = heartsIcon.getImage();
-            Image scaledHearts = originalHearts.getScaledInstance(150, 50, Image.SCALE_SMOOTH);
+            Image scaledHearts = originalHearts.getScaledInstance(200, 75, Image.SCALE_SMOOTH);
             return new ImageIcon(scaledHearts);
         } else {
             return null;
