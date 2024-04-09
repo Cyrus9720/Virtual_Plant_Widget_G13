@@ -92,6 +92,6 @@ public class MainFrame extends JFrame {
     }
 
     public void switchPlant(){
-        //@todo implementera logik för att kunna växla mellan olika plantor
+        GardenView gardenView = new GardenView();
     }
 }

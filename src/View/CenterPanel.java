@@ -14,7 +14,7 @@ public class CenterPanel extends JPanel {
 
     public CenterPanel(int width, int height) {
         setPreferredSize(new Dimension(width, height));
-        setBackground(Color.WHITE);
+        setBackground(new Color(225, 240, 218));
 
         plantPicture = new ImageIcon("src/Images/PotArt1.JPG"); // Default image
 
