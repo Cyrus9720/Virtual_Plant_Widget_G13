@@ -46,7 +46,6 @@ public class EastPanel extends JPanel
         titledBorder.setTitleFont(myFont);
         setBorder(titledBorder);
 
-        GridLayout layout = new GridLayout(2, 1, 2, 2);  //fungerar inte!!
         JPanel pnlButtons = new JPanel();
 
         ImageIcon waterButton = new ImageIcon("src/Images/Watercan.png");

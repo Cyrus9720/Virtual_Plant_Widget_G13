@@ -39,9 +39,9 @@ public class GardenView extends JFrame {
         public NorthPanel(){
             setBackground(new Color(225, 240, 218));
 
-            JLabel plantInfo = new JLabel("<html> Change plant! </html>");
+            JLabel plantInfo = new JLabel("<html> Choose which plant you want to manage! </html>");
             plantInfo.setPreferredSize(new Dimension(100, 60));
-            plantInfo.setFont(new Font("Bebas Neue", Font.BOLD, 10));
+            plantInfo.setFont(new Font("Bebas Neue", Font.BOLD, 12));
             add(plantInfo);
         }
     }
