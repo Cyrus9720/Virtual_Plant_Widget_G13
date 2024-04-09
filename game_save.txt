@@ -1,1 +1,2 @@
 Plantor:  [Plant art: Rose | Plant name: Rose | Plant level: 1 | Times watered: 1 | Number of lives: 3 | Plant picture: src/Images/RoseArt1.JPG],tid:1712690574542
+Plantor:  [Plant art: ROSE | Plant name: Rose | Plant level: 2 | Times watered: 0 | Number of lives: 3 | Plant picture: src/Images/RoseArt2.JPG],tid:1712691504295

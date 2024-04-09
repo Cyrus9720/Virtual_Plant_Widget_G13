@@ -1,5 +1,6 @@
 package Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import Model.Plant;
 import Model.PlantArt;
@@ -8,7 +9,7 @@ import javax.swing.*;
 import java.util.List;
 
 public class GameProcessor {
-    public static void processSavedData(List<String> savedData) {
+    public void processSavedData(List<String> savedData) {
         for (String data : savedData) {
             // Dela upp datasträngen vid kommatecken för att extrahera individuella delar
             String[] parts = data.split(",");
@@ -34,24 +35,30 @@ public class GameProcessor {
     }
 
     // Metod för att bearbeta sparad information om plantor
-    private static void processPlantsData(String plantData) {
+    public List<Plant> processPlantsData(String plantData) {
+        List<Plant> plants = new ArrayList<>();
+
         // Dela upp plantdatasträngen vid ";" för att få varje enskild planta
         String[] plantsInfo = plantData.split(";");
 
         // Processa varje planta
         for (String plantInfo : plantsInfo) {
             Plant plant = parsePlantInfo(plantInfo);
-            // Lägg till plantan i spelet eller gör annan bearbetning
+            // Lägg till plantan i listan av växter
+            plants.add(plant);
         }
+
+        // Returnera listan med alla växter
+        return plants;
     }
 
     // Metod för att hantera sparad tidpunkt
-    private static void processSavedTime(long savedTime) {
+    public void processSavedTime(long savedTime) {
         // Exempel 3: Visa sparad tidpunkt för användaren
         System.out.println("Spelet sparades " + calculateElapsedTime(savedTime) + " sedan.");
     }
 
-    private static String calculateElapsedTime(long savedTime) {
+    public String calculateElapsedTime(long savedTime) {
         long elapsedTime = System.currentTimeMillis() - savedTime;
         long seconds = elapsedTime / 1000;
         long minutes = seconds / 60;
@@ -69,7 +76,7 @@ public class GameProcessor {
     }
 
     // Metod för att parsa information om en enskild planta
-    private static Plant parsePlantInfo(String plantInfo) {
+    private Plant parsePlantInfo(String plantInfo) {
         // Dela upp plantinfosträngen vid "|" för att få olika egenskaper för plantan
         String[] properties = plantInfo.split("\\|");
 

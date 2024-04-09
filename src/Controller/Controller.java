@@ -14,6 +14,7 @@ public class Controller {
     private MainFrame view;
     private List<Plant> plantList = new ArrayList<>();
     private CenterPanel centerPanel;
+    private GameProcessor gameProcessor = new GameProcessor();
 
 
     public Controller() {
@@ -27,8 +28,6 @@ public class Controller {
         centerPanel = new CenterPanel(400, 400);
         view.add(centerPanel);
     }
-
-
 
     public void buttonPressed(ButtonType button) {
         switch (button) {
@@ -93,6 +92,74 @@ public class Controller {
             return 0; // Return a default value or handle it based on your application logic
         }
     }
+
+    // Metod för att återställa tillståndet för varje växt
+    public void restorePlantsState() {
+        // Skapa en ny lista för de återställda växterna
+        List<Plant> restoredPlants = new ArrayList<>();
+
+        // Läs in sparade tillståndet för varje växt
+        List<String> savedData = GameLoad.loadGame();
+
+        // Loopa genom sparade datan och skapa nya växtinstanser med tillståndet
+        for (String data : savedData) {
+            // Dela upp datasträngen vid kommatecken för att extrahera individuella delar
+            String[] parts = data.split(",");
+
+            String plantData = ""; // Variabel för att lagra information om plantor
+
+            // Processa varje del av datasträngen
+            for (String part : parts) {
+                if (part.startsWith("Plantor:")) {
+                    // Extrahera information om plantor
+                    plantData = part.substring(part.indexOf("[") + 1, part.indexOf("]"));
+                    break; // Vi behöver inte fortsätta loopa efter att vi har hittat plantData
+                }
+            }
+
+            // Skapa en ny växt med tillståndet från plantData
+            Plant restoredPlant = processPlantData(plantData);
+
+            // Lägg till den återställda växten i listan
+            restoredPlants.add(restoredPlant);
+        }
+
+        // Uppdatera referensen till plantList med den nya listan av återställda växter
+        plantList = restoredPlants;
+
+        // Uppdatera vyn för att visa de återställda växterna
+        // .updatePlantsView(plantList);
+    }
+
+    private Plant processPlantData(String plantData) {
+        String[] parts = plantData.split("\\|");
+        String name = "";
+        PlantArt art = null;
+        int level = 0;
+        int timesWatered = 0;
+        String plantPictureString = "";
+        ImageIcon plantPicture = null;
+
+        for (String part : parts) {
+            if (part.startsWith("Plant name:")) {
+                name = part.substring(part.indexOf(":") + 1).trim();
+            } else if (part.startsWith("Plant art:")) {
+                String artString = part.substring(part.indexOf(":") + 1).trim();
+                art = PlantArt.valueOf(artString.toUpperCase());
+            } else if (part.startsWith("Plant level:")) {
+                level = Integer.parseInt(part.substring(part.indexOf(":") + 1).trim());
+            } else if(part.startsWith("Plant picture:")){
+                plantPictureString = part.substring(part.indexOf(":") + 1).trim();
+                plantPicture = new ImageIcon(plantPictureString);
+            } else if (part.startsWith("Times watered:")) {
+                timesWatered = Integer.parseInt(part.substring(part.indexOf(":") + 1).trim());
+            }
+        }
+
+        // Skapa en ny Plant-instans med extraherad information och returnera den
+        return new Plant(name, art, level, plantPicture, timesWatered);
+    }
+
 
     public void saveGame() {
         SaveGame saveGame = new SaveGame(plantList);
