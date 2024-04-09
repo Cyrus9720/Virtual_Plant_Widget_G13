@@ -51,7 +51,6 @@ public class EastPanel extends JPanel
         Image originalWaterButtonImage = waterButton.getImage();
         Image scaledWaterButtonImage = originalWaterButtonImage.getScaledInstance(60,50, Image.SCALE_SMOOTH);
         ImageIcon scaledWaterIcon = new ImageIcon(scaledWaterButtonImage);
-
         Water = new JButton(scaledWaterIcon);
         Water.setBorderPainted(false);
         Water.setContentAreaFilled(false);

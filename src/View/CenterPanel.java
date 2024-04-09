@@ -14,7 +14,7 @@ public class CenterPanel extends JPanel {
 
 
     public CenterPanel(int width, int height) {
-        setPreferredSize(new Dimension(width, height));
+        setPreferredSize(new Dimension(320, 485));
         setBackground(new Color(225, 240, 218));
 
         plantPicture = new ImageIcon("src/Images/PotArt1.JPG"); // Default image
@@ -28,7 +28,7 @@ public class CenterPanel extends JPanel {
         plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Scale image
         Image plantPictureImage = plantPicture.getImage();
         Image scaledPlantPictureImage = plantPictureImage.getScaledInstance(200,200, Image.SCALE_SMOOTH);
-        ImageIcon scaledPlantPictureIcon = new ImageIcon(scaledPlantPictureImage); //Oklart om detta behövs //Cyrus
+       // ImageIcon scaledPlantPictureIcon = new ImageIcon(scaledPlantPictureImage); //Oklart om detta behövs //Cyrus
         add(plantLabel);
     }
 
