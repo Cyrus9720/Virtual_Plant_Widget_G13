@@ -36,22 +36,11 @@ public class Controller {
     public void buttonPressed(ButtonType button) {
         switch (button) {
             case Water:
-                if(plantList instanceof Rose){
-                    Plant rose = plantList.get(0);
-                    rose.waterPlant();
-                    ImageIcon updatedImage = rose.getPlantPicture();
-                    centerPanel.updatePlantImage(updatedImage);
-                }else if(plantList instanceof Cactus){
-                    Plant cactus = plantList.get(0);
-                    cactus.waterPlant();
-                    ImageIcon updatedImage = cactus.getPlantPicture();
-                    centerPanel.updatePlantImage(updatedImage);
-                }else if(plantList instanceof Sunflower){
-                    Plant sunflower = plantList.get(0);
-                    sunflower.waterPlant();
-                    ImageIcon updatedImage = sunflower.getPlantPicture();
-                    centerPanel.updatePlantImage(updatedImage);
-                }
+                Plant rose = plantList.get(0);
+                rose.waterPlant();
+                ImageIcon updatedImage = rose.getPlantPicture();
+                centerPanel.updatePlantImage(updatedImage);
+
                 break;
             // Handle other button types as needed
         }
