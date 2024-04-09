@@ -33,4 +33,8 @@ public class Rose extends Plant {
                 break;
         }
     }
+
+    public void setName(String name) {
+        super.setName(name);
+    }
 }

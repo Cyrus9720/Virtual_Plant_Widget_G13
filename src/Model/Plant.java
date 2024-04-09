@@ -8,7 +8,7 @@ public class Plant {
     private int timesWatered;
     private ImageIcon plantPicture;
     private int plantLevel;
-    private PlantArt plantArt;
+    //private PlantArt plantArt;
 
     /**
      * Constructor for Plant
@@ -21,7 +21,7 @@ public class Plant {
      */
     public Plant(String name, PlantArt plantArt, int timesWatered, ImageIcon plantPicture, int plantLevel) {
         this.name = name;
-        this.plantArt = plantArt;
+        //this.plantArt = plantArt;
         nbrOfLives = 3;
         this.timesWatered = 0;
         this.plantPicture = plantPicture;
