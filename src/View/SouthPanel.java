@@ -20,6 +20,7 @@ public class SouthPanel extends JPanel
 {
     private Controller controller;
     private JLabel progressbarLabel;
+    JLabel threeHeartsLabel;
 
     /**
      * Constructs a new SouthPanel with the specified controller, width, and height.
@@ -41,11 +42,11 @@ public class SouthPanel extends JPanel
         setBackground(new Color(225, 240, 218));
         setLayout(new FlowLayout(FlowLayout.LEADING));
 
-        ImageIcon threeHearts = new ImageIcon("src/Images/ThreeHearts.png");
+        ImageIcon threeHearts = new ImageIcon("src/Images/treHjärtan.png");
         Image originalThreeHearts = threeHearts.getImage();
-        Image scaledHeartsLivesImage = originalThreeHearts.getScaledInstance(100, 75, Image.SCALE_SMOOTH);
+        Image scaledHeartsLivesImage = originalThreeHearts.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         ImageIcon scaledThreeHearts = new ImageIcon(scaledHeartsLivesImage);
-        JLabel threeHeartsLabel = new JLabel(scaledThreeHearts);
+        threeHeartsLabel = new JLabel(updateAmountOfLife());
         add(threeHeartsLabel);
 
         ImageIcon progressbar = new ImageIcon("src/Images/almostEmptyProgressBar.png");
@@ -74,6 +75,42 @@ public class SouthPanel extends JPanel
 
         progressbarLabel = new JLabel(scaledProgressbar);
         add(progressbarLabel);
+    }
+
+    public ImageIcon updateAmountOfLife() {
+        int nbrOfLives = controller.getNbrOfLives();
+        ImageIcon heartsIcon = null;
+
+        switch (nbrOfLives) {
+            case 0:
+                // If there are no lives left, display an empty heart icon
+                heartsIcon = new ImageIcon("src/Images/tommaHjärtan.png");
+                break;
+            case 1:
+                // Display one heart
+                heartsIcon = new ImageIcon("src/Images/ettHjärta.png");
+                break;
+            case 2:
+                // Display two hearts
+                heartsIcon = new ImageIcon("src/Images/tvåHjärtan.png");
+                break;
+            case 3:
+                // Display three hearts
+                heartsIcon = new ImageIcon("src/Images/treHjärtan.png");
+                break;
+            default:
+                // Default case, do nothing or provide a default icon
+                break;
+        }
+
+        if (heartsIcon != null) {
+            // Update the icon for the hearts label
+            Image originalHearts = heartsIcon.getImage();
+            Image scaledHearts = originalHearts.getScaledInstance(150, 50, Image.SCALE_SMOOTH);
+            return new ImageIcon(scaledHearts);
+        } else {
+            return null;
+        }
     }
 
 
