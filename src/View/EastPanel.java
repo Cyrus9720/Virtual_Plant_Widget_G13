@@ -71,6 +71,7 @@ public class EastPanel extends JPanel
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == Water){
                     controller.buttonPressed(ButtonType.Water);
+                    progressbarLabel.setIcon(updateWaterProgress());
                     System.out.println("Water button clicked");
                 }
             }
@@ -92,34 +93,34 @@ public class EastPanel extends JPanel
         int timesWatered = controller.getTimesWatered();
         int plantLevel = controller.getPlantLevel();
 
-        String imagePath;
+        String imagePath = "src/Images/emptyProgressBar.png"; // Default value
+
         switch (plantLevel) {
             case 0:
-                imagePath = (timesWatered >= 1) ? "src/Images/fullProgressBar.png" : "src/Images/emptyProgressBar.png";
+                if (timesWatered == 1) {
+                    imagePath = "src/Images/fullProgressBar.png";
+                }
                 break;
             case 1:
-                if (timesWatered == 2) {
-                    imagePath = "src/Images/fullProgressBar.png";
-                } else if (timesWatered == 1) {
+                if (timesWatered == 1) {
                     imagePath = "src/Images/halfProgressBar.png";
                 } else {
-                    imagePath = "src/Images/emptyProgressBar.png";
+                    imagePath = "src/Images/fullProgressBar.png";
                 }
                 break;
             case 2:
-                if (timesWatered == 3) {
-                    imagePath = "src/Images/fullProgressBar.png";
-                } else if (timesWatered == 2) {
-                    imagePath = "src/Images/twoThirdsProgressBar.PNG";
-                } else if (timesWatered == 1) {
+                if (timesWatered == 1) {
                     imagePath = "src/Images/thirdProgressBar.png";
+                } else if (timesWatered == 2){
+                    imagePath = "src/Images/twoThirdsProgressBar.png";
                 } else {
-                    imagePath = "src/Images/emptyProgressBar.png";
+                    imagePath = "src/Images/fullProgressBar.png";
                 }
                 break;
-            default:
-                // Handle other levels here if needed
-                imagePath = "src/Images/emptyProgressBar.png";
+            case 3:
+                if (timesWatered >= 1) {
+                    imagePath = "src/Images/fullProgressBar.png";
+                }
                 break;
         }
 
@@ -131,6 +132,7 @@ public class EastPanel extends JPanel
 
         return new ImageIcon(scaledImage);
     }
+
 
 
 
