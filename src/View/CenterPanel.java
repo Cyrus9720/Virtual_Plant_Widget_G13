@@ -8,8 +8,8 @@ public class CenterPanel extends JPanel {
     private ImageIcon plantPicture;
     private JLabel plantLabel;
 
-    private static final int IMAGE_WIDTH = 200; // Desired width for scaled images
-    private static final int IMAGE_HEIGHT = 300; // Desired height for scaled images
+    private static final int IMAGE_WIDTH = 300; // Desired width for scaled images
+    private static final int IMAGE_HEIGHT = 450; // Desired height for scaled images
 
 
     public CenterPanel(int width, int height) {
