@@ -8,8 +8,8 @@ public class CenterPanel extends JPanel {
     private ImageIcon plantPicture;
     private JLabel plantLabel;
 
-    private static final int IMAGE_WIDTH = 400; // Desired width for scaled images
-    private static final int IMAGE_HEIGHT = 600; // Desired height for scaled images
+    private static final int IMAGE_WIDTH = 200; // Desired width for scaled images
+    private static final int IMAGE_HEIGHT = 300; // Desired height for scaled images
 
 
     public CenterPanel(int width, int height) {
@@ -22,10 +22,15 @@ public class CenterPanel extends JPanel {
         plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Scale image
         Image plantPictureImage = plantPicture.getImage();
         Image scaledPlantPictureImage = plantPictureImage.getScaledInstance(200,200, Image.SCALE_SMOOTH);
-        ImageIcon scaledPlantPictureIcon = new ImageIcon(scaledPlantPictureImage);
+        ImageIcon scaledPlantPictureIcon = new ImageIcon(scaledPlantPictureImage); //Oklart om detta behövs //Cyrus
         add(plantLabel);
     }
 
+    /**
+     * Updates the image of the plant in the center panel.
+     * @param newImage The new image to display.
+     * @author Cyrus Shaerpour
+     */
     public void updatePlantImage(ImageIcon newImage) {
         plantPicture = newImage;
         plantLabel.setIcon(plantPicture);
