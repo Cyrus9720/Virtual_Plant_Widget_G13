@@ -40,19 +40,19 @@ public class SouthPanel extends JPanel
         setBorder(titledBorder);
 
         setBackground(new Color(225, 240, 218));
-        setLayout(new FlowLayout(FlowLayout.LEADING));
+        setLayout(new BorderLayout());
 
         ImageIcon threeHearts = new ImageIcon("src/Images/treHjärtan.png");
         Image originalThreeHearts = threeHearts.getImage();
         Image scaledHeartsLivesImage = originalThreeHearts.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         ImageIcon scaledThreeHearts = new ImageIcon(scaledHeartsLivesImage);
         threeHeartsLabel = new JLabel(updateAmountOfLife());
-        add(threeHeartsLabel);
+        add(threeHeartsLabel, BorderLayout.WEST);
 
         JLabel plantInfo = new JLabel("<html>More information about your plant, coming soon...</html>");
         plantInfo.setPreferredSize(new Dimension(100, 60));
         plantInfo.setFont(new Font("Bebas Neue", Font.BOLD, 10));
-        add(plantInfo);
+        add(plantInfo, BorderLayout.EAST);
     }
 
     public ImageIcon updateAmountOfLife() {
