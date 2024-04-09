@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static Controller.GameLoad.loadGame;
+
 public class Controller {
 
     private MainFrame view;
@@ -27,7 +29,11 @@ public class Controller {
         // Skapa och konfigurera CenterPanel
         centerPanel = new CenterPanel(400, 400);
         view.add(centerPanel);
+
+        saveGame();
     }
+
+
 
     public void buttonPressed(ButtonType button) {
         switch (button) {
@@ -93,4 +99,7 @@ public class Controller {
         }
     }
 
+    public void saveGame() {
+        SaveGame saveGame = new SaveGame(plantList);
+    }
 }
