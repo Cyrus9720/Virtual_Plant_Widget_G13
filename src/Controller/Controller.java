@@ -18,7 +18,7 @@ public class Controller {
 
     public Controller() {
         // Skapa din lista över plantor och lägg till plantorna
-        plantList.add(new Rose("Rose", PlantArt.Rose, 0, new ImageIcon("src/Images/rose 1.jpeg"), 0));
+        plantList.add(new Rose("Rose", PlantArt.ROSE, 0, new ImageIcon("src/Images/rose 1.jpeg"), 0));
 
         // Skapa ditt MainFrame-objekt efter att plantorna har skapats
         view = new MainFrame(this);

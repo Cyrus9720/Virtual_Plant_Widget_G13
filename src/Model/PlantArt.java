@@ -4,7 +4,7 @@ public enum PlantArt
 {
     Cactus,
     Orchid,
-    Rose,
+    ROSE,
     Tomato_Plant,
     Sunflower,
     Tree;
