@@ -123,4 +123,9 @@ public class Plant {
     public void setPlantLevel(int plantLevel) {
         this.plantLevel = plantLevel;
     }
+
+    public String toString(){
+        String textOut = String.format("Plant art: %s | Plant name: %s | Plant level: %s | Times watered: %s | Number of lives: %s", plantArt, name, plantLevel, timesWatered, nbrOfLives);
+        return textOut;
+    }
 }

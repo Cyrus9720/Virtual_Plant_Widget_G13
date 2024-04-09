@@ -9,8 +9,6 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Controller.GameLoad.loadGame;
-
 public class Controller {
 
     private MainFrame view;
@@ -21,7 +19,6 @@ public class Controller {
     public Controller() {
         // Skapa din lista över plantor och lägg till plantorna
         plantList.add(new Rose("Rose", PlantArt.Rose, 0, new ImageIcon("src/Images/rose 1.jpeg"), 0));
-        plantList.add(new Cactus("Cactus", PlantArt.Cactus, 0, new ImageIcon("src/Images/Cactus.png"), 0));
 
         // Skapa ditt MainFrame-objekt efter att plantorna har skapats
         view = new MainFrame(this);
@@ -29,8 +26,6 @@ public class Controller {
         // Skapa och konfigurera CenterPanel
         centerPanel = new CenterPanel(400, 400);
         view.add(centerPanel);
-
-        saveGame();
     }
 
 
@@ -101,5 +96,9 @@ public class Controller {
 
     public void saveGame() {
         SaveGame saveGame = new SaveGame(plantList);
+    }
+
+    public List<Plant> getPlantList() {
+        return plantList;
     }
 }

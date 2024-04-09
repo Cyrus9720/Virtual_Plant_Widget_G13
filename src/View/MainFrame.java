@@ -5,6 +5,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import Controller.SaveGame;
 
 /**
  * The MainFrame class represents the main frame of the application.
@@ -47,6 +50,7 @@ public class MainFrame extends JFrame {
         menuBar.setBackground(new Color(225, 240, 218));
 
         JMenu alternatives = new JMenu("Alternatives");
+
         JMenuItem gameRules = new JMenuItem("Game Rules");
         gameRules.addActionListener(new ActionListener() {
             @Override
@@ -54,6 +58,7 @@ public class MainFrame extends JFrame {
                 showRulesDialog();
             }
         });
+
         JMenuItem differentPlants = new JMenuItem("Plants");
         differentPlants.addActionListener(new ActionListener() {
             @Override
@@ -67,6 +72,14 @@ public class MainFrame extends JFrame {
         menuBar.add(alternatives);
 
         setJMenuBar(menuBar);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Anropa SaveGame.SaveGame() för att spara spelet när fönstret stängs
+                SaveGame.SaveGame(controller.getPlantList());
+            }
+        });
 
         pack();
         setLocationRelativeTo(null);

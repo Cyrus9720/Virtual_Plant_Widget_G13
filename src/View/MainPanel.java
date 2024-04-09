@@ -43,7 +43,7 @@ public class MainPanel extends JPanel
         add(centerPanel, BorderLayout.CENTER);
 
         SouthPanel northPanel = new SouthPanel(controller, width, 300);
-        add(northPanel, BorderLayout.SOUTH);
+        add(northPanel, BorderLayout.NORTH);
         setVisible(true);
 
         JLabel plantInfoLabel = new JLabel("Plant information");
