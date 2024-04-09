@@ -20,7 +20,6 @@ public class EastPanel extends JPanel
 {
     private Controller controller; // Reference to controller
     private int width, height; // Dimensions of the panel
-    private ButtonGroup buttonGroup; // Button group to manage buttons
     private JButton Water; // Button for watering action
 
     /**
@@ -37,9 +36,9 @@ public class EastPanel extends JPanel
         this.controller = controller;
         this.width = width;
         this.height = height;
-        buttonGroup = new ButtonGroup();
 
         setBackground(new Color(225, 240, 218));
+        setPreferredSize(new Dimension(800, 400));
 
         TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant care");
         Font myFont = new Font("Bebas Neue", Font.BOLD, 12);
@@ -52,6 +51,7 @@ public class EastPanel extends JPanel
         Image originalWaterButtonImage = waterButton.getImage();
         Image scaledWaterButtonImage = originalWaterButtonImage.getScaledInstance(60,50, Image.SCALE_SMOOTH);
         ImageIcon scaledWaterIcon = new ImageIcon(scaledWaterButtonImage);
+
         Water = new JButton(scaledWaterIcon);
         Water.setBorderPainted(false);
         Water.setContentAreaFilled(false);
