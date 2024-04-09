@@ -84,7 +84,7 @@ public class SouthPanel extends JPanel
         if (heartsIcon != null) {
             // Update the icon for the hearts label
             Image originalHearts = heartsIcon.getImage();
-            Image scaledHearts = originalHearts.getScaledInstance(200, 75, Image.SCALE_SMOOTH);
+            Image scaledHearts = originalHearts.getScaledInstance(100, 30, Image.SCALE_SMOOTH);
             return new ImageIcon(scaledHearts);
         } else {
             return null;
