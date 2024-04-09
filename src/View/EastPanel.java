@@ -70,7 +70,6 @@ public class EastPanel extends JPanel
                 if(e.getSource() == Water){
                     controller.buttonPressed(ButtonType.Water);
                     System.out.println("Water button clicked");
-                    //controller.getrose().waterPlant(controller.getrose().getPlantLevel());
                 }
             }
         });
