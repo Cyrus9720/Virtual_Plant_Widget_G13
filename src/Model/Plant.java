@@ -1,7 +1,6 @@
 package Model;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
 
 public class Plant {
     private String name;
@@ -9,59 +8,48 @@ public class Plant {
     private int timesWatered;
     private ImageIcon plantPicture;
     private int plantLevel;
+    private PlantArt plantArt;
 
-    public Plant(String name, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel) {
+    /**
+     * Constructor for Plant
+     * @param name Name of the plant
+     * @param plantArt Art of the plant
+     * @param timesWatered Number of times the plant has been watered
+     * @param plantPicture Picture of the plant
+     * @param plantLevel Level of the plant
+     * @author Cyrus Shaerpour
+     */
+    public Plant(String name, PlantArt plantArt, int timesWatered, ImageIcon plantPicture, int plantLevel) {
         this.name = name;
-        this.nbrOfLives = 3;
+        this.plantArt = plantArt;
+        nbrOfLives = 3;
         this.timesWatered = 0;
         this.plantPicture = plantPicture;
         this.plantLevel = 0;
+        System.out.println("Plant created");
     }
 
+    /**
+     * Method for wattering the plant and increasing the plant level
+     * If the plant is not fully grown, increase the plant level
+     * @return void
+     * @author Cyrus Shaerpour
+     */
     public void waterPlant() {
-        switch (plantLevel) {
-            case 0:
-                setTimesWatered(getTimesWatered() + 1);
-                System.out.println("Times watered: " + getTimesWatered());
-                System.out.println("Plant level: " + getPlantLevel());
-                if (getTimesWatered() == 1) {
-                    plantLevel++;
-                    setTimesWatered(0);
+        setTimesWatered(getTimesWatered() + 1);
+        if (plantLevel < 3) {
+            if (getTimesWatered() == plantLevel + 1) {
+                setPlantLevel(getPlantLevel() + 1);
+                setTimesWatered(0);
+                //System.out.println("Plant level " + plantLevel);
+                if (plantLevel == 3) {
+                    System.out.println("Plant is fully grown");
                 }
-                break;
-
-            case 1:
-                setTimesWatered(getTimesWatered() + 1);
-                System.out.println("Times watered: " + getTimesWatered());
-                System.out.println("Plant level: " + getPlantLevel());
-                if (getTimesWatered() == 2) {
-                    plantLevel++;
-                    setTimesWatered(0);
-                }
-                break;
-
-            case 2:
-                setTimesWatered(getTimesWatered() + 1);
-                System.out.println("Times watered: " + getTimesWatered());
-                System.out.println("Plant level: " + getPlantLevel());
-                if (getTimesWatered() == 3) {
-                    plantLevel++;
-                    setTimesWatered(0);
-                }
-                break;
-
-            case 3:
-                System.out.println("Plant level: " + getPlantLevel());
-                setTimesWatered(3);
-                break;
-
-            default:
-                System.out.println("Invalid plant level");
-                break;
+            }
         }
     }
 
-
+    //TODO: Lägg till javadocs efterhand när metoderna börjar användas.
     public String getName() {
         return name;
     }
@@ -78,28 +66,61 @@ public class Plant {
         this.nbrOfLives = nbrOfLives;
     }
 
+    /**
+     * Method for getting the number of times the plant has been watered
+     * @return int Number of times the plant has been watered
+     * @author Cyrus Shaerpour
+     */
     public int getTimesWatered() {
         return timesWatered;
     }
 
+    /**
+     * Method for setting the number of times the plant has been watered
+     * @param timesWatered Number of times the plant has been watered
+     * @return void
+     * @author Cyrus Shaerpour
+     */
     public void setTimesWatered(int timesWatered) {
         this.timesWatered = timesWatered;
     }
 
+    /**
+     * Method for getting the picture of the plant
+     * @return ImageIcon Picture of the plant
+     * @author Cyrus Shaerpour
+     */
     public ImageIcon getPlantPicture() {
         return plantPicture;
     }
 
+    /**
+     * Method for setting the picture of the plant
+     * @param plantPicture Picture of the plant
+     * @return void
+     * @author Cyrus Shaerpour
+     */
     public void setPlantPicture(ImageIcon plantPicture) {
         this.plantPicture = plantPicture;
     }
 
+    /**
+     * Method for getting the level of the plant
+     * @return int Level of the plant
+     * @author Cyrus Shaerpour
+     */
     public int getPlantLevel() {
+        System.out.println("Plant level " + (plantLevel));
         return plantLevel;
     }
 
+    /**
+     * Method for setting the level of the plant
+     * @param plantLevel Level of the plant
+     * @return void
+     * @author Cyrus Shaerpour
+     */
     public void setPlantLevel(int plantLevel) {
         this.plantLevel = plantLevel;
     }
 }
-

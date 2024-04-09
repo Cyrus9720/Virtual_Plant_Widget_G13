@@ -1,55 +1,45 @@
 package View;
-import Controller.Controller;
+
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-/**
- * The CenterPanel class represents the central panel of the user interface.
- * This panel typically displays the main content of the application, such as the plant image.
- *
- * This class extends {@link javax.swing.JPanel}.
- *
- * @author annagranberg
- */
-public class CenterPanel extends JPanel
-{
-    Controller controller; // reference to the controller
-    private int width; // width used to control the size of panel
-    private int height; // height used to control the size of panel
+public class CenterPanel extends JPanel {
+
+    private ImageIcon plantPicture;
+    private JLabel plantLabel;
+
+    private static final int IMAGE_WIDTH = 200; // Desired width for scaled images
+    private static final int IMAGE_HEIGHT = 300; // Desired height for scaled images
+
+
+    public CenterPanel(int width, int height) {
+        setPreferredSize(new Dimension(width, height));
+        setBackground(Color.WHITE);
+
+        plantPicture = new ImageIcon("src/Images/PotArt1.JPG"); // Default image
+
+        plantLabel = new JLabel();
+        plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Scale image
+        Image plantPictureImage = plantPicture.getImage();
+        Image scaledPlantPictureImage = plantPictureImage.getScaledInstance(200,200, Image.SCALE_SMOOTH);
+        ImageIcon scaledPlantPictureIcon = new ImageIcon(scaledPlantPictureImage); //Oklart om detta behövs //Cyrus
+        add(plantLabel);
+    }
 
     /**
-     * Constructs a new CenterPanel with the specified controller, width, and height.
-     *
-     * @param controller The controller object responsible for handling user actions.
-     * @param width The width of the panel.
-     * @param height The height of the panel.
+     * Updates the image of the plant in the center panel.
+     * @param newImage The new image to display.
+     * @author Cyrus Shaerpour
      */
-    public CenterPanel(Controller controller, int width, int height)
-    {
-        this.controller = controller;
-        this.width = width;
-        this.height = height;
-
-        TitledBorder titledBorder = BorderFactory.createTitledBorder("Insert plant name here..");
-        Font myFont = new Font("Bebas Neue", Font.BOLD, 12);
-        titledBorder.setTitleFont(myFont);
-        setBorder(titledBorder);
-
-        setBackground(new Color(225, 240, 218));
-
-        Border border = this.getBorder();
-        Border margin = BorderFactory.createEmptyBorder(6, 6, 6, 6);
-        setBorder(new CompoundBorder(border, margin));
-
-
-        ImageIcon originalPlant = new ImageIcon("src/Images/cactus.png");
-        Image originalPlantImage = originalPlant.getImage();
-        Image scaledPlantImage = originalPlantImage.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-        ImageIcon scaledPlantImageIcon = new ImageIcon(scaledPlantImage);
-        JLabel plantLabel = new JLabel(scaledPlantImageIcon);
-        add(plantLabel, BorderLayout.CENTER);
+    public void updatePlantImage(ImageIcon newImage) {
+        plantPicture = newImage;
+        plantLabel.setIcon(plantPicture);
+        plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Scale and update the image
+        repaint();  // Repaint the panel to update the image
+    }
+    private ImageIcon scaleImageIcon(ImageIcon imageIcon, int width, int height) {
+        Image image = imageIcon.getImage(); // Transform ImageIcon to Image
+        Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH); // Scale image
+        return new ImageIcon(scaledImage); // Transform Image back to ImageIcon
     }
 }
