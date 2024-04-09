@@ -48,6 +48,7 @@ public class EastPanel extends JPanel
         setBorder(titledBorder);
 
         JPanel pnlButtons = new JPanel();
+        pnlButtons.setBackground(new Color(225, 240, 218));
 
         ImageIcon waterButton = new ImageIcon("src/Images/Watercan.png");
         Image originalWaterButtonImage = waterButton.getImage();
@@ -55,8 +56,8 @@ public class EastPanel extends JPanel
         ImageIcon scaledWaterIcon = new ImageIcon(scaledWaterButtonImage);
 
         Water = new JButton(scaledWaterIcon);
-        Water.setBorderPainted(false);
-        Water.setContentAreaFilled(false);
+        Water.setBorderPainted(true);
+        Water.setContentAreaFilled(true);
         Water.setBackground(new Color(225, 240, 218));
         pnlButtons.add(Water, BorderLayout.NORTH);
 
