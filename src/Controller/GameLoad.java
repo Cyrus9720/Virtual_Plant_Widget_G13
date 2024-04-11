@@ -27,6 +27,7 @@ public class GameLoad {
             // Handle any errors that occur during file reading
             System.err.println("Error loading game: " + e.getMessage());
         }
+
         return savedData; // Return the list of saved data
     }
 }

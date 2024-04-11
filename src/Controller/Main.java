@@ -7,6 +7,7 @@ public class Main {
         // Skapa en instans av din Controller-klass
         Controller controller = new Controller();
 
+
         // Hämta sparad data från filen eller på annat sätt
         List<String> savedData = GameLoad.loadGame();
 
