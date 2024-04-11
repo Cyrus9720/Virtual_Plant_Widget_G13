@@ -7,6 +7,7 @@ import View.MainFrame;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 public class Controller {
@@ -18,6 +19,9 @@ public class Controller {
 
 
     public Controller() {
+
+        restorePlantsState();
+
         // Skapa din lista över plantor och lägg till plantorna
         plantList.add(new Rose("Rose", PlantArt.ROSE, 0, new ImageIcon("src/Images/rose 1.jpeg"), 0));
 
@@ -103,22 +107,30 @@ public class Controller {
 
         // Loopa genom sparade datan och skapa nya växtinstanser med tillståndet
         for (String data : savedData) {
-            // Dela upp datasträngen vid kommatecken för att extrahera individuella delar
-            String[] parts = data.split(",");
+            // Dela upp datasträngen vid | för att extrahera individuella delar
+            String[] parts = data.split("\\|");
 
             String plantData = ""; // Variabel för att lagra information om plantor
+            String imagiconData = ""; // Variabel för att lagra Imagicon-data
+
 
             // Processa varje del av datasträngen
             for (String part : parts) {
                 if (part.startsWith("Plantor:")) {
                     // Extrahera information om plantor
                     plantData = part.substring(part.indexOf("[") + 1, part.indexOf("]"));
-                    break; // Vi behöver inte fortsätta loopa efter att vi har hittat plantData
+                } else if (part.startsWith("Plant picture:")) {
+                    // Extrahera Imagicon-data
+                    imagiconData = part.substring(part.indexOf("[") + 1, part.indexOf("]"));
                 }
             }
 
             // Skapa en ny växt med tillståndet från plantData
             Plant restoredPlant = processPlantData(plantData);
+
+            // Lägg till Imagicon till den återställda växten
+            ImageIcon imageIcon = dataToImageIcon(imagiconData);
+            restoredPlant.setPlantPicture(imageIcon);
 
             // Lägg till den återställda växten i listan
             restoredPlants.add(restoredPlant);
@@ -126,10 +138,33 @@ public class Controller {
 
         // Uppdatera referensen till plantList med den nya listan av återställda växter
         plantList = restoredPlants;
-
-        // Uppdatera vyn för att visa de återställda växterna
-        // .updatePlantsView(plantList);
     }
+    // Funktion för att konvertera Imagicon-data till ImageIcon-objekt
+    private ImageIcon dataToImageIcon(String data) {
+        // Avkoda datasträngen och skapa ett ImageIcon-objekt
+        byte[] imageData = Base64.getDecoder().decode(data);
+        return new ImageIcon(imageData);
+    }
+
+    // Funktion för att extrahera Imagicon-data från savedData-strängen
+    private String extractImagiconData(String savedData) {
+        // Hitta positionen för Imagicon-data
+        int startIndex = savedData.indexOf("Imagicon:") + "Imagicon:".length();
+        System.out.println("startIndex: " + startIndex);
+        int endIndex = savedData.indexOf("|", startIndex);
+        System.out.println("endIndex: " + endIndex);
+        // Extrahera Imagicon-datasträngen
+        return savedData.substring(startIndex, endIndex);
+    }
+
+
+    // Funktion för att spara ImageIcon-objekt som data
+    private String imagiconToData(ImageIcon imageIcon) {
+        // Kodera ImageIcon-objektet till en datasträng
+        byte[] imageData = (byte[]) imageIcon.getImage().getProperty("name", imageIcon.getImageObserver());
+        return Base64.getEncoder().encodeToString(imageData);
+    }
+
 
     private Plant processPlantData(String plantData) {
         String[] parts = plantData.split("\\|");

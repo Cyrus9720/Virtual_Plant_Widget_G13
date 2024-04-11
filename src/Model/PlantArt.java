@@ -2,10 +2,10 @@ package Model;
 
 public enum PlantArt
 {
-    Cactus,
-    Orchid,
+    CACTUS,
+    ORCHID,
     ROSE,
-    Tomato_Plant,
-    Sunflower,
-    Tree;
+    TOMATO_PLANT,
+    SUNFLOWER,
+    TREE;
 }
