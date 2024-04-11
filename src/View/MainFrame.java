@@ -76,8 +76,8 @@ public class MainFrame extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                // Anropa SaveGame.SaveGame() för att spara spelet när fönstret stängs
-                SaveGame.SaveGame(controller.getPlantList());
+                // Anropa SaveGame() för att spara spelet när fönstret stängs
+                controller.saveGame();
             }
         });
 
