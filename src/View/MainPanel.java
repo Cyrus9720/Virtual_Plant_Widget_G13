@@ -39,7 +39,7 @@ public class MainPanel extends JPanel
         EastPanel eastPanel = new EastPanel(controller, width/2-60, height-130);
         add(eastPanel, BorderLayout.EAST);
 
-        CenterPanel centerPanel = new CenterPanel(300, 450);
+        CenterPanel centerPanel = new CenterPanel(this,300, 450);
         add(centerPanel, BorderLayout.CENTER);
 
         SouthPanel northPanel = new SouthPanel(controller, width, 300);
@@ -47,6 +47,9 @@ public class MainPanel extends JPanel
         setVisible(true);
 
         JLabel plantInfoLabel = new JLabel("Plant information");
+    }
 
+    public String getPlantName(){
+        return controller.getPlantName();
     }
 }

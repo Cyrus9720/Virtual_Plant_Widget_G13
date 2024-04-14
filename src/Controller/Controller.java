@@ -25,8 +25,8 @@ public class Controller {
         view = new MainFrame(this);
 
         // Skapa och konfigurera CenterPanel
-        centerPanel = new CenterPanel(400, 400);
-        view.add(centerPanel);
+        /*centerPanel = new CenterPanel(this,400, 400);
+        view.add(centerPanel);*/
 
         // Lägg till en testväxt om plantList är tom
 
@@ -175,5 +175,9 @@ public class Controller {
 
     public int getPlantLevel(){
         return plant.getPlantLevel();
+    }
+
+    public String getPlantName(){
+        return plant.getName();
     }
 }
