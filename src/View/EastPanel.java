@@ -21,7 +21,6 @@ public class EastPanel extends JPanel
     private Controller controller; // Reference to controller
     private int width, height; // Dimensions of the panel
     private JButton Water; // Button for watering action
-
     private JLabel progressbarLabel;
 
     /**
@@ -66,6 +65,14 @@ public class EastPanel extends JPanel
         setBorder(new CompoundBorder(border, margin));
 
         add(pnlButtons);
+        progressbarLabel = new JLabel();
+        ImageIcon emptyProgressBarIcon = new ImageIcon("src/Images/emptyProgressBar.png");
+        Image originalImage = emptyProgressBarIcon.getImage();
+        Image scaledImage = originalImage.getScaledInstance(100, 75, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+        progressbarLabel.setIcon(scaledIcon);
+        add(progressbarLabel, BorderLayout.SOUTH);
 
         // Adding ActionListener to the water button
         Water.addActionListener(new ActionListener() {
@@ -77,9 +84,6 @@ public class EastPanel extends JPanel
                 }
             }
         });
-
-        progressbarLabel = new JLabel(updateWaterProgress());
-        add(progressbarLabel, BorderLayout.SOUTH);
 
     }
 
@@ -98,19 +102,26 @@ public class EastPanel extends JPanel
 
         switch (plantLevel) {
             case 0:
-                if (timesWatered == 1) {
+                if(timesWatered == 0){
+                    imagePath = "src/Images/emptyProgressBar.png";
+                }
+                else if (timesWatered == 1) {
                     imagePath = "src/Images/fullProgressBar.png";
                 }
                 break;
             case 1:
-                if (timesWatered == 1) {
+                if(timesWatered == 0){
+                    imagePath = "src/Images/emptyProgressBar.png";
+                } else if (timesWatered == 1) {
                     imagePath = "src/Images/halfProgressBar.png";
                 } else {
                     imagePath = "src/Images/fullProgressBar.png";
                 }
                 break;
             case 2:
-                if (timesWatered == 1) {
+                if(timesWatered == 0){
+                    imagePath = "src/Images/emptyProgressBar.png";
+                } else if (timesWatered == 1) {
                     imagePath = "src/Images/thirdProgressBar.png";
                 } else if (timesWatered == 2){
                     imagePath = "src/Images/twoThirdsProgressBar.png";
@@ -119,7 +130,9 @@ public class EastPanel extends JPanel
                 }
                 break;
             case 3:
-                if (timesWatered >= 1) {
+                if(timesWatered == 0){
+                    imagePath = "src/Images/emptyProgressBar.png";
+                } else if  (timesWatered >= 1) {
                     imagePath = "src/Images/fullProgressBar.png";
                 }
                 break;
