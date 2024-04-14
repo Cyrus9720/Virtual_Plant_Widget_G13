@@ -9,12 +9,12 @@ public class Main {
 
 
         // Hämta sparad data från filen eller på annat sätt
-        List<String> savedData = GameLoad.loadGame();
+     //   List<String> savedData = GameLoad.loadGame();
 
         // Skapa en instans av GameProcessor-klassen
-        GameProcessor gameProcessor = new GameProcessor();
+      //  GameProcessor gameProcessor = new GameProcessor();
 
         // Anropa processSavedData() i GameProcessor med den sparade datan
-        gameProcessor.processSavedData(savedData);
+      //  gameProcessor.processSavedData(savedData);
     }
 }

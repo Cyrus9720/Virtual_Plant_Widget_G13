@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.util.List;
 
 public class GameProcessor {
-    public void processSavedData(List<String> savedData) {
+    /*public void processSavedData(List<String> savedData) {
         for (String data : savedData) {
             // Dela upp datasträngen vid kommatecken för att extrahera individuella delar
             String[] parts = data.split(",");
@@ -90,5 +90,5 @@ public class GameProcessor {
         ImageIcon plantPicture = new ImageIcon(plantPictureString);
         // Skapa och returnera en ny Plant-instans
         return new Plant(name, plantArt, timesWatered, plantPicture,level);
-    }
+    }*/
 }

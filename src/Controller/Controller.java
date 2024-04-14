@@ -19,19 +19,20 @@ public class Controller {
 
     public Controller() {
         // Återställ tillståndet för plantorna från när programmet senast stängde
-        restorePlantsState();
-
-        // Skapa ditt MainFrame-objekt efter att plantorna har skapats
-        view = new MainFrame(this);
-
-        // Skapa och konfigurera CenterPanel
-        /*centerPanel = new CenterPanel(this,400, 400);
-        view.add(centerPanel);*/
+      //  restorePlantsState();
 
         // Lägg till en testväxt om plantList är tom
 
         plantList.add(new Rose("Rose", PlantArt.ROSE, 0, new ImageIcon("src/Images/rose 1.jpeg"), 0));
         plant = new Plant("Rose", PlantArt.ROSE, 0, new ImageIcon("src/Images/rose 1.jpeg"), 0);
+
+        // Skapa ditt MainFrame-objekt efter att plantorna har skapats
+        view = new MainFrame(this);
+
+        // Skapa och konfigurera CenterPanel
+        centerPanel = new CenterPanel(400, 400);
+        view.add(centerPanel);
+
 
         // Uppdatera vyn med den aktuella växten
         updateView();
@@ -41,7 +42,7 @@ public class Controller {
     private void updateView() {
         if (!plantList.isEmpty()) {
             Plant currentPlant = plantList.get(0);
-            centerPanel.updatePlantImage(currentPlant.getPlantPicture());
+            centerPanel.updatePlantImage(currentPlant.getPlantPicture(), plant);
         }
     }
 
@@ -60,12 +61,12 @@ public class Controller {
         if (!plantList.isEmpty()) {
             Plant currentPlant = plantList.get(0);
             currentPlant.waterPlant();
-            centerPanel.updatePlantImage(currentPlant.getPlantPicture());
+            centerPanel.updatePlantImage(currentPlant.getPlantPicture(), plant);
         }
     }
 
     // Metod för att återställa tillståndet för varje växt
-    private void restorePlantsState() {
+   /* private void restorePlantsState() {
         List<String> savedData = GameLoad.loadGame();
         for (String data : savedData) {
             System.out.println("Data: " + data);
@@ -110,7 +111,7 @@ public class Controller {
 
 
     // Metod för att konvertera plantdata till Plant-objekt
-    private Plant processPlantData(String plantData) {
+    /*private Plant processPlantData(String plantData) {
         if (plantData.isEmpty()) {
             return null;
         }
@@ -152,7 +153,7 @@ public class Controller {
         // Avkoda datasträngen och skapa ett ImageIcon-objekt
         byte[] imageData = Base64.getDecoder().decode(data);
         return new ImageIcon(imageData);
-    }
+    }*/
 
     // Metod för att spara spelstatusen
     public void saveGame() {
