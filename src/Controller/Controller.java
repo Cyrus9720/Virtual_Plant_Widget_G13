@@ -31,9 +31,9 @@ public class Controller {
     public void buttonPressed(ButtonType button) {
         switch (button) {
             case Water:
-                Plant rose = plantList.get(0);
-                rose.waterPlant();
-                ImageIcon updatedImage = rose.getPlantPicture();
+                Plant plant = plantList.get(0);
+                plant.waterPlant();
+                ImageIcon updatedImage = plant.getPlantPicture();
                 centerPanel.updatePlantImage(updatedImage);
 
                 break;
