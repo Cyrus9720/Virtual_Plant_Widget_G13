@@ -43,13 +43,10 @@ public class MainPanel extends JPanel
         add(centerPanel, BorderLayout.CENTER);
 
         SouthPanel northPanel = new SouthPanel(controller, width, 300);
-        add(northPanel, BorderLayout.NORTH);
+        add(northPanel, BorderLayout.SOUTH);
         setVisible(true);
 
         JLabel plantInfoLabel = new JLabel("Plant information");
-    }
 
-    public String getPlantName(){
-        return controller.getPlantName();
     }
 }
