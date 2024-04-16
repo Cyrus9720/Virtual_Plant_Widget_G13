@@ -15,17 +15,15 @@ public class GardenView extends JFrame {
         setSize(width, height);
         setResizable(false);
 
-        GardenPanel gardenPanel = new GardenPanel();
-        add(gardenPanel, BorderLayout.CENTER);
+        // Calculate the location relative to the CenterPanel
+        int xCoordinate = centerPanel.getX() + centerPanel.getWidth() + 420; // Adjust the x-coordinate as needed
+        int yCoordinate = centerPanel.getY() + centerPanel.getHeight() - 130; // Keep the same y-coordinate as CenterPanel
 
-        NorthPanel northPanel = new NorthPanel();
-        add(northPanel, BorderLayout.NORTH);
-
-        //setLocationRelativeTo(centerPanel);
-        int xCoordinate = 305; // X-coordinate
-        int yCoordinate = 187; // Y-coordinate
+        // Set the location of GardenView relative to the CenterPanel
         setLocation(xCoordinate, yCoordinate);
 
+        GardenPanel gardenPanel = new GardenPanel();
+        add(gardenPanel);
 
         setVisible(true);
     }
@@ -43,7 +41,6 @@ public class GardenView extends JFrame {
                     "src/Images/RoseArt3.JPG",
                     "src/Images/RoseArt3.JPG",
                     "src/Images/RoseArt3.JPG"
-
                     // Add more paths for additional buttons
             };
 
@@ -66,19 +63,8 @@ public class GardenView extends JFrame {
                         // You need to implement the logic for swapping plants
                     }
                 });
-                add(plantButton, new GridLayout(3, 2));
+                add(plantButton);
             }
-        }
-    }
-
-    private class NorthPanel extends JPanel {
-        public NorthPanel() {
-            setBackground(new Color(225, 240, 218));
-
-            JLabel plantInfo = new JLabel("<html> Choose which plant you want to manage! </html>");
-            plantInfo.setPreferredSize(new Dimension(100, 60));
-            plantInfo.setFont(new Font("Bebas Neue", Font.BOLD, 12));
-            add(plantInfo);
         }
     }
 }
