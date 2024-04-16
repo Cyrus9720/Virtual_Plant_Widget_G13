@@ -16,7 +16,7 @@ public class GardenView extends JDialog {
         setResizable(false);
 
         // Calculate the location relative to the CenterPanel
-        int xCoordinate = parentFrame.getX() - width + 10; // Move to the left side by subtracting the width
+        int xCoordinate = parentFrame.getX() - centerPanel.getX() - 280; // Move to the left side by subtracting the width
         int yCoordinate = parentFrame.getY() + centerPanel.getY() - 12; // Adjust as needed
 
         // Set the location of GardenView relative to the CenterPanel
