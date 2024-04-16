@@ -12,8 +12,10 @@ import java.util.List;
 public class Controller {
 
     private MainFrame view;
-    private List<Plant> plantList = new ArrayList<>();
+    private ArrayList<Plant> plantList = new ArrayList<>();
+    private Plant[] plants;
     private CenterPanel centerPanel;
+    private int nbrOfPlants = 0;
 
 
     public Controller() {
