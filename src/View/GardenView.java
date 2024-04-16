@@ -15,9 +15,12 @@ public class GardenView extends JFrame {
         setSize(width, height);
         setResizable(false);
 
+        // Get the screen size
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
         // Calculate the location relative to the CenterPanel
-        int xCoordinate = centerPanel.getX() + centerPanel.getWidth() + 420; // Adjust the x-coordinate as needed
-        int yCoordinate = centerPanel.getY() + centerPanel.getHeight() - 130; // Keep the same y-coordinate as CenterPanel
+        int xCoordinate = centerPanel.getX() + centerPanel.getWidth() + screenSize.width - 2150; // Adjust as needed
+        int yCoordinate = centerPanel.getY() + centerPanel.getHeight() - screenSize.height + 1310 ; // Adjust as needed
 
         // Set the location of GardenView relative to the CenterPanel
         setLocation(xCoordinate, yCoordinate);
