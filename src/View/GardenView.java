@@ -10,7 +10,7 @@ public class GardenView extends JFrame {
     private int width = 300; // The width of the JFrame
     private int height = 450; // The height of the JFrame
 
-    public GardenView() {
+    public GardenView(CenterPanel centerPanel) {
         setTitle("Your garden!");
         setSize(width, height);
         setResizable(false);
@@ -20,6 +20,12 @@ public class GardenView extends JFrame {
 
         NorthPanel northPanel = new NorthPanel();
         add(northPanel, BorderLayout.NORTH);
+
+        //setLocationRelativeTo(centerPanel);
+        int xCoordinate = 305; // X-coordinate
+        int yCoordinate = 187; // Y-coordinate
+        setLocation(xCoordinate, yCoordinate);
+
 
         setVisible(true);
     }

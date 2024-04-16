@@ -50,11 +50,11 @@ public class Plant {
     }
 
     //@TODO: Lägg till javadocs efterhand när metoderna börjar användas.
-    public String getName() {
+    public String getPlantName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setPlantName(String name) {
         this.name = name;
     }
 

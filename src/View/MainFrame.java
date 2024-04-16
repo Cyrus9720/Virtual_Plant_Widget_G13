@@ -22,6 +22,7 @@ public class MainFrame extends JFrame {
     private Controller controller; // reference to controller
     private int width = 600; // dimensions for frame size
     private int height = 800; // dimensions for frame size
+    private MainPanel mainPanel;
 
     /**
      * Constructs a new MainFrame with the specified controller.
@@ -43,7 +44,7 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
 
-        MainPanel mainPanel = new MainPanel(controller, width, height);
+        mainPanel = new MainPanel(controller, width, height);
         setContentPane(mainPanel);
 
         JMenuBar menuBar = new JMenuBar();
@@ -112,6 +113,6 @@ public class MainFrame extends JFrame {
 
 
     public void switchPlant(){
-        GardenView gardenView = new GardenView();
+        GardenView gardenView = new GardenView(mainPanel.getCenterPanel());
     }
 }
