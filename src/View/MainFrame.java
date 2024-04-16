@@ -91,7 +91,8 @@ public class MainFrame extends JFrame {
      * @author annagranberg
      */
     public void showRulesDialog() {
-        String rules = "Game rules:\n1. Plant different types of plants and take care of them." +
+        GameRuleFrame gameRuleFrame = new GameRuleFrame();
+        /*String rules = "Game rules:\n1. Plant different types of plants and take care of them." +
                         "\n2. Water your plants regularly to keep them healthy." +
                         "\n3. Beware of deadlines for watering, or your plants may die." +
                         "\n4. Harvest seeds from mature plants to grow new ones." +
@@ -108,8 +109,8 @@ public class MainFrame extends JFrame {
         ImageIcon scaledPlantImageIcon = new ImageIcon(scaledIconImage);
 
         JOptionPane.showOptionDialog(null, rules, "Virtual Plant Widget", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, scaledPlantImageIcon, null, null);
+    */
     }
-
 
     public void switchPlant(){
         GardenView gardenView = new GardenView();
