@@ -113,6 +113,6 @@ public class MainFrame extends JFrame {
 
 
     public void switchPlant(){
-        GardenView gardenView = new GardenView(mainPanel.getCenterPanel());
+        GardenView gardenView = new GardenView(this, mainPanel.getCenterPanel());
     }
 }

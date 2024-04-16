@@ -5,22 +5,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GardenView extends JFrame {
+public class GardenView extends JDialog {
 
-    private int width = 300; // The width of the JFrame
-    private int height = 450; // The height of the JFrame
+    private int width = 300; // The width of the dialog
+    private int height = 450; // The height of the dialog
 
-    public GardenView(CenterPanel centerPanel) {
-        setTitle("Your garden!");
+    public GardenView(JFrame parentFrame, CenterPanel centerPanel) {
+        super(parentFrame, "Your garden!", true); // modal dialog
         setSize(width, height);
         setResizable(false);
 
-        // Get the screen size
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
         // Calculate the location relative to the CenterPanel
-        int xCoordinate = centerPanel.getX() + centerPanel.getWidth() + screenSize.width - 2150; // Adjust as needed
-        int yCoordinate = centerPanel.getY() + centerPanel.getHeight() - screenSize.height + 1310 ; // Adjust as needed
+        int xCoordinate = parentFrame.getX() - width + 10; // Move to the left side by subtracting the width
+        int yCoordinate = parentFrame.getY() + centerPanel.getY() - 12; // Adjust as needed
 
         // Set the location of GardenView relative to the CenterPanel
         setLocation(xCoordinate, yCoordinate);
