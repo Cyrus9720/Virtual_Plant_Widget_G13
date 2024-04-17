@@ -20,14 +20,34 @@ public class Controller {
 
     public Controller() {
         // Skapa din lista över plantor och lägg till plantorna
-        plantList.add(new Rose("Rose", PlantArt.ROSE, 0, new ImageIcon("src/Images/rose 1.jpeg"), 0));
+        plantList.add(new Plant("Empty", PlantArt.POT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0));
 
         // Skapa ditt MainFrame-objekt efter att plantorna har skapats
         view = new MainFrame(this);
-
         // Skapa och konfigurera CenterPanel
         centerPanel = new CenterPanel(400, 400);
         view.add(centerPanel);
+        garden();
+    }
+
+    private void garden() {
+        plants = new Plant[] {
+            new Plant("Rose", PlantArt.ROSE, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+            new Plant("Sunflower", PlantArt.SUNFLOWER, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+            new Plant("TomatoPlant", PlantArt.TOMATO_PLANT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+        };
+
+    }
+
+    public void switchPlant(String id){
+        System.out.println(id + " " + plants[Integer.parseInt(id)].getPlantName());
+        centerPanel.updatePlantImage(plants[Integer.parseInt(id)].getPlantPicture());
+        centerPanel.updatePanel();
+    }
+
+    public void addPlant(Plant plant) {
+        plantList.add(plant);
+        nbrOfPlants++;
     }
 
     public void buttonPressed(ButtonType button) {

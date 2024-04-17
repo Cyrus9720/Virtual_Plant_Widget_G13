@@ -4,6 +4,7 @@ public enum PlantArt
 {
     CACTUS,
     ORCHID,
+    POT,
     ROSE,
     TOMATO_PLANT,
     SUNFLOWER,
