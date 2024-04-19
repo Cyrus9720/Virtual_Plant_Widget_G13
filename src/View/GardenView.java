@@ -54,10 +54,7 @@ public class GardenView extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         // Handle swapping of plants here
-                        // For example, change the icon of the button
                         ImageIcon currentIcon = (ImageIcon) plantButton.getIcon();
-                        // Swap the icon with another plant's image
-                        // You need to implement the logic for swapping plants
                     }
                 });
                 add(plantButton, new GridLayout(3, 2));
