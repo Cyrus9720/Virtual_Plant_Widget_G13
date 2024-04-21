@@ -1,9 +1,15 @@
 package View;
 import Controller.Controller;
+import Model.Plant;
+import Model.PlantArt;
+import Model.Sunflower;
+import Model.TomatoPlant;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class GardenView extends JDialog {
 
@@ -66,6 +72,8 @@ public class GardenView extends JDialog {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         controller.switchPlant(e.getActionCommand());
+                        controller.getPlantList();
+                        controller.addPlant(new TomatoPlant("Empty", PlantArt.POT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0));
                     }
                 });
 

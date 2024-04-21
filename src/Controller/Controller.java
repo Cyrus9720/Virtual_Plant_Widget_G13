@@ -15,12 +15,13 @@ public class Controller {
     private ArrayList<Plant> plantList = new ArrayList<>();
     private Plant[] plants;
     private CenterPanel centerPanel;
+    private Plant currentPlant;
     private int nbrOfPlants = 0;
 
 
     public Controller() {
         // Skapa din lista över plantor och lägg till plantorna
-        plantList.add(new Plant("Empty", PlantArt.POT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0));
+        //plantList.add(new Plant("Empty", PlantArt.POT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0));
 
         // Skapa ditt MainFrame-objekt efter att plantorna har skapats
         view = new MainFrame(this);
@@ -59,7 +60,7 @@ public class Controller {
                 centerPanel.updatePlantImage(updatedImage);
 
                 break;
-            // Handle other button types as needed
+
         }
     }
 
@@ -71,12 +72,12 @@ public class Controller {
             } else {
                 // Handle the case when the first plant is null
                 System.err.println("First plant is null");
-                return 0; // Return a default value or handle it based on your application logic
+                return 0;
             }
         } else {
             // Handle the case when plantList is empty
             System.err.println("Plant list is empty");
-            return 0; // Return a default value or handle it based on your application logic
+            return 0;
         }
     }
 
@@ -90,11 +91,11 @@ public class Controller {
             } else {
                 // Handle the case when the first plant is null
                 System.err.println("First plant is null");
-                return 0; // Return a default value or handle it based on your application logic
+                return 0;
             }
         } else {
             System.err.println("Plant list is empty");
-            return 0; // Return a default value or handle it based on your application logic
+            return 0;
         }
     }
 
@@ -106,11 +107,11 @@ public class Controller {
             } else {
                 // Handle the case when the first plant is null
                 System.err.println("First plant is null");
-                return 0; // Return a default value or handle it based on your application logic
+                return 0;
             }
         } else {
             System.err.println("Plant list is empty");
-            return 0; // Return a default value or handle it based on your application logic
+            return 0;
         }
     }
 
@@ -121,5 +122,13 @@ public class Controller {
 
     public List<Plant> getPlantList() {
         return plantList;
+    }
+
+    public Plant getCurrentPlant() {
+        return currentPlant;
+    }
+
+    public void setCurrentPlant(Plant newPlant) {
+        currentPlant = newPlant;
     }
 }
