@@ -1,10 +1,6 @@
 package View;
 
-<<<<<<< HEAD
-import Controller.Controller;
-=======
 import Model.*;
->>>>>>> Cyrus_Branch_2
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -14,21 +10,12 @@ public class CenterPanel extends JPanel {
 
     private ImageIcon plantPicture;
     private JLabel plantLabel;
-<<<<<<< HEAD
-=======
     private Plant currentPlant;
 
->>>>>>> Cyrus_Branch_2
     private static final int IMAGE_WIDTH = 300; // Desired width for scaled images
     private static final int IMAGE_HEIGHT = 450; // Desired height for scaled images
 
-    /**
-     * Constructor for CenterPanel class.
-     *
-     * @param width The width of the panel.
-     * @param height The height of the panel.
-     * @author annagranberg
-     */
+
     public CenterPanel(int width, int height) {
         setPreferredSize(new Dimension(320, 485));
         setBackground(new Color(225, 240, 218));

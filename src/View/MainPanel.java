@@ -54,7 +54,4 @@ public class MainPanel extends JPanel
         return centerPanel;
     }
 
-    public CenterPanel getCenterPanel() {
-        return centerPanel;
-    }
 }
