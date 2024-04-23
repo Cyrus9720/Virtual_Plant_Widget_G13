@@ -13,23 +13,12 @@ import java.util.List;
 
 public class GardenView extends JDialog {
 
-<<<<<<< HEAD
-    private int width = 300; // The width of the JFrame
-    private int height = 450; // The height of the JFrame
-    private List<ImageIcon> plantImages;
-
-    public GardenView(List<ImageIcon> plantImages) {
-        this.plantImages = plantImages;
-
-        setTitle("Your garden!");
-=======
     private Controller controller;
     private int width = 300; // The width of the dialog
     private int height = 450; // The height of the dialog
 
     public GardenView(JFrame parentFrame, CenterPanel centerPanel, Controller controller) {
         super(parentFrame, "Your garden!", true); // modal dialog
->>>>>>> Cyrus_Branch_2
         setSize(width, height);
         setResizable(false);
         this.controller = controller;
@@ -53,11 +42,6 @@ public class GardenView extends JDialog {
             setBackground(new Color(225, 240, 218));
             setLayout(new GridLayout(4, 3));
 
-<<<<<<< HEAD
-            // Knappar med bild på växter man har
-            for (ImageIcon icon : plantImages) {
-                JButton plantButton = new JButton(icon);
-=======
             // Array of image paths for the buttons
             String[] imagePaths = {
                     "src/Images/RoseArt3.JPG",
@@ -81,47 +65,20 @@ public class GardenView extends JDialog {
                 ImageIcon scaledIcon = new ImageIcon(scaledIconImage);
                 JButton plantButton = new JButton(String.valueOf(i));
                 plantButton.setIcon(scaledIcon);
->>>>>>> Cyrus_Branch_2
                 plantButton.setFocusPainted(false);
                 plantButton.setBorderPainted(false);
 
                 plantButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
-
-                    }
-                });
-=======
                         controller.switchPlant(e.getActionCommand());
                         controller.getPlantList();
                         controller.addPlant(new TomatoPlant("Empty", PlantArt.POT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0));
                     }
                 });
 
->>>>>>> Cyrus_Branch_2
                 add(plantButton);
             }
-
-            // en plus-knapp för att lägga till ny växt
-            ImageIcon plusIcon = new ImageIcon("src/Images/plusIcon.png"); // Replace "plus_image.png" with the path to your plus image
-            JButton addPlantButton = new JButton(plusIcon);
-            addPlantButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Show dialog or popup for adding a new plant
-                    newPlant();
-                }
-            });
-            add(addPlantButton);
-        }
-
-        /**
-         * Method to add a new plant to the garden
-         * @author Anna Granberg
-         */
-        public void newPlant(){
-
         }
     }
 }
