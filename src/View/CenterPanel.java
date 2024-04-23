@@ -1,6 +1,10 @@
 package View;
 
+<<<<<<< HEAD
 import Controller.Controller;
+=======
+import Model.*;
+>>>>>>> Cyrus_Branch_2
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -10,6 +14,11 @@ public class CenterPanel extends JPanel {
 
     private ImageIcon plantPicture;
     private JLabel plantLabel;
+<<<<<<< HEAD
+=======
+    private Plant currentPlant;
+
+>>>>>>> Cyrus_Branch_2
     private static final int IMAGE_WIDTH = 300; // Desired width for scaled images
     private static final int IMAGE_HEIGHT = 450; // Desired height for scaled images
 
@@ -32,7 +41,7 @@ public class CenterPanel extends JPanel {
         setBorder(titledBorder);
 
         plantLabel = new JLabel();
-        plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Scale image
+        plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Scale imagee
         Image plantPictureImage = plantPicture.getImage();
         Image scaledPlantPictureImage = plantPictureImage.getScaledInstance(200,200, Image.SCALE_SMOOTH);
         // ImageIcon scaledPlantPictureIcon = new ImageIcon(scaledPlantPictureImage); //Oklart om detta behövs //Cyrus
@@ -46,6 +55,7 @@ public class CenterPanel extends JPanel {
      */
     public void updatePlantImage(ImageIcon newImage) {
         plantPicture = newImage;
+        System.out.println(plantPicture);
         plantLabel.setIcon(plantPicture);
         plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Scale and update the image
         repaint();  // Repaint the panel to update the image
@@ -54,5 +64,9 @@ public class CenterPanel extends JPanel {
         Image image = imageIcon.getImage(); // Transform ImageIcon to Image
         Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH); // Scale image
         return new ImageIcon(scaledImage); // Transform Image back to ImageIcon
+    }
+
+    public void updatePanel() {
+        Sunflower sunflower = new Sunflower("Sunflower", PlantArt.SUNFLOWER, 0, new ImageIcon("src/Images/Sunflower3.JPG"), 0);
     }
 }

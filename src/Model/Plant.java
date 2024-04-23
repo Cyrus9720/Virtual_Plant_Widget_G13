@@ -26,7 +26,7 @@ public class Plant {
         this.timesWatered = 0;
         this.plantPicture = plantPicture;
         this.plantLevel = 0;
-        System.out.println("Plant created");
+        System.out.println("Plant created" + name);
     }
 
     /**
@@ -50,11 +50,11 @@ public class Plant {
     }
 
     //@TODO: Lägg till javadocs efterhand när metoderna börjar användas.
-    public String getName() {
+    public String getPlantName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setPlantName(String name) {
         this.name = name;
     }
 
@@ -110,7 +110,7 @@ public class Plant {
      * @author Cyrus Shaerpour
      */
     public int getPlantLevel() {
-        System.out.println("Plant level " + (plantLevel));
+        System.out.println(name + " Plant level " + (plantLevel));
         return plantLevel;
     }
 
