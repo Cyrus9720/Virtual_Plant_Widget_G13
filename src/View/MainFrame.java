@@ -64,7 +64,7 @@ public class MainFrame extends JFrame {
         differentPlants.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GardenView gardenView = new GardenView();
+                switchPlant();
             }
         });
 
@@ -114,12 +114,7 @@ public class MainFrame extends JFrame {
     */
     }
 
-    /*public void switchPlant() {
-        List<ImageIcon> plantImages = controller.getPlantImages();
-
-        if (plantImages != null && !plantImages.isEmpty()) {
-            GardenView gardenView = new GardenView(plantImages);
-        }
-
-    }*/
+    public void switchPlant(){
+        GardenView gardenView = new GardenView(this, mainPanel.getCenterPanel(), controller);
+    }
 }
