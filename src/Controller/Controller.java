@@ -27,7 +27,6 @@ public class Controller {
         centerPanel = new CenterPanel(400, 400);
         view.add(centerPanel);
     }
-
     public void buttonPressed(ButtonType button) {
         switch (button) {
             case Water:

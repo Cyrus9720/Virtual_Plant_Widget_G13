@@ -64,7 +64,7 @@ public class MainFrame extends JFrame {
         differentPlants.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // switchPlant();
+                GardenView gardenView = new GardenView();
             }
         });
 

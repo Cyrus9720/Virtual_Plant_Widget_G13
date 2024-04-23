@@ -33,7 +33,7 @@ public class GardenView extends JFrame {
             setBackground(new Color(225, 240, 218));
             setLayout(new GridLayout(4, 3));
 
-            // Add plant buttons with images from the plantImages list
+            // Knappar med bild på växter man har
             for (ImageIcon icon : plantImages) {
                 JButton plantButton = new JButton(icon);
                 plantButton.setFocusPainted(false);
@@ -41,13 +41,31 @@ public class GardenView extends JFrame {
                 plantButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        // Handle button click action here
-                        // You can use the ImageIcon associated with the button
-                        // to determine which plant button was clicked
+
                     }
                 });
                 add(plantButton);
             }
+
+            // en plus-knapp för att lägga till ny växt
+            ImageIcon plusIcon = new ImageIcon("src/Images/plusIcon.png"); // Replace "plus_image.png" with the path to your plus image
+            JButton addPlantButton = new JButton(plusIcon);
+            addPlantButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Show dialog or popup for adding a new plant
+                    newPlant();
+                }
+            });
+            add(addPlantButton);
+        }
+
+        /**
+         * Method to add a new plant to the garden
+         * @author Anna Granberg
+         */
+        public void newPlant(){
+
         }
     }
 
