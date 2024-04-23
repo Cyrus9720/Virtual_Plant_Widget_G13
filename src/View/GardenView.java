@@ -4,13 +4,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class GardenView extends JFrame {
 
     private int width = 300; // The width of the JFrame
     private int height = 450; // The height of the JFrame
+    private List<ImageIcon> plantImages;
 
-    public GardenView() {
+    public GardenView(List<ImageIcon> plantImages) {
+        this.plantImages = plantImages;
+
         setTitle("Your garden!");
         setSize(width, height);
         setResizable(false);
@@ -29,35 +33,20 @@ public class GardenView extends JFrame {
             setBackground(new Color(225, 240, 218));
             setLayout(new GridLayout(4, 3));
 
-            // Array of image paths for the buttons
-            String[] imagePaths = {
-                    "src/Images/RoseArt3.JPG",
-                    "src/Images/RoseArt2.JPG",
-                    "src/Images/RoseArt3.JPG",
-                    "src/Images/RoseArt3.JPG",
-                    "src/Images/RoseArt3.JPG",
-                    "src/Images/RoseArt3.JPG"
-
-                    // Add more paths for additional buttons
-            };
-
-            // Add plant buttons with images
-            for (String path : imagePaths) {
-                ImageIcon icon = new ImageIcon(path);
-                Image iconImage = icon.getImage();
-                Image scaledIconImage = iconImage.getScaledInstance(50, 75, Image.SCALE_SMOOTH);
-                ImageIcon scaledIcon = new ImageIcon(scaledIconImage);
-                JButton plantButton = new JButton(scaledIcon);
+            // Add plant buttons with images from the plantImages list
+            for (ImageIcon icon : plantImages) {
+                JButton plantButton = new JButton(icon);
                 plantButton.setFocusPainted(false);
                 plantButton.setBorderPainted(false);
                 plantButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        // Handle swapping of plants here
-                        ImageIcon currentIcon = (ImageIcon) plantButton.getIcon();
+                        // Handle button click action here
+                        // You can use the ImageIcon associated with the button
+                        // to determine which plant button was clicked
                     }
                 });
-                add(plantButton, new GridLayout(3, 2));
+                add(plantButton);
             }
         }
     }

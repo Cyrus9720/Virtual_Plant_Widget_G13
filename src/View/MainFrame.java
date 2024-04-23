@@ -35,6 +35,7 @@ public class MainFrame extends JFrame {
 
     /**
      * Sets up the main frame by configuring its properties, adding components, and making it visible.
+     *
      * @author annagranberg
      */
     public void setUpFrame() {
@@ -63,7 +64,7 @@ public class MainFrame extends JFrame {
         differentPlants.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                switchPlant();
+                // switchPlant();
             }
         });
 
@@ -88,6 +89,7 @@ public class MainFrame extends JFrame {
 
     /**
      * Displays a dialog box showing the game rules.
+     *
      * @author annagranberg
      */
     public void showRulesDialog() {
@@ -112,7 +114,12 @@ public class MainFrame extends JFrame {
     */
     }
 
-    public void switchPlant(){
-        GardenView gardenView = new GardenView();
-    }
+    /*public void switchPlant() {
+        List<ImageIcon> plantImages = controller.getPlantImages();
+
+        if (plantImages != null && !plantImages.isEmpty()) {
+            GardenView gardenView = new GardenView(plantImages);
+        }
+
+    }*/
 }
