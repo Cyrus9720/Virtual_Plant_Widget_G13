@@ -84,7 +84,7 @@ public class GardenView extends JDialog {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         // @todo: implementera kod för att kunna byta växt i centerPanel
-                        // controller.switchPlant();
+                        controller.switchPlant();
                     }
                 });
                 add(plantButton);

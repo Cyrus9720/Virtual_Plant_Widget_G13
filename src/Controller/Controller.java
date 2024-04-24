@@ -106,6 +106,10 @@ public class Controller {
         return plantImages;
     }
 
+    public void switchPlant(){
+        
+    }
+
     public void saveGame() {
         SaveGame.saveGame(getPlantList());
     }
