@@ -26,6 +26,7 @@ public class EastPanel extends JPanel
     private JButton Water; // Button for watering action
     private JLabel progressbarLabel;
     private Clip wateringSoundClip; // Declare a Clip object for playing the sound
+
     /**
      * Constructs a new EastPanel with the specified controller, width, and height.
      *
@@ -76,8 +77,9 @@ public class EastPanel extends JPanel
 
         progressbarLabel.setIcon(scaledIcon);
         add(progressbarLabel, BorderLayout.SOUTH);
-
+        
         // Load the sound file from the package and create a Clip object
+
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/sounds/watering.wav"));
             wateringSoundClip = AudioSystem.getClip();
