@@ -88,30 +88,12 @@ public class MainFrame extends JFrame {
     }
 
     /**
-     * Displays a dialog box showing the game rules.
+     * Displays gameRulesFrame showing the game rules.
      *
      * @author annagranberg
      */
     public void showRulesDialog() {
         GameRuleFrame gameRuleFrame = new GameRuleFrame();
-        /*String rules = "Game rules:\n1. Plant different types of plants and take care of them." +
-                        "\n2. Water your plants regularly to keep them healthy." +
-                        "\n3. Beware of deadlines for watering, or your plants may die." +
-                        "\n4. Harvest seeds from mature plants to grow new ones." +
-                        "\n5. Enjoy watching your garden flourish!";
-
-        Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
-        UIManager.put("OptionPane.messageFont", customFont);
-        UIManager.put("OptionPane.background", new Color(225, 240, 218));
-        UIManager.put("Panel.background", new Color(225, 240, 218));
-
-        ImageIcon customIcon = new ImageIcon("src/Images/img.png");
-        Image originalCustomImage = customIcon.getImage();
-        Image scaledIconImage = originalCustomImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-        ImageIcon scaledPlantImageIcon = new ImageIcon(scaledIconImage);
-
-        JOptionPane.showOptionDialog(null, rules, "Virtual Plant Widget", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, scaledPlantImageIcon, null, null);
-    */
     }
 
     public void switchPlant(){

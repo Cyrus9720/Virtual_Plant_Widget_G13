@@ -115,12 +115,26 @@ public class Controller {
         }
     }
 
+    public List<ImageIcon> getPlantImages() {
+        List<Plant> plantList = getPlantList();
+        List<ImageIcon> plantImages = new ArrayList<>();
+
+        // Omvandla Plant-objekten till ImageIcon-objekt
+        for (Plant plant : plantList) {
+            // Kontrollera om Plant-objektet har en bild
+            if (plant.getPlantPicture() != null) {
+                plantImages.add(plant.getPlantPicture());
+            }
+        }
+
+        return plantImages;
+    }
 
     public void saveGame() {
         SaveGame saveGame = new SaveGame(plantList);
     }
 
-    public List<Plant> getPlantList() {
+    public ArrayList<Plant> getPlantList() {
         return plantList;
     }
 
