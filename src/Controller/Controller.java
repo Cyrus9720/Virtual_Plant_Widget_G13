@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Controller {
     private MainFrame view;
-    private ArrayList<Plant> plantList = new ArrayList<>();
+    private List<Plant> plantList = new ArrayList<>();
     private CenterPanel centerPanel;
     private Plant currentPlant;
 
@@ -107,10 +107,10 @@ public class Controller {
     }
 
     public void saveGame() {
-        SaveGame saveGame = new SaveGame(plantList);
+        SaveGame.saveGame(getPlantList());
     }
 
-    public ArrayList<Plant> getPlantList() {
+    public List<Plant> getPlantList() {
         return plantList;
     }
 
