@@ -20,9 +20,6 @@ public class Controller {
 
 
     public Controller() {
-        // Skapa din lista över plantor och lägg till plantorna
-        //plantList.add(new Plant("Empty", PlantArt.POT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0));
-
         // Skapa ditt MainFrame-objekt efter att plantorna har skapats
         view = new MainFrame(this);
         // Skapa och konfigurera CenterPanel
@@ -38,6 +35,9 @@ public class Controller {
                 new Plant("TomatoPlant", PlantArt.TOMATO_PLANT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
         };
 
+        plantList.add(new Plant("Rose", PlantArt.ROSE, 0, new ImageIcon("src/Images/PotArt1.JPG"),0));
+        plantList.add(new Plant("Sunflower", PlantArt.SUNFLOWER, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0));
+        plantList.add(new Plant("TomatoPlant", PlantArt.TOMATO_PLANT, 0, new ImageIcon("src/Images/PotArt1.JPG"),0));
     }
 
     public void switchPlant(String id){
