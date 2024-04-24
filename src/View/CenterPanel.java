@@ -53,7 +53,4 @@ public class CenterPanel extends JPanel {
         return new ImageIcon(scaledImage); // Transform Image back to ImageIcon
     }
 
-    public void updatePanel() {
-        Sunflower sunflower = new Sunflower("Sunflower", PlantArt.SUNFLOWER, 0, new ImageIcon("src/Images/Sunflower3.JPG"), 0);
-    }
 }

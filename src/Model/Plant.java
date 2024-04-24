@@ -124,6 +124,11 @@ public class Plant {
         this.plantLevel = plantLevel;
     }
 
+    /**
+     * toString method
+     * @return textOut
+     * @author annagranberg
+     */
     public String toString(){
         String textOut = String.format("Plant art: %s | Plant name: %s | Plant level: %s | Times watered: %s | Number of lives: %s | Plant picture: %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture);
         return textOut;
