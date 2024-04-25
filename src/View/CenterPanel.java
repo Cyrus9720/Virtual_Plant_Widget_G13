@@ -39,7 +39,6 @@ public class CenterPanel extends JPanel {
      */
     public void updatePlantImage(ImageIcon newImage) {
         plantPicture = newImage;
-        System.out.println(plantPicture);
         plantLabel.setIcon(plantPicture);
         plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Scale and update the image
         repaint();  // Repaint the panel to update the image
