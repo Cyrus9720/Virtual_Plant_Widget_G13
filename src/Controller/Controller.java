@@ -16,18 +16,18 @@ public class Controller {
     private Plant currentPlant;
 
     public Controller() {
-
         // Skapa ditt MainFrame-objekt efter att plantorna har skapats
         view = new MainFrame(this);
 
-        // Load the game data
-        loadGame();
-
-        garden();
         // Skapa och konfigurera CenterPanel
         centerPanel = new CenterPanel(400, 400);
         view.add(centerPanel);
-        saveGame();
+
+        // Load the game data
+        loadGame();
+        // initialize garden
+        // garden();
+
     }
 
     private void garden() {
@@ -49,6 +49,7 @@ public class Controller {
         }
     }
 
+    // fungerar inte för tillfället
     public int getNbrOfLives() {
         if (!plantList.isEmpty()) { // Check if plantList is not empty
             Plant firstPlant = plantList.get(0); // Get the first plant if available
@@ -65,6 +66,7 @@ public class Controller {
         }
     }
 
+    // fungerar
     public int getTimesWatered(){
         if (!plantList.isEmpty()) { // Check if plantList is not empty
             Plant firstPlant = plantList.get(0); // Get the first plant if available
@@ -82,6 +84,7 @@ public class Controller {
         }
     }
 
+    // fungerar
     public int getPlantLevel(){
         if (!plantList.isEmpty()) { // Check if plantList is not empty
             Plant firstPlant = plantList.get(0); // Get the first plant if available
@@ -97,6 +100,7 @@ public class Controller {
         }
     }
 
+    // fungerar inte för tillfället / uppdaterar inte bilden när planta vattnas
     public List<ImageIcon> getPlantImages() {
         List<Plant> plantList = getPlantList();
         List<ImageIcon> plantImages = new ArrayList<>();

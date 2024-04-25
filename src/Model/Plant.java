@@ -26,7 +26,7 @@ public class Plant {
         this.timesWatered = 0;
         this.plantPicture = plantPicture;
         this.plantLevel = 0;
-        System.out.println("Plant created" + name);
+        // System.out.println("Plant created " + name);
     }
 
     /**
