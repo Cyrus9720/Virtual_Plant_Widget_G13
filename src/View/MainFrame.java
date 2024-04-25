@@ -22,7 +22,8 @@ public class MainFrame extends JFrame {
     private Controller controller; // reference to controller
     private int width = 600; // dimensions for frame size
     private int height = 800; // dimensions for frame size
-    private MainPanel mainPanel;
+    private MainPanel mainPanel; // reference to mainPanel
+    private GardenView gardenView; // reference to gardenView
 
     /**
      * Constructs a new MainFrame with the specified controller.
@@ -97,6 +98,6 @@ public class MainFrame extends JFrame {
     }
 
     public void switchPlant(){
-        GardenView gardenView = new GardenView(this, mainPanel.getCenterPanel(), controller);
+        gardenView = new GardenView(this, mainPanel.getCenterPanel(), controller);
     }
 }

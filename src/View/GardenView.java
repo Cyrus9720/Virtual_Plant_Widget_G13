@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,7 +63,10 @@ public class GardenView extends JDialog {
          */
         public GardenPanel() {
             // Hämta växtbilderna från controller
-            this.plantImages = controller.getPlantImages();
+            List<ImageIcon> scaledPlantImages = new ArrayList<>();
+            for (ImageIcon icon : plantImages) {
+                scaledPlantImages.add(scaleImageIcon(icon, 100, 100));
+            }
 
             if(plantImages == null){
                 System.err.println("Plant icons are null");
@@ -89,6 +93,12 @@ public class GardenView extends JDialog {
                 });
                 add(plantButton);
             }
+        }
+
+        private ImageIcon scaleImageIcon(ImageIcon imageIcon, int width, int height) {
+            Image image = imageIcon.getImage(); // Transform ImageIcon to Image
+            Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH); // Scale image
+            return new ImageIcon(scaledImage); // Transform Image back to ImageIcon
         }
     }
 }
