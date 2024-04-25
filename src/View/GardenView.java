@@ -17,6 +17,9 @@ public class GardenView extends JDialog {
     private int width = 300; // The width of the dialog
     private int height = 450; // The height of the dialog
 
+    //TODO: assistent added this
+    CenterPanel centerPanel;
+
     public GardenView(JFrame parentFrame, CenterPanel centerPanel, Controller controller) {
         super(parentFrame, "Your garden!", true); // modal dialog
         setSize(width, height);
@@ -27,6 +30,14 @@ public class GardenView extends JDialog {
         int xCoordinate = parentFrame.getX() - width;
         //int xCoordinate = parentFrame.getX() - centerPanel.getX() - 280; // Move to the left side by subtracting the width
         int yCoordinate = parentFrame.getY() + centerPanel.getY() - 12; // Adjust as needed
+
+
+
+        //TODO: assistent added this
+        this.centerPanel = centerPanel;
+
+
+
 
         // Set the location of GardenView relative to the CenterPanel
         setLocation(xCoordinate, yCoordinate);
@@ -71,9 +82,12 @@ public class GardenView extends JDialog {
                 plantButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        System.out.println("action listener says" + e.getActionCommand());
                         controller.switchPlant(e.getActionCommand());
                         controller.getPlantList();
-                        controller.addPlant(new TomatoPlant("Empty", PlantArt.POT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0));
+                        //centerPanel.getMainPanel().refreshBar();
+                        //controller.addPlant(e.getSource());
+                        //controller.addPlant(new TomatoPlant("Empty", PlantArt.POT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0));
                     }
                 });
 

@@ -18,32 +18,37 @@ public class Controller {
     private Plant currentPlant;
     private int nbrOfPlants = 0;
 
+    private int currentPlantIndex;
+
 
     public Controller() {
         // Skapa din lista över plantor och lägg till plantorna
-        //plantList.add(new Plant("Empty", PlantArt.POT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0));
+       // plantList.add(new Rose("Empty", PlantArt.POT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0));
 
         // Skapa ditt MainFrame-objekt efter att plantorna har skapats
         view = new MainFrame(this);
         // Skapa och konfigurera CenterPanel
-        centerPanel = new CenterPanel(400, 400);
-        view.add(centerPanel);
+        //centerPanel = new CenterPanel(400, 400);
+        //view.add(centerPanel);
         garden();
     }
 
     private void garden() {
         plants = new Plant[] {
-            new Plant("Rose", PlantArt.ROSE, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
-            new Plant("Sunflower", PlantArt.SUNFLOWER, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
-            new Plant("TomatoPlant", PlantArt.TOMATO_PLANT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+            new Rose("Rose", PlantArt.ROSE, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+            new Sunflower("Sunflower", PlantArt.SUNFLOWER, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+            new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
         };
 
     }
 
     public void switchPlant(String id){
         System.out.println(id + " " + plants[Integer.parseInt(id)].getPlantName());
-        centerPanel.updatePlantImage(plants[Integer.parseInt(id)].getPlantPicture());
-        centerPanel.updatePanel();
+        view.getCenterPanel().updatePlantImage(plants[Integer.parseInt(id)].getPlantPicture());
+        addPlant(plants[Integer.parseInt(id)]);
+        currentPlantIndex = Integer.parseInt(id);
+        view.getCenterPanel().getMainPanel().refreshBar();
+        //view.getCenterPanel().updatePanel(plantList.getFirst().getPlantPicture());
     }
 
     public void addPlant(Plant plant) {
@@ -54,10 +59,10 @@ public class Controller {
     public void buttonPressed(ButtonType button) {
         switch (button) {
             case Water:
-                Plant plant = plantList.get(0);
+                Plant plant = plants[currentPlantIndex]; //plantList.get(currentPlantIndex); //plantList.get(0);
                 plant.waterPlant();
                 ImageIcon updatedImage = plant.getPlantPicture();
-                centerPanel.updatePlantImage(updatedImage);
+                view.getCenterPanel().updatePlantImage(updatedImage);
 
                 break;
 
@@ -66,7 +71,7 @@ public class Controller {
 
     public int getNbrOfLives() {
         if (!plantList.isEmpty()) { // Check if plantList is not empty
-            Plant firstPlant = plantList.get(0); // Get the first plant if available
+            Plant firstPlant = plants[currentPlantIndex];//plantList.get(0); // Get the first plant if available
             if (firstPlant != null) { // Check if the first plant is not null
                 return firstPlant.getNbrOfLives();
             } else {
@@ -83,7 +88,7 @@ public class Controller {
 
     public int getTimesWatered(){
         if (!plantList.isEmpty()) { // Check if plantList is not empty
-            Plant firstPlant = plantList.get(0); // Get the first plant if available
+            Plant firstPlant = plants[currentPlantIndex];//plantList.get(0); // Get the first plant if available
             if (firstPlant != null) { // Check if the first plant is not null
                 System.out.println("times watered: " + firstPlant.getTimesWatered());
                 return firstPlant.getTimesWatered();
@@ -101,7 +106,7 @@ public class Controller {
 
     public int getPlantLevel(){
         if (!plantList.isEmpty()) { // Check if plantList is not empty
-            Plant firstPlant = plantList.get(0); // Get the first plant if available
+            Plant firstPlant = plants[currentPlantIndex];//plantList.get(0); // Get the first plant if available
             if (firstPlant != null) { // Check if the first plant is not null
                 return firstPlant.getPlantLevel();
             } else {
