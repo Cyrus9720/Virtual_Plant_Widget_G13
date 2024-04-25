@@ -21,12 +21,13 @@ public class Controller {
         view = new MainFrame(this);
 
         // Load the game data
-        LoadGame.loadGame(plantList);
+        loadGame();
 
         garden();
         // Skapa och konfigurera CenterPanel
         centerPanel = new CenterPanel(400, 400);
         view.add(centerPanel);
+        saveGame();
     }
 
     private void garden() {
@@ -117,6 +118,10 @@ public class Controller {
 
     public void saveGame() {
         SaveGame.saveGame(getPlantList());
+    }
+
+    public List<Plant> loadGame(){
+        return LoadGame.loadGame(plantList);
     }
 
     public List<Plant> getPlantList() {
