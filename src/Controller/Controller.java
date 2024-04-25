@@ -18,7 +18,7 @@ public class Controller {
     public Controller() {
         // Skapa ditt MainFrame-objekt efter att plantorna har skapats
         view = new MainFrame(this);
-        // LoadGame.loadGame();
+        LoadGame.loadGame(plantList);
         // Skapa och konfigurera CenterPanel
         centerPanel = new CenterPanel(400, 400);
         view.add(centerPanel);

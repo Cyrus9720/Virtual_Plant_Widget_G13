@@ -10,18 +10,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoadGame {
+    public static List<Plant> loadGame(List<Plant> plantList) {
+        plantList = new ArrayList<>();
 
-    public static List<Plant> loadGame() {
-        List<Plant> plantList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader("game_save.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
 
-                String[] plantData = line.split(","); // Split data assuming comma-separated values
+                String[] plantData = line.split(",");
                 String name = plantData[0];
-                PlantArt plantArt = PlantArt.valueOf(plantData[1]); // Antag att plantArt är en enum
+                PlantArt plantArt = PlantArt.valueOf(plantData[1]);
                 int nbrOfLives = Integer.parseInt(plantData[2]);
-                ImageIcon plantPicture = new ImageIcon(plantData[3]); // Antag att växtbilden är en sträng med filvägen till bilden
+                ImageIcon plantPicture = new ImageIcon(plantData[3]);
                 int plantLevel = Integer.parseInt(plantData[4]);
 
                 Plant plant = new Plant(name, plantArt, nbrOfLives, plantPicture, plantLevel);
