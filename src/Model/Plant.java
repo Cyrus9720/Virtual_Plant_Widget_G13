@@ -124,6 +124,11 @@ public class Plant {
         this.plantLevel = plantLevel;
     }
 
+    /**
+     * Method for getting the plantArt of the plant
+     * @return plantArt
+     * @author Anna Granberg
+     */
     public PlantArt getPlantArt() {
         return plantArt;
     }
@@ -131,7 +136,7 @@ public class Plant {
     /**
      * toString method
      * @return textOut
-     * @author annagranberg
+     * @author Anna Granberg
      */
     public String toString(){
         String textOut = String.format("Plant art: %s | Plant name: %s | Plant level: %s | Times watered: %s | Number of lives: %s | Plant picture: %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture);
