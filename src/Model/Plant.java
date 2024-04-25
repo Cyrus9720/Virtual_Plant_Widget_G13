@@ -124,6 +124,10 @@ public class Plant {
         this.plantLevel = plantLevel;
     }
 
+    public PlantArt getPlantArt() {
+        return plantArt;
+    }
+
     /**
      * toString method
      * @return textOut

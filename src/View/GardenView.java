@@ -63,7 +63,7 @@ public class GardenView extends JDialog {
          */
         public GardenPanel() {
             // Hämta växtbilderna från controller
-            List<ImageIcon> scaledPlantImages = new ArrayList<>();
+            List<ImageIcon> scaledPlantImages = controller.getPlantImages();
             for (ImageIcon icon : plantImages) {
                 scaledPlantImages.add(scaleImageIcon(icon, 100, 100));
             }

@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.FileWriter;
 import java.util.List;
 
 /**
@@ -42,8 +42,20 @@ public class LoadGame {
                 ImageIcon plantPicture = new ImageIcon(plantData[5].trim().split(":")[1].trim());
                 int plantLevel = Integer.parseInt(plantData[2].trim().split(":")[1].trim());
 
-                Plant plant = new Plant(name, plantArt, nbrOfLives, plantPicture, plantLevel);
-                plantList.add(plant);
+                // Check if a plant with the same name and art already exists in plantList
+                boolean alreadyExists = false;
+                for (Plant plant : plantList) {
+                    if (plant.getPlantName().equals(name) && plant.getPlantArt() == plantArt) {
+                        alreadyExists = true;
+                        break;
+                    }
+                }
+
+                // Add the plant to plantList only if it doesn't already exist
+                if (!alreadyExists) {
+                    Plant plant = new Plant(name, plantArt, nbrOfLives, plantPicture, plantLevel);
+                    plantList.add(plant);
+                }
             }
             System.out.println("Game loaded successfully.");
         } catch (IOException e) {
@@ -51,8 +63,21 @@ public class LoadGame {
         } catch (IllegalArgumentException e) {
             System.err.println("Error parsing data from save file: " + e.getMessage());
         }
+        String filePath = "game_save.txt"; // Ange sökvägen till din fil här
+        clearFile(filePath);
 
         return plantList; // Return the populated list of Plant objects
     }
 
+
+    public static void clearFile(String filePath) {
+        try {
+            FileWriter writer = new FileWriter(filePath, false);
+            writer.write(""); // Skriver över befintligt innehåll med en tom sträng
+            writer.close();
+            System.out.println("File content cleared successfully.");
+        } catch (IOException e) {
+            System.err.println("Error clearing file content: " + e.getMessage());
+        }
+    }
 }
