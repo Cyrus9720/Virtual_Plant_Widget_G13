@@ -26,14 +26,14 @@ public class Controller {
         // Load the game data
         loadGame();
         // initialize garden
-        // garden();
+        garden();
 
     }
 
     private void garden() {
-        plantList.add(new Plant("Rose", PlantArt.ROSE, 0, new ImageIcon("src/Images/PotArt1.JPG"),0));
-        plantList.add(new Plant("Sunflower", PlantArt.SUNFLOWER, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0));
-        plantList.add(new Plant("TomatoPlant", PlantArt.TOMATO_PLANT, 0, new ImageIcon("src/Images/PotArt1.JPG"),0));
+        plantList.add(new Rose("Rose", PlantArt.ROSE, 0, new ImageIcon("src/Images/PotArt1.JPG"),0));
+        plantList.add(new Sunflower("Sunflower", PlantArt.SUNFLOWER, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0));
+        plantList.add(new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 0, new ImageIcon("src/Images/PotArt1.JPG"),0));
     }
 
     public void buttonPressed(ButtonType button) {
