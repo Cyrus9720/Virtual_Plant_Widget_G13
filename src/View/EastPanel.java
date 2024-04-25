@@ -110,6 +110,7 @@ public class EastPanel extends JPanel
      * The water level depends on the plant's level and the number of times it has been watered.
      *
      * @return ImageIcon representing the water progress bar.
+     * @author Anna Granberg
      */
     public ImageIcon updateWaterProgress() {
         int timesWatered = controller.getTimesWatered();

@@ -16,13 +16,13 @@ public class Controller {
     private Plant currentPlant;
 
     public Controller() {
+        garden();
         // Skapa ditt MainFrame-objekt efter att plantorna har skapats
         view = new MainFrame(this);
-        LoadGame.loadGame(plantList);
+        // LoadGame.loadGame(plantList);
         // Skapa och konfigurera CenterPanel
         centerPanel = new CenterPanel(400, 400);
         view.add(centerPanel);
-        garden();
     }
 
     private void garden() {
