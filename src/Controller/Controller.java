@@ -21,18 +21,16 @@ public class Controller {
     private int nbrOfPlants;
 
     public Controller() {
-        // Skapa ditt MainFrame-objekt efter att plantorna har skapats
+        // initialize mainframe
         view = new MainFrame(this);
 
-        // Skapa och konfigurera CenterPanel
-        //centerPanel = new CenterPanel(400, 400);
-       // view.add(centerPanel);
-
-        // Load the game data
+        // Load the saved game data
         loadGame();
+
         // initialize garden
         garden();
 
+        // check the watering status
         checkWateringStatus();
     }
 
@@ -109,11 +107,10 @@ public class Controller {
         }
     }
 
-    // fungerar
     public int getTimesWatered(){
-        if (!plantList.isEmpty()) { // Check if plantList is not empty
-            Plant firstPlant = plantList.get(0); // Get the first plant if available
-            if (firstPlant != null) { // Check if the first plant is not null
+        if (!plantList.isEmpty()) {
+            Plant firstPlant = plantList.get(0);
+            if (firstPlant != null) {
                 System.out.println("times watered: " + firstPlant.getTimesWatered());
                 return firstPlant.getTimesWatered();
 
@@ -129,9 +126,9 @@ public class Controller {
 
     // fungerar
     public int getPlantLevel(){
-        if (!plantList.isEmpty()) { // Check if plantList is not empty
-            Plant firstPlant = plantList.get(0); // Get the first plant if available
-            if (firstPlant != null) { // Check if the first plant is not null
+        if (!plantList.isEmpty()) {
+            Plant firstPlant = plantList.get(0);
+            if (firstPlant != null) {
                 return firstPlant.getPlantLevel();
             } else {
                 System.err.println("First plant is null");
