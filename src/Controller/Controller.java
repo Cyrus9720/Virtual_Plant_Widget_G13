@@ -25,8 +25,8 @@ public class Controller {
         view = new MainFrame(this);
 
         // Skapa och konfigurera CenterPanel
-        centerPanel = new CenterPanel(400, 400);
-        view.add(centerPanel);
+        //centerPanel = new CenterPanel(400, 400);
+       // view.add(centerPanel);
 
         // Load the game data
         loadGame();
