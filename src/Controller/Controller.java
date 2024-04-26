@@ -17,6 +17,7 @@ import java.util.List;
 public class Controller {
     private MainFrame view;
     private List<Plant> plantList = new ArrayList<>();
+    private Plant[] plants;
     private CenterPanel centerPanel;
     private Plant currentPlant;
     private int currentPlantIndex;
@@ -38,13 +39,13 @@ public class Controller {
     }
 
     private void garden() {
-        if (plantList.isEmpty()) {
-            plantList.add(new Rose("Rose", PlantArt.ROSE, 3, 0,new ImageIcon("src/Images/PotArt1.JPG"), 0));
-            plantList.add(new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0));
-            plantList.add(new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3,0, new ImageIcon("src/Images/PotArt1.JPG"),0));
-        }
-    }
+        plants = new Plant[] {
+                new Rose("Rose", PlantArt.ROSE, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+                new Sunflower("Sunflower", PlantArt.SUNFLOWER, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+                new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+        };
 
+    }
     public void buttonPressed(ButtonType button) {
         switch (button) {
             case Water:
