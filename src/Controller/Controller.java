@@ -62,6 +62,7 @@ public class Controller {
                 Plant plant = plants[currentPlantIndex]; //plantList.get(currentPlantIndex); //plantList.get(0);
                 plant.waterPlant();
                 ImageIcon updatedImage = plant.getPlantPicture();
+                System.out.println(updatedImage);
                 view.getCenterPanel().updatePlantImage(updatedImage);
 
                 break;

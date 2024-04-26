@@ -23,9 +23,9 @@ public class Plant {
         this.name = name;
         this.plantArt = plantArt;
         nbrOfLives = 3;
-        this.timesWatered = 0;
+        this.timesWatered = timesWatered;
         this.plantPicture = plantPicture;
-        this.plantLevel = 0;
+        this.plantLevel = plantLevel;
         System.out.println("Plant created" + name);
     }
 

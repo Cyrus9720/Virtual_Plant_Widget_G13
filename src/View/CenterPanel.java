@@ -21,11 +21,8 @@ public class CenterPanel extends JPanel {
         setPreferredSize(new Dimension(320, 485));
         setBackground(new Color(225, 240, 218));
 
-
         //TODO: assistent added this
         this.mainPanel = mainPanel;
-
-
 
         plantPicture = new ImageIcon("src/Images/PotArt1.JPG"); // Default image
 
@@ -55,8 +52,9 @@ public class CenterPanel extends JPanel {
     public void updatePlantImage(ImageIcon newImage) {
         plantPicture = newImage;
         System.out.println(plantPicture.toString());
-        plantLabel.setIcon(plantPicture);
+        //plantLabel.setIcon(plantPicture);
         plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Scale and update the image
+        this.revalidate();
         this.repaint();  // Repaint the panel to update the image
     }
 
