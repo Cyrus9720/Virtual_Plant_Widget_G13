@@ -6,12 +6,9 @@ import View.CenterPanel;
 import View.MainFrame;
 
 import javax.swing.*;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Controller {
@@ -21,6 +18,7 @@ public class Controller {
     private CenterPanel centerPanel;
     private Plant currentPlant;
     private int currentPlantIndex;
+    private int nbrOfPlants;
 
     public Controller() {
         // Skapa ditt MainFrame-objekt efter att plantorna har skapats
@@ -40,9 +38,9 @@ public class Controller {
 
     private void garden() {
         plants = new Plant[] {
-                new Rose("Rose", PlantArt.ROSE, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
-                new Sunflower("Sunflower", PlantArt.SUNFLOWER, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
-                new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+                new Rose("Rose", PlantArt.ROSE, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+                new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+                new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
         };
 
     }
@@ -167,6 +165,11 @@ public class Controller {
         currentPlantIndex = Integer.parseInt(id);
         view.getCenterPanel().getMainPanel().refreshBar();
         //view.getCenterPanel().updatePanel(plantList.getFirst().getPlantPicture());
+    }
+
+    public void addPlant(Plant plant) {
+        plantList.add(plant);
+        nbrOfPlants++;
     }
 
     public void saveGame() {
