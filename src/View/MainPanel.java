@@ -17,6 +17,8 @@ public class MainPanel extends JPanel
 {
     private BorderLayout layout; // Layout manager for the panel
     private Controller controller; // Reference to controller
+    private CenterPanel centerPanel;
+    private EastPanel eastPanel;
 
     /**
      * Constructs a new MainPanel with the specified controller, width, and height.
@@ -36,10 +38,10 @@ public class MainPanel extends JPanel
         Border margin = BorderFactory.createEmptyBorder(12, 12, 12, 12);
         setBorder(new CompoundBorder(border, margin));
 
-        EastPanel eastPanel = new EastPanel(controller, width/2-60, height-130);
+        eastPanel = new EastPanel(controller, width/2-60, height-130);
         add(eastPanel, BorderLayout.EAST);
 
-        CenterPanel centerPanel = new CenterPanel(300, 450);
+        centerPanel = new CenterPanel(300, 450, this);
         add(centerPanel, BorderLayout.CENTER);
 
         SouthPanel northPanel = new SouthPanel(controller, width, 300);
@@ -47,6 +49,14 @@ public class MainPanel extends JPanel
         setVisible(true);
 
         JLabel plantInfoLabel = new JLabel("Plant information");
+    }
 
+    //TODO: assistent added this
+    public void refreshBar() {
+        eastPanel.refreshBar();
+    }
+
+    public CenterPanel getCenterPanel() {
+        return centerPanel;
     }
 }

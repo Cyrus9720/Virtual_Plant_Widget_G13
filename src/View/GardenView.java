@@ -1,25 +1,49 @@
 package View;
+import Controller.Controller;
+import Model.Plant;
+import Model.PlantArt;
+import Model.Sunflower;
+import Model.TomatoPlant;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
-public class GardenView extends JFrame {
+public class GardenView extends JDialog {
 
-    private int width = 300; // The width of the JFrame
-    private int height = 450; // The height of the JFrame
+    private Controller controller;
+    private int width = 300; // The width of the dialog
+    private int height = 450; // The height of the dialog
 
-    public GardenView() {
-        setTitle("Your garden!");
+    //TODO: assistent added this
+    CenterPanel centerPanel;
+
+    public GardenView(JFrame parentFrame, CenterPanel centerPanel, Controller controller) {
+        super(parentFrame, "Your garden!", true); // modal dialog
         setSize(width, height);
         setResizable(false);
+        this.controller = controller;
+
+        // Calculate the location relative to the CenterPanel
+        int xCoordinate = parentFrame.getX() - width;
+        //int xCoordinate = parentFrame.getX() - centerPanel.getX() - 280; // Move to the left side by subtracting the width
+        int yCoordinate = parentFrame.getY() + centerPanel.getY() - 12; // Adjust as needed
+
+
+
+        //TODO: assistent added this
+        this.centerPanel = centerPanel;
+
+
+
+
+        // Set the location of GardenView relative to the CenterPanel
+        setLocation(xCoordinate, yCoordinate);
 
         GardenPanel gardenPanel = new GardenPanel();
-        add(gardenPanel, BorderLayout.CENTER);
-
-        NorthPanel northPanel = new NorthPanel();
-        add(northPanel, BorderLayout.NORTH);
+        add(gardenPanel);
 
         setVisible(true);
     }
@@ -32,44 +56,45 @@ public class GardenView extends JFrame {
             // Array of image paths for the buttons
             String[] imagePaths = {
                     "src/Images/RoseArt3.JPG",
-                    "src/Images/RoseArt2.JPG",
-                    "src/Images/RoseArt3.JPG",
+                    "src/Images/Sunflower3.JPG",
+                    "src/Images/Tomatoe3.JPG",
                     "src/Images/RoseArt3.JPG",
                     "src/Images/RoseArt3.JPG",
                     "src/Images/RoseArt3.JPG"
-
                     // Add more paths for additional buttons
             };
 
-            // Add plant buttons with images
-            for (String path : imagePaths) {
-                ImageIcon icon = new ImageIcon(path);
+            generateButtons(imagePaths); // Call the method to generate buttons
+        }
+
+        // Add plant buttons with images
+        public void generateButtons(String[] imagePaths) {
+            for (int i = 0; i < imagePaths.length; i++) {
+                ImageIcon icon = new ImageIcon(imagePaths[i]);
                 Image iconImage = icon.getImage();
                 Image scaledIconImage = iconImage.getScaledInstance(50, 75, Image.SCALE_SMOOTH);
                 ImageIcon scaledIcon = new ImageIcon(scaledIconImage);
-                JButton plantButton = new JButton(scaledIcon);
+                JButton plantButton = new JButton(String.valueOf(i));
+                plantButton.setIcon(scaledIcon);
                 plantButton.setFocusPainted(false);
                 plantButton.setBorderPainted(false);
+
                 plantButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         // Handle swapping of plants here
                         ImageIcon currentIcon = (ImageIcon) plantButton.getIcon();
+                        System.out.println("action listener says" + e.getActionCommand());
+                        controller.switchPlant(e.getActionCommand());
+                        controller.getPlantList();
+                        //centerPanel.getMainPanel().refreshBar();
+                        //controller.addPlant(e.getSource());
+                        //controller.addPlant(new TomatoPlant("Empty", PlantArt.POT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0));
                     }
                 });
-                add(plantButton, new GridLayout(3, 2));
+
+                add(plantButton);
             }
-        }
-    }
-
-    private class NorthPanel extends JPanel {
-        public NorthPanel() {
-            setBackground(new Color(225, 240, 218));
-
-            JLabel plantInfo = new JLabel("<html> Choose which plant you want to manage! </html>");
-            plantInfo.setPreferredSize(new Dimension(100, 60));
-            plantInfo.setFont(new Font("Bebas Neue", Font.BOLD, 12));
-            add(plantInfo);
         }
     }
 }
