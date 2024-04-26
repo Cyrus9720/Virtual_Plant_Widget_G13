@@ -10,8 +10,8 @@ import java.io.FileWriter;
 import java.util.List;
 
 /**
- * A utility class for loading game data from a save file.
- * This class provides a static method to load game data from a file and populate a list of Plant objects.
+ * A class for loading game data from a saved file.
+ * This class provides a static method to load game data from a file and populate a list of Plants.
  * Each line in the save file should contain data for a single Plant object, with attributes separated by '|' characters.
  * The expected format for each line is:
  * "Plant art: [ART] | Plant name: [NAME] | Plant level: [LEVEL] | Times watered: [WATERED] | Number of lives: [LIVES] | Plant picture: [PICTURE_PATH]"
