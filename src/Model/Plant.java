@@ -1,6 +1,6 @@
 package Model;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 
 public class Plant {
     private String name;
@@ -48,6 +48,7 @@ public class Plant {
                 setTimesWatered(0);
                 if (plantLevel == 3) {
                     System.out.println("Plant is fully grown");
+                    //JOptionPane.showMessageDialog(null, "The plant is now fully grown.", "Fully Grown", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         }
