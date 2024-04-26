@@ -1,7 +1,5 @@
 package View;
 
-import Model.*;
-
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -10,7 +8,6 @@ public class CenterPanel extends JPanel {
 
     private ImageIcon plantPicture;
     private JLabel plantLabel;
-    private Plant currentPlant;
     private MainPanel mainPanel;
 
     private static final int IMAGE_WIDTH = 300; // Desired width for scaled images

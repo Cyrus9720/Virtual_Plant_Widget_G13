@@ -49,7 +49,7 @@ public class MainFrame extends JFrame {
 
         mainPanel = new MainPanel(controller, width, height);
         setContentPane(mainPanel);
-        centerPanel = new CenterPanel(400,400, mainPanel);
+        //centerPanel = new CenterPanel(400,400, mainPanel);
 
         JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(new Color(225, 240, 218));
@@ -121,6 +121,6 @@ public class MainFrame extends JFrame {
     }
 
     public CenterPanel getCenterPanel() {
-        return centerPanel;
+        return mainPanel.getCenterPanel();
     }
 }
