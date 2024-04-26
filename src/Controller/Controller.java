@@ -158,8 +158,13 @@ public class Controller {
         return plantImages;
     }
 
-    public void switchPlant(){
-        // @todo implementera logik för att byta planta i gardenview
+    public void switchPlant(String id){
+        System.out.println(id + " " + plants[Integer.parseInt(id)].getPlantName());
+        view.getCenterPanel().updatePlantImage(plants[Integer.parseInt(id)].getPlantPicture());
+        addPlant(plants[Integer.parseInt(id)]);
+        currentPlantIndex = Integer.parseInt(id);
+        view.getCenterPanel().getMainPanel().refreshBar();
+        //view.getCenterPanel().updatePanel(plantList.getFirst().getPlantPicture());
     }
 
     public void saveGame() {
