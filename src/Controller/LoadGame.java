@@ -46,11 +46,15 @@ public class LoadGame {
                 int timesWatered = Integer.parseInt(plantData[3].trim().split(":")[1].trim());
                 int nbrOfLives = Integer.parseInt(plantData[4].trim().split(":")[1].trim());
                 ImageIcon plantPicture = new ImageIcon(plantData[5].trim().split(":")[1].trim());
-                Timestamp lastWatered = Timestamp.valueOf((plantData[6].trim().split(":")[1].trim()));
 
                 // track the time
                 timestamp = Timestamp.valueOf(plantData[7].trim().split(":")[1].trim());
 
+                String timestampString = plantData[6].trim().split(":")[1].trim();
+                if (!timestampString.endsWith(".000")) {
+                    timestampString += ".000";
+                }
+                Timestamp lastWatered = Timestamp.valueOf(timestampString);
 
                 // Check if a plant with the same name and art already exists in plantList to not duplicate plants
                 boolean alreadyExists = false;
