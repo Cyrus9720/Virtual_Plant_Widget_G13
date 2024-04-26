@@ -1,7 +1,9 @@
 package Model;
 
 import javax.swing.ImageIcon;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class Plant {
     private String name;
@@ -134,12 +136,12 @@ public class Plant {
         return plantArt;
     }
 
-    public Timestamp getLastWatered() {
-        return lastWatered;
-    }
-
     public void setLastWatered(Timestamp lastWatered) {
         this.lastWatered = lastWatered;
+    }
+
+    public Timestamp getLastWatered() {
+        return lastWatered;
     }
 
     /**

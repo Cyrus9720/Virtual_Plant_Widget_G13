@@ -8,7 +8,10 @@ import View.MainFrame;
 import javax.swing.*;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Controller {
@@ -46,7 +49,9 @@ public class Controller {
             case Water:
                 Plant plant = plantList.get(0);
                 plant.waterPlant();
+
                 plant.setLastWatered(new Timestamp(System.currentTimeMillis()));
+
                 ImageIcon updatedImage = plant.getPlantPicture();
                 centerPanel.updatePlantImage(updatedImage);
 
@@ -62,18 +67,22 @@ public class Controller {
      */
     private void checkWateringStatus() {
         Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
         for (Plant plant : plantList) {
-            Timestamp lastWatered = plant.getLastWatered();
+            Timestamp lastWatered = plant.getLastWatered(); // Retrieve the Timestamp object
+
             if (lastWatered == null) {
                 System.err.println("Plant last watered timestamp is null");
                 continue; // Skip this plant and move on to the next one
             }
 
+            String lastWateredString = dateFormat.format(lastWatered); // Format the Timestamp as a string
+
             long timeSinceLastWatered = currentTimestamp.getTime() - lastWatered.getTime();
+            long wateringInterval = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
-            long wateringInterval = 24 * 60 * 60 * 1000; // 24 timmar i millisekunder
-
-            System.out.println("Last watered: " + lastWatered);
+            System.out.println("Last watered: " + lastWateredString);
 
             if (timeSinceLastWatered >= wateringInterval) {
                 // Plant needs to be watered
@@ -83,7 +92,7 @@ public class Controller {
     }
 
 
-    // fungerar inte för tillfället
+    // fungerar inte för tillfället ?
     public int getNbrOfLives() {
         if (!plantList.isEmpty()) { // Check if plantList is not empty
             Plant firstPlant = plantList.get(0); // Get the first plant if available
@@ -92,11 +101,11 @@ public class Controller {
             } else {
                 // Handle the case when the first plant is null
                 System.err.println("First plant is null");
-                return 0;
+                return 3;
             }
         } else {
-            System.err.println("Plant list is empty");
-            return 0;
+             System.err.println("Plant list is empty");
+            return 3;
         }
     }
 
@@ -134,7 +143,6 @@ public class Controller {
         }
     }
 
-    // fungerar inte för tillfället / uppdaterar inte bilden när planta vattnas
     public List<ImageIcon> getPlantImages() {
         List<Plant> plantList = getPlantList();
         List<ImageIcon> plantImages = new ArrayList<>();
