@@ -88,6 +88,11 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
+    public void timeToWater(){
+        String message = "It's time to water the plant!\nDon't forget to give it some love and hydration.";
+        JOptionPane.showMessageDialog(null, message, "Plant Watering Reminder", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     /**
      * Displays gameRulesFrame showing the game rules.
      *

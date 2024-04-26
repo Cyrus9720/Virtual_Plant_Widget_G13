@@ -65,7 +65,7 @@ public class Controller {
         for (Plant plant : plantList) {
             Timestamp lastWatered = plant.getLastWatered();
             if (lastWatered == null) {
-                System.out.println("Plant last watered timestamp is null");
+                System.err.println("Plant last watered timestamp is null");
                 continue; // Skip this plant and move on to the next one
             }
 
@@ -77,10 +77,11 @@ public class Controller {
 
             if (timeSinceLastWatered >= wateringInterval) {
                 // Plant needs to be watered
-                System.out.println("Water the plant: " + plant.getPlantName());
+                view.timeToWater();
             }
         }
     }
+
 
     // fungerar inte för tillfället
     public int getNbrOfLives() {
