@@ -6,6 +6,8 @@ import View.CenterPanel;
 import View.MainFrame;
 
 import javax.swing.*;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +50,31 @@ public class Controller {
 
                 break;
 
+        }
+    }
+
+    /**
+     * Checks if the plants need to be watered based on a certain timestamp.
+     *
+     * @param plantList  The list of plants to check.
+     * @param timestamp  The current timestamp to compare against.
+     * @author Anna Granberg
+     */
+
+    public static void checkWateringStatus(List<Plant> plantList, Timestamp timestamp) {
+        for (Plant plant : plantList) {
+            Timestamp lastWatered = plant.getLastWatered();
+            long timeSinceLastWatered = timestamp.getTime() - lastWatered.getTime();
+
+            // Adjust the desired watering interval as needed
+            long wateringInterval = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
+            System.out.println("Last watered: " + lastWatered);
+
+            if (timeSinceLastWatered >= wateringInterval) {
+                // Plant needs to be watered
+                System.out.println("Water the plant: " + plant.getPlantName());
+            }
         }
     }
 

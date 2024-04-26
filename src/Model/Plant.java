@@ -1,6 +1,7 @@
 package Model;
 
 import javax.swing.ImageIcon;
+import java.sql.Timestamp;
 
 public class Plant {
     private String name;
@@ -9,6 +10,7 @@ public class Plant {
     private ImageIcon plantPicture;
     private int plantLevel;
     private PlantArt plantArt;
+    private Timestamp lastWatered;
 
     /**
      * Constructor for Plant
@@ -130,6 +132,14 @@ public class Plant {
      */
     public PlantArt getPlantArt() {
         return plantArt;
+    }
+
+    public Timestamp getLastWatered() {
+        return lastWatered;
+    }
+
+    public void setLastWatered(Timestamp lastWatered) {
+        this.lastWatered = lastWatered;
     }
 
     /**
