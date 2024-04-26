@@ -1,1 +1,1 @@
-Plant art: ROSE | Plant name: Rose | Plant level: 1 | Times watered: 0 | Number of lives: 3 | Plant picture: src/Images/RoseArt1.JPG | Last time watered: 2024-04-26 12:17:32.162 | Timestamp: 2024-04-26 12:17:34
+Plant art: ROSE | Plant name: Rose | Plant level: 0 | Times watered: 0 | Number of lives: 3 | Plant picture: src/Images/PotArt1.JPG | Last time watered: null | Timestamp: 2024-04-26 12:21:13

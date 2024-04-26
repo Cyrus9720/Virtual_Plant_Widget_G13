@@ -90,6 +90,10 @@ public class MainFrame extends JFrame {
 
     public void timeToWater(){
         String message = "It's time to water the plant!\nDon't forget to give it some love and hydration.";
+        Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
+        UIManager.put("OptionPane.messageFont", customFont);
+        UIManager.put("OptionPane.background", new Color(225, 240, 218));
+        UIManager.put("Panel.background", new Color(225, 240, 218));
         JOptionPane.showMessageDialog(null, message, "Plant Watering Reminder", JOptionPane.INFORMATION_MESSAGE);
     }
 
