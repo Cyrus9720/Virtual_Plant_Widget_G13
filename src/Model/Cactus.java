@@ -15,7 +15,7 @@ public class Cactus extends Plant {
      */
 
     public Cactus(String name, PlantArt plantArt,int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel) {
-        super(name, plantArt,nbrOfLives, plantPicture, plantLevel);
+        super(name, plantArt,nbrOfLives, timesWatered, plantPicture, plantLevel);
     }
 
     private void updateImage() {

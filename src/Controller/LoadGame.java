@@ -16,7 +16,7 @@ import java.util.List;
  * This class provides a static method to load game data from a file and populate a list of Plants.
  * Each line in the save file should contain data for a single Plant object, with attributes separated by '|' characters.
  * The expected format for each line is:
- * "Plant art: [ART] | Plant name: [NAME] | Plant level: [LEVEL] | Times watered: [WATERED] | Number of lives: [LIVES] | Plant picture: [PICTURE_PATH] | Timestamp: [TIME_STAMP]"
+ * "Plant art: [ART] | Plant name: [NAME] | Plant level: [LEVEL] | Times watered: [WATERED] | Number of lives: [LIVES] | Plant picture: [PICTURE_PATH] | Last time watered: [LAST_WATER] | Timestamp: [TIME_STAMP]"
  *
  * @author Anna Granberg
  */
@@ -31,10 +31,11 @@ public class LoadGame {
      */
     public static List<Plant> loadGame(List<Plant> plantList) {
         try (BufferedReader reader = new BufferedReader(new FileReader("game_save.txt"))) {
+
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] plantData = line.split("\\|"); // Split
-                if (plantData.length != 6) { // Check if the data format is valid
+                if (plantData.length != 8) { // Check if the data format is valid
                     System.err.println("Invalid data format in save file: " + line);
                     continue;
                 }
@@ -45,9 +46,10 @@ public class LoadGame {
                 int timesWatered = Integer.parseInt(plantData[3].trim().split(":")[1].trim());
                 int nbrOfLives = Integer.parseInt(plantData[4].trim().split(":")[1].trim());
                 ImageIcon plantPicture = new ImageIcon(plantData[5].trim().split(":")[1].trim());
+                Timestamp lastWatered = Timestamp.valueOf((plantData[6].trim().split(":")[1].trim()));
 
                 // track the time
-                timestamp = Timestamp.valueOf(plantData[6].trim().split(":")[1].trim());
+                timestamp = Timestamp.valueOf(plantData[7].trim().split(":")[1].trim());
 
 
                 // Check if a plant with the same name and art already exists in plantList to not duplicate plants
@@ -61,7 +63,8 @@ public class LoadGame {
 
                 // Add the plant to plantList only if it doesn't already exist
                 if (!alreadyExists) {
-                    Plant plant = new Plant(name, plantArt, nbrOfLives, plantPicture, plantLevel);
+                    Plant plant = new Plant(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel);
+                    plant.setLastWatered(lastWatered);
                     plantList.add(plant);
                 }
             }

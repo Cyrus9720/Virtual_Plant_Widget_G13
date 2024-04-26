@@ -30,11 +30,12 @@ public class Controller {
         // initialize garden
         garden();
 
+        checkWateringStatus();
     }
 
     private void garden() {
         if (plantList.isEmpty()) {
-            plantList.add(new Rose("Rose", PlantArt.ROSE, 3, new ImageIcon("src/Images/PotArt1.JPG"), 0));
+            plantList.add(new Rose("Rose", PlantArt.ROSE, 3, 0,new ImageIcon("src/Images/PotArt1.JPG"), 0));
             // plantList.add(new Sunflower("Sunflower", PlantArt.SUNFLOWER, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0));
             // plantList.add(new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 0, new ImageIcon("src/Images/PotArt1.JPG"),0));
         }
@@ -45,6 +46,7 @@ public class Controller {
             case Water:
                 Plant plant = plantList.get(0);
                 plant.waterPlant();
+                plant.setLastWatered(new Timestamp(System.currentTimeMillis()));
                 ImageIcon updatedImage = plant.getPlantPicture();
                 centerPanel.updatePlantImage(updatedImage);
 
@@ -54,20 +56,22 @@ public class Controller {
     }
 
     /**
-     * Checks if the plants need to be watered based on a certain timestamp.
+     * Checks if the plants need to be watered based on a certain timestamp (24h).
      *
-     * @param plantList  The list of plants to check.
-     * @param timestamp  The current timestamp to compare against.
      * @author Anna Granberg
      */
-
-    public static void checkWateringStatus(List<Plant> plantList, Timestamp timestamp) {
+    private void checkWateringStatus() {
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
         for (Plant plant : plantList) {
             Timestamp lastWatered = plant.getLastWatered();
-            long timeSinceLastWatered = timestamp.getTime() - lastWatered.getTime();
+            if (lastWatered == null) {
+                System.out.println("Plant last watered timestamp is null");
+                continue; // Skip this plant and move on to the next one
+            }
 
-            // Adjust the desired watering interval as needed
-            long wateringInterval = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+            long timeSinceLastWatered = currentTimestamp.getTime() - lastWatered.getTime();
+
+            long wateringInterval = 24 * 60 * 60 * 1000; // 24 timmar i millisekunder
 
             System.out.println("Last watered: " + lastWatered);
 
