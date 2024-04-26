@@ -64,9 +64,7 @@ public class Controller {
                 ImageIcon updatedImage = plant.getPlantPicture();
                 System.out.println(updatedImage);
                 view.getCenterPanel().updatePlantImage(updatedImage);
-
                 break;
-
         }
     }
 
@@ -120,7 +118,6 @@ public class Controller {
             return 0;
         }
     }
-
 
     public void saveGame() {
         SaveGame saveGame = new SaveGame(plantList);
