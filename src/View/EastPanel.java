@@ -79,7 +79,6 @@ public class EastPanel extends JPanel
         add(progressbarLabel, BorderLayout.SOUTH);
         
         // Load the sound file from the package and create a Clip object
-
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/sounds/watering.wav"));
             wateringSoundClip = AudioSystem.getClip();

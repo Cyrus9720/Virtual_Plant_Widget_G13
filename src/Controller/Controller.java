@@ -8,12 +8,18 @@ import View.MainFrame;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Controller {
 
     private MainFrame view;
     private List<Plant> plantList = new ArrayList<>();
     private CenterPanel centerPanel;
+
+    private Timer timer; //Timer for updating plant status
+
+    private static final long UPDATE_INTERVAL = 1000; //update interval (1 second)
 
 
     public Controller() {
@@ -26,6 +32,25 @@ public class Controller {
         // Skapa och konfigurera CenterPanel
         centerPanel = new CenterPanel(400, 400);
         view.add(centerPanel);
+
+        startTimer(); //start the timer for updating plant status
+    }
+
+    private void startTimer(){ //method to start the timer
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                updatePlants();
+            }
+        }, 0, UPDATE_INTERVAL);
+    }
+
+    private void updatePlants(){ // method to update plant status
+        long elapsedTime = UPDATE_INTERVAL; //Elapsed time since the last update
+        for ( Plant plant: plantList){
+            plant.update(elapsedTime); // update each plant's status
+        }
     }
 
     public void buttonPressed(ButtonType button) {

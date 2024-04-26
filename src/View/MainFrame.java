@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import Controller.SaveGame;
+import Model.Plant;
 
 /**
  * The MainFrame class represents the main frame of the application.
@@ -45,6 +46,11 @@ public class MainFrame extends JFrame {
 
         MainPanel mainPanel = new MainPanel(controller, width, height);
         setContentPane(mainPanel);
+
+        Plant myPlant= new Plant(null, null, 0, null, 0);
+
+        CenterPanel centerPanel = new CenterPanel(width, height);
+        centerPanel.updatePlantLevelLabel(myPlant.getPlantLevel());
 
         JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(new Color(225, 240, 218));
@@ -115,3 +121,4 @@ public class MainFrame extends JFrame {
         GardenView gardenView = new GardenView();
     }
 }
+

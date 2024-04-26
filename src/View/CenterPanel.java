@@ -1,20 +1,30 @@
 package View;
-
+import Model.Plant;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import javax.swing.JLabel;
 
 public class CenterPanel extends JPanel {
 
     private ImageIcon plantPicture;
     private JLabel plantLabel;
 
+    private JProgressBar healthBar; //A progress bar to display plant health
+
+    private JLabel agingLabel; // A label to display aging information
+
+    private JLabel plantLevelLabel;
+
     private static final int IMAGE_WIDTH = 300; // Desired width for scaled images
     private static final int IMAGE_HEIGHT = 450; // Desired height for scaled images
 
+    private static final long YOUNG_THRESHOLD = 3000; // Threshold for young age (e.g., 5 minutes)
+    private static final long MATURE_THRESHOLD = 6000; //10m
+
 
     public CenterPanel(int width, int height) {
-        setPreferredSize(new Dimension(320, 485));
+        setPreferredSize(new Dimension(3200, 450));
         setBackground(new Color(225, 240, 218));
 
         plantPicture = new ImageIcon("src/Images/PotArt1.JPG"); // Default image
@@ -30,7 +40,33 @@ public class CenterPanel extends JPanel {
         Image scaledPlantPictureImage = plantPictureImage.getScaledInstance(200,200, Image.SCALE_SMOOTH);
         // ImageIcon scaledPlantPictureIcon = new ImageIcon(scaledPlantPictureImage); //Oklart om detta behövs //Cyrus
         add(plantLabel);
+
+        healthBar = new JProgressBar(0, 300); // progress bar for health
+        healthBar.setStringPainted(true); // display the health value as text
+        add(healthBar);
+
+        agingLabel = new JLabel("Aging : Young"); //Label for aging info
+        add(agingLabel);
+
+        plantLevelLabel = new JLabel("Plant Level: ");
+        add(plantLevelLabel);
     }
+
+    public void updatePlantLevelLabel(int plantLevel){
+        plantLevelLabel.setText("Plant Level: " + plantLevel);
+    }
+    public void updateAgingLabel(Plant plant){
+        long age = plant.getAge();
+
+        if (age < Plant.YOUNG_THRESHOLD){
+            agingLabel.setText("Aging: Young");
+        }else if ( age < Plant.MATURE_THRESHOLD){
+            agingLabel.setText("Aging: Middle-aged");
+        } else {
+            agingLabel.setText("Aging: Mature");
+        }}
+
+
 
     /**
      * Updates the image of the plant in the center panel.
