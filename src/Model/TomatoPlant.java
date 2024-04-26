@@ -4,8 +4,8 @@ import javax.swing.*;
 
 public class TomatoPlant extends Plant{
 
-    public TomatoPlant(String name, PlantArt plantArt, int timesWatered, ImageIcon plantPicture, int plantLevel) {
-        super(name, plantArt, timesWatered, plantPicture, plantLevel);
+    public TomatoPlant(String name, PlantArt plantArt,int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel) {
+        super(name, plantArt, nbrOfLives, plantPicture, plantLevel);
     }
 
     @Override

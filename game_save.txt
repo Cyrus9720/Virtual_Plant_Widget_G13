@@ -1,2 +1,0 @@
-Plant art: ROSE | Plant name: Rose | Plant level: 3 | Times watered: 6 | Number of lives: 3 | Plant picture: src/Images/RoseArt2.JPG
-Plant art: ROSE | Plant name: Rose | Plant level: 0 | Times watered: 0 | Number of lives: 3 | Plant picture: src/Images/PotArt1.JPG

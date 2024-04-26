@@ -36,13 +36,14 @@ public class LoadGame {
                     continue;
                 }
                 // Extract data for each attribute
-                String name = plantData[1].trim().split(":")[1].trim();
                 PlantArt plantArt = PlantArt.valueOf(plantData[0].trim().split(":")[1].trim());
+                String name = plantData[1].trim().split(":")[1].trim();
+                int plantLevel = Integer.parseInt(plantData[2].trim().split(":")[1].trim());
+                int timesWatered = Integer.parseInt(plantData[3].trim().split(":")[1].trim());
                 int nbrOfLives = Integer.parseInt(plantData[4].trim().split(":")[1].trim());
                 ImageIcon plantPicture = new ImageIcon(plantData[5].trim().split(":")[1].trim());
-                int plantLevel = Integer.parseInt(plantData[2].trim().split(":")[1].trim());
 
-                // Check if a plant with the same name and art already exists in plantList
+                // Check if a plant with the same name and art already exists in plantList to not duplicate plants
                 boolean alreadyExists = false;
                 for (Plant plant : plantList) {
                     if (plant.getPlantName().equals(name) && plant.getPlantArt() == plantArt) {
@@ -63,10 +64,10 @@ public class LoadGame {
         } catch (IllegalArgumentException e) {
             System.err.println("Error parsing data from save file: " + e.getMessage());
         }
-        String filePath = "game_save.txt"; // Ange sökvägen till din fil här
+        String filePath = "game_save.txt";
         clearFile(filePath);
 
-        return plantList; // Return the populated list of Plant objects
+        return plantList; // Return the list of Plant objects
     }
 
 

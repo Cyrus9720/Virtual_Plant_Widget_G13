@@ -65,15 +65,15 @@ public class SouthPanel extends JPanel
                 heartsIcon = new ImageIcon("src/Images/tommaHjärtan.png");
                 break;
             case 1:
-                // Display one heart
+                // If there is one life left, display one heart
                 heartsIcon = new ImageIcon("src/Images/ettHjärta.png");
                 break;
             case 2:
-                // Display two hearts
+                // If there are two lives left, display two hearts
                 heartsIcon = new ImageIcon("src/Images/tvåHjärtan.png");
                 break;
             case 3:
-                // Display three hearts
+                // If there are three lives left, display three hearts
                 heartsIcon = new ImageIcon("src/Images/treHjärtan.png");
                 break;
             default:
