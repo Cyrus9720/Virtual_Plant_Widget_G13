@@ -36,12 +36,16 @@ public class Plant {
      * @author Cyrus Shaerpour
      */
     public void waterPlant() {
+        // Increment the timesWatered count
         setTimesWatered(getTimesWatered() + 1);
+
+        // Check if the plant is fully grown
         if (plantLevel < 3) {
+            // If the number of times watered matches the current plant level,
+            // increase the plant level and reset the times watered
             if (getTimesWatered() == plantLevel + 1) {
                 setPlantLevel(getPlantLevel() + 1);
                 setTimesWatered(0);
-                //System.out.println("Plant level " + plantLevel);
                 if (plantLevel == 3) {
                     System.out.println("Plant is fully grown");
                 }

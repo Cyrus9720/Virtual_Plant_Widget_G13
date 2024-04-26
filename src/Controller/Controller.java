@@ -22,14 +22,7 @@ public class Controller {
 
 
     public Controller() {
-        // Skapa din lista över plantor och lägg till plantorna
-       // plantList.add(new Rose("Empty", PlantArt.POT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0));
-
-        // Skapa ditt MainFrame-objekt efter att plantorna har skapats
         view = new MainFrame(this);
-        // Skapa och konfigurera CenterPanel
-        //centerPanel = new CenterPanel(400, 400);
-        //view.add(centerPanel);
         garden();
     }
 
@@ -59,10 +52,20 @@ public class Controller {
     public void buttonPressed(ButtonType button) {
         switch (button) {
             case Water:
-                Plant plant = plants[currentPlantIndex]; //plantList.get(currentPlantIndex); //plantList.get(0);
+                // Check if the plant list is empty
+                if (plantList.isEmpty()) {
+                    // Display error message
+                    JOptionPane.showMessageDialog(null, "The pot is empty. Choose a plant to water first.", "Empty Pot", JOptionPane.INFORMATION_MESSAGE);
+
+                    return;
+                }
+
+                // Get the current plant from the array of plants
+                Plant plant = plants[currentPlantIndex];
+                // Water the plant
                 plant.waterPlant();
+                // Update the plant image in the view
                 ImageIcon updatedImage = plant.getPlantPicture();
-                System.out.println(updatedImage);
                 view.getCenterPanel().updatePlantImage(updatedImage);
                 break;
         }
@@ -98,7 +101,7 @@ public class Controller {
                 return 0;
             }
         } else {
-            System.err.println("Plant list is empty");
+            System.err.println("Plant list is empty water");
             return 0;
         }
     }
@@ -114,7 +117,7 @@ public class Controller {
                 return 0;
             }
         } else {
-            System.err.println("Plant list is empty");
+            System.err.println("Plant list is empty level");
             return 0;
         }
     }
