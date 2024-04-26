@@ -19,6 +19,7 @@ public class Controller {
     private List<Plant> plantList = new ArrayList<>();
     private CenterPanel centerPanel;
     private Plant currentPlant;
+    private int currentPlantIndex;
 
     public Controller() {
         // Skapa ditt MainFrame-objekt efter att plantorna har skapats
