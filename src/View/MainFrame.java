@@ -25,6 +25,9 @@ public class MainFrame extends JFrame {
     private MainPanel mainPanel; // reference to mainPanel
     private GardenView gardenView; // reference to gardenView
 
+    private CenterPanel centerPanel;
+
+
     /**
      * Constructs a new MainFrame with the specified controller.
      *
@@ -47,6 +50,7 @@ public class MainFrame extends JFrame {
 
         mainPanel = new MainPanel(controller, width, height);
         setContentPane(mainPanel);
+        //centerPanel = new CenterPanel(400,400, mainPanel);
 
         JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(new Color(225, 240, 218));
@@ -108,5 +112,9 @@ public class MainFrame extends JFrame {
 
     public void switchPlant(){
         gardenView = new GardenView(this, mainPanel.getCenterPanel(), controller);
+    }
+
+    public CenterPanel getCenterPanel() {
+        return mainPanel.getCenterPanel();
     }
 }

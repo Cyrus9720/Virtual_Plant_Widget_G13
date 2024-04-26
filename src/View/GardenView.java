@@ -9,16 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
-
-/**
- * The GardenView class represents a dialog window displaying the user's garden.
- * It provides a graphical interface for the user to interact with the plants in the garden.
- * The dialog includes a panel showing buttons with images of the plants in the garden.
- * Each button allows the user to select a plant for further interaction.
- * @author annagranberg
- */
 
 public class GardenView extends JDialog {
 
@@ -26,22 +17,29 @@ public class GardenView extends JDialog {
     private int width = 300; // The width of the dialog
     private int height = 450; // The height of the dialog
 
-    /**
-     * Constructs a new GardenView dialog.
-     *
-     * @param parentFrame   The parent frame for this dialog.
-     * @param centerPanel   The center panel associated with the parent frame.
-     * @param controller    The controller handling interactions with the model.
-     */
+    //TODO: assistent added this
+    CenterPanel centerPanel;
+
     public GardenView(JFrame parentFrame, CenterPanel centerPanel, Controller controller) {
         super(parentFrame, "Your garden!", true); // modal dialog
         setSize(width, height);
         setResizable(false);
         this.controller = controller;
 
+        // Calculate the location relative to the CenterPanel
         int xCoordinate = parentFrame.getX() - width;
-        int yCoordinate = parentFrame.getY() + centerPanel.getY() - 12;
+        //int xCoordinate = parentFrame.getX() - centerPanel.getX() - 280; // Move to the left side by subtracting the width
+        int yCoordinate = parentFrame.getY() + centerPanel.getY() - 12; // Adjust as needed
 
+
+
+        //TODO: assistent added this
+        this.centerPanel = centerPanel;
+
+
+
+
+        // Set the location of GardenView relative to the CenterPanel
         setLocation(xCoordinate, yCoordinate);
 
         GardenPanel gardenPanel = new GardenPanel();
@@ -50,55 +48,53 @@ public class GardenView extends JDialog {
         setVisible(true);
     }
 
-    /**
-     * The GardenPanel class represents the panel displaying the garden in the dialog.
-     */
     private class GardenPanel extends JPanel {
-        private int width = 300; // The width of the JFrame
-        private int height = 450; // The height of the JFrame
-        private List<ImageIcon> plantImages;
-
-        /**
-         * Constructs a new GardenPanel.
-         */
         public GardenPanel() {
-            // Hämta växtbilderna från controller
-            List<ImageIcon> scaledPlantImages = controller.getPlantImages();
-            for (ImageIcon icon : plantImages) {
-                scaledPlantImages.add(scaleImageIcon(icon, 100, 100));
-            }
-
-            if(plantImages == null){
-                System.err.println("Plant icons are null");
-            }
-
-            setTitle("Your garden!");
-            setSize(width, height);
-            setResizable(false);
-
             setBackground(new Color(225, 240, 218));
             setLayout(new GridLayout(4, 3));
 
-            // Knappar med bild på växter man har
-            for (ImageIcon icon : plantImages) {
-                JButton plantButton = new JButton(icon);
+            // Array of image paths for the buttons
+            String[] imagePaths = {
+                    "src/Images/RoseArt3.JPG",
+                    "src/Images/Sunflower3.JPG",
+                    "src/Images/Tomatoe3.JPG",
+                    "src/Images/RoseArt3.JPG",
+                    "src/Images/RoseArt3.JPG",
+                    "src/Images/RoseArt3.JPG"
+                    // Add more paths for additional buttons
+            };
+
+            generateButtons(imagePaths); // Call the method to generate buttons
+        }
+
+        // Add plant buttons with images
+        public void generateButtons(String[] imagePaths) {
+            for (int i = 0; i < imagePaths.length; i++) {
+                ImageIcon icon = new ImageIcon(imagePaths[i]);
+                Image iconImage = icon.getImage();
+                Image scaledIconImage = iconImage.getScaledInstance(50, 75, Image.SCALE_SMOOTH);
+                ImageIcon scaledIcon = new ImageIcon(scaledIconImage);
+                JButton plantButton = new JButton(String.valueOf(i));
+                plantButton.setIcon(scaledIcon);
                 plantButton.setFocusPainted(false);
                 plantButton.setBorderPainted(false);
+
                 plantButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        // @todo: implementera kod för att kunna byta växt i centerPanel
-                        controller.switchPlant();
+                        // Handle swapping of plants here
+                        ImageIcon currentIcon = (ImageIcon) plantButton.getIcon();
+                        System.out.println("action listener says" + e.getActionCommand());
+                        controller.switchPlant(e.getActionCommand());
+                        controller.getPlantList();
+                        //centerPanel.getMainPanel().refreshBar();
+                        //controller.addPlant(e.getSource());
+                        //controller.addPlant(new TomatoPlant("Empty", PlantArt.POT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0));
                     }
                 });
+
                 add(plantButton);
             }
-        }
-
-        private ImageIcon scaleImageIcon(ImageIcon imageIcon, int width, int height) {
-            Image image = imageIcon.getImage(); // Transform ImageIcon to Image
-            Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH); // Scale image
-            return new ImageIcon(scaledImage); // Transform Image back to ImageIcon
         }
     }
 }

@@ -104,6 +104,10 @@ public class EastPanel extends JPanel
 
     }
 
+    public void refreshBar(){
+        progressbarLabel.setIcon(updateWaterProgress());
+    }
+
     /**
      * Updates the water progress indicator.
      * This method updates the progress bar to indicate the water level of the plant.
