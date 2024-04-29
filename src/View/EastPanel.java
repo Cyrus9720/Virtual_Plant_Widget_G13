@@ -77,14 +77,6 @@ public class EastPanel extends JPanel
         progressbarLabel.setIcon(scaledIcon);
         add(progressbarLabel, BorderLayout.SOUTH);
 
-        try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/sounds/watering.wav"));
-            wateringSoundClip = AudioSystem.getClip();
-            wateringSoundClip.open(audioInputStream);
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-
         // Adding ActionListener to the water button
         Water.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -94,12 +86,10 @@ public class EastPanel extends JPanel
                     System.out.println("Water button clicked");
 
                     //Play the watering sound
-                    if(wateringSoundClip != null){
-                        wateringSoundClip.setFramePosition(0);
-                        wateringSoundClip.start(); //to start playing the sound
+                        //wateringSoundClip.start(); //to start playing the sound
                     }
                 }
-            }
+
         });
 
     }
