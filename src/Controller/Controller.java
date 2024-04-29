@@ -9,6 +9,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +45,6 @@ public class Controller {
         addPlant(plants[Integer.parseInt(id)]);
         currentPlantIndex = Integer.parseInt(id);
         view.getCenterPanel().getMainPanel().refreshBar();
-        //view.getCenterPanel().updatePanel(plantList.getFirst().getPlantPicture());
     }
 
     public void addPlant(Plant plant) {
@@ -69,6 +69,7 @@ public class Controller {
                 // Update the plant image in the view
                 ImageIcon updatedImage = plant.getPlantPicture();
                 view.getCenterPanel().updatePlantImage(updatedImage);
+                plant.setLastWatered(new Timestamp((System.currentTimeMillis())));
 
                 try {
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/sounds/watering.wav"));
