@@ -101,6 +101,16 @@ public class MainFrame extends JFrame {
         JOptionPane.showMessageDialog(null, message, "Plant Watering Reminder", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    public void welcomeBackMessage(){
+        String message = "Welcome back! It's been " + controller.getTimeSinceLastPlayed() + " since you played"; // todo: insert some time method
+        Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
+        UIManager.put("OptionPane.messageFont", customFont);
+        UIManager.put("OptionPane.background", new Color(225, 240, 218));
+        UIManager.put("Panel.background", new Color(225, 240, 218));
+        JOptionPane.showMessageDialog(null, message, "Welcome back", JOptionPane.INFORMATION_MESSAGE);
+
+    }
+
     /**
      * Displays gameRulesFrame showing the game rules.
      *

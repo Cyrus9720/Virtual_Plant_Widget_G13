@@ -5,6 +5,7 @@ import Model.Plant;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 
 public class SaveGame {
+    private static Timestamp timestamp;
 
     /**
      * Saves the game data to a file, including a timestamp at the end of each line.
@@ -36,7 +38,8 @@ public class SaveGame {
 
                 // Get the current time
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String timestamp = dateFormat.format(new Date());
+                timestamp = Timestamp.valueOf(dateFormat.format(new Date()));
+
 
                 // Add the time to the end of the line
                 data += " | Timestamp: " + timestamp;
@@ -48,5 +51,9 @@ public class SaveGame {
         } catch (IOException e) {
             System.err.println("Error saving game: " + e.getMessage());
         }
+    }
+
+    public static Timestamp getTimestamp() {
+        return timestamp;
     }
 }

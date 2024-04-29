@@ -79,7 +79,7 @@ public class LoadGame {
             System.err.println("Error parsing data from save file: " + e.getMessage());
         }
         String filePath = "game_save.txt";
-        clearFile(filePath);
+      //  clearFile(filePath);
 
         return plantList; // Return the list of Plant objects
     }

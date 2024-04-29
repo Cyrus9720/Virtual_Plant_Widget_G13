@@ -9,7 +9,9 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,15 +20,15 @@ public class Controller {
     private MainFrame view;
     private ArrayList<Plant> plantList = new ArrayList<>();
     private Plant[] plants;
-    private CenterPanel centerPanel;
     private Plant currentPlant;
-    private int nbrOfPlants = 0;
+    // private int nbrOfPlants = 0;
     private Clip wateringSoundClip; // Declare wateringSoundClip variable
     private int currentPlantIndex;
 
 
     public Controller() {
         view = new MainFrame(this);
+        loadGame();
         garden();
     }
 
@@ -49,7 +51,7 @@ public class Controller {
 
     public void addPlant(Plant plant) {
         plantList.add(plant);
-        nbrOfPlants++;
+        // nbrOfPlants++;
     }
 
     public void buttonPressed(ButtonType button) {
@@ -88,6 +90,35 @@ public class Controller {
                     }
                 }
                 break;
+        }
+    }
+
+    /**
+     * Checks if the plants need to be watered based on a certain timestamp (24h).
+     *
+     * @author Anna Granberg
+     */
+    private void checkWateringStatus() {
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        for (Plant plant : plantList) {
+            Timestamp lastWatered = plant.getLastWatered(); // Retrieve the Timestamp object
+
+            if (lastWatered == null) {
+                System.err.println("Plant last watered timestamp is null");
+                continue; // Skip this plant and move on to the next one
+            }
+
+            String lastWateredString = dateFormat.format(lastWatered); // Format the Timestamp as a string
+
+            long timeSinceLastWatered = currentTimestamp.getTime() - lastWatered.getTime();
+            long wateringInterval = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
+            if (timeSinceLastWatered >= wateringInterval) {
+                // Plant needs to be watered
+                view.timeToWater();
+            }
         }
     }
 
@@ -146,6 +177,11 @@ public class Controller {
         SaveGame.saveGame(plantList);
     }
 
+    public void loadGame(){
+        LoadGame.loadGame(plantList);
+        view.welcomeBackMessage();
+    }
+
     public ArrayList<Plant> getPlantList() {
         return plantList;
     }
@@ -157,4 +193,20 @@ public class Controller {
     public void setCurrentPlant(Plant newPlant) {
         currentPlant = newPlant;
     }
+
+    public long getTimeSinceLastPlayed() {
+        Timestamp timeWhenClosed = SaveGame.getTimestamp();
+        Timestamp timeWhenOpened = LoadGame.getTimestamp();
+
+        long timeClosedMillis = timeWhenClosed.getTime();
+        long timeOpenedMillis = timeWhenOpened.getTime();
+
+        long timeSinceLastPlayedMillis = timeOpenedMillis - timeClosedMillis;
+
+        // Convert milliseconds to seconds if needed
+        long timeSinceLastPlayedSeconds = timeSinceLastPlayedMillis / 1000;
+
+        return timeSinceLastPlayedSeconds;
+    }
+
 }
