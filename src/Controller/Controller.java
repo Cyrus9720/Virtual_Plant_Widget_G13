@@ -31,9 +31,9 @@ public class Controller {
 
     private void garden() {
         plants = new Plant[] {
-            new Rose("Rose", PlantArt.ROSE, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
-            new Sunflower("Sunflower", PlantArt.SUNFLOWER, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
-            new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+            new Rose("Rose", PlantArt.ROSE, 3, 0,new ImageIcon("src/Images/PotArt1.JPG"), 0),
+            new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+            new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
         };
 
     }
@@ -142,10 +142,10 @@ public class Controller {
     }
 
     public void saveGame() {
-        SaveGame saveGame = new SaveGame(plantList);
+        SaveGame.saveGame(plantList);
     }
 
-    public List<Plant> getPlantList() {
+    public ArrayList<Plant> getPlantList() {
         return plantList;
     }
 

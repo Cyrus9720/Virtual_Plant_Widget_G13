@@ -6,6 +6,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class SaveGame {
      * @return void
      * @author Anna Granberg
      */
-    public static void saveGame(List<Plant> plantList) {
+    public static void saveGame(ArrayList<Plant> plantList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("game_save.txt"))) {
             // Write each plant's data to the file
             for (Plant plant : plantList) {
