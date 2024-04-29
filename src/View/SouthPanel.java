@@ -49,10 +49,15 @@ public class SouthPanel extends JPanel
         threeHeartsLabel = new JLabel(updateAmountOfLife());
         add(threeHeartsLabel, BorderLayout.WEST);
 
-        JLabel plantInfo = new JLabel("<html>More information about your plant, coming soon...</html>");
-        plantInfo.setPreferredSize(new Dimension(100, 60));
-        plantInfo.setFont(new Font("Bebas Neue", Font.BOLD, 10));
-        add(plantInfo, BorderLayout.EAST);
+        try{
+            JLabel plantInfo = new JLabel(controller.getPlantInfo());
+            plantInfo.setPreferredSize(new Dimension(100, 60));
+            plantInfo.setFont(new Font("Bebas Neue", Font.BOLD, 10));
+            add(plantInfo, BorderLayout.EAST);
+        } catch (Exception e){
+            System.err.println("Could not retrieve plantinfo");
+        }
+
     }
 
     public ImageIcon updateAmountOfLife() {

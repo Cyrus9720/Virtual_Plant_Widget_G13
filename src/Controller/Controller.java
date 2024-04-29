@@ -9,6 +9,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
+import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -99,7 +100,6 @@ public class Controller {
      */
     private void checkWateringStatus() {
         Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         for (Plant plant : plantList) {
             Timestamp lastWatered = plant.getLastWatered(); // Retrieve the Timestamp object
@@ -109,7 +109,8 @@ public class Controller {
                 continue; // Skip this plant and move on to the next one
             }
 
-            String lastWateredString = dateFormat.format(lastWatered); // Format the Timestamp as a string
+            // Parse the lastWatered Timestamp to Date object
+            Date lastWateredDate = new Date(lastWatered.getTime());
 
             long timeSinceLastWatered = currentTimestamp.getTime() - lastWatered.getTime();
             long wateringInterval = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
@@ -193,6 +194,12 @@ public class Controller {
         currentPlant = newPlant;
     }
 
+    public String getPlantInfo(){
+        Plant plant = plantList.get(0);
+        String plantInfo = plant.getPlantinfo();
+        return plantInfo;
+    }
+    
     public long getTimeSinceLastPlayed() {
         Timestamp timeWhenClosed = SaveGame.getTimestamp();
         Timestamp timeWhenOpened = LoadGame.getTimestamp();
