@@ -11,6 +11,7 @@ public class Plant {
     private int timesWatered;
     private ImageIcon plantPicture;
     private int plantLevel;
+    private String plantinfo;
     private PlantArt plantArt;
     private Timestamp lastWatered;
 
@@ -142,6 +143,10 @@ public class Plant {
 
     public Timestamp getLastWatered() {
         return lastWatered;
+    }
+
+    public String getPlantinfo() {
+        return plantinfo;
     }
 
     /**

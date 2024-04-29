@@ -56,20 +56,10 @@ public class LoadGame {
                 }
                 Timestamp lastWatered = Timestamp.valueOf(timestampString);
 
-                // Check if a plant with the same name and art already exists in plantList to not duplicate plants
-                boolean alreadyExists = false;
-                for (Plant plant : plantList) {
-                    if (plant.getPlantName().equals(name) && plant.getPlantArt() == plantArt) {
-                        alreadyExists = true;
-                        break;
-                    }
-                }
-
-                // Add the plant to plantList only if it doesn't already exist
-                if (!alreadyExists) {
-                    Plant plant = new Plant(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel);
-                    plant.setLastWatered(lastWatered);
-                    plantList.add(plant);
+                Plant existingPlant = findPlantByName(plantList, name);
+                if (existingPlant != null) {
+                    existingPlant.setTimesWatered(existingPlant.getTimesWatered() + timesWatered);
+                    existingPlant.setLastWatered(lastWatered);
                 }
             }
             System.out.println("Game loaded successfully.");
@@ -86,6 +76,15 @@ public class LoadGame {
 
     public static Timestamp getTimestamp() {
         return timestamp;
+    }
+
+    public static Plant findPlantByName(List<Plant> plantList, String name) {
+        for (Plant plant : plantList) {
+            if (plant.getPlantName().equals(name)) {
+                return plant; // Returnerar växten om den hittas
+            }
+        }
+        return null; // Returnerar null om växten inte hittas
     }
 
     public static void clearFile(String filePath) {

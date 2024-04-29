@@ -25,11 +25,10 @@ public class Controller {
     private Clip wateringSoundClip; // Declare wateringSoundClip variable
     private int currentPlantIndex;
 
-
     public Controller() {
-        view = new MainFrame(this);
-        loadGame();
         garden();
+        loadGame();
+        view = new MainFrame(this);
     }
 
     private void garden() {
@@ -179,7 +178,7 @@ public class Controller {
 
     public void loadGame(){
         LoadGame.loadGame(plantList);
-        view.welcomeBackMessage();
+        // view.welcomeBackMessage();
     }
 
     public ArrayList<Plant> getPlantList() {
