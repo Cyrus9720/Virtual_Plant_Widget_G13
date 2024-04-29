@@ -45,18 +45,20 @@ public class Controller {
     public void buttonPressed(ButtonType button) {
         switch (button) {
             case Water:
-                Plant plant = plantList.get(0);
-                plant.waterPlant();
+                if (!plantList.isEmpty()) {
+                    Plant plant = plantList.get(0);
+                    plant.waterPlant();
+                    plant.setLastWatered(new Timestamp(System.currentTimeMillis()));
 
-                plant.setLastWatered(new Timestamp(System.currentTimeMillis()));
-
-                ImageIcon updatedImage = plant.getPlantPicture();
-                centerPanel.updatePlantImage(updatedImage);
-
+                    ImageIcon updatedImage = plant.getPlantPicture();
+                    centerPanel.updatePlantImage(updatedImage);
+                } else {
+                    System.out.println("No plants available to water.");
+                }
                 break;
-
         }
     }
+
 
     /**
      * Checks if the plants need to be watered based on a certain timestamp (24h).

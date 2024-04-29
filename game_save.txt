@@ -1,3 +1,0 @@
-Plant art: ROSE | Plant name: Rose | Plant level: 2 | Times watered: 2 | Number of lives: 3 | Plant picture: src/Images/RoseArt2.JPG | Last time watered: 2024-04-26 12:52:07.991 | Timestamp: 2024-04-26 12:52:20
-Plant art: SUNFLOWER | Plant name: Sunflower | Plant level: 0 | Times watered: 0 | Number of lives: 3 | Plant picture: src/Images/PotArt1.JPG | Last time watered: null | Timestamp: 2024-04-26 12:52:20
-Plant art: TOMATO_PLANT | Plant name: TomatoPlant | Plant level: 0 | Times watered: 0 | Number of lives: 3 | Plant picture: src/Images/PotArt1.JPG | Last time watered: null | Timestamp: 2024-04-26 12:52:20
