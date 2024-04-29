@@ -137,6 +137,8 @@ public class Plant {
     }
 
     public void setLastWatered(Timestamp lastWatered) {
+        lastWatered = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         this.lastWatered = lastWatered;
     }
 

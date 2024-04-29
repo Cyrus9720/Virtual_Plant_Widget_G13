@@ -51,7 +51,7 @@ public class Controller {
                     plant.setLastWatered(new Timestamp(System.currentTimeMillis()));
 
                     ImageIcon updatedImage = plant.getPlantPicture();
-                    centerPanel.updatePlantImage(updatedImage);
+                    view.getCenterPanel().updatePlantImage(updatedImage);
                 } else {
                     System.out.println("No plants available to water.");
                 }
@@ -81,8 +81,6 @@ public class Controller {
 
             long timeSinceLastWatered = currentTimestamp.getTime() - lastWatered.getTime();
             long wateringInterval = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-
-            System.out.println("Last watered: " + lastWateredString);
 
             if (timeSinceLastWatered >= wateringInterval) {
                 // Plant needs to be watered
