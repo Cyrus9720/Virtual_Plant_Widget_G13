@@ -78,12 +78,13 @@ public class Controller {
             }
 
             String lastWateredString = dateFormat.format(lastWatered); // Format the Timestamp as a string
+            plant.setLastWatered(Timestamp.valueOf(lastWateredString));
 
             long timeSinceLastWatered = currentTimestamp.getTime() - lastWatered.getTime();
             long wateringInterval = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
             if (timeSinceLastWatered >= wateringInterval) {
-                // Plant needs to be watered
+                // if plant needs to be watered
                 view.timeToWater();
             }
         }
