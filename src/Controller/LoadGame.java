@@ -14,6 +14,7 @@ import java.util.List;
 public class LoadGame {
     private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
     private static LocalDateTime timestamp;
+    private static Plant plant;
 
     /**
      * Loads game data from a saved file and populates a list of Plant objects.
@@ -43,16 +44,16 @@ public class LoadGame {
                 LocalDateTime lastPlayed = parseTimestamp(plantData[7].trim().split(";")[1].trim());
 
                 // Create a new Plant object based on plant type
-                Plant plant;
+
                 switch (plantArt) {
                     case ROSE:
-                        plant = new Rose(name, plantArt, timesWatered, nbrOfLives, plantPicture,plantLevel);
+                        plant = new Rose(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel);
                         break;
                     case SUNFLOWER:
-                        plant = new Sunflower(name, plantArt, timesWatered, nbrOfLives, plantPicture, plantLevel);
+                        plant = new Sunflower(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel);
                         break;
                     case TOMATO_PLANT:
-                        plant = new TomatoPlant(name, plantArt, timesWatered, nbrOfLives, plantPicture, plantLevel);
+                        plant = new TomatoPlant(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel);
                         break;
                     default:
                         System.err.println("Unknown plant type: " + plantType);
@@ -91,6 +92,10 @@ public class LoadGame {
             }
         }
         return null; // Return null if the plant is not found
+    }
+
+    public static Plant getPlant() {
+        return plant;
     }
 
     public static LocalDateTime getTimestamp() {

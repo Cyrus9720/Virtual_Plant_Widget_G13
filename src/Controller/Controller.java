@@ -21,8 +21,9 @@ public class Controller {
     private int currentPlantIndex;
 
     public Controller() {
+
         try {
-            LoadGame.loadGame(plantList);
+            LoadGame.loadGame(plantList); // ifall spelet spelats tidigare kommer plantList hämtas här
         } catch (Exception e) {
             System.err.println("Error loading game data: " + e.getMessage());
         }
@@ -33,7 +34,7 @@ public class Controller {
             plants = plantList.toArray(new TomatoPlant[2]);
         }
 
-        garden();
+        // garden();
         view = new MainFrame(this);
     }
 
@@ -46,12 +47,18 @@ public class Controller {
 
     }
 
-    public void switchPlant(String id){
-        System.out.println(id + " " + plants[Integer.parseInt(id)].getPlantName());
-        view.getCenterPanel().updatePlantImage(plants[Integer.parseInt(id)].getPlantPicture());
-        addPlant(plants[Integer.parseInt(id)]);
-        currentPlantIndex = Integer.parseInt(id);
-        view.getCenterPanel().getMainPanel().refreshBar();
+    public void switchPlant(String id) {
+        int plantIndex = Integer.parseInt(id);
+        if (plantIndex >= 0 && plantIndex < plantList.size()) { // Check if plantIndex is within valid range
+            Plant plant = plantList.get(plantIndex);
+            System.out.println(id + " " + plant.getPlantName());
+            view.getCenterPanel().updatePlantImage(plant.getPlantPicture());
+            addPlant(plant);
+            currentPlantIndex = plantIndex;
+            view.getCenterPanel().getMainPanel().refreshBar();
+        } else {
+            System.err.println("Invalid plant index: " + id);
+        }
     }
 
     public void addPlant(Plant plant) {
@@ -61,42 +68,40 @@ public class Controller {
     public void buttonPressed(ButtonType button) {
         switch (button) {
             case Water:
-                // Check if the plant list is empty
+                // Kontrollera om plantList är tom
                 if (plantList.isEmpty()) {
-                    // Display error message
+                    // Visa felmeddelande
                     JOptionPane.showMessageDialog(null, "The pot is empty. Choose a plant to water first.", "Empty Pot", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
-                
-                // Get the current plant from the array of plants
-                Plant plant = plants[currentPlantIndex];
-                // Water the plant
-                plant.waterPlant();
-                // Update the plant image in the view
-                ImageIcon updatedImage = plant.getPlantPicture();
+
+                // Hämta den aktuella växten från plantList
+                Plant currentPlant = plantList.get(currentPlantIndex);
+                // Vattna växten
+                currentPlant.waterPlant();
+                // Uppdatera växtbilden i vyn
+                ImageIcon updatedImage = currentPlant.getPlantPicture();
                 view.getCenterPanel().updatePlantImage(updatedImage);
 
-                plant.setLastWatered(LocalDateTime.now());
+                currentPlant.setLastWatered(LocalDateTime.now());
 
                 try {
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/sounds/watering.wav"));
                     wateringSoundClip = AudioSystem.getClip();
                     wateringSoundClip.open(audioInputStream);
-                }catch (Exception ex){
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
 
-                // Check if the plant was watered successfully before playing the sound
-                if (!plantList.isEmpty()) {
-                    //Play the watering sound
-                    if(wateringSoundClip != null){
-                        wateringSoundClip.setFramePosition(0);
-                        wateringSoundClip.start(); //to start playing the sound
-                    }
+                // Spela vattningssoundet om växten vattnades framgångsrikt
+                if (wateringSoundClip != null) {
+                    wateringSoundClip.setFramePosition(0);
+                    wateringSoundClip.start(); // Starta uppspelningen av ljudet
                 }
                 break;
         }
     }
+
 
     /**
      * Checks if the plants need to be watered based on a certain timestamp (24h).
@@ -126,7 +131,8 @@ public class Controller {
 
     public int getNbrOfLives() {
         if (!plantList.isEmpty()) { // Check if plantList is not empty
-            Plant firstPlant = plants[currentPlantIndex];// Get the first plant if available
+            //Plant firstPlant = plants[currentPlantIndex];// Get the first plant if available
+            Plant firstPlant = plantList.get(0);
             if (firstPlant != null) { // Check if the first plant is not null
                 return firstPlant.getNbrOfLives();
             } else {
@@ -141,46 +147,55 @@ public class Controller {
         }
     }
 
-    public int getTimesWatered(){
-        if (!plantList.isEmpty()) { // Check if plantList is not empty
-            Plant firstPlant = plants[currentPlantIndex]; // Get the first plant if available
-            if (firstPlant != null) { // Check if the first plant is not null
-                System.out.println("times watered: " + firstPlant.getTimesWatered());
-                return firstPlant.getTimesWatered();
-
+    public int getTimesWatered() {
+        if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
+            if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
+                Plant currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
+                if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
+                    System.out.println("times watered: " + currentPlant.getTimesWatered());
+                    return currentPlant.getTimesWatered();
+                } else {
+                    // Hantera fallet när den aktuella växten är null
+                    System.err.println("Current plant is null");
+                    return 0;
+                }
             } else {
-                // Handle the case when the first plant is null
-                System.err.println("First plant is null");
+                // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
+                System.err.println("Invalid current plant index");
                 return 0;
             }
         } else {
-            System.err.println("Plant list is empty water");
+            // Hantera fallet när plantList är tom
+            System.err.println("Plant list is empty");
             return 0;
         }
     }
 
-    public int getPlantLevel(){
-        if (!plantList.isEmpty()) { // Check if plantList is not empty
-            Plant firstPlant = plants[currentPlantIndex];//plantList.get(0); // Get the first plant if available
-            if (firstPlant != null) { // Check if the first plant is not null
-                return firstPlant.getPlantLevel();
+    public int getPlantLevel() {
+        if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
+            if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
+                Plant currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
+                if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
+                    return currentPlant.getPlantLevel();
+                } else {
+                    // Hantera fallet när den aktuella växten är null
+                    System.err.println("Current plant is null");
+                    return 0;
+                }
             } else {
-                // Handle the case when the first plant is null
-                System.err.println("First plant is null");
+                // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
+                System.err.println("Invalid current plant index");
                 return 0;
             }
         } else {
-            System.err.println("Plant list is empty level");
+            // Hantera fallet när plantList är tom
+            System.err.println("Plant list is empty");
             return 0;
         }
     }
 
     public void saveGame() {
         SaveGame.saveGame(plantList);
-    }
-
-    public void updateRose(){
-
     }
 
     public ArrayList<Plant> getPlantList() {
