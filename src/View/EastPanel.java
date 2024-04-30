@@ -24,8 +24,7 @@ public class EastPanel extends JPanel
     private Controller controller; // Reference to controller
     private int width, height; // Dimensions of the panel
     private JButton Water; // Button for watering action
-    private JLabel progressbarLabel;
-    private Clip wateringSoundClip;
+    private JLabel progressbarLabel; // JLabel for progressbar
     /**
      * Constructs a new EastPanel with the specified controller, width, and height.
      *
@@ -83,10 +82,7 @@ public class EastPanel extends JPanel
                 if(e.getSource() == Water){
                     controller.buttonPressed(ButtonType.Water);
                     progressbarLabel.setIcon(updateWaterProgress());
-                    System.out.println("Water button clicked");
-
-                    //Play the watering sound
-                        //wateringSoundClip.start(); //to start playing the sound
+                    // System.out.println("Water button clicked");
                     }
                 }
 

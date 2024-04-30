@@ -7,21 +7,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Date;
 
-
-/**
- * A class for loading game data from a saved file.
- * This class provides a static method to load game data from a file and populate a list of Plants.
- * Each line in the save file should contain data for a single Plant object, with attributes separated by '|' characters.
- * The expected format for each line is:
- * "Plant art: [ART] | Plant name: [NAME] | Plant level: [LEVEL] | Times watered: [WATERED] | Number of lives: [LIVES] | Plant picture: [PICTURE_PATH] | Last time watered: [LAST_WATER] | Timestamp: [TIME_STAMP]"
- *
- * @author Anna Granberg
- */
 public class LoadGame {
     private static Timestamp timestamp;
-
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
      * Loads game data from a saved file and populates a list of Plant objects.
@@ -48,7 +41,7 @@ public class LoadGame {
                 ImageIcon plantPicture = new ImageIcon(plantData[5].trim().split(":")[1].trim());
 
                 Timestamp lastWatered = parseTimestamp(plantData[6].trim().split(":")[1].trim());
-                Timestamp timestamp = parseTimestamp(plantData[7].trim().split(":")[1].trim());
+                Timestamp plantTimestamp = parseTimestamp(plantData[7].trim().split(":")[1].trim());
 
                 Plant existingPlant = findPlantByName(plantList, name);
                 if (existingPlant != null) {
@@ -58,7 +51,6 @@ public class LoadGame {
                     existingPlant.setNbrOfLives(nbrOfLives);
                     existingPlant.setLastWatered(lastWatered);
                     existingPlant.setTimesWatered(existingPlant.getTimesWatered() + timesWatered);
-
                 }
             }
             System.out.println("Game loaded successfully.");
@@ -72,12 +64,16 @@ public class LoadGame {
 
     private static Timestamp parseTimestamp(String timestampString) {
         try {
-            return Timestamp.valueOf(timestampString);
-        } catch (IllegalArgumentException e) {
+            // Försök tolka tidsstämpeln
+            Date parsedDate = dateFormat.parse(timestampString.substring(0, 13)); // Ta bara de första 13 tecknen (år-månad-dag timme)
+            return new Timestamp(parsedDate.getTime());
+        } catch (ParseException e) {
+            // Om tolkningen misslyckas, skriv ut felmeddelande och returnera null
             System.err.println("Error parsing timestamp from save file: " + e.getMessage());
-            return null; // Return null if parsing fails
+            return null;
         }
     }
+
 
     public static Plant findPlantByName(List<Plant> plantList, String name) {
         for (Plant plant : plantList) {
