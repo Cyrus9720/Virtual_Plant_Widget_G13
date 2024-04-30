@@ -175,7 +175,7 @@ public class Controller {
     /**
      * Checks if the plants need to be watered based on a certain timestamp (24h).
      */
-    private void checkWateringStatus() {
+    private void checkWateringStatus() { // todo: fixa denna roa
         LocalDateTime currentDateTime = LocalDateTime.now();
 
         for (Plant plant : plantList) {
