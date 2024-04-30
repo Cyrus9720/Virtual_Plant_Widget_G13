@@ -45,9 +45,15 @@ public class Controller {
                             "Roses belong to the family of plants called Rosaceae."),
 
             new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0,
-                    "The sunflower is a large inflorescence, this means that the flower head is actually made of many tiny flowers called florets. The central florets look like the center of a normal flower and the outer florets look like yellow petals. All together they make up a 'false flower'."),
+                    "The sunflower is a large inflorescence, \n" +
+                            " this means that the flower head is actually made of many tiny flowers called florets. \n" +
+                            " The central florets look like the center of a normal flower and the outer florets look like yellow petals. \n" +
+                            " All together they make up a 'false flower'."),
+
             new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0,
-                    "The tomato is the edible berry of the plant Solanum lycopersicum, commonly known as a tomato plant. The species originated in western South America and Central America. The Nahuatl word tomatl gave rise to the Spanish word tomate, from which the English word tomato derived."),
+                    "The tomato is the edible berry of the plant Solanum lycopersicum, \n" +
+                            " commonly known as a tomato plant. The species originated in western South America and Central America. \n" +
+                            " The Nahuatl word tomatl gave rise to the Spanish word tomate, from which the English word tomato derived."),
         };
 
     }
@@ -99,7 +105,6 @@ public class Controller {
                 
                 // Get the current plant from the array of plants
                 Plant plant = plants[currentPlantIndex];
-                //switchPlant(plant.getPlantInfo());
                 // Water the plant
                 plant.waterPlant();
                 // Update the plant image in the view
