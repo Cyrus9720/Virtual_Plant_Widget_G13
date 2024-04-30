@@ -20,18 +20,18 @@ public class CenterPanel extends JPanel {
         //TODO: assistent added this
         this.mainPanel = mainPanel;
 
-        plantPicture = new ImageIcon("src/Images/PotArt1.JPG"); // Default image
+        plantPicture = new ImageIcon("src/Images/PotArt1.JPG"); // Default bild
 
-        TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant name here");
-        Font myFont = new Font("Bebas Neue", Font.BOLD, 12);
+        TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant name here"); // skapar en border runt panelen
+        Font myFont = new Font("Bebas Neue", Font.BOLD, 12); // font för hela spelet
         titledBorder.setTitleFont(myFont);
         setBorder(titledBorder);
 
         plantLabel = new JLabel();
-        plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Scale imagee
+        plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // skalar bild
         Image plantPictureImage = plantPicture.getImage();
         Image scaledPlantPictureImage = plantPictureImage.getScaledInstance(200,200, Image.SCALE_SMOOTH);
-        // ImageIcon scaledPlantPictureIcon = new ImageIcon(scaledPlantPictureImage); //Oklart om detta behövs //Cyrus
+
         add(plantLabel);
     }
 
@@ -49,9 +49,9 @@ public class CenterPanel extends JPanel {
         plantPicture = newImage;
         //System.out.println(plantPicture.toString());
         //plantLabel.setIcon(plantPicture);
-        plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Scale and update the image
+        plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Skalar och uppdaterar bilden
         this.revalidate();
-        this.repaint();  // Repaint the panel to update the image
+        this.repaint();  // Repaint panelen för att uppdatera bild
     }
 
     /**
@@ -67,9 +67,5 @@ public class CenterPanel extends JPanel {
         Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH); // Scale image
         return new ImageIcon(scaledImage); // Transform Image back to ImageIcon
     }
-
-    public void updatePanel(ImageIcon plantPicture) {
-        //plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Scale and update the image
-        //Sunflower sunflower = new Sunflower("Sunflower", PlantArt.SUNFLOWER, 0, new ImageIcon("src/Images/Sunflower3.JPG"), 0);
-    }
+    
 }
