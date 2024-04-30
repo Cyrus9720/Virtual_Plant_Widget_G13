@@ -13,7 +13,7 @@ public class GameRuleFrame extends JFrame {
 
     private JLabel gameRulesLabel;
 
-    // Constants for frame size
+    // Konstanter för frame storlek
     private static final int FRAME_WIDTH = 500;
     private static final int FRAME_HEIGHT = 250;
 
