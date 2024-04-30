@@ -43,15 +43,15 @@ public class EastPanel extends JPanel
         setBackground(new Color(225, 240, 218));
         setPreferredSize(new Dimension(125, 300));
 
-        TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant care");
-        Font myFont = new Font("Bebas Neue", Font.BOLD, 12);
+        TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant care");  // skapa en border runt panel
+        Font myFont = new Font("Bebas Neue", Font.BOLD, 12);  // font för hela spelet
         titledBorder.setTitleFont(myFont);
         setBorder(titledBorder);
 
-        JPanel pnlButtons = new JPanel();
-        pnlButtons.setBackground(new Color(225, 240, 218));
+        JPanel pnlButtons = new JPanel(); // skapa knappar
+        pnlButtons.setBackground(new Color(225, 240, 218)); // bakgrundsfärg
 
-        ImageIcon waterButton = new ImageIcon("src/Images/Watercan.png");
+        ImageIcon waterButton = new ImageIcon("src/Images/Watercan.png"); // Bild för vattenknapp
         Image originalWaterButtonImage = waterButton.getImage();
         Image scaledWaterButtonImage = originalWaterButtonImage.getScaledInstance(60,50, Image.SCALE_SMOOTH);
         ImageIcon scaledWaterIcon = new ImageIcon(scaledWaterButtonImage);
@@ -68,7 +68,7 @@ public class EastPanel extends JPanel
 
         add(pnlButtons);
         progressbarLabel = new JLabel();
-        ImageIcon emptyProgressBarIcon = new ImageIcon("src/Images/emptyProgressBar.png");
+        ImageIcon emptyProgressBarIcon = new ImageIcon("src/Images/emptyProgressBar.png"); // bild för progressbar
         Image originalImage = emptyProgressBarIcon.getImage();
         Image scaledImage = originalImage.getScaledInstance(100, 75, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
@@ -76,7 +76,7 @@ public class EastPanel extends JPanel
         progressbarLabel.setIcon(scaledIcon);
         add(progressbarLabel, BorderLayout.SOUTH);
 
-        // Adding ActionListener to the water button
+        // ActionListener för vattenknappen
         Water.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == Water){
@@ -106,41 +106,41 @@ public class EastPanel extends JPanel
         int timesWatered = controller.getTimesWatered();
         int plantLevel = controller.getPlantLevel();
 
-        String imagePath = "src/Images/emptyProgressBar.png"; // Default value
+        String imagePath = "src/Images/emptyProgressBar.png"; // Default värde
 
         switch (plantLevel) {
-            case 0:
-                if(timesWatered == 0){
+            case 0: // när plantlevel är 0
+                if(timesWatered == 0){ // vattnad 0 gånger
                     imagePath = "src/Images/emptyProgressBar.png";
                 }
-                else if (timesWatered == 1) {
+                else if (timesWatered == 1) { // vattnad 1 gång
                     imagePath = "src/Images/fullProgressBar.png";
                 }
                 break;
-            case 1:
-                if(timesWatered == 0){
+            case 1: // när plantlevel är 1
+                if(timesWatered == 0){ // vattnad 0 gånger
                     imagePath = "src/Images/emptyProgressBar.png";
-                } else if (timesWatered == 1) {
+                } else if (timesWatered == 1) { // vattnad 1 gång
                     imagePath = "src/Images/halfProgressBar.png";
-                } else {
+                } else { // vattnad 2 gånger
                     imagePath = "src/Images/fullProgressBar.png";
                 }
                 break;
-            case 2:
-                if(timesWatered == 0){
+            case 2: // när plantlevel är 2
+                if(timesWatered == 0){ // vattnad 0 gånger
                     imagePath = "src/Images/emptyProgressBar.png";
-                } else if (timesWatered == 1) {
+                } else if (timesWatered == 1) { // vattnad 1 gång
                     imagePath = "src/Images/thirdProgressBar.png";
-                } else if (timesWatered == 2){
+                } else if (timesWatered == 2){ // vattnad 2 gånger
                     imagePath = "src/Images/twoThirdsProgressBar.png";
-                } else if (timesWatered == 3){
+                } else if (timesWatered == 3){ // vattnad 3 gånger
                     imagePath = "src/Images/fullProgressBar.png";
                 }
                 break;
-            case 3:
-                if(timesWatered == 0){
+            case 3: // när plantlevel är 3
+                if(timesWatered == 0){ // vattnad 0 gånger
                     imagePath = "src/Images/emptyProgressBar.png";
-                } else if  (timesWatered >= 1) {
+                } else if  (timesWatered >= 1) { // vattnad 1 gång
                     imagePath = "src/Images/fullProgressBar.png";
                 }
                 break;
@@ -149,7 +149,7 @@ public class EastPanel extends JPanel
         ImageIcon progressBarIcon = new ImageIcon(imagePath);
 
         // Skala bilden för att passa panelen
-        Image originalImage = progressBarIcon.getImage();
+        Image originalImage = progressBarIcon.getImage(); // hämtar rätt bild efter switch-satsen
         Image scaledImage = originalImage.getScaledInstance(100, 75, Image.SCALE_SMOOTH);
 
         return new ImageIcon(scaledImage);
