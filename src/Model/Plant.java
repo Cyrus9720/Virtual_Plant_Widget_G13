@@ -1,9 +1,8 @@
 package Model;
 
 import javax.swing.ImageIcon;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Plant {
     private String name;
@@ -11,9 +10,11 @@ public class Plant {
     private int timesWatered;
     private ImageIcon plantPicture;
     private int plantLevel;
+    private String plantinfo;
     private PlantArt plantArt;
-    private Timestamp lastWatered;
-    private String plantInfo;
+    private LocalDateTime lastWatered;
+    private LocalDateTime lastUpdatedTimestamp;
+
 
     /**
      * Constructor for Plant
@@ -23,14 +24,13 @@ public class Plant {
      * @param plantLevel Level of the plant
      * @author Cyrus Shaerpour
      */
-    public Plant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, String plantInfo) {
+    public Plant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel) {
         this.name = name;
         this.plantArt = plantArt;
         this.nbrOfLives = nbrOfLives;
         this.timesWatered = timesWatered;
         this.plantPicture = plantPicture;
         this.plantLevel = plantLevel;
-        this.plantInfo = plantInfo;
         // System.out.println("Plant created " + name);
     }
 
@@ -138,13 +138,26 @@ public class Plant {
         return plantArt;
     }
 
-    public void setLastWatered(Timestamp lastWatered) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        this.lastWatered = Timestamp.valueOf(dateFormat.format(lastWatered));
+    public void setLastWatered(LocalDateTime lastWatered) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        String formattedDateTime = lastWatered.format(formatter);
+        System.out.println(formattedDateTime); // För att kontrollera utskriften
+        this.lastWatered = lastWatered;
+    }
+    public LocalDateTime getLastWatered() {
+        return lastWatered;
     }
 
-    public Timestamp getLastWatered() {
-        return lastWatered;
+    public String getPlantinfo() {
+        return plantinfo;
+    }
+
+    public void setPlantArt(PlantArt plantArt) {
+        this.plantArt = plantArt;
+    }
+
+    public void updateTimestamp(LocalDateTime timestamp) {
+        this.lastUpdatedTimestamp = timestamp;
     }
 
     /**
@@ -153,10 +166,13 @@ public class Plant {
      * @author Anna Granberg
      */
     public String toString() {
-        return String.format("Plant art: %s | Plant name: %s | Plant level: %d | Times watered: %d | Number of lives: %d | Plant picture: %s | Last time watered: %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture, lastWatered);
-    }
-
-    public String getPlantInfo() {
-        return plantInfo;
+        String formattedLastWatered = null;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+            formattedLastWatered = lastWatered.format(formatter);
+        }catch (Exception e){
+            System.err.println("Could not format date");
+        }
+        return String.format("Plant art; %s | Plant name; %s | Plant level; %d | Times watered; %d | Number of lives; %d | Plant picture; %s | Last time watered; %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture, formattedLastWatered);
     }
 }

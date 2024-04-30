@@ -20,13 +20,10 @@ import Controller.SaveGame;
  */
 public class MainFrame extends JFrame {
     private Controller controller; // reference to controller
-    private int width = 600; // dimensions for frame size
-    private int height = 800; // dimensions for frame size
+    private int width = 800; // dimensions for frame size
+    private int height = 1000; // dimensions for frame size
     private MainPanel mainPanel; // reference to mainPanel
     private GardenView gardenView; // reference to gardenView
-    private SouthPanel southPanel;
-    private CenterPanel centerPanel;
-
 
     /**
      * Constructs a new MainFrame with the specified controller.
@@ -50,7 +47,6 @@ public class MainFrame extends JFrame {
 
         mainPanel = new MainPanel(controller, width, height);
         setContentPane(mainPanel);
-        //centerPanel = new CenterPanel(400,400, mainPanel);
 
         JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(new Color(225, 240, 218));
@@ -101,6 +97,16 @@ public class MainFrame extends JFrame {
         JOptionPane.showMessageDialog(null, message, "Plant Watering Reminder", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    public void welcomeBackMessage(){
+        String message = "Welcome back! It's been " + controller.getTimeSinceLastPlayed() + " since you played"; // todo: insert some time method
+        Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
+        UIManager.put("OptionPane.messageFont", customFont);
+        UIManager.put("OptionPane.background", new Color(225, 240, 218));
+        UIManager.put("Panel.background", new Color(225, 240, 218));
+        JOptionPane.showMessageDialog(null, message, "Welcome back", JOptionPane.INFORMATION_MESSAGE);
+
+    }
+
     /**
      * Displays gameRulesFrame showing the game rules.
      *
@@ -111,14 +117,10 @@ public class MainFrame extends JFrame {
     }
 
     public void switchPlant(){
-        gardenView = new GardenView(this, mainPanel.getCenterPanel(), controller);
+        gardenView = new GardenView(this, controller);
     }
 
     public CenterPanel getCenterPanel() {
         return mainPanel.getCenterPanel();
-    }
-
-    public SouthPanel getSouthPanel() {
-        return mainPanel.getSouthPanel();
     }
 }

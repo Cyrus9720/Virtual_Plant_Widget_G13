@@ -1,139 +1,204 @@
 package Controller;
 
 import Model.*;
+import View.AddNewPlantFrame;
 import View.ButtonType;
-import View.CenterPanel;
 import View.MainFrame;
-import View.SouthPanel;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Random;
 
 public class Controller {
-
     private MainFrame view;
     private ArrayList<Plant> plantList = new ArrayList<>();
     private Plant[] plants;
-    private CenterPanel centerPanel;
-    private SouthPanel southPanel;
     private Plant currentPlant;
-    private int nbrOfPlants = 0;
-    private Clip wateringSoundClip; // Declare wateringSoundClip variable
+    private Clip wateringSoundClip;
     private int currentPlantIndex;
 
-
     public Controller() {
+
+        try {
+            LoadGame.loadGame(plantList); // ifall spelet spelats tidigare kommer plantList hämtas här
+        } catch (Exception e) {
+            System.err.println("Error loading game data: " + e.getMessage());
+        }
+
         garden();
         view = new MainFrame(this);
     }
 
-    /**
-     * Create the garden with plants to choose from
-     * @author Cyrus Shaerpour
-     */
     private void garden() {
-        plants = new Plant[] {
-            new Rose("Rose", PlantArt.ROSE, 3, 0,new ImageIcon("src/Images/PotArt1.JPG"), 0,
-                    "The rose is a type of flowering shrub. Its name comes from the Latin word Rosa. \n " +
-                            "The flowers of the rose grow in many different colors, \n " +
-                            "from the well-known red rose or yellow roses and sometimes white or purple roses. \n " +
-                            "Roses belong to the family of plants called Rosaceae."),
+        if (plantList.isEmpty()) {
+            plants = new Plant[]{
+                    new Rose("Rose", PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+                    new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+                    new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+            };
+        } else if (plantList.size() < 3) {
+            Plant plant = plantList.get(0);
+            PlantArt plantArt = plant.getPlantArt();
+            switch (plantArt) {
+                case TOMATO_PLANT:
+                    plants = new Plant[]{
+                            new Rose("Rose", PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+                            new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0)
+                    };
+                    break;
+                case ROSE:
+                    plants = new Plant[]{
+                            new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+                            new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0)
+                    };
+                    break;
+                case SUNFLOWER:
+                    plants = new Plant[]{
+                            new Rose("Rose", PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+                            new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0)
+                    };
+                    break;
+            }
 
-            new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0,
-                    "The sunflower is a large inflorescence, \n" +
-                            " this means that the flower head is actually made of many tiny flowers called florets. \n" +
-                            " The central florets look like the center of a normal flower and the outer florets look like yellow petals. \n" +
-                            " All together they make up a 'false flower'."),
-
-            new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0,
-                    "The tomato is the edible berry of the plant Solanum lycopersicum, \n" +
-                            " commonly known as a tomato plant. The species originated in western South America and Central America. \n" +
-                            " The Nahuatl word tomatl gave rise to the Spanish word tomate, from which the English word tomato derived."),
-        };
-    }
-
-    /**
-     * Load the game from the save file
-     * @param id
-     * @author Cyrus Shaerpour
-     */
-    public void switchPlant(String id){
-        System.out.println(id + " " + plants[Integer.parseInt(id)].getPlantName());
-        view.getCenterPanel().updatePlantImage(plants[Integer.parseInt(id)].getPlantPicture());
-        if (view.getSouthPanel() != null) {
-            view.getSouthPanel().updatePlantInfo(plants[Integer.parseInt(id)].getPlantInfo());
-            System.out.println(id + " " + plants[Integer.parseInt(id)].getPlantInfo());
+            for (Plant potentialPlant : plants) {
+                boolean exists = false;
+                for (Plant existingPlant : plantList) {
+                    if (potentialPlant.getPlantName().equals(existingPlant.getPlantName())) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if (!exists) {
+                    plantList.add(potentialPlant);
+                }
+            }
+            plants = plantList.toArray(new Plant[0]);
         } else {
-            System.err.println("SouthPanel instance is null");
+            System.out.println("Load game har fyllt plantlist");
         }
-        addPlant(plants[Integer.parseInt(id)]);
-        currentPlantIndex = Integer.parseInt(id);
-        view.getCenterPanel().getMainPanel().refreshBar();
-        //view.getCenterPanel().updatePanel(plantList.getFirst().getPlantPicture());
     }
 
-    /**
-     * Add a plant to the plant list
-     * @param plant
-     * @author Cyrus Shaerpour
-     */
-    public void addPlant(Plant plant) {
-        plantList.add(plant);
-        nbrOfPlants++;
+    public void switchPlant(String id) {
+        // Konvertera id till en int för att få plantIndex
+        int plantIndex = Integer.parseInt(id);
+
+        // Kontrollera om plantIndex är inom ett giltigt intervall (1 till plantList.size() - 1)
+        if (plantIndex >= 0 && plantIndex < plantList.size()) {
+            // Om plantIndex är giltigt, hämta växten från plantList med det angivna indexet
+            Plant plant = plantList.get(plantIndex);
+
+            // Uppdatera växtbilden i gränssnittet med den nya växten
+            view.getCenterPanel().updatePlantImage(plant.getPlantPicture());
+            view.getCenterPanel().updatePlantName(plant.getPlantName());
+
+            // Uppdatera currentPlantIndex till det nya växtindexet
+            currentPlantIndex = plantIndex;
+
+            // Uppdatera gränssnittet för att visa förändringar, t.ex. en progressbar
+            view.getCenterPanel().getMainPanel().refreshBar();
+        } else {
+            // Om plantIndex är ogiltigt (utanför intervallet), skriv ut ett felmeddelande
+            System.err.println("Invalid plant index: " + id);
+        }
     }
 
-    /**
-     * Function for the different buttons and what they do
-     * @param button
-     * @author Anna Granberg & Cyrus Shaerpour & Roa Jamhour
-     */
+    public void addNewRose() {
+        Random random = new Random();
+        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10Random random = new Random();
+        String newRoseName = "Rose" + randomNumber;
+        Rose newRose = new Rose(newRoseName, PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0);
+        plantList.add(newRose);
+    }
+
+    public void addNewSunflower(){
+        Random random = new Random();
+        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
+        String newSunflowerName = "Sunflower" + randomNumber;
+        Sunflower newSunflower = new Sunflower(newSunflowerName, PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0);
+        plantList.add(newSunflower);
+    }
+
+    public void addNewTomatoplant(){
+        Random random = new Random();
+        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
+        String newTomatoName = "TomatoPlant" + randomNumber;
+        TomatoPlant newSunflower = new TomatoPlant(newTomatoName, PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0);
+        plantList.add(newSunflower);
+    }
     public void buttonPressed(ButtonType button) {
         switch (button) {
             case Water:
-                // Check if the plant list is empty
+                // Kontrollera om plantList är tom
                 if (plantList.isEmpty()) {
-                    // Display error message
+                    // Visa felmeddelande
                     JOptionPane.showMessageDialog(null, "The pot is empty. Choose a plant to water first.", "Empty Pot", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
-                
-                // Get the current plant from the array of plants
-                Plant plant = plants[currentPlantIndex];
-                // Water the plant
-                plant.waterPlant();
-                // Update the plant image in the view
-                ImageIcon updatedImage = plant.getPlantPicture();
+
+                // Hämta den aktuella växten från plantList
+                Plant currentPlant = plantList.get(currentPlantIndex);
+                // Vattna växten
+                currentPlant.waterPlant();
+                // Uppdatera växtbilden i vyn
+                ImageIcon updatedImage = currentPlant.getPlantPicture();
                 view.getCenterPanel().updatePlantImage(updatedImage);
 
+                currentPlant.setLastWatered(LocalDateTime.now());
+
+
                 try {
-                    // If the sound clip is not initialized or it's not playing, initialize and play it
-                    if (wateringSoundClip == null || !wateringSoundClip.isRunning()) {
-                        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResourceAsStream("/sounds/watering.wav")));
-                        wateringSoundClip = AudioSystem.getClip();
-                        wateringSoundClip.open(audioInputStream);
-                        wateringSoundClip.setFramePosition(0); // Reset to the beginning
-                        wateringSoundClip.start(); // Start playing the sound
-                    } else {
-                        // If the sound clip is already playing, stop and reset it before playing again
-                        wateringSoundClip.stop();
-                        wateringSoundClip.setFramePosition(0); // Reset to the beginning
-                        wateringSoundClip.start(); // Start playing the sound
-                    }
+                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/sounds/watering.wav"));
+                    wateringSoundClip = AudioSystem.getClip();
+                    wateringSoundClip.open(audioInputStream);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
+
+                // Spela vattningssoundet om växten vattnades framgångsrikt
+                if (wateringSoundClip != null) {
+                    wateringSoundClip.setFramePosition(0);
+                    wateringSoundClip.start(); // Starta uppspelningen av ljudet
+                }
+
+                // Kontrollera om växterna behöver vattnas baserat på en viss tidsstämpel (24h)
+                checkWateringStatus();
                 break;
         }
     }
 
+    /**
+     * Checks if the plants need to be watered based on a certain timestamp (24h).
+     */
+    private void checkWateringStatus() { // todo: fixa denna roa
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        for (Plant plant : plantList) {
+            LocalDateTime lastWatered = plant.getLastWatered(); // Retrieve the LocalDateTime object
+
+            if (lastWatered == null) {
+                System.err.println("Plant last watered timestamp is null");
+                continue; // Skip this plant and move on to the next one
+            }
+
+            Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
+            Duration wateringInterval = Duration.ofDays(1); // 24 hours
+
+            if (timeSinceLastWatered.compareTo(wateringInterval) >= 0) {
+                // Plant needs to be watered
+                view.timeToWater();
+            }
+        }
+    }
     public int getNbrOfLives() {
         if (!plantList.isEmpty()) { // Check if plantList is not empty
-            Plant firstPlant = plants[currentPlantIndex];//plantList.get(0); // Get the first plant if available
+            //Plant firstPlant = plants[currentPlantIndex];// Get the first plant if available
+            Plant firstPlant = plantList.get(0);
             if (firstPlant != null) { // Check if the first plant is not null
                 return firstPlant.getNbrOfLives();
             } else {
@@ -148,36 +213,49 @@ public class Controller {
         }
     }
 
-    public int getTimesWatered(){
-        if (!plantList.isEmpty()) { // Check if plantList is not empty
-            Plant firstPlant = plants[currentPlantIndex];//plantList.get(0); // Get the first plant if available
-            if (firstPlant != null) { // Check if the first plant is not null
-                System.out.println("times watered: " + firstPlant.getTimesWatered());
-                return firstPlant.getTimesWatered();
-
+    public int getTimesWatered() {
+        if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
+            if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
+                Plant currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
+                if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
+                    System.out.println("times watered: " + currentPlant.getTimesWatered());
+                    return currentPlant.getTimesWatered();
+                } else {
+                    // Hantera fallet när den aktuella växten är null
+                    System.err.println("Current plant is null");
+                    return 0;
+                }
             } else {
-                // Handle the case when the first plant is null
-                System.err.println("First plant is null");
+                // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
+                System.err.println("Invalid current plant index");
                 return 0;
             }
         } else {
-            System.err.println("Plant list is empty water");
+            // Hantera fallet när plantList är tom
+            System.err.println("Plant list is empty");
             return 0;
         }
     }
 
-    public int getPlantLevel(){
-        if (!plantList.isEmpty()) { // Check if plantList is not empty
-            Plant firstPlant = plants[currentPlantIndex];//plantList.get(0); // Get the first plant if available
-            if (firstPlant != null) { // Check if the first plant is not null
-                return firstPlant.getPlantLevel();
+    public int getPlantLevel() {
+        if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
+            if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
+                Plant currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
+                if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
+                    return currentPlant.getPlantLevel();
+                } else {
+                    // Hantera fallet när den aktuella växten är null
+                    System.err.println("Current plant is null");
+                    return 0;
+                }
             } else {
-                // Handle the case when the first plant is null
-                System.err.println("First plant is null");
+                // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
+                System.err.println("Invalid current plant index");
                 return 0;
             }
         } else {
-            System.err.println("Plant list is empty level");
+            // Hantera fallet när plantList är tom
+            System.err.println("Plant list is empty");
             return 0;
         }
     }
@@ -196,6 +274,54 @@ public class Controller {
 
     public void setCurrentPlant(Plant newPlant) {
         currentPlant = newPlant;
+    }
+
+    public String getPlantInfo(){
+        Plant plant = plantList.get(0);
+        String plantInfo = plant.getPlantinfo();
+        return plantInfo;
+    }
+
+    public String getPlantName() {
+        if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
+            if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
+                Plant currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
+                if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
+                    return currentPlant.getPlantName();
+                } else {
+                    // Hantera fallet när den aktuella växten är null
+                    System.err.println("Current plant is null");
+                    return null;
+                }
+            } else {
+                // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
+                System.err.println("Invalid current plant index");
+                return null;
+            }
+        } else {
+            // Hantera fallet när plantList är tom
+            System.err.println("Plant list is empty");
+            return null;
+        }
+    }
+
+    public List<String> getPlantImagePaths() {
+        List<String> imagePaths = new ArrayList<>();
+        for (Plant plant : plantList) {
+            imagePaths.add(plant.getPlantPicture().toString());
+        }
+        return imagePaths;
+    }
+
+    public long getTimeSinceLastPlayed() {
+        LocalDateTime timeWhenClosed = SaveGame.getTimestamp();
+        LocalDateTime timeWhenOpened = LoadGame.getTimestamp();
+
+        Duration duration = Duration.between(timeWhenClosed, timeWhenOpened);
+
+        long timeSinceLastPlayedSeconds = duration.getSeconds();
+
+        return timeSinceLastPlayedSeconds;
     }
 
 }

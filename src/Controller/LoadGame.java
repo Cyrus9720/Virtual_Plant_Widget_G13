@@ -5,24 +5,24 @@ import Model.*;
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
+import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.sql.Time;
-import java.sql.Timestamp;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 /**
- * A class for loading game data from a saved file.
- * This class provides a static method to load game data from a file and populate a list of Plants.
- * Each line in the save file should contain data for a single Plant object, with attributes separated by '|' characters.
- * The expected format for each line is:
- * "Plant art: [ART] | Plant name: [NAME] | Plant level: [LEVEL] | Times watered: [WATERED] | Number of lives: [LIVES] | Plant picture: [PICTURE_PATH] | Last time watered: [LAST_WATER] | Timestamp: [TIME_STAMP]"
- *
- * @author Anna Granberg
+ * A utility class for loading game data from a saved file and populating a list of Plant objects.
+ * @author annagranberg
  */
-public class LoadGame {
 
-    private static Timestamp timestamp;
+public class LoadGame {
+    private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+    private static LocalDateTime timestamp;
+    private static Plant plant;
+
     /**
      * Loads game data from a saved file and populates a list of Plant objects.
      *
@@ -40,37 +40,36 @@ public class LoadGame {
                     continue;
                 }
                 // Extract data for each attribute
-                PlantArt plantArt = PlantArt.valueOf(plantData[0].trim().split(":")[1].trim());
-                String name = plantData[1].trim().split(":")[1].trim();
-                int plantLevel = Integer.parseInt(plantData[2].trim().split(":")[1].trim());
-                int timesWatered = Integer.parseInt(plantData[3].trim().split(":")[1].trim());
-                int nbrOfLives = Integer.parseInt(plantData[4].trim().split(":")[1].trim());
-                ImageIcon plantPicture = new ImageIcon(plantData[5].trim().split(":")[1].trim());
+                String plantType = plantData[0].trim().split(";")[1].trim();
+                PlantArt plantArt = PlantArt.valueOf(plantType.toUpperCase()); // Assuming PlantArt enum values are in uppercase
+                String name = plantData[1].trim().split(";")[1].trim();
+                int plantLevel = Integer.parseInt(plantData[2].trim().split(";")[1].trim());
+                int timesWatered = Integer.parseInt(plantData[3].trim().split(";")[1].trim());
+                int nbrOfLives = Integer.parseInt(plantData[4].trim().split(";")[1].trim());
+                ImageIcon plantPicture = new ImageIcon(plantData[5].trim().split(";")[1].trim());
+                LocalDateTime lastWatered = parseTimestamp(plantData[6].trim().split(";")[1].trim());
+                LocalDateTime lastPlayed = parseTimestamp(plantData[7].trim().split(";")[1].trim());
 
-                // track the time
-                timestamp = Timestamp.valueOf(plantData[7].trim().split(":")[1].trim());
+                // Create a new Plant object based on plant type
 
-                String timestampString = plantData[6].trim().split(":")[1].trim();
-                if (!timestampString.endsWith(".000")) {
-                    timestampString += ".000";
-                }
-                Timestamp lastWatered = Timestamp.valueOf(timestampString);
-
-                // Check if a plant with the same name and art already exists in plantList to not duplicate plants
-                boolean alreadyExists = false;
-                for (Plant plant : plantList) {
-                    if (plant.getPlantName().equals(name) && plant.getPlantArt() == plantArt) {
-                        alreadyExists = true;
+                switch (plantArt) {
+                    case ROSE:
+                        plant = new Rose(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel);
                         break;
-                    }
+                    case SUNFLOWER:
+                        plant = new Sunflower(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel);
+                        break;
+                    case TOMATO_PLANT:
+                        plant = new TomatoPlant(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel);
+                        break;
+                    default:
+                        System.err.println("Unknown plant type: " + plantType);
+                        continue;
                 }
 
-                // Add the plant to plantList only if it doesn't already exist
-                if (!alreadyExists) {
-                    Plant plant = new Plant(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, "Plant info");
-                    plant.setLastWatered(lastWatered);
-                    plantList.add(plant);
-                }
+                // Add the plant to the list
+                plantList.add(plant);
+                // clearSaveFile();
             }
             System.out.println("Game loaded successfully.");
         } catch (IOException e) {
@@ -78,24 +77,45 @@ public class LoadGame {
         } catch (IllegalArgumentException e) {
             System.err.println("Error parsing data from save file: " + e.getMessage());
         }
-        String filePath = "game_save.txt";
-        clearFile(filePath);
-
         return plantList; // Return the list of Plant objects
     }
 
-    public static Timestamp getTimestamp() {
-        return timestamp;
+    /**
+     * Parses a timestamp string into a LocalDateTime object.
+     *
+     * @param timestampString The string representation of the timestamp.
+     * @return The parsed LocalDateTime object.
+     */
+    private static LocalDateTime parseTimestamp(String timestampString) {
+        try {
+            // Manuellt tolka tidsstämpeln
+            LocalDateTime parsedDateTime = LocalDateTime.parse(timestampString, dateFormat);
+            return parsedDateTime;
+        } catch (DateTimeParseException e) {
+            // Om tolkningen misslyckas, skriv ut felmeddelande och returnera null
+            System.err.println("Error parsing timestamp from save file: " + e.getMessage());
+            return null;
+        }
     }
 
-    public static void clearFile(String filePath) {
-        try {
-            FileWriter writer = new FileWriter(filePath, false);
-            writer.write(""); // Skriver över befintligt innehåll med en tom sträng
-            writer.close();
-            System.out.println("File content cleared successfully.");
+    /**
+     * Empties the contents of the game save file after it has been read.
+     */
+    public static void clearSaveFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("game_save.txt"))) {
+            writer.write(""); // Skriv en tom sträng till filen för att tömma den
+            System.out.println("Game save file cleared successfully.");
         } catch (IOException e) {
-            System.err.println("Error clearing file content: " + e.getMessage());
+            System.err.println("Error clearing game save file: " + e.getMessage());
         }
+    }
+
+
+    public static Plant getPlant() {
+        return plant;
+    }
+
+    public static LocalDateTime getTimestamp() {
+        return timestamp;
     }
 }

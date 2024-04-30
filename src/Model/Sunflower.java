@@ -3,8 +3,8 @@ package Model;
 import javax.swing.*;
 
 public class Sunflower extends Plant{
-    public Sunflower(String name, PlantArt plantArt,int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, String plantInfo) {
-        super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, plantInfo);
+    public Sunflower(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel) {
+        super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel);
     }
 
     @Override
