@@ -21,9 +21,18 @@ public class Controller {
     private int currentPlantIndex;
 
     public Controller() {
-        plants = plantList.toArray(new Rose[0]);
-        plants = plantList.toArray(new Sunflower[1]);
-        plants = plantList.toArray(new TomatoPlant[2]);
+        try {
+            LoadGame.loadGame(plantList);
+        } catch (Exception e) {
+            System.err.println("Error loading game data: " + e.getMessage());
+        }
+
+        if (plantList.isEmpty()){
+            plants = plantList.toArray(new Rose[0]);
+            plants = plantList.toArray(new Sunflower[1]);
+            plants = plantList.toArray(new TomatoPlant[2]);
+        }
+
         garden();
         view = new MainFrame(this);
     }
@@ -66,6 +75,7 @@ public class Controller {
                 // Update the plant image in the view
                 ImageIcon updatedImage = plant.getPlantPicture();
                 view.getCenterPanel().updatePlantImage(updatedImage);
+
                 plant.setLastWatered(LocalDateTime.now());
 
                 try {

@@ -32,28 +32,35 @@ public class LoadGame {
                     continue;
                 }
                 // Extract data for each attribute
-                PlantArt plantArt = PlantArt.valueOf(plantData[0].trim().split(";")[1].trim());
+                String plantType = plantData[0].trim().split(";")[1].trim();
+                PlantArt plantArt = PlantArt.valueOf(plantType.toUpperCase()); // Assuming PlantArt enum values are in uppercase
                 String name = plantData[1].trim().split(";")[1].trim();
                 int plantLevel = Integer.parseInt(plantData[2].trim().split(";")[1].trim());
                 int timesWatered = Integer.parseInt(plantData[3].trim().split(";")[1].trim());
                 int nbrOfLives = Integer.parseInt(plantData[4].trim().split(";")[1].trim());
                 ImageIcon plantPicture = new ImageIcon(plantData[5].trim().split(";")[1].trim());
-                // System.out.println(plantData[6].trim().split(";")[1]);
                 LocalDateTime lastWatered = parseTimestamp(plantData[6].trim().split(";")[1].trim());
-
                 LocalDateTime lastPlayed = parseTimestamp(plantData[7].trim().split(";")[1].trim());
 
-
-                Plant existingPlant = findPlantByName(plantList, name);
-                if (existingPlant != null) {
-                    existingPlant.setPlantArt(plantArt);
-                    System.out.println(plantLevel);
-                    existingPlant.setPlantPicture(plantPicture);
-                    existingPlant.setPlantLevel(plantLevel);
-                    existingPlant.setNbrOfLives(nbrOfLives);
-                    //existingPlant.setLastWatered(lastWatered);
-                    existingPlant.setTimesWatered(existingPlant.getTimesWatered() + timesWatered);
+                // Create a new Plant object based on plant type
+                Plant plant;
+                switch (plantArt) {
+                    case ROSE:
+                        plant = new Rose(name, plantArt, timesWatered, nbrOfLives, plantPicture,plantLevel);
+                        break;
+                    case SUNFLOWER:
+                        plant = new Sunflower(name, plantArt, timesWatered, nbrOfLives, plantPicture, plantLevel);
+                        break;
+                    case TOMATO_PLANT:
+                        plant = new TomatoPlant(name, plantArt, timesWatered, nbrOfLives, plantPicture, plantLevel);
+                        break;
+                    default:
+                        System.err.println("Unknown plant type: " + plantType);
+                        continue;
                 }
+
+                // Add the plant to the list
+                plantList.add(plant);
             }
             System.out.println("Game loaded successfully.");
         } catch (IOException e) {
