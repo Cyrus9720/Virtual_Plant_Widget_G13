@@ -8,8 +8,11 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.time.LocalDateTime;
 
+/**
+ * A utility class for saving game data to a file.
+ * @author annagranberg
+ */
 public class SaveGame {
     private static LocalDateTime timestamp;
 
@@ -24,7 +27,7 @@ public class SaveGame {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("game_save.txt"))) {
             for (Plant plant : plantList) {
-                String data = plant.toString(); // Assuming this returns the plant's attributes in the expected format
+                String data = plant.toString(); // returns the plant's attributes as a String
 
                 // Add the formatted timestamp to the end of the line
                 data += " | Timestamp; " + timestamp.format(formatter);

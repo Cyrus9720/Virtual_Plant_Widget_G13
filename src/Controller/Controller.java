@@ -98,15 +98,15 @@ public class Controller {
                     wateringSoundClip.setFramePosition(0);
                     wateringSoundClip.start(); // Starta uppspelningen av ljudet
                 }
+
+                // Kontrollera om växterna behöver vattnas baserat på en viss tidsstämpel (24h)
+                checkWateringStatus();
                 break;
         }
     }
 
-
     /**
      * Checks if the plants need to be watered based on a certain timestamp (24h).
-     *
-     * @author Anna Granberg
      */
     private void checkWateringStatus() {
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -128,6 +128,7 @@ public class Controller {
             }
         }
     }
+
 
     public int getNbrOfLives() {
         if (!plantList.isEmpty()) { // Check if plantList is not empty
