@@ -29,6 +29,7 @@ public class SouthPanel extends JPanel
      * @param controller The controller object responsible for handling user actions.
      * @param width The width of the panel.
      * @param height The height of the panel.
+     * @author Anna Granberg & Cyrus Shaerpour
      */
     public SouthPanel(Controller controller, int width, int height) {
         this.controller = controller;
@@ -105,10 +106,14 @@ public class SouthPanel extends JPanel
 
         // Update the preferred size with the calculated width and height
         label.setPreferredSize(new Dimension(preferredSize.width, preferredSize.height));
-
         return label;
     }
 
+    /**
+     * Updates the plant information displayed in the panel.
+     * @param plantInfo The new plant information to display.
+     * @author Cyrus Shaerpour
+     */
     public void updatePlantInfo(String plantInfo) {
         // Remove the existing plant information label
         remove(plantInfoLabel);
@@ -116,8 +121,6 @@ public class SouthPanel extends JPanel
         // Create a new plant information label with dynamically adjusted size
         plantInfoLabel = scalePlantInfo(plantInfo, getWidth() / 2); // Adjust width as needed
         add(plantInfoLabel, BorderLayout.EAST);
-
-        // Revalidate and repaint the panel to reflect changes
         revalidate();
         repaint();
     }

@@ -55,7 +55,6 @@ public class Controller {
                             " commonly known as a tomato plant. The species originated in western South America and Central America. \n" +
                             " The Nahuatl word tomatl gave rise to the Spanish word tomate, from which the English word tomato derived."),
         };
-
     }
 
     /**
