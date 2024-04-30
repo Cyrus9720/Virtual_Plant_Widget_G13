@@ -149,6 +149,7 @@ public class Plant {
     public LocalDateTime getLastWatered() {
         return lastWatered;
     }
+
     public String getPlantinfo() {
         return plantinfo;
     }
@@ -167,6 +168,6 @@ public class Plant {
      * @author Anna Granberg
      */
     public String toString() {
-        return String.format("Plant art: %s | Plant name: %s | Plant level: %d | Times watered: %d | Number of lives: %d | Plant picture: %s | Last time watered: %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture, lastWatered);
+        return String.format("Plant art; %s | Plant name; %s | Plant level; %d | Times watered; %d | Number of lives; %d | Plant picture; %s | Last time watered; %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture, lastWatered);
     }
 }

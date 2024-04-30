@@ -8,7 +8,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
-import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -117,7 +116,7 @@ public class Controller {
 
     public int getNbrOfLives() {
         if (!plantList.isEmpty()) { // Check if plantList is not empty
-            Plant firstPlant = plants[currentPlantIndex];//plantList.get(0); // Get the first plant if available
+            Plant firstPlant = plants[currentPlantIndex];// Get the first plant if available
             if (firstPlant != null) { // Check if the first plant is not null
                 return firstPlant.getNbrOfLives();
             } else {
@@ -134,7 +133,7 @@ public class Controller {
 
     public int getTimesWatered(){
         if (!plantList.isEmpty()) { // Check if plantList is not empty
-            Plant firstPlant = plants[currentPlantIndex];//plantList.get(0); // Get the first plant if available
+            Plant firstPlant = plants[currentPlantIndex]; // Get the first plant if available
             if (firstPlant != null) { // Check if the first plant is not null
                 System.out.println("times watered: " + firstPlant.getTimesWatered());
                 return firstPlant.getTimesWatered();

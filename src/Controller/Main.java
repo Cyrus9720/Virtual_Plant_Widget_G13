@@ -12,12 +12,12 @@ public class Main {
         ArrayList<Plant> plantList = new ArrayList<>();
 
         // Ladda speldata från sparfilen och uppdatera plantList
-        try {
+       // try {
             LoadGame.loadGame(plantList);
-        } catch (Exception e) {
-            System.err.println("Error loading game data: " + e.getMessage());
+       // } catch (Exception e) {
+            //System.err.println("Error loading game data: " + e.getMessage());
             // Hantera eventuella fel här, till exempel genom att skapa en ny speldata om ingen sparfil hittades
-        }
+       // }
 
         // Skapa en ny instans av Controller och skicka plantList som argument
         Controller controller = new Controller();

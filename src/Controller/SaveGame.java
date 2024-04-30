@@ -27,7 +27,7 @@ public class SaveGame {
                 String data = plant.toString(); // Assuming this returns the plant's attributes in the expected format
 
                 // Add the formatted timestamp to the end of the line
-                data += " | Timestamp: " + timestamp.format(formatter);
+                data += " | Timestamp; " + timestamp.format(formatter);
 
                 writer.write(data);
                 writer.newLine();
