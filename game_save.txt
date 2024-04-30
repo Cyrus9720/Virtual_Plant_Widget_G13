@@ -1,1 +1,1 @@
-Plant art: SUNFLOWER | Plant name: Sunflower | Plant level: 3 | Times watered: 19 | Number of lives: 3 | Plant picture: src/Images/Sunflower3.JPG | Last time watered: null | Timestamp: 2024-04-30 15:46:38
+Plant art: SUNFLOWER | Plant name: Sunflower | Plant level: 0 | Times watered: 0 | Number of lives: 3 | Plant picture: src/Images/PotArt1.JPG | Last time watered: null | Timestamp: 2024-04-30 16:14:30

@@ -32,6 +32,9 @@ public class SouthPanel extends JPanel
      * @author Anna Granberg & Cyrus Shaerpour
      */
     public SouthPanel(Controller controller, int width, int height) {
+        setPreferredSize(new Dimension(320, 100));
+        setBackground(new Color(225, 240, 218));
+
         this.controller = controller;
 
         setSize(width, height);
@@ -97,9 +100,10 @@ public class SouthPanel extends JPanel
     }
 
     private JLabel scalePlantInfo(String plantInfo, int maxWidth) {
-        JLabel label = new JLabel(plantInfo);
+        JLabel label = new JLabel("<html>" + plantInfo + "</html>"); // Enable HTML rendering for text wrapping
         label.setFont(new Font("Bebas Neue", Font.BOLD, 10));
         label.setPreferredSize(new Dimension(maxWidth, 0)); // Set initial preferred size with max width
+        label.setVerticalAlignment(SwingConstants.TOP); // Align text to the top
 
         // Calculate preferred size based on the text
         Dimension preferredSize = label.getPreferredSize();
@@ -108,6 +112,7 @@ public class SouthPanel extends JPanel
         label.setPreferredSize(new Dimension(preferredSize.width, preferredSize.height));
         return label;
     }
+
 
     /**
      * Updates the plant information displayed in the panel.
@@ -119,7 +124,7 @@ public class SouthPanel extends JPanel
         remove(plantInfoLabel);
 
         // Create a new plant information label with dynamically adjusted size
-        plantInfoLabel = scalePlantInfo(plantInfo, getWidth() / 2); // Adjust width as needed
+        plantInfoLabel = scalePlantInfo(plantInfo, getWidth()- 15); // Adjust width as needed
         add(plantInfoLabel, BorderLayout.EAST);
         revalidate();
         repaint();
