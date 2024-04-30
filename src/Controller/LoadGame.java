@@ -69,7 +69,7 @@ public class LoadGame {
 
                 // Add the plant to the list
                 plantList.add(plant);
-                clearSaveFile();
+                // clearSaveFile();
             }
             System.out.println("Game loaded successfully.");
         } catch (IOException e) {

@@ -79,7 +79,7 @@ public class SouthPanel extends JPanel
                 heartsIcon = new ImageIcon("src/Images/treHjärtan.png");
                 break;
             default:
-                // Default case, do nothing or provide a default icon
+                heartsIcon = null;
                 break;
         }
 

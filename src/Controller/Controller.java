@@ -160,8 +160,6 @@ public class Controller {
             }
         }
     }
-
-
     public int getNbrOfLives() {
         if (!plantList.isEmpty()) { // Check if plantList is not empty
             //Plant firstPlant = plants[currentPlantIndex];// Get the first plant if available

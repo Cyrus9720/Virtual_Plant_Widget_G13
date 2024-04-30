@@ -166,8 +166,13 @@ public class Plant {
      * @author Anna Granberg
      */
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-        String formattedLastWatered = lastWatered.format(formatter);
+        String formattedLastWatered = null;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+            formattedLastWatered = lastWatered.format(formatter);
+        }catch (Exception e){
+            System.err.println("Could not format date");
+        }
         return String.format("Plant art; %s | Plant name; %s | Plant level; %d | Times watered; %d | Number of lives; %d | Plant picture; %s | Last time watered; %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture, formattedLastWatered);
     }
 }
