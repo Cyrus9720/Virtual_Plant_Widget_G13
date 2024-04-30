@@ -46,7 +46,6 @@ public class Controller {
 
     public void addPlant(Plant plant) {
         plantList.add(plant);
-        // nbrOfPlants++;
     }
 
     public void buttonPressed(ButtonType button) {
@@ -201,7 +200,6 @@ public class Controller {
 
         long timeSinceLastPlayedMillis = timeOpenedMillis - timeClosedMillis;
 
-        // Convert milliseconds to seconds if needed
         long timeSinceLastPlayedSeconds = timeSinceLastPlayedMillis / 1000;
 
         return timeSinceLastPlayedSeconds;
