@@ -19,7 +19,6 @@ import java.awt.*;
 public class SouthPanel extends JPanel
 {
     private Controller controller;
-    private JLabel progressbarLabel;
     JLabel threeHeartsLabel;
 
     /**
@@ -32,8 +31,6 @@ public class SouthPanel extends JPanel
     public SouthPanel(Controller controller, int width, int height) {
         this.controller = controller;
 
-        setSize(width, height);
-
         TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant information");
         Font myFont = new Font("Bebas Neue", Font.BOLD, 12);
         titledBorder.setTitleFont(myFont);
@@ -45,16 +42,6 @@ public class SouthPanel extends JPanel
         ImageIcon threeHearts = new ImageIcon("src/Images/treHjärtan.png");
         threeHeartsLabel = new JLabel(updateAmountOfLife());
         add(threeHeartsLabel, BorderLayout.WEST);
-
-        /*try{
-            JLabel plantInfo = new JLabel(controller.getPlantInfo());
-            plantInfo.setPreferredSize(new Dimension(100, 60));
-            plantInfo.setFont(new Font("Bebas Neue", Font.BOLD, 10));
-            add(plantInfo, BorderLayout.EAST);
-        } catch (Exception e){
-            System.err.println("Could not retrieve plantinfo");
-        }
-*/
     }
 
     public ImageIcon updateAmountOfLife() {

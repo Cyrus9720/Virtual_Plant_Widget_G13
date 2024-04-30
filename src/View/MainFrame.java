@@ -20,13 +20,10 @@ import Controller.SaveGame;
  */
 public class MainFrame extends JFrame {
     private Controller controller; // reference to controller
-    private int width = 600; // dimensions for frame size
-    private int height = 800; // dimensions for frame size
+    private int width = 800; // dimensions for frame size
+    private int height = 1000; // dimensions for frame size
     private MainPanel mainPanel; // reference to mainPanel
     private GardenView gardenView; // reference to gardenView
-
-    private CenterPanel centerPanel;
-
 
     /**
      * Constructs a new MainFrame with the specified controller.
@@ -50,7 +47,6 @@ public class MainFrame extends JFrame {
 
         mainPanel = new MainPanel(controller, width, height);
         setContentPane(mainPanel);
-        //centerPanel = new CenterPanel(400,400, mainPanel);
 
         JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(new Color(225, 240, 218));
