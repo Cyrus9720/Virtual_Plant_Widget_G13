@@ -4,10 +4,15 @@ import Model.*;
 import View.ButtonType;
 import View.CenterPanel;
 import View.MainFrame;
+import View.SouthPanel;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Controller {
 
@@ -15,55 +20,114 @@ public class Controller {
     private ArrayList<Plant> plantList = new ArrayList<>();
     private Plant[] plants;
     private CenterPanel centerPanel;
+    private SouthPanel southPanel;
     private Plant currentPlant;
     private int nbrOfPlants = 0;
-
+    private Clip wateringSoundClip; // Declare wateringSoundClip variable
     private int currentPlantIndex;
 
 
     public Controller() {
-        // Skapa din lista över plantor och lägg till plantorna
-       // plantList.add(new Rose("Empty", PlantArt.POT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0));
-
-        // Skapa ditt MainFrame-objekt efter att plantorna har skapats
-        view = new MainFrame(this);
-        // Skapa och konfigurera CenterPanel
-        //centerPanel = new CenterPanel(400, 400);
-        //view.add(centerPanel);
         garden();
+        view = new MainFrame(this);
     }
 
+    /**
+     * Create the garden with plants to choose from
+     * @author Cyrus Shaerpour
+     */
     private void garden() {
         plants = new Plant[] {
-            new Rose("Rose", PlantArt.ROSE, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
-            new Sunflower("Sunflower", PlantArt.SUNFLOWER, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
-            new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+            new Rose("Rose", PlantArt.ROSE, 3, 0,new ImageIcon("src/Images/PotArt1.JPG"), 0,
+                    "The rose is a type of flowering shrub. Its name comes from the Latin word Rosa. \n " +
+                            "The flowers of the rose grow in many different colors, \n " +
+                            "from the well-known red rose or yellow roses and sometimes white or purple roses. \n " +
+                            "Roses belong to the family of plants called Rosaceae."),
+
+            new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0,
+                    "The sunflower is a large inflorescence, \n" +
+                            " this means that the flower head is actually made of many tiny flowers called florets. \n" +
+                            " The central florets look like the center of a normal flower and the outer florets look like yellow petals. \n" +
+                            " All together they make up a 'false flower'."),
+
+            new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0,
+                    "The tomato is the edible berry of the plant Solanum lycopersicum, \n" +
+                            " commonly known as a tomato plant. The species originated in western South America and Central America. \n" +
+                            " The Nahuatl word tomatl gave rise to the Spanish word tomate, from which the English word tomato derived."),
         };
 
     }
 
+    /**
+     * Load the game from the save file
+     * @param id
+     * @author Cyrus Shaerpour
+     */
     public void switchPlant(String id){
         System.out.println(id + " " + plants[Integer.parseInt(id)].getPlantName());
         view.getCenterPanel().updatePlantImage(plants[Integer.parseInt(id)].getPlantPicture());
+        if (view.getSouthPanel() != null) {
+            view.getSouthPanel().updatePlantInfo(plants[Integer.parseInt(id)].getPlantInfo());
+            System.out.println(id + " " + plants[Integer.parseInt(id)].getPlantInfo());
+        } else {
+            System.err.println("SouthPanel instance is null");
+        }
         addPlant(plants[Integer.parseInt(id)]);
         currentPlantIndex = Integer.parseInt(id);
         view.getCenterPanel().getMainPanel().refreshBar();
         //view.getCenterPanel().updatePanel(plantList.getFirst().getPlantPicture());
     }
 
+    /**
+     * Add a plant to the plant list
+     * @param plant
+     * @author Cyrus Shaerpour
+     */
     public void addPlant(Plant plant) {
         plantList.add(plant);
         nbrOfPlants++;
     }
 
+    /**
+     * Function for the different buttons and what they do
+     * @param button
+     * @author Anna Granberg & Cyrus Shaerpour & Roa Jamhour
+     */
     public void buttonPressed(ButtonType button) {
         switch (button) {
             case Water:
-                Plant plant = plants[currentPlantIndex]; //plantList.get(currentPlantIndex); //plantList.get(0);
+                // Check if the plant list is empty
+                if (plantList.isEmpty()) {
+                    // Display error message
+                    JOptionPane.showMessageDialog(null, "The pot is empty. Choose a plant to water first.", "Empty Pot", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                
+                // Get the current plant from the array of plants
+                Plant plant = plants[currentPlantIndex];
+                // Water the plant
                 plant.waterPlant();
+                // Update the plant image in the view
                 ImageIcon updatedImage = plant.getPlantPicture();
-                System.out.println(updatedImage);
                 view.getCenterPanel().updatePlantImage(updatedImage);
+
+                try {
+                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResourceAsStream("/sounds/watering.wav")));
+                    wateringSoundClip = AudioSystem.getClip();
+                    wateringSoundClip.open(audioInputStream);
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+
+                // Check if the plant was watered successfully before playing the sound
+                if (!plantList.isEmpty()) {
+                    //Play the watering sound
+                    if(wateringSoundClip != null){
+                        wateringSoundClip.setFramePosition(0);
+                        wateringSoundClip.start(); //to start playing the sound
+                        break;
+                    }
+                }
                 break;
         }
     }
@@ -98,7 +162,7 @@ public class Controller {
                 return 0;
             }
         } else {
-            System.err.println("Plant list is empty");
+            System.err.println("Plant list is empty water");
             return 0;
         }
     }
@@ -114,16 +178,16 @@ public class Controller {
                 return 0;
             }
         } else {
-            System.err.println("Plant list is empty");
+            System.err.println("Plant list is empty level");
             return 0;
         }
     }
 
     public void saveGame() {
-        SaveGame saveGame = new SaveGame(plantList);
+        SaveGame.saveGame(plantList);
     }
 
-    public List<Plant> getPlantList() {
+    public ArrayList<Plant> getPlantList() {
         return plantList;
     }
 
@@ -134,4 +198,5 @@ public class Controller {
     public void setCurrentPlant(Plant newPlant) {
         currentPlant = newPlant;
     }
+
 }

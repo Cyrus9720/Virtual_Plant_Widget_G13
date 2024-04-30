@@ -1,6 +1,9 @@
 package Model;
 
 import javax.swing.ImageIcon;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class Plant {
     private String name;
@@ -9,24 +12,26 @@ public class Plant {
     private ImageIcon plantPicture;
     private int plantLevel;
     private PlantArt plantArt;
+    private Timestamp lastWatered;
+    private String plantInfo;
 
     /**
      * Constructor for Plant
      * @param name Name of the plant
      * @param plantArt Art of the plant
-     * @param timesWatered Number of times the plant has been watered
      * @param plantPicture Picture of the plant
      * @param plantLevel Level of the plant
      * @author Cyrus Shaerpour
      */
-    public Plant(String name, PlantArt plantArt, int timesWatered, ImageIcon plantPicture, int plantLevel) {
+    public Plant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, String plantInfo) {
         this.name = name;
         this.plantArt = plantArt;
-        nbrOfLives = 3;
+        this.nbrOfLives = nbrOfLives;
         this.timesWatered = timesWatered;
         this.plantPicture = plantPicture;
         this.plantLevel = plantLevel;
-        System.out.println("Plant created" + name);
+        this.plantInfo = plantInfo;
+        // System.out.println("Plant created " + name);
     }
 
     /**
@@ -124,8 +129,34 @@ public class Plant {
         this.plantLevel = plantLevel;
     }
 
-    public String toString(){
-        String textOut = String.format("Plant art: %s | Plant name: %s | Plant level: %s | Times watered: %s | Number of lives: %s | Plant picture: %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture);
-        return textOut;
+    /**
+     * Method for getting the plantArt of the plant
+     * @return plantArt
+     * @author Anna Granberg
+     */
+    public PlantArt getPlantArt() {
+        return plantArt;
+    }
+
+    public void setLastWatered(Timestamp lastWatered) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        this.lastWatered = Timestamp.valueOf(dateFormat.format(lastWatered));
+    }
+
+    public Timestamp getLastWatered() {
+        return lastWatered;
+    }
+
+    /**
+     * toString method
+     * @return textOut
+     * @author Anna Granberg
+     */
+    public String toString() {
+        return String.format("Plant art: %s | Plant name: %s | Plant level: %d | Times watered: %d | Number of lives: %d | Plant picture: %s | Last time watered: %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture, lastWatered);
+    }
+
+    public String getPlantInfo() {
+        return plantInfo;
     }
 }

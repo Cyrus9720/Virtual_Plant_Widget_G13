@@ -1,8 +1,6 @@
 package View;
 import Controller.Controller;
 import javax.swing.*;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -25,7 +23,6 @@ public class EastPanel extends JPanel
     private int width, height; // Dimensions of the panel
     private JButton Water; // Button for watering action
     private JLabel progressbarLabel;
-    private Clip wateringSoundClip;
     /**
      * Constructs a new EastPanel with the specified controller, width, and height.
      *
@@ -77,14 +74,6 @@ public class EastPanel extends JPanel
         progressbarLabel.setIcon(scaledIcon);
         add(progressbarLabel, BorderLayout.SOUTH);
 
-        try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/sounds/watering.wav"));
-            wateringSoundClip = AudioSystem.getClip();
-            wateringSoundClip.open(audioInputStream);
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-
         // Adding ActionListener to the water button
         Water.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -92,16 +81,9 @@ public class EastPanel extends JPanel
                     controller.buttonPressed(ButtonType.Water);
                     progressbarLabel.setIcon(updateWaterProgress());
                     System.out.println("Water button clicked");
-
-                    //Play the watering sound
-                    if(wateringSoundClip != null){
-                        wateringSoundClip.setFramePosition(0);
-                        wateringSoundClip.start(); //to start playing the sound
                     }
                 }
-            }
         });
-
     }
 
     public void refreshBar(){
@@ -114,6 +96,7 @@ public class EastPanel extends JPanel
      * The water level depends on the plant's level and the number of times it has been watered.
      *
      * @return ImageIcon representing the water progress bar.
+     * @author Anna Granberg
      */
     public ImageIcon updateWaterProgress() {
         int timesWatered = controller.getTimesWatered();
@@ -167,6 +150,4 @@ public class EastPanel extends JPanel
 
         return new ImageIcon(scaledImage);
     }
-
-
 }

@@ -22,8 +22,9 @@ public class MainFrame extends JFrame {
     private Controller controller; // reference to controller
     private int width = 600; // dimensions for frame size
     private int height = 800; // dimensions for frame size
-    private MainPanel mainPanel;
-
+    private MainPanel mainPanel; // reference to mainPanel
+    private GardenView gardenView; // reference to gardenView
+    private SouthPanel southPanel;
     private CenterPanel centerPanel;
 
 
@@ -81,8 +82,8 @@ public class MainFrame extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                // Anropa SaveGame() för att spara spelet när fönstret stängs
-                // controller.saveGame();
+                // Anropar SaveGame() för att spara spelet när fönstret stängs
+                controller.saveGame();
             }
         });
 
@@ -91,36 +92,33 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
-    /**
-     * Displays a dialog box showing the game rules.
-     * @author annagranberg
-     */
-    public void showRulesDialog() {
-        String rules = "Game rules:\n1. Plant different types of plants and take care of them." +
-                        "\n2. Water your plants regularly to keep them healthy." +
-                        "\n3. Beware of deadlines for watering, or your plants may die." +
-                        "\n4. Harvest seeds from mature plants to grow new ones." +
-                        "\n5. Enjoy watching your garden flourish!";
-
+    public void timeToWater(){
+        String message = "It's time to water the plant!\nDon't forget to give it some love and hydration.";
         Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
         UIManager.put("OptionPane.messageFont", customFont);
         UIManager.put("OptionPane.background", new Color(225, 240, 218));
         UIManager.put("Panel.background", new Color(225, 240, 218));
-
-        ImageIcon customIcon = new ImageIcon("src/Images/img.png");
-        Image originalCustomImage = customIcon.getImage();
-        Image scaledIconImage = originalCustomImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-        ImageIcon scaledPlantImageIcon = new ImageIcon(scaledIconImage);
-
-        JOptionPane.showOptionDialog(null, rules, "Virtual Plant Widget", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, scaledPlantImageIcon, null, null);
+        JOptionPane.showMessageDialog(null, message, "Plant Watering Reminder", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * Displays gameRulesFrame showing the game rules.
+     *
+     * @author annagranberg
+     */
+    public void showRulesDialog() {
+        GameRuleFrame gameRuleFrame = new GameRuleFrame();
+    }
 
     public void switchPlant(){
-        GardenView gardenView = new GardenView(this, mainPanel.getCenterPanel(), controller);
+        gardenView = new GardenView(this, mainPanel.getCenterPanel(), controller);
     }
 
     public CenterPanel getCenterPanel() {
         return mainPanel.getCenterPanel();
+    }
+
+    public SouthPanel getSouthPanel() {
+        return mainPanel.getSouthPanel();
     }
 }

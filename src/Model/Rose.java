@@ -4,8 +4,8 @@ import javax.swing.ImageIcon;
 
 public class Rose extends Plant {
 
-    public Rose(String name, PlantArt plantArt, int timesWatered, ImageIcon plantPicture, int plantLevel) {
-        super(name, plantArt, timesWatered, plantPicture, plantLevel);
+    public Rose(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, String plantInfo) {
+        super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, plantInfo);
     }
 
     @Override
