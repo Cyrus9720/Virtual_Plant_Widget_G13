@@ -1,6 +1,5 @@
-Plant art; ROSE | Plant name; Rose | Plant level; 3 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/RoseArt3.JPG | Last time watered; null | Timestamp; 2024-04-30 16:38:51.033
-Plant art; SUNFLOWER | Plant name; Sunflower | Plant level; 3 | Times watered; 2 | Number of lives; 3 | Plant picture; src/Images/Sunflower3.JPG | Last time watered; null | Timestamp; 2024-04-30 16:38:51.033
-Plant art; TOMATO_PLANT | Plant name; TomatoPlant | Plant level; 2 | Times watered; 2 | Number of lives; 3 | Plant picture; src/Images/Tomatoe2.JPG | Last time watered; null | Timestamp; 2024-04-30 16:38:51.033
-Plant art; ROSE | Plant name; Rose0 | Plant level; 1 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/RoseArt1.JPG | Last time watered; 2024-04-30 16:38:51.028 | Timestamp; 2024-04-30 16:38:51.033
-Plant art; ROSE | Plant name; Rose1 | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/PotArt1.JPG | Last time watered; null | Timestamp; 2024-04-30 16:38:51.033
-Plant art; ROSE | Plant name; Rose2 | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/PotArt1.JPG | Last time watered; null | Timestamp; 2024-04-30 16:38:51.033
+Plant art; ROSE | Plant name; Rose | Plant level; 3 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/RoseArt3.JPG | Last time watered; null | Timestamp; 2024-04-30 16:52:45.242
+Plant art; SUNFLOWER | Plant name; Sunflower | Plant level; 3 | Times watered; 2 | Number of lives; 3 | Plant picture; src/Images/Sunflower3.JPG | Last time watered; null | Timestamp; 2024-04-30 16:52:45.242
+Plant art; TOMATO_PLANT | Plant name; TomatoPlant | Plant level; 2 | Times watered; 2 | Number of lives; 3 | Plant picture; src/Images/Tomatoe2.JPG | Last time watered; null | Timestamp; 2024-04-30 16:52:45.242
+Plant art; ROSE | Plant name; Rose0 | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/PotArt1.JPG | Last time watered; null | Timestamp; 2024-04-30 16:52:45.242
+Plant art; TOMATO_PLANT | Plant name; TomatoPlant6 | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/PotArt1.JPG | Last time watered; null | Timestamp; 2024-04-30 16:52:45.242

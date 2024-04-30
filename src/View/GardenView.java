@@ -17,7 +17,7 @@ public class GardenView extends JDialog {
     private GardenPanel gardenPanel;
 
     public GardenView(JFrame parentFrame, Controller controller) {
-        super(parentFrame, "Your garden!", true); // modal dialog
+        super(parentFrame, "Your garden!"); // modal dialog
         setSize(width, height);
         setResizable(false);
         this.controller = controller;
@@ -69,6 +69,8 @@ public class GardenView extends JDialog {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         controller.switchPlant(e.getActionCommand());
+                        GardenView.this.dispose();
+
                     }
                 });
 
@@ -94,6 +96,7 @@ public class GardenView extends JDialog {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                    AddNewPlantFrame addNewPlantFrame = new AddNewPlantFrame(controller);
+                   GardenView.this.dispose();
                 }
             });
             add(addPlantButton); // Add the button to the panel

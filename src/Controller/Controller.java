@@ -111,17 +111,32 @@ public class Controller {
     }
 
     public void addPlant() {
-        // AddNewPlantFrame addNewPlantFrame = new AddNewPlantFrame();
         //plantList.add(plant);
     }
 
     public void addNewRose() {
         Random random = new Random();
-        String newRoseName = "Rose" + random;
+        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10Random random = new Random();
+        String newRoseName = "Rose" + randomNumber;
         Rose newRose = new Rose(newRoseName, PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0);
         plantList.add(newRose);
     }
-    
+
+    public void addNewSunflower(){
+        Random random = new Random();
+        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
+        String newSunflowerName = "Sunflower" + randomNumber;
+        Sunflower newSunflower = new Sunflower(newSunflowerName, PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0);
+        plantList.add(newSunflower);
+    }
+
+    public void addNewTomatoplant(){
+        Random random = new Random();
+        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
+        String newTomatoName = "TomatoPlant" + randomNumber;
+        TomatoPlant newSunflower = new TomatoPlant(newTomatoName, PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0);
+        plantList.add(newSunflower);
+    }
     public void buttonPressed(ButtonType button) {
         switch (button) {
             case Water:

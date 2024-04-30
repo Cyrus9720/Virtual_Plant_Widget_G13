@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AddNewPlantFrame extends JFrame {
-    private Controller controller;
     public AddNewPlantFrame(Controller controller) {
         setSize(new Dimension(300, 150));
         setVisible(true);
@@ -32,7 +31,8 @@ public class AddNewPlantFrame extends JFrame {
             sunflowerButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // todo: Handle the click event for sunflowerButton
+                    controller.addNewSunflower();
+                    AddNewPlantFrame.this.dispose();
                 }
             });
 
@@ -42,6 +42,7 @@ public class AddNewPlantFrame extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     controller.addNewRose();
+                    AddNewPlantFrame.this.dispose();
                 }
             });
 
@@ -50,7 +51,8 @@ public class AddNewPlantFrame extends JFrame {
             tomatoButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // todo: Handle the click event for tomatoButton
+                    controller.addNewTomatoplant();
+                    AddNewPlantFrame.this.dispose();
                 }
             });
 
