@@ -17,16 +17,16 @@ public class TomatoPlant extends Plant{
     private void updateImage() {
         switch (getPlantLevel()) {
             case 0:
-                setPlantPicture(new ImageIcon("src/Images/rose 1.jpeg"));
+                setPlantPicture(new ImageIcon("src/Images/PotArt1.JPG"));
                 break;
             case 1:
-                setPlantPicture(new ImageIcon("src/Images/rose 2.jpeg"));
+                setPlantPicture(new ImageIcon("src/Images/Tomatoe1.JPG"));
                 break;
             case 2:
-                setPlantPicture(new ImageIcon("src/Images/rose 3.jpeg"));
+                setPlantPicture(new ImageIcon("src/Images/Tomatoe2.JPG"));
                 break;
             case 3:
-                setPlantPicture(new ImageIcon("src/Images/rose 4.jpeg"));
+                setPlantPicture(new ImageIcon("src/Images/Tomatoe3.JPG"));
                 break;
             default:
                 // Handle any other cases or provide a default image

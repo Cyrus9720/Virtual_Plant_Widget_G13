@@ -41,6 +41,7 @@ public class Plant {
         this.timesWatered = timesWatered;
         this.plantPicture = plantPicture;
         this.plantLevel = plantLevel;
+
         System.out.println("Plant created");
 
         timeSinceLastWatering = 0; //Time since last watering to 0
@@ -83,6 +84,9 @@ public class Plant {
     private int calculateHealthDecrease(){
         int healthDecrease = 1;
         return healthDecrease;
+
+        System.out.println("Plant created" + name);
+
     }
 
     /**
@@ -107,6 +111,7 @@ public class Plant {
 
 
     //@TODO: Lägg till javadocs efterhand när metoderna börjar användas.
+
     public void update(long elapsedTime){
         timeSinceLastWatering += elapsedTime; //Update time since last watering
 
@@ -117,10 +122,13 @@ public class Plant {
         }
     }
     public String getName() {
+
+    public String getPlantName() {
+
         return name;
     }
 
-    public void setName(String name) {
+    public void setPlantName(String name) {
         this.name = name;
     }
 
@@ -176,7 +184,7 @@ public class Plant {
      * @author Cyrus Shaerpour
      */
     public int getPlantLevel() {
-        System.out.println("Plant level " + (plantLevel));
+        System.out.println(name + " Plant level " + (plantLevel));
         return plantLevel;
     }
 
@@ -199,4 +207,4 @@ public class Plant {
         String textOut = String.format("Plant art: %s | Plant name: %s | Plant level: %s | Times watered: %s | Number of lives: %s | Plant picture: %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture);
         return textOut;
     }
-}
+}}
