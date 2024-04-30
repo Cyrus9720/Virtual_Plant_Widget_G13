@@ -6,10 +6,9 @@ import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.FileWriter;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
+
 
 /**
  * A class for loading game data from a saved file.
@@ -21,8 +20,9 @@ import java.util.List;
  * @author Anna Granberg
  */
 public class LoadGame {
-
     private static Timestamp timestamp;
+
+
     /**
      * Loads game data from a saved file and populates a list of Plant objects.
      *
@@ -47,19 +47,18 @@ public class LoadGame {
                 int nbrOfLives = Integer.parseInt(plantData[4].trim().split(":")[1].trim());
                 ImageIcon plantPicture = new ImageIcon(plantData[5].trim().split(":")[1].trim());
 
-                // track the time
-                timestamp = Timestamp.valueOf(plantData[7].trim().split(":")[1].trim());
-
-                String timestampString = plantData[6].trim().split(":")[1].trim();
-                if (!timestampString.endsWith(".000")) {
-                    timestampString += ".000";
-                }
-                Timestamp lastWatered = Timestamp.valueOf(timestampString);
+                Timestamp lastWatered = parseTimestamp(plantData[6].trim().split(":")[1].trim());
+                Timestamp timestamp = parseTimestamp(plantData[7].trim().split(":")[1].trim());
 
                 Plant existingPlant = findPlantByName(plantList, name);
                 if (existingPlant != null) {
-                    existingPlant.setTimesWatered(existingPlant.getTimesWatered() + timesWatered);
+                    existingPlant.setPlantArt(plantArt);
+                    existingPlant.setPlantPicture(plantPicture);
+                    existingPlant.setPlantLevel(plantLevel);
+                    existingPlant.setNbrOfLives(nbrOfLives);
                     existingPlant.setLastWatered(lastWatered);
+                    existingPlant.setTimesWatered(existingPlant.getTimesWatered() + timesWatered);
+
                 }
             }
             System.out.println("Game loaded successfully.");
@@ -68,33 +67,28 @@ public class LoadGame {
         } catch (IllegalArgumentException e) {
             System.err.println("Error parsing data from save file: " + e.getMessage());
         }
-        String filePath = "game_save.txt";
-      //  clearFile(filePath);
-
         return plantList; // Return the list of Plant objects
     }
 
-    public static Timestamp getTimestamp() {
-        return timestamp;
+    private static Timestamp parseTimestamp(String timestampString) {
+        try {
+            return Timestamp.valueOf(timestampString);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error parsing timestamp from save file: " + e.getMessage());
+            return null; // Return null if parsing fails
+        }
     }
 
     public static Plant findPlantByName(List<Plant> plantList, String name) {
         for (Plant plant : plantList) {
             if (plant.getPlantName().equals(name)) {
-                return plant; // Returnerar växten om den hittas
+                return plant; // Return the plant if found
             }
         }
-        return null; // Returnerar null om växten inte hittas
+        return null; // Return null if the plant is not found
     }
 
-    public static void clearFile(String filePath) {
-        try {
-            FileWriter writer = new FileWriter(filePath, false);
-            writer.write(""); // Skriver över befintligt innehåll med en tom sträng
-            writer.close();
-            System.out.println("File content cleared successfully.");
-        } catch (IOException e) {
-            System.err.println("Error clearing file content: " + e.getMessage());
-        }
+    public static Timestamp getTimestamp() {
+        return timestamp;
     }
 }

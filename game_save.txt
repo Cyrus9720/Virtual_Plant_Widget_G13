@@ -1,2 +1,1 @@
-Plant art: SUNFLOWER | Plant name: Sunflower | Plant level: 2 | Times watered: 1 | Number of lives: 3 | Plant picture: src/Images/Sunflower2.JPG | Last time watered: 2024-04-29 14:53:10 | Timestamp: 2024-04-29 14:53:18
-Plant art: TOMATO_PLANT | Plant name: TomatoPlant | Plant level: 3 | Times watered: 1 | Number of lives: 3 | Plant picture: src/Images/Tomatoe3.JPG | Last time watered: 2024-04-29 14:53:17 | Timestamp: 2024-04-29 14:53:18
+Plant art: SUNFLOWER | Plant name: Sunflower | Plant level: 2 | Times watered: 2 | Number of lives: 3 | Plant picture: src/Images/Sunflower2.JPG | Last time watered: 2024-04-30 10:34:44.98 | Timestamp: 2024-34-30 10:34:50.98

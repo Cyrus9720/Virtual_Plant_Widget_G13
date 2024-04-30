@@ -43,13 +43,10 @@ public class SouthPanel extends JPanel
         setLayout(new BorderLayout());
 
         ImageIcon threeHearts = new ImageIcon("src/Images/treHjärtan.png");
-        Image originalThreeHearts = threeHearts.getImage();
-        Image scaledHeartsLivesImage = originalThreeHearts.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-        ImageIcon scaledThreeHearts = new ImageIcon(scaledHeartsLivesImage);
         threeHeartsLabel = new JLabel(updateAmountOfLife());
         add(threeHeartsLabel, BorderLayout.WEST);
 
-        try{
+        /*try{
             JLabel plantInfo = new JLabel(controller.getPlantInfo());
             plantInfo.setPreferredSize(new Dimension(100, 60));
             plantInfo.setFont(new Font("Bebas Neue", Font.BOLD, 10));
@@ -57,7 +54,7 @@ public class SouthPanel extends JPanel
         } catch (Exception e){
             System.err.println("Could not retrieve plantinfo");
         }
-
+*/
     }
 
     public ImageIcon updateAmountOfLife() {

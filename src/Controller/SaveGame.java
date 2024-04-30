@@ -6,10 +6,12 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A class for saving game data to a file
@@ -32,17 +34,15 @@ public class SaveGame {
      */
     public static void saveGame(ArrayList<Plant> plantList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("game_save.txt"))) {
-            // Write each plant's data to the file
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss", Locale.getDefault());
             for (Plant plant : plantList) {
-                String data = plant.toString();
+                String data = plant.toString(); // Assuming this returns the plant's attributes in the expected format
 
                 // Get the current time
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                timestamp = Timestamp.valueOf(dateFormat.format(new Date()));
-
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
                 // Add the time to the end of the line
-                data += " | Timestamp: " + timestamp;
+                data += " | Timestamp: " + dateFormat.format(timestamp);
 
                 writer.write(data);
                 writer.newLine();
@@ -52,6 +52,7 @@ public class SaveGame {
             System.err.println("Error saving game: " + e.getMessage());
         }
     }
+
 
     public static Timestamp getTimestamp() {
         return timestamp;

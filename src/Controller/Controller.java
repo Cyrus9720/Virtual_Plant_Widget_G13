@@ -2,33 +2,28 @@ package Controller;
 
 import Model.*;
 import View.ButtonType;
-import View.CenterPanel;
 import View.MainFrame;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
-import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Controller {
-
     private MainFrame view;
     private ArrayList<Plant> plantList = new ArrayList<>();
     private Plant[] plants;
     private Plant currentPlant;
-    // private int nbrOfPlants = 0;
-    private Clip wateringSoundClip; // Declare wateringSoundClip variable
+    private Clip wateringSoundClip;
     private int currentPlantIndex;
 
     public Controller() {
+        plants = plantList.toArray(new Rose[0]);
+        plants = plantList.toArray(new Sunflower[1]);
+        plants = plantList.toArray(new TomatoPlant[2]);
         garden();
-        loadGame();
         view = new MainFrame(this);
     }
 
@@ -109,9 +104,6 @@ public class Controller {
                 continue; // Skip this plant and move on to the next one
             }
 
-            // Parse the lastWatered Timestamp to Date object
-            Date lastWateredDate = new Date(lastWatered.getTime());
-
             long timeSinceLastWatered = currentTimestamp.getTime() - lastWatered.getTime();
             long wateringInterval = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -177,9 +169,8 @@ public class Controller {
         SaveGame.saveGame(plantList);
     }
 
-    public void loadGame(){
-        LoadGame.loadGame(plantList);
-        // view.welcomeBackMessage();
+    public void updateRose(){
+
     }
 
     public ArrayList<Plant> getPlantList() {
@@ -199,7 +190,8 @@ public class Controller {
         String plantInfo = plant.getPlantinfo();
         return plantInfo;
     }
-    
+
+
     public long getTimeSinceLastPlayed() {
         Timestamp timeWhenClosed = SaveGame.getTimestamp();
         Timestamp timeWhenOpened = LoadGame.getTimestamp();

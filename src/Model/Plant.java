@@ -14,6 +14,8 @@ public class Plant {
     private String plantinfo;
     private PlantArt plantArt;
     private Timestamp lastWatered;
+    private Timestamp lastUpdatedTimestamp;
+
 
     /**
      * Constructor for Plant
@@ -144,9 +146,16 @@ public class Plant {
     public Timestamp getLastWatered() {
         return lastWatered;
     }
-
     public String getPlantinfo() {
         return plantinfo;
+    }
+
+    public void setPlantArt(PlantArt plantArt) {
+        this.plantArt = plantArt;
+    }
+
+    public void updateTimestamp(Timestamp timestamp) {
+        this.lastUpdatedTimestamp = timestamp;
     }
 
     /**
