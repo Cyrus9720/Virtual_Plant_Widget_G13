@@ -11,6 +11,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+/**
+ * A utility class for loading game data from a saved file and populating a list of Plant objects.
+ * @author annagranberg
+ */
+
 public class LoadGame {
     private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
     private static LocalDateTime timestamp;
@@ -72,6 +77,12 @@ public class LoadGame {
         return plantList; // Return the list of Plant objects
     }
 
+    /**
+     * Parses a timestamp string into a LocalDateTime object.
+     *
+     * @param timestampString The string representation of the timestamp.
+     * @return The parsed LocalDateTime object.
+     */
     private static LocalDateTime parseTimestamp(String timestampString) {
         try {
             // Manuellt tolka tidsstämpeln
@@ -82,16 +93,6 @@ public class LoadGame {
             System.err.println("Error parsing timestamp from save file: " + e.getMessage());
             return null;
         }
-    }
-
-
-    public static Plant findPlantByName(List<Plant> plantList, String name) {
-        for (Plant plant : plantList) {
-            if (plant.getPlantName().equals(name)) {
-                return plant; // Return the plant if found
-            }
-        }
-        return null; // Return null if the plant is not found
     }
 
     public static Plant getPlant() {
