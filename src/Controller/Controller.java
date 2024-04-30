@@ -66,17 +66,28 @@ public class Controller {
         }
     }
 
-
     public void switchPlant(String id) {
+        // Konvertera id till en int för att få plantIndex
         int plantIndex = Integer.parseInt(id);
-        if (plantIndex > 0 && plantIndex < plantList.size()) { // Check if plantIndex is within valid range
+
+        // Kontrollera om plantIndex är inom ett giltigt intervall (1 till plantList.size() - 1)
+        if (plantIndex >= 0 && plantIndex < plantList.size()) {
+            // Om plantIndex är giltigt, hämta växten från plantList med det angivna indexet
             Plant plant = plantList.get(plantIndex);
-            System.out.println(id + " " + plant.getPlantName());
+
+            // Uppdatera växtbilden i gränssnittet med den nya växten
             view.getCenterPanel().updatePlantImage(plant.getPlantPicture());
+
+            // Lägg till växten i plantList
             addPlant(plant);
+
+            // Uppdatera currentPlantIndex till det nya växtindexet
             currentPlantIndex = plantIndex;
+
+            // Uppdatera gränssnittet för att visa förändringar, t.ex. en progressbar
             view.getCenterPanel().getMainPanel().refreshBar();
         } else {
+            // Om plantIndex är ogiltigt (utanför intervallet), skriv ut ett felmeddelande
             System.err.println("Invalid plant index: " + id);
         }
     }
