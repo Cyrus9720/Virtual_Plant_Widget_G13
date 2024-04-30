@@ -111,21 +111,21 @@ public class Controller {
                 view.getCenterPanel().updatePlantImage(updatedImage);
 
                 try {
-                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResourceAsStream("/sounds/watering.wav")));
-                    wateringSoundClip = AudioSystem.getClip();
-                    wateringSoundClip.open(audioInputStream);
-                }catch (Exception ex){
-                    ex.printStackTrace();
-                }
-
-                // Check if the plant was watered successfully before playing the sound
-                if (!plantList.isEmpty()) {
-                    //Play the watering sound
-                    if(wateringSoundClip != null){
-                        wateringSoundClip.setFramePosition(0);
-                        wateringSoundClip.start(); //to start playing the sound
-                        break;
+                    // If the sound clip is not initialized or it's not playing, initialize and play it
+                    if (wateringSoundClip == null || !wateringSoundClip.isRunning()) {
+                        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResourceAsStream("/sounds/watering.wav")));
+                        wateringSoundClip = AudioSystem.getClip();
+                        wateringSoundClip.open(audioInputStream);
+                        wateringSoundClip.setFramePosition(0); // Reset to the beginning
+                        wateringSoundClip.start(); // Start playing the sound
+                    } else {
+                        // If the sound clip is already playing, stop and reset it before playing again
+                        wateringSoundClip.stop();
+                        wateringSoundClip.setFramePosition(0); // Reset to the beginning
+                        wateringSoundClip.start(); // Start playing the sound
                     }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
                 break;
         }
