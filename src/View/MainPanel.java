@@ -18,6 +18,7 @@ public class MainPanel extends JPanel
     private BorderLayout layout; // Layout manager for the panel
     private Controller controller; // Reference to controller
     private CenterPanel centerPanel;
+    private SouthPanel southPanel;
     private EastPanel eastPanel;
 
     /**
@@ -44,8 +45,8 @@ public class MainPanel extends JPanel
         centerPanel = new CenterPanel(300, 450, this);
         add(centerPanel, BorderLayout.CENTER);
 
-        SouthPanel northPanel = new SouthPanel(controller, width, 300);
-        add(northPanel, BorderLayout.SOUTH);
+        southPanel = new SouthPanel(controller, width, 300);
+        add(southPanel, BorderLayout.SOUTH);
         setVisible(true);
 
         JLabel plantInfoLabel = new JLabel("Plant information");
@@ -59,4 +60,8 @@ public class MainPanel extends JPanel
     public CenterPanel getCenterPanel() {
         return centerPanel;
     }
+    public SouthPanel getSouthPanel() {
+        return southPanel;
+    }
+
 }

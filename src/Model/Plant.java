@@ -1,8 +1,9 @@
 package Model;
 
 import javax.swing.ImageIcon;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class Plant {
     private String name;
@@ -11,82 +12,26 @@ public class Plant {
     private ImageIcon plantPicture;
     private int plantLevel;
     private PlantArt plantArt;
-    private Timer timer;
-
-    private long creationTime;
-
-    private long timeSinceLastWatering; // Variable to track time since last watering
-    private static final long WATERING_iNTERVAL = 60000; //Interval for watering in milliseconds (every 60 sec)
-
-    private static final int THRESHOLD = 1000; // Threshold value for determining life stage in milliseconds
-
-    public static final long YOUNG_THRESHOLD = 360; // Threshold for young age in seconds (e.g., 1 hour)
-    public static final long MATURE_THRESHOLD = 864;
-
-
+    private Timestamp lastWatered;
+    private String plantInfo;
 
     /**
      * Constructor for Plant
      * @param name Name of the plant
      * @param plantArt Art of the plant
-     * @param timesWatered Number of times the plant has been watered
      * @param plantPicture Picture of the plant
      * @param plantLevel Level of the plant
      * @author Cyrus Shaerpour
      */
-    public Plant(String name, PlantArt plantArt, int timesWatered, ImageIcon plantPicture, int plantLevel) {
+    public Plant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, String plantInfo) {
         this.name = name;
         this.plantArt = plantArt;
-        nbrOfLives = 3;
+        this.nbrOfLives = nbrOfLives;
         this.timesWatered = timesWatered;
         this.plantPicture = plantPicture;
         this.plantLevel = plantLevel;
-
-        System.out.println("Plant created");
-
-        timeSinceLastWatering = 0; //Time since last watering to 0
-
-        startHealthDecrementTimer();
-    }
-
-    public long getAge(){
-        return System.currentTimeMillis() - creationTime;
-    }
-
-    private void startHealthDecrementTimer(){
-        timer= new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                decrementHealth();
-            }
-        }, 1000,1000);
-    }
-
-    public void stopHealthDecrementTimer(){
-        if ( timer != null){
-            timer.cancel();
-            timer.purge();
-        }
-    }
-
-    private void decrementHealth(){
-        int healthDecrease = calculateHealthDecrease();
-
-        if (plantLevel < 3){
-            nbrOfLives -= healthDecrease;
-            if (nbrOfLives <= 0){
-                stopHealthDecrementTimer();
-            }
-        }
-    }
-
-    private int calculateHealthDecrease(){
-        int healthDecrease = 1;
-        return healthDecrease;
-
-        System.out.println("Plant created" + name);
-
+        this.plantInfo = plantInfo;
+        // System.out.println("Plant created " + name);
     }
 
     /**
@@ -109,22 +54,8 @@ public class Plant {
         }
     }
 
-
     //@TODO: Lägg till javadocs efterhand när metoderna börjar användas.
-
-    public void update(long elapsedTime){
-        timeSinceLastWatering += elapsedTime; //Update time since last watering
-
-        if (timeSinceLastWatering >= WATERING_iNTERVAL){ //to check if enough time has passed since the last watering
-            waterPlant();
-
-            timeSinceLastWatering = 0; // reset the timer
-        }
-    }
-    public String getName() {
-
     public String getPlantName() {
-
         return name;
     }
 
@@ -188,7 +119,6 @@ public class Plant {
         return plantLevel;
     }
 
-
     /**
      * Method for setting the level of the plant
      * @param plantLevel Level of the plant
@@ -199,12 +129,34 @@ public class Plant {
         this.plantLevel = plantLevel;
     }
 
-    public void updatePlantLevel(int newPLantLevel){
-        setPlantLevel(newPLantLevel);
+    /**
+     * Method for getting the plantArt of the plant
+     * @return plantArt
+     * @author Anna Granberg
+     */
+    public PlantArt getPlantArt() {
+        return plantArt;
     }
 
-    public String toString(){
-        String textOut = String.format("Plant art: %s | Plant name: %s | Plant level: %s | Times watered: %s | Number of lives: %s | Plant picture: %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture);
-        return textOut;
+    public void setLastWatered(Timestamp lastWatered) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        this.lastWatered = Timestamp.valueOf(dateFormat.format(lastWatered));
     }
-}}
+
+    public Timestamp getLastWatered() {
+        return lastWatered;
+    }
+
+    /**
+     * toString method
+     * @return textOut
+     * @author Anna Granberg
+     */
+    public String toString() {
+        return String.format("Plant art: %s | Plant name: %s | Plant level: %d | Times watered: %d | Number of lives: %d | Plant picture: %s | Last time watered: %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture, lastWatered);
+    }
+
+    public String getPlantInfo() {
+        return plantInfo;
+    }
+}

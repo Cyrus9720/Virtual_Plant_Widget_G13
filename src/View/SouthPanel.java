@@ -21,6 +21,7 @@ public class SouthPanel extends JPanel
     private Controller controller;
     private JLabel progressbarLabel;
     JLabel threeHeartsLabel;
+    JLabel plantInfoLabel;
 
     /**
      * Constructs a new SouthPanel with the specified controller, width, and height.
@@ -47,13 +48,16 @@ public class SouthPanel extends JPanel
         Image scaledHeartsLivesImage = originalThreeHearts.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         ImageIcon scaledThreeHearts = new ImageIcon(scaledHeartsLivesImage);
         threeHeartsLabel = new JLabel(updateAmountOfLife());
+        plantInfoLabel = new JLabel();
         add(threeHeartsLabel, BorderLayout.WEST);
+        add(plantInfoLabel,BorderLayout.EAST);
 
-        JLabel plantInfo = new JLabel("<html>More information about your plant, coming soon...</html>");
+        // Create an JLable Object for the plant information
+        JLabel plantInfo = new JLabel();
         plantInfo.setPreferredSize(new Dimension(100, 60));
         plantInfo.setFont(new Font("Bebas Neue", Font.BOLD, 10));
         add(plantInfo, BorderLayout.EAST);
-    }
+        }
 
     public ImageIcon updateAmountOfLife() {
         int nbrOfLives = controller.getNbrOfLives();
@@ -65,15 +69,15 @@ public class SouthPanel extends JPanel
                 heartsIcon = new ImageIcon("src/Images/tommaHjärtan.png");
                 break;
             case 1:
-                // Display one heart
+                // If there is one life left, display one heart
                 heartsIcon = new ImageIcon("src/Images/ettHjärta.png");
                 break;
             case 2:
-                // Display two hearts
+                // If there are two lives left, display two hearts
                 heartsIcon = new ImageIcon("src/Images/tvåHjärtan.png");
                 break;
             case 3:
-                // Display three hearts
+                // If there are three lives left, display three hearts
                 heartsIcon = new ImageIcon("src/Images/treHjärtan.png");
                 break;
             default:
@@ -91,6 +95,31 @@ public class SouthPanel extends JPanel
         }
     }
 
+    private JLabel scalePlantInfo(String plantInfo, int maxWidth) {
+        JLabel label = new JLabel(plantInfo);
+        label.setFont(new Font("Bebas Neue", Font.BOLD, 10));
+        label.setPreferredSize(new Dimension(maxWidth, 0)); // Set initial preferred size with max width
 
+        // Calculate preferred size based on the text
+        Dimension preferredSize = label.getPreferredSize();
+
+        // Update the preferred size with the calculated width and height
+        label.setPreferredSize(new Dimension(preferredSize.width, preferredSize.height));
+
+        return label;
+    }
+
+    public void updatePlantInfo(String plantInfo) {
+        // Remove the existing plant information label
+        remove(plantInfoLabel);
+
+        // Create a new plant information label with dynamically adjusted size
+        plantInfoLabel = scalePlantInfo(plantInfo, getWidth() / 2); // Adjust width as needed
+        add(plantInfoLabel, BorderLayout.EAST);
+
+        // Revalidate and repaint the panel to reflect changes
+        revalidate();
+        repaint();
+    }
 }
 
