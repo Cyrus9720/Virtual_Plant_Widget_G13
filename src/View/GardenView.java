@@ -1,11 +1,12 @@
 package View;
+
 import Controller.Controller;
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GardenView extends JDialog {
 
@@ -13,60 +14,49 @@ public class GardenView extends JDialog {
     private int width = 300; // The width of the dialog
     private int height = 450; // The height of the dialog
 
-    //TODO: assistent added this
-    CenterPanel centerPanel;
+    private GardenPanel gardenPanel;
 
-    public GardenView(JFrame parentFrame, CenterPanel centerPanel, Controller controller) {
+    public GardenView(JFrame parentFrame, Controller controller) {
         super(parentFrame, "Your garden!", true); // modal dialog
         setSize(width, height);
         setResizable(false);
         this.controller = controller;
 
-        // Calculate the location relative to the CenterPanel
+        // Calculate the location
         int xCoordinate = parentFrame.getX() - width;
-        //int xCoordinate = parentFrame.getX() - centerPanel.getX() - 280; // Move to the left side by subtracting the width
-        int yCoordinate = parentFrame.getY() + centerPanel.getY() - 12; // Adjust as needed
+        int yCoordinate = parentFrame.getY(); // You can adjust this as needed
 
-
-
-        //TODO: assistent added this
-        this.centerPanel = centerPanel;
-
-
-
-
-        // Set the location of GardenView relative to the CenterPanel
         setLocation(xCoordinate, yCoordinate);
 
-        GardenPanel gardenPanel = new GardenPanel();
+        // Initialize the GardenPanel
+        gardenPanel = new GardenPanel(controller.getPlantImagePaths());
         add(gardenPanel);
 
         setVisible(true);
     }
 
+    // Method to update the buttons in the GardenPanel
+    public void updateButtons(ArrayList<String> newPlantPaths) {
+        gardenPanel.updateButtons(newPlantPaths);
+    }
+
     private class GardenPanel extends JPanel {
-        public GardenPanel() {
+        private List<String> plantPaths; // List of paths to plant images
+
+        public GardenPanel(List<String> plantPaths) {
+            this.plantPaths = plantPaths;
+
             setBackground(new Color(225, 240, 218));
             setLayout(new GridLayout(4, 3));
 
-            // Array of image paths for the buttons
-            String[] imagePaths = {
-                    "src/Images/RoseArt3.JPG",
-                    "src/Images/Sunflower3.JPG",
-                    "src/Images/Tomatoe3.JPG",
-                    "src/Images/RoseArt3.JPG",
-                    "src/Images/RoseArt3.JPG",
-                    "src/Images/RoseArt3.JPG"
-                    // Add more paths for additional buttons
-            };
-
-            generateButtons(imagePaths); // Call the method to generate buttons
+            generateButtons(); // Call the method to generate buttons based on available plants
+            addAddPlantButton(); // Call the method to add the "Add Plant" button
         }
 
         // Add plant buttons with images
-        public void generateButtons(String[] imagePaths) {
-            for (int i = 0; i < imagePaths.length; i++) {
-                ImageIcon icon = new ImageIcon(imagePaths[i]);
+        public void generateButtons() {
+            for (int i = 0; i < plantPaths.size(); i++) {
+                ImageIcon icon = new ImageIcon(plantPaths.get(i));
                 Image iconImage = icon.getImage();
                 Image scaledIconImage = iconImage.getScaledInstance(50, 75, Image.SCALE_SMOOTH);
                 ImageIcon scaledIcon = new ImageIcon(scaledIconImage);
@@ -84,6 +74,29 @@ public class GardenView extends JDialog {
 
                 add(plantButton);
             }
+        }
+
+        // Method to update buttons based on new plants
+        public void updateButtons(ArrayList<String> newPlantPaths) {
+            removeAll(); // Remove existing buttons
+            plantPaths = newPlantPaths; // Update list with new plants
+            generateButtons(); // Generate new buttons based on the new plants
+            revalidate(); // Update layout
+            repaint(); // Repaint the panel
+        }
+
+        // Method to add "Add Plant" button
+        private void addAddPlantButton() {
+            JButton addPlantButton = new JButton("Add new plant");
+            Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
+            addPlantButton.setFont(customFont);
+            addPlantButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                   AddNewPlantFrame addNewPlantFrame = new AddNewPlantFrame(controller);
+                }
+            });
+            add(addPlantButton); // Add the button to the panel
         }
     }
 }

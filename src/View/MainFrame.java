@@ -117,7 +117,7 @@ public class MainFrame extends JFrame {
     }
 
     public void switchPlant(){
-        gardenView = new GardenView(this, mainPanel.getCenterPanel(), controller);
+        gardenView = new GardenView(this, controller);
     }
 
     public CenterPanel getCenterPanel() {

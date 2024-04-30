@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.*;
+import View.AddNewPlantFrame;
 import View.ButtonType;
 import View.MainFrame;
 
@@ -11,6 +12,8 @@ import javax.swing.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Controller {
     private MainFrame view;
@@ -33,21 +36,36 @@ public class Controller {
     }
 
     private void garden() {
-        if(plantList.isEmpty()) {
+        if (plantList.isEmpty()) {
             plants = new Plant[]{
                     new Rose("Rose", PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
                     new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
                     new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
             };
-        } else if(plantList.size() < 3){
-            // Skapa en lista över alla potentiella plantor
-            plants = new Plant[] {
-                    new Rose("Rose", PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
-                    new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
-                    new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
-            };
+        } else if (plantList.size() < 3) {
+            Plant plant = plantList.get(0);
+            PlantArt plantArt = plant.getPlantArt();
+            switch (plantArt) {
+                case TOMATO_PLANT:
+                    plants = new Plant[]{
+                            new Rose("Rose", PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+                            new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0)
+                    };
+                    break;
+                case ROSE:
+                    plants = new Plant[]{
+                            new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+                            new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0)
+                    };
+                    break;
+                case SUNFLOWER:
+                    plants = new Plant[]{
+                            new Rose("Rose", PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+                            new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0)
+                    };
+                    break;
+            }
 
-            // Loopa igenom potentiella plantor och lägg till dem i newPlants om de inte redan finns i plantList
             for (Plant potentialPlant : plants) {
                 boolean exists = false;
                 for (Plant existingPlant : plantList) {
@@ -59,9 +77,9 @@ public class Controller {
                 if (!exists) {
                     plantList.add(potentialPlant);
                 }
-                plants = plantList.toArray(new Plant[0]);
             }
-        } else{
+            plants = plantList.toArray(new Plant[0]);
+        } else {
             System.out.println("Load game har fyllt plantlist");
         }
     }
@@ -79,7 +97,7 @@ public class Controller {
             view.getCenterPanel().updatePlantImage(plant.getPlantPicture());
 
             // Lägg till växten i plantList
-            addPlant(plant);
+            //addPlant(plant);
 
             // Uppdatera currentPlantIndex till det nya växtindexet
             currentPlantIndex = plantIndex;
@@ -92,8 +110,24 @@ public class Controller {
         }
     }
 
-    public void addPlant(Plant plant) {
-        plantList.add(plant);
+    public void addPlant() {
+        // AddNewPlantFrame addNewPlantFrame = new AddNewPlantFrame();
+        //plantList.add(plant);
+    }
+
+    public void addNewRose(){
+       Random random = new Random();
+       String newRoseName = "Rose" + random;
+       Rose newRose = new Rose(newRoseName, PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0);
+       plantList.add(newRose);
+    }
+
+    public void addNewSunflower(){
+
+    }
+
+    public void addNewTomatoPlant(){
+
     }
 
     public void buttonPressed(ButtonType button) {
@@ -247,6 +281,13 @@ public class Controller {
         return plantInfo;
     }
 
+    public List<String> getPlantImagePaths() {
+        List<String> imagePaths = new ArrayList<>();
+        for (Plant plant : plantList) {
+            imagePaths.add(plant.getPlantPicture().toString());
+        }
+        return imagePaths;
+    }
 
     public long getTimeSinceLastPlayed() {
         LocalDateTime timeWhenClosed = SaveGame.getTimestamp();
@@ -258,6 +299,5 @@ public class Controller {
 
         return timeSinceLastPlayedSeconds;
     }
-
 
 }
