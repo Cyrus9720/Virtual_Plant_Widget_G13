@@ -4,6 +4,7 @@ import Model.*;
 import View.ButtonType;
 import View.CenterPanel;
 import View.MainFrame;
+import View.SouthPanel;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -11,6 +12,7 @@ import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Controller {
 
@@ -18,6 +20,7 @@ public class Controller {
     private ArrayList<Plant> plantList = new ArrayList<>();
     private Plant[] plants;
     private CenterPanel centerPanel;
+    private SouthPanel southPanel;
     private Plant currentPlant;
     private int nbrOfPlants = 0;
     private Clip wateringSoundClip; // Declare wateringSoundClip variable
@@ -25,33 +28,65 @@ public class Controller {
 
 
     public Controller() {
-        view = new MainFrame(this);
         garden();
+        view = new MainFrame(this);
     }
 
+    /**
+     * Create the garden with plants to choose from
+     * @author Cyrus Shaerpour
+     */
     private void garden() {
         plants = new Plant[] {
-            new Rose("Rose", PlantArt.ROSE, 3, 0,new ImageIcon("src/Images/PotArt1.JPG"), 0),
-            new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
-            new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+            new Rose("Rose", PlantArt.ROSE, 3, 0,new ImageIcon("src/Images/PotArt1.JPG"), 0,
+                    "The rose is a type of flowering shrub. Its name comes from the Latin word Rosa. \n " +
+                            "The flowers of the rose grow in many different colors, \n " +
+                            "from the well-known red rose or yellow roses and sometimes white or purple roses. \n " +
+                            "Roses belong to the family of plants called Rosaceae."),
+
+            new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0,
+                    "The sunflower is a large inflorescence, this means that the flower head is actually made of many tiny flowers called florets. The central florets look like the center of a normal flower and the outer florets look like yellow petals. All together they make up a 'false flower'."),
+            new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0,
+                    "The tomato is the edible berry of the plant Solanum lycopersicum, commonly known as a tomato plant. The species originated in western South America and Central America. The Nahuatl word tomatl gave rise to the Spanish word tomate, from which the English word tomato derived."),
         };
 
     }
 
+    /**
+     * Load the game from the save file
+     * @param id
+     * @author Cyrus Shaerpour
+     */
     public void switchPlant(String id){
         System.out.println(id + " " + plants[Integer.parseInt(id)].getPlantName());
         view.getCenterPanel().updatePlantImage(plants[Integer.parseInt(id)].getPlantPicture());
+        if (view.getSouthPanel() != null) {
+            view.getSouthPanel().updatePlantInfo(plants[Integer.parseInt(id)].getPlantInfo());
+            System.out.println(id + " " + plants[Integer.parseInt(id)].getPlantInfo());
+        } else {
+            System.err.println("SouthPanel instance is null");
+        }
         addPlant(plants[Integer.parseInt(id)]);
         currentPlantIndex = Integer.parseInt(id);
         view.getCenterPanel().getMainPanel().refreshBar();
         //view.getCenterPanel().updatePanel(plantList.getFirst().getPlantPicture());
     }
 
+    /**
+     * Add a plant to the plant list
+     * @param plant
+     * @author Cyrus Shaerpour
+     */
     public void addPlant(Plant plant) {
         plantList.add(plant);
         nbrOfPlants++;
     }
 
+    /**
+     * Function for the different buttons and what they do
+     * @param button
+     * @author Anna Granberg & Cyrus Shaerpour & Roa Jamhour
+     */
     public void buttonPressed(ButtonType button) {
         switch (button) {
             case Water:
@@ -64,6 +99,7 @@ public class Controller {
                 
                 // Get the current plant from the array of plants
                 Plant plant = plants[currentPlantIndex];
+                //switchPlant(plant.getPlantInfo());
                 // Water the plant
                 plant.waterPlant();
                 // Update the plant image in the view
@@ -71,7 +107,7 @@ public class Controller {
                 view.getCenterPanel().updatePlantImage(updatedImage);
 
                 try {
-                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/sounds/watering.wav"));
+                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResourceAsStream("/sounds/watering.wav")));
                     wateringSoundClip = AudioSystem.getClip();
                     wateringSoundClip.open(audioInputStream);
                 }catch (Exception ex){
@@ -84,6 +120,7 @@ public class Controller {
                     if(wateringSoundClip != null){
                         wateringSoundClip.setFramePosition(0);
                         wateringSoundClip.start(); //to start playing the sound
+                        break;
                     }
                 }
                 break;
@@ -156,4 +193,5 @@ public class Controller {
     public void setCurrentPlant(Plant newPlant) {
         currentPlant = newPlant;
     }
+
 }

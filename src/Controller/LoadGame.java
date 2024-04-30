@@ -67,7 +67,7 @@ public class LoadGame {
 
                 // Add the plant to plantList only if it doesn't already exist
                 if (!alreadyExists) {
-                    Plant plant = new Plant(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel);
+                    Plant plant = new Plant(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, "Plant info");
                     plant.setLastWatered(lastWatered);
                     plantList.add(plant);
                 }

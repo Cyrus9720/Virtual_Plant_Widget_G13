@@ -1,8 +1,6 @@
 package View;
 import Controller.Controller;
 import javax.swing.*;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -25,7 +23,6 @@ public class EastPanel extends JPanel
     private int width, height; // Dimensions of the panel
     private JButton Water; // Button for watering action
     private JLabel progressbarLabel;
-    private Clip wateringSoundClip;
     /**
      * Constructs a new EastPanel with the specified controller, width, and height.
      *
@@ -84,14 +81,9 @@ public class EastPanel extends JPanel
                     controller.buttonPressed(ButtonType.Water);
                     progressbarLabel.setIcon(updateWaterProgress());
                     System.out.println("Water button clicked");
-
-                    //Play the watering sound
-                        //wateringSoundClip.start(); //to start playing the sound
                     }
                 }
-
         });
-
     }
 
     public void refreshBar(){
@@ -158,6 +150,4 @@ public class EastPanel extends JPanel
 
         return new ImageIcon(scaledImage);
     }
-
-
 }

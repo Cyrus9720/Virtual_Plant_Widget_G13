@@ -24,7 +24,7 @@ public class MainFrame extends JFrame {
     private int height = 800; // dimensions for frame size
     private MainPanel mainPanel; // reference to mainPanel
     private GardenView gardenView; // reference to gardenView
-
+    private SouthPanel southPanel;
     private CenterPanel centerPanel;
 
 
@@ -116,5 +116,9 @@ public class MainFrame extends JFrame {
 
     public CenterPanel getCenterPanel() {
         return mainPanel.getCenterPanel();
+    }
+
+    public SouthPanel getSouthPanel() {
+        return mainPanel.getSouthPanel();
     }
 }

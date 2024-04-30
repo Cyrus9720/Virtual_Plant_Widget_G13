@@ -13,6 +13,7 @@ public class Plant {
     private int plantLevel;
     private PlantArt plantArt;
     private Timestamp lastWatered;
+    private String plantInfo;
 
     /**
      * Constructor for Plant
@@ -22,13 +23,14 @@ public class Plant {
      * @param plantLevel Level of the plant
      * @author Cyrus Shaerpour
      */
-    public Plant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel) {
+    public Plant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, String plantInfo) {
         this.name = name;
         this.plantArt = plantArt;
         this.nbrOfLives = nbrOfLives;
         this.timesWatered = timesWatered;
         this.plantPicture = plantPicture;
         this.plantLevel = plantLevel;
+        this.plantInfo = plantInfo;
         // System.out.println("Plant created " + name);
     }
 
@@ -152,5 +154,9 @@ public class Plant {
      */
     public String toString() {
         return String.format("Plant art: %s | Plant name: %s | Plant level: %d | Times watered: %d | Number of lives: %d | Plant picture: %s | Last time watered: %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture, lastWatered);
+    }
+
+    public String getPlantInfo() {
+        return plantInfo;
     }
 }
