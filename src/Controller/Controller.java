@@ -28,28 +28,48 @@ public class Controller {
             System.err.println("Error loading game data: " + e.getMessage());
         }
 
-        if (plantList.isEmpty()){
-            plants = plantList.toArray(new Rose[0]);
-            plants = plantList.toArray(new Sunflower[1]);
-            plants = plantList.toArray(new TomatoPlant[2]);
-        }
-
-        // garden();
+        garden();
         view = new MainFrame(this);
     }
 
     private void garden() {
-        plants = new Plant[] {
-            new Rose("Rose", PlantArt.ROSE, 3, 0,new ImageIcon("src/Images/PotArt1.JPG"), 0),
-            new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
-            new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
-        };
+        if(plantList.isEmpty()) {
+            plants = new Plant[]{
+                    new Rose("Rose", PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+                    new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+                    new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+            };
+        } else if(plantList.size() < 3){
+            // Skapa en lista över alla potentiella plantor
+            plants = new Plant[] {
+                    new Rose("Rose", PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+                    new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+                    new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+            };
 
+            // Loopa igenom potentiella plantor och lägg till dem i newPlants om de inte redan finns i plantList
+            for (Plant potentialPlant : plants) {
+                boolean exists = false;
+                for (Plant existingPlant : plantList) {
+                    if (potentialPlant.getPlantName().equals(existingPlant.getPlantName())) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if (!exists) {
+                    plantList.add(potentialPlant);
+                }
+                plants = plantList.toArray(new Plant[0]);
+            }
+        } else{
+            System.out.println("Load game har fyllt plantlist");
+        }
     }
+
 
     public void switchPlant(String id) {
         int plantIndex = Integer.parseInt(id);
-        if (plantIndex >= 0 && plantIndex < plantList.size()) { // Check if plantIndex is within valid range
+        if (plantIndex > 0 && plantIndex < plantList.size()) { // Check if plantIndex is within valid range
             Plant plant = plantList.get(plantIndex);
             System.out.println(id + " " + plant.getPlantName());
             view.getCenterPanel().updatePlantImage(plant.getPlantPicture());
@@ -84,6 +104,7 @@ public class Controller {
                 view.getCenterPanel().updatePlantImage(updatedImage);
 
                 currentPlant.setLastWatered(LocalDateTime.now());
+
 
                 try {
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/sounds/watering.wav"));

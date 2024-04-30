@@ -1,2 +1,0 @@
-Plant art; ROSE | Plant name; Rose | Plant level; 2 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/RoseArt2.JPG | Last time watered; 2024-04-30 14:25:31.134 | Timestamp; 2024-04-30 14:25:39.298
-Plant art; SUNFLOWER | Plant name; Sunflower | Plant level; 3 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/Sunflower3.JPG | Last time watered; 2024-04-30 14:25:37.988 | Timestamp; 2024-04-30 14:25:39.298

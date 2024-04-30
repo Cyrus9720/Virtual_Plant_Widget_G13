@@ -79,13 +79,10 @@ public class GardenView extends JDialog {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         // Handle swapping of plants here
-                        ImageIcon currentIcon = (ImageIcon) plantButton.getIcon();
-                        System.out.println("action listener says" + e.getActionCommand());
+                        // ImageIcon currentIcon = (ImageIcon) plantButton.getIcon();
+                        // System.out.println("action listener says" + e.getActionCommand());
                         controller.switchPlant(e.getActionCommand());
-                        controller.getPlantList();
-                        //centerPanel.getMainPanel().refreshBar();
-                        //controller.addPlant(e.getSource());
-                        //controller.addPlant(new TomatoPlant("Empty", PlantArt.POT, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0));
+                        // controller.getPlantList();
                     }
                 });
 

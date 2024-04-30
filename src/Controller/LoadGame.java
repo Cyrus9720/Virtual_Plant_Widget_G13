@@ -5,6 +5,8 @@ import Model.*;
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -67,6 +69,7 @@ public class LoadGame {
 
                 // Add the plant to the list
                 plantList.add(plant);
+                clearSaveFile();
             }
             System.out.println("Game loaded successfully.");
         } catch (IOException e) {
@@ -94,6 +97,19 @@ public class LoadGame {
             return null;
         }
     }
+
+    /**
+     * Empties the contents of the game save file after it has been read.
+     */
+    public static void clearSaveFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("game_save.txt"))) {
+            writer.write(""); // Skriv en tom sträng till filen för att tömma den
+            System.out.println("Game save file cleared successfully.");
+        } catch (IOException e) {
+            System.err.println("Error clearing game save file: " + e.getMessage());
+        }
+    }
+
 
     public static Plant getPlant() {
         return plant;
