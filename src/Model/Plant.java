@@ -1,9 +1,12 @@
 package Model;
 
+import Controller.LoadGame;
+
 import javax.swing.ImageIcon;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 
 public class Plant {
     private String name;
@@ -13,8 +16,8 @@ public class Plant {
     private int plantLevel;
     private String plantinfo;
     private PlantArt plantArt;
-    private Timestamp lastWatered;
-    private Timestamp lastUpdatedTimestamp;
+    private LocalDateTime lastWatered;
+    private LocalDateTime lastUpdatedTimestamp;
 
 
     /**
@@ -139,11 +142,11 @@ public class Plant {
         return plantArt;
     }
 
-    public void setLastWatered(Timestamp lastWatered) {
+    public void setLastWatered(LocalDateTime lastWatered) {
         this.lastWatered = lastWatered;
     }
 
-    public Timestamp getLastWatered() {
+    public LocalDateTime getLastWatered() {
         return lastWatered;
     }
     public String getPlantinfo() {
@@ -154,7 +157,7 @@ public class Plant {
         this.plantArt = plantArt;
     }
 
-    public void updateTimestamp(Timestamp timestamp) {
+    public void updateTimestamp(LocalDateTime timestamp) {
         this.lastUpdatedTimestamp = timestamp;
     }
 

@@ -9,6 +9,8 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.sql.Timestamp;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Controller {
@@ -65,7 +67,7 @@ public class Controller {
                 // Update the plant image in the view
                 ImageIcon updatedImage = plant.getPlantPicture();
                 view.getCenterPanel().updatePlantImage(updatedImage);
-                plant.setLastWatered(new Timestamp((System.currentTimeMillis())));
+                plant.setLastWatered(LocalDateTime.now());
 
                 try {
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/sounds/watering.wav"));
@@ -93,20 +95,20 @@ public class Controller {
      * @author Anna Granberg
      */
     private void checkWateringStatus() {
-        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+        LocalDateTime currentDateTime = LocalDateTime.now();
 
         for (Plant plant : plantList) {
-            Timestamp lastWatered = plant.getLastWatered(); // Retrieve the Timestamp object
+            LocalDateTime lastWatered = plant.getLastWatered(); // Retrieve the LocalDateTime object
 
             if (lastWatered == null) {
                 System.err.println("Plant last watered timestamp is null");
                 continue; // Skip this plant and move on to the next one
             }
 
-            long timeSinceLastWatered = currentTimestamp.getTime() - lastWatered.getTime();
-            long wateringInterval = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+            Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
+            Duration wateringInterval = Duration.ofDays(1); // 24 hours
 
-            if (timeSinceLastWatered >= wateringInterval) {
+            if (timeSinceLastWatered.compareTo(wateringInterval) >= 0) {
                 // Plant needs to be watered
                 view.timeToWater();
             }
@@ -192,17 +194,15 @@ public class Controller {
 
 
     public long getTimeSinceLastPlayed() {
-        Timestamp timeWhenClosed = SaveGame.getTimestamp();
-        Timestamp timeWhenOpened = LoadGame.getTimestamp();
+        LocalDateTime timeWhenClosed = SaveGame.getTimestamp();
+        LocalDateTime timeWhenOpened = LoadGame.getTimestamp();
 
-        long timeClosedMillis = timeWhenClosed.getTime();
-        long timeOpenedMillis = timeWhenOpened.getTime();
+        Duration duration = Duration.between(timeWhenClosed, timeWhenOpened);
 
-        long timeSinceLastPlayedMillis = timeOpenedMillis - timeClosedMillis;
-
-        long timeSinceLastPlayedSeconds = timeSinceLastPlayedMillis / 1000;
+        long timeSinceLastPlayedSeconds = duration.getSeconds();
 
         return timeSinceLastPlayedSeconds;
     }
+
 
 }

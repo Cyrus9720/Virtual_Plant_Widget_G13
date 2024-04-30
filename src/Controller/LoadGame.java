@@ -6,15 +6,14 @@ import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.Date;
 
 public class LoadGame {
-    private static Timestamp timestamp;
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+    private static LocalDateTime timestamp;
 
     /**
      * Loads game data from a saved file and populates a list of Plant objects.
@@ -40,8 +39,10 @@ public class LoadGame {
                 int nbrOfLives = Integer.parseInt(plantData[4].trim().split(":")[1].trim());
                 ImageIcon plantPicture = new ImageIcon(plantData[5].trim().split(":")[1].trim());
 
-                Timestamp lastWatered = parseTimestamp(plantData[6].trim().split(":")[1].trim());
-                Timestamp plantTimestamp = parseTimestamp(plantData[7].trim().split(":")[1].trim());
+                String lastWateredString = plantData[6].split(":")[1].trim(); // Trimma bort överflödiga mellanslag
+                System.out.println(lastWateredString);
+                LocalDateTime lastWatered = parseTimestamp(lastWateredString);
+                System.out.println(lastWatered);
 
                 Plant existingPlant = findPlantByName(plantList, name);
                 if (existingPlant != null) {
@@ -62,12 +63,12 @@ public class LoadGame {
         return plantList; // Return the list of Plant objects
     }
 
-    private static Timestamp parseTimestamp(String timestampString) {
+    private static LocalDateTime parseTimestamp(String timestampString) {
         try {
-            // Försök tolka tidsstämpeln
-            Date parsedDate = dateFormat.parse(timestampString.substring(0, 13)); // Ta bara de första 13 tecknen (år-månad-dag timme)
-            return new Timestamp(parsedDate.getTime());
-        } catch (ParseException e) {
+            // Manuellt tolka tidsstämpeln
+            LocalDateTime parsedDateTime = LocalDateTime.parse(timestampString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            return parsedDateTime;
+        } catch (DateTimeParseException e) {
             // Om tolkningen misslyckas, skriv ut felmeddelande och returnera null
             System.err.println("Error parsing timestamp from save file: " + e.getMessage());
             return null;
@@ -84,7 +85,7 @@ public class LoadGame {
         return null; // Return null if the plant is not found
     }
 
-    public static Timestamp getTimestamp() {
+    public static LocalDateTime getTimestamp() {
         return timestamp;
     }
 }
