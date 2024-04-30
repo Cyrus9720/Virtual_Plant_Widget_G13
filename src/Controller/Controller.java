@@ -115,21 +115,13 @@ public class Controller {
         //plantList.add(plant);
     }
 
-    public void addNewRose(){
-       Random random = new Random();
-       String newRoseName = "Rose" + random;
-       Rose newRose = new Rose(newRoseName, PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0);
-       plantList.add(newRose);
+    public void addNewRose() {
+        Random random = new Random();
+        String newRoseName = "Rose" + random;
+        Rose newRose = new Rose(newRoseName, PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0);
+        plantList.add(newRose);
     }
-
-    public void addNewSunflower(){
-
-    }
-
-    public void addNewTomatoPlant(){
-
-    }
-
+    
     public void buttonPressed(ButtonType button) {
         switch (button) {
             case Water:
