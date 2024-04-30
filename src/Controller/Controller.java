@@ -95,9 +95,7 @@ public class Controller {
 
             // Uppdatera växtbilden i gränssnittet med den nya växten
             view.getCenterPanel().updatePlantImage(plant.getPlantPicture());
-
-            // Lägg till växten i plantList
-            //addPlant(plant);
+            view.getCenterPanel().updatePlantName(plant.getPlantName());
 
             // Uppdatera currentPlantIndex till det nya växtindexet
             currentPlantIndex = plantIndex;
@@ -108,10 +106,6 @@ public class Controller {
             // Om plantIndex är ogiltigt (utanför intervallet), skriv ut ett felmeddelande
             System.err.println("Invalid plant index: " + id);
         }
-    }
-
-    public void addPlant() {
-        //plantList.add(plant);
     }
 
     public void addNewRose() {
@@ -286,6 +280,29 @@ public class Controller {
         Plant plant = plantList.get(0);
         String plantInfo = plant.getPlantinfo();
         return plantInfo;
+    }
+
+    public String getPlantName() {
+        if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
+            if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
+                Plant currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
+                if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
+                    return currentPlant.getPlantName();
+                } else {
+                    // Hantera fallet när den aktuella växten är null
+                    System.err.println("Current plant is null");
+                    return null;
+                }
+            } else {
+                // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
+                System.err.println("Invalid current plant index");
+                return null;
+            }
+        } else {
+            // Hantera fallet när plantList är tom
+            System.err.println("Plant list is empty");
+            return null;
+        }
     }
 
     public List<String> getPlantImagePaths() {

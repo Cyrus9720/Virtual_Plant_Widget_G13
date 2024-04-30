@@ -41,7 +41,7 @@ public class MainPanel extends JPanel
         eastPanel = new EastPanel(controller, width/2-60, height-130);
         add(eastPanel, BorderLayout.EAST);
 
-        centerPanel = new CenterPanel(300, 450, this);
+        centerPanel = new CenterPanel(300, 450, this, controller);
         add(centerPanel, BorderLayout.CENTER);
 
         SouthPanel southPanel = new SouthPanel(controller, width, height);

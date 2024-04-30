@@ -74,7 +74,7 @@ public class GardenView extends JDialog {
                     }
                 });
 
-                add(plantButton);
+                add(plantButton, BorderLayout.CENTER);
             }
         }
 
@@ -95,11 +95,15 @@ public class GardenView extends JDialog {
             addPlantButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                   AddNewPlantFrame addNewPlantFrame = new AddNewPlantFrame(controller);
-                   GardenView.this.dispose();
+                    AddNewPlantFrame addNewPlantFrame = new AddNewPlantFrame(controller);
+                    GardenView.this.dispose();
                 }
             });
-            add(addPlantButton); // Add the button to the panel
+            // Håll fast vid GridLayout för att placera knappar i rader och kolumner
+            setLayout(new GridLayout(plantPaths.size() + 1, 3));
+            // Lägg till "Add new plant" knappen i norrläge
+            add(addPlantButton);
         }
+
     }
 }
