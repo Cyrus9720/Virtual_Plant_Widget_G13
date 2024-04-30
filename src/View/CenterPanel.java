@@ -13,20 +13,20 @@ public class CenterPanel extends JPanel {
 
     private JProgressBar healthBar; //A progress bar to display plant health
 
-    private JLabel agingLabel; // A label to display aging information
+    //private JLabel agingLabel; // A label to display aging information
 
     private JLabel plantLevelLabel;
 
     private static final int IMAGE_WIDTH = 300; // Desired width for scaled images
     private static final int IMAGE_HEIGHT = 450; // Desired height for scaled images
 
-    private static final long YOUNG_THRESHOLD = 3000; // Threshold for young age (e.g., 5 minutes)
-    private static final long MATURE_THRESHOLD = 6000; //10m
+   // private static final long YOUNG_THRESHOLD = 3000; // Threshold for young age (e.g., 5 minutes)
+    // private static final long MATURE_THRESHOLD = 6000; //10m
 
 
 
     public CenterPanel(int width, int height) {
-        setPreferredSize(new Dimension(3200, 450));
+        setPreferredSize(new Dimension(3200, 450));}
 
     public CenterPanel(int width, int height, MainPanel mainPanel) {
         setPreferredSize(new Dimension(320, 485));
@@ -54,8 +54,8 @@ public class CenterPanel extends JPanel {
         healthBar.setStringPainted(true); // display the health value as text
         add(healthBar);
 
-        agingLabel = new JLabel("Aging : Young"); //Label for aging info
-        add(agingLabel);
+        /*agingLabel = new JLabel("Aging : Young"); //Label for aging info
+        add(agingLabel);*/
 
         plantLevelLabel = new JLabel("Plant Level: ");
         add(plantLevelLabel);
@@ -65,7 +65,8 @@ public class CenterPanel extends JPanel {
     public void updatePlantLevelLabel(int plantLevel){
         plantLevelLabel.setText("Plant Level: " + plantLevel);
     }
-    public void updateAgingLabel(Plant plant){
+
+    /*public void updateAgingLabel(Plant plant){
         long age = plant.getAge();
 
         if (age < Plant.YOUNG_THRESHOLD){
@@ -74,7 +75,7 @@ public class CenterPanel extends JPanel {
             agingLabel.setText("Aging: Middle-aged");
         } else {
             agingLabel.setText("Aging: Mature");
-        }}
+        }}*/
 
 
 
@@ -115,4 +116,4 @@ public class CenterPanel extends JPanel {
         //plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Scale and update the image
         //Sunflower sunflower = new Sunflower("Sunflower", PlantArt.SUNFLOWER, 0, new ImageIcon("src/Images/Sunflower3.JPG"), 0);
     }
-}}
+}

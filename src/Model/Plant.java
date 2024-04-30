@@ -15,6 +15,7 @@ public class Plant {
     private Timestamp lastWatered;
     private String plantInfo;
 
+
     /**
      * Constructor for Plant
      * @param name Name of the plant
@@ -159,4 +160,13 @@ public class Plant {
     public String getPlantInfo() {
         return plantInfo;
     }
-}
+   }
+
+    /*public String getAge() {
+        return plantInfo;*/
+
+
+
+
+
+
