@@ -67,5 +67,5 @@ public class CenterPanel extends JPanel {
         Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH); // Scale image
         return new ImageIcon(scaledImage); // Transform Image back to ImageIcon
     }
-    
+
 }
