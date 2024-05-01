@@ -22,6 +22,7 @@ public class EastPanel extends JPanel
     private Controller controller; // Reference to controller
     private int width, height; // Dimensions of the panel
     private JButton Water; // Button for watering action
+    JLabel threeHeartsLabel;
     private JLabel progressbarLabel;
     /**
      * Constructs a new EastPanel with the specified controller, width, and height.
@@ -73,6 +74,13 @@ public class EastPanel extends JPanel
 
         progressbarLabel.setIcon(scaledIcon);
         add(progressbarLabel, BorderLayout.SOUTH);
+
+        ImageIcon threeHearts = new ImageIcon("src/Images/treHjärtan.png");
+        Image originalThreeHearts = threeHearts.getImage();
+        Image scaledHeartsLivesImage = originalThreeHearts.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        ImageIcon scaledThreeHearts = new ImageIcon(scaledHeartsLivesImage);
+        threeHeartsLabel = new JLabel(updateAmountOfLife());
+        add(threeHeartsLabel, BorderLayout.WEST);
 
         // Adding ActionListener to the water button
         Water.addActionListener(new ActionListener() {
@@ -149,5 +157,41 @@ public class EastPanel extends JPanel
         Image scaledImage = originalImage.getScaledInstance(100, 75, Image.SCALE_SMOOTH);
 
         return new ImageIcon(scaledImage);
+    }
+
+    public ImageIcon updateAmountOfLife() {
+        int nbrOfLives = controller.getNbrOfLives();
+        ImageIcon heartsIcon = null;
+
+        switch (nbrOfLives) {
+            case 0:
+                // If there are no lives left, display an empty heart icon
+                heartsIcon = new ImageIcon("src/Images/tommaHjärtan.png");
+                break;
+            case 1:
+                // If there is one life left, display one heart
+                heartsIcon = new ImageIcon("src/Images/ettHjärta.png");
+                break;
+            case 2:
+                // If there are two lives left, display two hearts
+                heartsIcon = new ImageIcon("src/Images/tvåHjärtan.png");
+                break;
+            case 3:
+                // If there are three lives left, display three hearts
+                heartsIcon = new ImageIcon("src/Images/treHjärtan.png");
+                break;
+            default:
+                // Default case, do nothing or provide a default icon
+                break;
+        }
+
+        if (heartsIcon != null) {
+            // Update the icon for the hearts label
+            Image originalHearts = heartsIcon.getImage();
+            Image scaledHearts = originalHearts.getScaledInstance(100, 30, Image.SCALE_SMOOTH);
+            return new ImageIcon(scaledHearts);
+        } else {
+            return null;
+        }
     }
 }

@@ -20,7 +20,6 @@ public class SouthPanel extends JPanel
 {
     private Controller controller;
     private JLabel progressbarLabel;
-    JLabel threeHeartsLabel;
     JLabel plantInfoLabel;
 
     /**
@@ -51,9 +50,7 @@ public class SouthPanel extends JPanel
         Image originalThreeHearts = threeHearts.getImage();
         Image scaledHeartsLivesImage = originalThreeHearts.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         ImageIcon scaledThreeHearts = new ImageIcon(scaledHeartsLivesImage);
-        threeHeartsLabel = new JLabel(updateAmountOfLife());
         plantInfoLabel = new JLabel();
-        add(threeHeartsLabel, BorderLayout.WEST);
         add(plantInfoLabel,BorderLayout.EAST);
 
         // Create an JLable Object for the plant information
@@ -63,41 +60,6 @@ public class SouthPanel extends JPanel
         add(plantInfo, BorderLayout.EAST);
         }
 
-    public ImageIcon updateAmountOfLife() {
-        int nbrOfLives = controller.getNbrOfLives();
-        ImageIcon heartsIcon = null;
-
-        switch (nbrOfLives) {
-            case 0:
-                // If there are no lives left, display an empty heart icon
-                heartsIcon = new ImageIcon("src/Images/tommaHjärtan.png");
-                break;
-            case 1:
-                // If there is one life left, display one heart
-                heartsIcon = new ImageIcon("src/Images/ettHjärta.png");
-                break;
-            case 2:
-                // If there are two lives left, display two hearts
-                heartsIcon = new ImageIcon("src/Images/tvåHjärtan.png");
-                break;
-            case 3:
-                // If there are three lives left, display three hearts
-                heartsIcon = new ImageIcon("src/Images/treHjärtan.png");
-                break;
-            default:
-                // Default case, do nothing or provide a default icon
-                break;
-        }
-
-        if (heartsIcon != null) {
-            // Update the icon for the hearts label
-            Image originalHearts = heartsIcon.getImage();
-            Image scaledHearts = originalHearts.getScaledInstance(100, 30, Image.SCALE_SMOOTH);
-            return new ImageIcon(scaledHearts);
-        } else {
-            return null;
-        }
-    }
 
     private JLabel scalePlantInfo(String plantInfo, int maxWidth) {
         JLabel label = new JLabel("<html>" + plantInfo + "</html>"); // Enable HTML rendering for text wrapping
