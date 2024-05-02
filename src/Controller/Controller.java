@@ -3,6 +3,7 @@ package Controller;
 import Model.*;
 import View.AddNewPlantFrame;
 import View.ButtonType;
+import View.GameRuleFrame;
 import View.MainFrame;
 
 import javax.sound.sampled.AudioInputStream;
@@ -26,7 +27,7 @@ public class Controller {
     public Controller() {
 
         try {
-            LoadGame.loadGame(plantList); // ifall spelet spelats tidigare kommer plantList hämtas här
+            LoadGame.loadGame(plantList, this); // ifall spelet spelats tidigare kommer plantList hämtas här
         } catch (Exception e) {
             System.err.println("Error loading game data: " + e.getMessage());
         }
@@ -322,6 +323,10 @@ public class Controller {
         long timeSinceLastPlayedSeconds = duration.getSeconds();
 
         return timeSinceLastPlayedSeconds;
+    }
+
+    public void firstTimePlaying(){
+        GameRuleFrame gameRuleFrame = new GameRuleFrame();
     }
 
 }

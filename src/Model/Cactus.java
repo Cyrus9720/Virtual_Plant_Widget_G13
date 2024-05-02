@@ -1,6 +1,7 @@
 package Model;
 
 import javax.swing.*;
+import java.time.LocalDateTime;
 
 public class Cactus extends Plant {
     private ImageIcon plantPicture;
@@ -14,8 +15,8 @@ public class Cactus extends Plant {
      * @author annagranberg
      */
 
-    public Cactus(String name, PlantArt plantArt,int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel) {
-        super(name, plantArt,nbrOfLives, timesWatered, plantPicture, plantLevel);
+    public Cactus(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
+        super(name, plantArt,nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
     }
 
     private void updateImage() {

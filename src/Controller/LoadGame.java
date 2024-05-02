@@ -29,19 +29,23 @@ public class LoadGame {
      * @param plantList The list to populate with loaded Plant objects.
      * @return The list of Plant objects populated with data from the save file.
      */
-    public static List<Plant> loadGame(List<Plant> plantList) {
+    public static List<Plant> loadGame(List<Plant> plantList, Controller controller) {
+
         try (BufferedReader reader = new BufferedReader(new FileReader("game_save.txt"))) {
 
             String line;
+            boolean fileNotEmpty = false; // Flagga för att checka ifall filen är tom
+
             while ((line = reader.readLine()) != null) {
+                fileNotEmpty = true;
                 String[] plantData = line.split("\\|"); // Split
                 if (plantData.length != 8) { // Check if the data format is valid
                     System.err.println("Invalid data format in save file: " + line);
                     continue;
                 }
-                // Extract data for each attribute
+                // Extrahera data för varje attribut i strängen
                 String plantType = plantData[0].trim().split(";")[1].trim();
-                PlantArt plantArt = PlantArt.valueOf(plantType.toUpperCase()); // Assuming PlantArt enum values are in uppercase
+                PlantArt plantArt = PlantArt.valueOf(plantType.toUpperCase());
                 String name = plantData[1].trim().split(";")[1].trim();
                 int plantLevel = Integer.parseInt(plantData[2].trim().split(";")[1].trim());
                 int timesWatered = Integer.parseInt(plantData[3].trim().split(";")[1].trim());
@@ -50,8 +54,7 @@ public class LoadGame {
                 LocalDateTime lastWatered = parseTimestamp(plantData[6].trim().split(";")[1].trim());
                 LocalDateTime lastPlayed = parseTimestamp(plantData[7].trim().split(";")[1].trim());
 
-                // Create a new Plant object based on plant type
-
+                // Skapa "nya" plantor beroende på plantArt
                 switch (plantArt) {
                     case ROSE:
                         plant = new Rose(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
@@ -67,9 +70,15 @@ public class LoadGame {
                         continue;
                 }
 
-                // Add the plant to the list
+                // Lägg till den "nya" plantan i listan
                 plantList.add(plant);
                 // clearSaveFile();
+            }
+
+            if (fileNotEmpty) {  // ifall fil inte är tom
+                SaveGame.writeGamePlayedNotice();
+            } else{
+                controller.firstTimePlaying();
             }
             System.out.println("Game loaded successfully.");
         } catch (IOException e) {
@@ -77,7 +86,7 @@ public class LoadGame {
         } catch (IllegalArgumentException e) {
             System.err.println("Error parsing data from save file: " + e.getMessage());
         }
-        return plantList; // Return the list of Plant objects
+        return plantList; // Returnera listan av Plant objekt
     }
 
     /**
