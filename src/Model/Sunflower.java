@@ -36,11 +36,9 @@ public class Sunflower extends Plant{
     }
 
     public String getPlantInfo() {
-        // You can customize this method to provide specific information about the rose plant
-        return "Sunflower: " + getPlantName() + "\n"
-                + "Number of lives: " + getNbrOfLives() + "\n"
-                + "Times watered: " + getTimesWatered() + "\n"
-                + "Plant level: " + getPlantLevel() + "\n"
-                + "Last watered: " + getLastWatered();
+        return "The sunflower is a large inflorescence, \n" +
+                " this means that the flower head is actually made of many tiny flowers called florets. \n" +
+                " The central florets look like the center of a normal flower and the outer florets look like yellow petals. \n" +
+                " All together they make up a 'false flower'.";
     }
 }
