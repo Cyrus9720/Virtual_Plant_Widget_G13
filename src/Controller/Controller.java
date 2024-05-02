@@ -213,18 +213,6 @@ public class Controller {
         SaveGame.saveGame(plantList);
     }
 
-    public ArrayList<Plant> getPlantList() {
-        return plantList;
-    }
-
-    public Plant getCurrentPlant() {
-        return currentPlant;
-    }
-
-    public void setCurrentPlant(Plant newPlant) {
-        currentPlant = newPlant;
-    }
-
     public String getPlantInfo(){
         Plant plant = plantList.get(0);
         String plantInfo = plant.getPlantinfo();

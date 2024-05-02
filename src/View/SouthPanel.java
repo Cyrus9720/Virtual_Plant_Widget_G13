@@ -39,7 +39,6 @@ public class SouthPanel extends JPanel
         setBackground(new Color(225, 240, 218));
         setLayout(new BorderLayout());
 
-        ImageIcon threeHearts = new ImageIcon("src/Images/treHjärtan.png");
         threeHeartsLabel = new JLabel(updateAmountOfLife());
         add(threeHeartsLabel, BorderLayout.WEST);
     }

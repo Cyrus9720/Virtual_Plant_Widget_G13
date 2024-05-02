@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 
 public class Rose extends Plant {
 
+    private String plantInfo;
+
     public Rose(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
         super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered);
     }
@@ -33,5 +35,14 @@ public class Rose extends Plant {
                 // Handle any other cases or provide a default image
                 break;
         }
+    }
+
+    public String getPlantInfo() {
+        // You can customize this method to provide specific information about the rose plant
+        return "Rose plant: " + getPlantName() + "\n"
+                + "Number of lives: " + getNbrOfLives() + "\n"
+                + "Times watered: " + getTimesWatered() + "\n"
+                + "Plant level: " + getPlantLevel() + "\n"
+                + "Last watered: " + getLastWatered();
     }
 }
