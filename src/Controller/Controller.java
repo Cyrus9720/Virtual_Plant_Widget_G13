@@ -1,7 +1,6 @@
 package Controller;
 
 import Model.*;
-import View.AddNewPlantFrame;
 import View.ButtonType;
 import View.GameRuleFrame;
 import View.MainFrame;
@@ -45,7 +44,7 @@ public class Controller {
             // Uppdatera växtbilden i gränssnittet med den nya växten
             view.getCenterPanel().updatePlantImage(plant.getPlantPicture());
             view.getCenterPanel().updatePlantName(plant.getPlantName());
-            view.getSouthPanel().updatePlantInfo(plant.getPlantinfo());
+            // view.getSouthPanel().updatePlantInfo(plant.getPlantinfo()); todo: få det att funka
 
             // Uppdatera currentPlantIndex till det nya växtindexet
             currentPlantIndex = plantIndex;

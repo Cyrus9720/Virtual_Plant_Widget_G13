@@ -4,7 +4,7 @@ import javax.swing.ImageIcon;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Plant {
+public abstract class Plant {
     private String name;
     private int nbrOfLives;
     private int timesWatered;
@@ -177,4 +177,6 @@ public class Plant {
         }
         return String.format("Plant art; %s | Plant name; %s | Plant level; %d | Times watered; %d | Number of lives; %d | Plant picture; %s | Last time watered; %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture, formattedLastWatered);
     }
+
+    public abstract String getPlantInfo();
 }

@@ -35,6 +35,7 @@ public class TomatoPlant extends Plant{
         }
     }
 
+    @Override
     public String getPlantInfo() {
         return "The tomato is the edible berry of the plant Solanum lycopersicum, \n" +
                 " commonly known as a tomato plant. The species originated in western South America and Central America. \n" +

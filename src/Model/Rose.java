@@ -37,6 +37,7 @@ public class Rose extends Plant {
         }
     }
 
+    @Override
     public String getPlantInfo() {
         // You can customize this method to provide specific information about the rose plant
         return "The rose is a type of flowering shrub. Its name comes from the Latin word Rosa. \n " +

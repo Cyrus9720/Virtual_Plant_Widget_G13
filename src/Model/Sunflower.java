@@ -34,7 +34,7 @@ public class Sunflower extends Plant{
                 break;
         }
     }
-
+    @Override
     public String getPlantInfo() {
         return "The sunflower is a large inflorescence, \n" +
                 " this means that the flower head is actually made of many tiny flowers called florets. \n" +
