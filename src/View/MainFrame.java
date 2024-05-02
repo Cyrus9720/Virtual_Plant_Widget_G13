@@ -24,6 +24,7 @@ public class MainFrame extends JFrame {
     private int height = 1000; // dimensions for frame size
     private MainPanel mainPanel; // reference to mainPanel
     private GardenView gardenView; // reference to gardenView
+    private SouthPanel southPanel;
 
     /**
      * Constructs a new MainFrame with the specified controller.
@@ -120,5 +121,10 @@ public class MainFrame extends JFrame {
 
     public CenterPanel getCenterPanel() {
         return mainPanel.getCenterPanel();
+    }
+
+
+    public SouthPanel getSouthPanel() {
+        return southPanel;
     }
 }

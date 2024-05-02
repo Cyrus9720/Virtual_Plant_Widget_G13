@@ -45,6 +45,7 @@ public class Controller {
             // Uppdatera växtbilden i gränssnittet med den nya växten
             view.getCenterPanel().updatePlantImage(plant.getPlantPicture());
             view.getCenterPanel().updatePlantName(plant.getPlantName());
+            view.getSouthPanel().updatePlantInfo(plant.getPlantinfo());
 
             // Uppdatera currentPlantIndex till det nya växtindexet
             currentPlantIndex = plantIndex;
@@ -56,6 +57,7 @@ public class Controller {
             System.err.println("Invalid plant index: " + id);
         }
     }
+
 
     public void addNewRose() {
         Random random = new Random();
