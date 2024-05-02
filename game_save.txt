@@ -1,2 +1,4 @@
-Plant art; TOMATO_PLANT | Plant name; TomatoPlant6 | Plant level; 2 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/Tomatoe2.JPG | Last time watered; 2024-05-02 21:42:07.581 | Timestamp; 2024-05-02 21:42:08.946
-Plant art; ROSE | Plant name; Rose3 | Plant level; 2 | Times watered; 2 | Number of lives; 3 | Plant picture; src/Images/RoseArt2.JPG | Last time watered; 2024-05-02 21:42:04.767 | Timestamp; 2024-05-02 21:42:08.946
+Plant art; TOMATO_PLANT | Plant name; TomatoPlant6 | Plant level; 3 | Times watered; 3 | Number of lives; 3 | Plant picture; src/Images/Tomatoe3.JPG | Last time watered; 2024-05-02 21:53:25.987 | Timestamp; 2024-05-02 21:53:45.167
+Plant art; ROSE | Plant name; Rose3 | Plant level; 3 | Times watered; 4 | Number of lives; 3 | Plant picture; src/Images/RoseArt3.JPG | Last time watered; 2024-05-02 21:53:30.944 | Timestamp; 2024-05-02 21:53:45.167
+Plant art; TOMATO_PLANT | Plant name; TomatoPlant5 | Plant level; 3 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/Tomatoe3.JPG | Last time watered; 2024-05-02 21:53:35.245 | Timestamp; 2024-05-02 21:53:45.167
+Plant art; SUNFLOWER | Plant name; Sunflower0 | Plant level; 2 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/Sunflower2.JPG | Last time watered; 2024-05-02 21:53:44.084 | Timestamp; 2024-05-02 21:53:45.167

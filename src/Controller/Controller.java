@@ -18,7 +18,6 @@ import java.util.Random;
 public class Controller {
     private MainFrame view;
     private ArrayList<Plant> plantList = new ArrayList<>();
-    private Plant currentPlant;
     private Clip wateringSoundClip;
     private int currentPlantIndex;
 
@@ -49,14 +48,16 @@ public class Controller {
             // Uppdatera currentPlantIndex till det nya växtindexet
             currentPlantIndex = plantIndex;
 
-            // Uppdatera gränssnittet för att visa förändringar, t.ex. en progressbar
+            // Uppdatera gränssnittet för att visa förändringar
             view.getCenterPanel().getMainPanel().refreshBar();
+
+            // kontrollera ifall växt behöver vattnas
+            checkWateringStatus();
         } else {
             // Om plantIndex är ogiltigt (utanför intervallet), skriv ut ett felmeddelande
             System.err.println("Invalid plant index: " + id);
         }
     }
-
 
     public void addNewRose() {
         Random random = new Random();
@@ -101,7 +102,6 @@ public class Controller {
 
                 currentPlant.setLastWatered(LocalDateTime.now());
 
-
                 try {
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/sounds/watering.wav"));
                     wateringSoundClip = AudioSystem.getClip();
@@ -115,9 +115,6 @@ public class Controller {
                     wateringSoundClip.setFramePosition(0);
                     wateringSoundClip.start(); // Starta uppspelningen av ljudet
                 }
-
-                // Kontrollera om växterna behöver vattnas baserat på en viss tidsstämpel (24h)
-                checkWateringStatus();
                 break;
         }
     }
@@ -125,11 +122,11 @@ public class Controller {
     /**
      * Checks if the plants need to be watered based on a certain timestamp (24h).
      */
-    private void checkWateringStatus() { // todo: fixa denna roa
+    private void checkWateringStatus() {
         LocalDateTime currentDateTime = LocalDateTime.now();
 
         for (Plant plant : plantList) {
-            LocalDateTime lastWatered = plant.getLastWatered(); // Retrieve the LocalDateTime object
+            LocalDateTime lastWatered = plant.getLastWatered();
 
             if (lastWatered == null) {
                 System.err.println("Plant last watered timestamp is null");
@@ -137,7 +134,7 @@ public class Controller {
             }
 
             Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-            Duration wateringInterval = Duration.ofDays(1); // 24 hours
+            Duration wateringInterval = Duration.ofMinutes(2); // 2 minuter
 
             if (timeSinceLastWatered.compareTo(wateringInterval) >= 0) {
                 // Plant needs to be watered
@@ -145,6 +142,7 @@ public class Controller {
             }
         }
     }
+
     public int getNbrOfLives() {
         if (!plantList.isEmpty()) { // Check if plantList is not empty
             //Plant firstPlant = plants[currentPlantIndex];// Get the first plant if available
