@@ -19,7 +19,7 @@ import java.awt.*;
 public class SouthPanel extends JPanel
 {
     private Controller controller;
-    JLabel threeHeartsLabel;
+    private JLabel plantInformation;
 
     /**
      * Constructs a new SouthPanel with the specified controller, width, and height.
@@ -36,47 +36,10 @@ public class SouthPanel extends JPanel
         titledBorder.setTitleFont(myFont);
         setBorder(titledBorder);
 
+
+
         setBackground(new Color(225, 240, 218));
         setLayout(new BorderLayout());
-
-        threeHeartsLabel = new JLabel(updateAmountOfLife());
-        add(threeHeartsLabel, BorderLayout.WEST);
-    }
-
-    public ImageIcon updateAmountOfLife() {
-        int nbrOfLives = controller.getNbrOfLives();
-        ImageIcon heartsIcon = null;
-
-        switch (nbrOfLives) {
-            case 0:
-                // If there are no lives left, display an empty heart icon
-                heartsIcon = new ImageIcon("src/Images/tommaHjärtan.png");
-                break;
-            case 1:
-                // If there is one life left, display one heart
-                heartsIcon = new ImageIcon("src/Images/ettHjärta.png");
-                break;
-            case 2:
-                // If there are two lives left, display two hearts
-                heartsIcon = new ImageIcon("src/Images/tvåHjärtan.png");
-                break;
-            case 3:
-                // If there are three lives left, display three hearts
-                heartsIcon = new ImageIcon("src/Images/treHjärtan.png");
-                break;
-            default:
-                heartsIcon = null;
-                break;
-        }
-
-        if (heartsIcon != null) {
-            // Update the icon for the hearts label
-            Image originalHearts = heartsIcon.getImage();
-            Image scaledHearts = originalHearts.getScaledInstance(100, 30, Image.SCALE_SMOOTH);
-            return new ImageIcon(scaledHearts);
-        } else {
-            return null;
-        }
     }
 
 

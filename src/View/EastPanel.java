@@ -25,6 +25,7 @@ public class EastPanel extends JPanel
     private int width, height; // Dimensions of the panel
     private JButton Water; // Button for watering action
     private JLabel progressbarLabel; // JLabel for progressbar
+    private JLabel threeHeartsLabel;
     /**
      * Constructs a new EastPanel with the specified controller, width, and height.
      *
@@ -75,6 +76,9 @@ public class EastPanel extends JPanel
 
         progressbarLabel.setIcon(scaledIcon);
         add(progressbarLabel, BorderLayout.SOUTH);
+
+        threeHeartsLabel = new JLabel(updateAmountOfLife());
+        add(threeHeartsLabel, BorderLayout.WEST);
 
         // ActionListener för vattenknappen
         Water.addActionListener(new ActionListener() {
@@ -153,6 +157,42 @@ public class EastPanel extends JPanel
         Image scaledImage = originalImage.getScaledInstance(100, 75, Image.SCALE_SMOOTH);
 
         return new ImageIcon(scaledImage);
+    }
+
+    public ImageIcon updateAmountOfLife() {
+        int nbrOfLives = controller.getNbrOfLives();
+        ImageIcon heartsIcon = null;
+
+        switch (nbrOfLives) {
+            case 0:
+                // If there are no lives left, display an empty heart icon
+                heartsIcon = new ImageIcon("src/Images/tommaHjärtan.png");
+                break;
+            case 1:
+                // If there is one life left, display one heart
+                heartsIcon = new ImageIcon("src/Images/ettHjärta.png");
+                break;
+            case 2:
+                // If there are two lives left, display two hearts
+                heartsIcon = new ImageIcon("src/Images/tvåHjärtan.png");
+                break;
+            case 3:
+                // If there are three lives left, display three hearts
+                heartsIcon = new ImageIcon("src/Images/treHjärtan.png");
+                break;
+            default:
+                heartsIcon = null;
+                break;
+        }
+
+        if (heartsIcon != null) {
+            // Update the icon for the hearts label
+            Image originalHearts = heartsIcon.getImage();
+            Image scaledHearts = originalHearts.getScaledInstance(100, 30, Image.SCALE_SMOOTH);
+            return new ImageIcon(scaledHearts);
+        } else {
+            return null;
+        }
     }
 
 
