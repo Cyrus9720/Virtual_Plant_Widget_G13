@@ -306,6 +306,23 @@ public class Controller {
         }
     }
 
+    public PlantArt getPlantArt(){
+        if (!plantList.isEmpty() && currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
+            Plant currentPlant = plantList.get(currentPlantIndex);
+            if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
+                return currentPlant.getPlantArt();
+            } else {
+                // Hantera fallet när den aktuella växten är null
+                System.err.println("Current plant is null");
+                return null;
+            }
+        } else {
+            // Hantera fallet när plantList är tom eller currentPlantIndex är utanför intervallet
+            System.err.println("No plant available at the current index");
+            return null;
+        }
+    }
+
     public List<String> getPlantImagePaths() {
         List<String> imagePaths = new ArrayList<>();
         for (Plant plant : plantList) {

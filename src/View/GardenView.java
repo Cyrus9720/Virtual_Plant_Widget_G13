@@ -13,6 +13,8 @@ public class GardenView extends JDialog {
     private Controller controller;
     private int width = 300; // The width of the dialog
     private int height = 450; // The height of the dialog
+    private Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
+
 
     private GardenPanel gardenPanel;
 
@@ -60,7 +62,8 @@ public class GardenView extends JDialog {
                 Image iconImage = icon.getImage();
                 Image scaledIconImage = iconImage.getScaledInstance(50, 75, Image.SCALE_SMOOTH);
                 ImageIcon scaledIcon = new ImageIcon(scaledIconImage);
-                JButton plantButton = new JButton(String.valueOf(i));
+                JButton plantButton = new JButton("<html>Plant art: " + controller.getPlantArt() + "<br>Level: " + controller.getPlantLevel() + "</html>");
+                plantButton.setFont(customFont);
                 plantButton.setIcon(scaledIcon);
                 plantButton.setFocusPainted(false);
                 plantButton.setBorderPainted(false);
@@ -90,7 +93,6 @@ public class GardenView extends JDialog {
         // Method to add "Add Plant" button
         private void addAddPlantButton() {
             JButton addPlantButton = new JButton("Add new plant");
-            Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
             addPlantButton.setFont(customFont);
             addPlantButton.addActionListener(new ActionListener() {
                 @Override
