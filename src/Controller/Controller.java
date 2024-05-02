@@ -20,6 +20,8 @@ public class Controller {
     private ArrayList<Plant> plantList = new ArrayList<>();
     private Clip wateringSoundClip;
     private int currentPlantIndex;
+    private int selectedPlantIndex = -1; // -1 indikerar att ingen växt är vald
+
     private long lastWateringTime = 0; // Variabel för att hålla koll på tiden när plantorna senast vattnades
     private static final long WATERING_INTERVAL = 2 * 60 * 1000; // Vattningstiden i millisekunder (2 minuter)
 
@@ -40,6 +42,7 @@ public class Controller {
 
         // Kontrollera om plantIndex är inom ett giltigt intervall (1 till plantList.size() - 1)
         if (plantIndex >= 0 && plantIndex < plantList.size()) {
+            selectedPlantIndex = plantIndex;
             // Om plantIndex är giltigt, hämta växten från plantList med det angivna indexet
             Plant plant = plantList.get(plantIndex);
 
@@ -54,7 +57,9 @@ public class Controller {
             // Uppdatera gränssnittet för att visa förändringar
             view.getCenterPanel().getMainPanel().refreshBar();
 
-            updateWaterButtonStatus(checkWateringStatus());
+            // Uppdatera tillståndet för vattenknappen baserat på om växten behöver vattnas eller inte
+            boolean needsWatering = checkWateringStatus();
+            updateWaterButtonStatus(needsWatering);
         } else {
             // Om plantIndex är ogiltigt (utanför intervallet), skriv ut ett felmeddelande
             System.err.println("Invalid plant index: " + id);
@@ -77,7 +82,7 @@ public class Controller {
         plantList.add(newSunflower);
     }
 
-    public void addNewTomatoplant(){
+    public void addNewTomatoPlant(){
         Random random = new Random();
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
         String newTomatoName = "TomatoPlant" + randomNumber;
@@ -87,15 +92,15 @@ public class Controller {
     public void buttonPressed(ButtonType button) {
         switch (button) {
             case Water:
-                // Kontrollera om plantList är tom
-                if (plantList.isEmpty()) {
-                    // Visa felmeddelande
-                    JOptionPane.showMessageDialog(null, "The pot is empty. Choose a plant to water first.", "Empty Pot", JOptionPane.INFORMATION_MESSAGE);
+                // Kontrollera om ingen växt är vald
+                if (selectedPlantIndex == -1) {
+                    // Visa felmeddelande om ingen växt är vald
+                    JOptionPane.showMessageDialog(null, "Please select a plant to water.", "No Plant Selected", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
 
                 // Hämta den aktuella växten från plantList
-                Plant currentPlant = plantList.get(currentPlantIndex);
+                Plant currentPlant = plantList.get(selectedPlantIndex);
                 // Vattna växten
                 currentPlant.waterPlant();
                 // Uppdatera växtbilden i vyn
@@ -121,6 +126,7 @@ public class Controller {
                 break;
         }
     }
+
 
     /**
      * Checks if the plants need to be watered based on a certain timestamp (24h).
