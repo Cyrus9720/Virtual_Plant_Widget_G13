@@ -98,6 +98,14 @@ public class EastPanel extends JPanel
         progressbarLabel.setIcon(updateWaterProgress());
     }
 
+    public void enableWaterButton() {
+        Water.setEnabled(true); // Aktivera vattenknappen
+    }
+
+    public void disableWaterButton() {
+        Water.setEnabled(false); // Aktivera vattenknappen
+    }
+
     /**
      * Updates the water progress indicator.
      * This method updates the progress bar to indicate the water level of the plant.

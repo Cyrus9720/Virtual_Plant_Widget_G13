@@ -25,6 +25,7 @@ public class MainFrame extends JFrame {
     private MainPanel mainPanel; // reference to mainPanel
     private GardenView gardenView; // reference to gardenView
     private SouthPanel southPanel;
+    private EastPanel eastPanel;
 
     /**
      * Constructs a new MainFrame with the specified controller.
@@ -123,8 +124,7 @@ public class MainFrame extends JFrame {
         return mainPanel.getCenterPanel();
     }
 
-
-    public SouthPanel getSouthPanel() {
-        return southPanel;
+    public EastPanel getEastPanel() {
+        return mainPanel.getEastPanel();
     }
 }

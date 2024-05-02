@@ -20,6 +20,9 @@ public class Controller {
     private ArrayList<Plant> plantList = new ArrayList<>();
     private Clip wateringSoundClip;
     private int currentPlantIndex;
+    private long lastWateringTime = 0; // Variabel för att hålla koll på tiden när plantorna senast vattnades
+    private static final long WATERING_INTERVAL = 2 * 60 * 1000; // Vattningstiden i millisekunder (2 minuter)
+
 
     public Controller() {
         try {
@@ -51,8 +54,7 @@ public class Controller {
             // Uppdatera gränssnittet för att visa förändringar
             view.getCenterPanel().getMainPanel().refreshBar();
 
-            // kontrollera ifall växt behöver vattnas
-            checkWateringStatus();
+            updateWaterButtonStatus(checkWateringStatus());
         } else {
             // Om plantIndex är ogiltigt (utanför intervallet), skriv ut ett felmeddelande
             System.err.println("Invalid plant index: " + id);
@@ -101,6 +103,7 @@ public class Controller {
                 view.getCenterPanel().updatePlantImage(updatedImage);
 
                 currentPlant.setLastWatered(LocalDateTime.now());
+                updateWaterButtonStatus(checkWateringStatus());
 
                 try {
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/sounds/watering.wav"));
@@ -121,8 +124,9 @@ public class Controller {
 
     /**
      * Checks if the plants need to be watered based on a certain timestamp (24h).
+     * @return boolean
      */
-    private void checkWateringStatus() {
+    private boolean checkWateringStatus() {
         LocalDateTime currentDateTime = LocalDateTime.now();
 
         for (Plant plant : plantList) {
@@ -138,8 +142,18 @@ public class Controller {
 
             if (timeSinceLastWatered.compareTo(wateringInterval) >= 0) {
                 // Plant needs to be watered
-                view.timeToWater();
+                System.out.println("Plant needs to be watered");
+                return true;
             }
+        }
+        return false; // Ingen växt behöver vattnas
+    }
+
+    public void updateWaterButtonStatus(boolean waterstatus) {
+        if (waterstatus) {
+            view.getEastPanel().enableWaterButton(); // Aktivera knappen om någon växt behöver vattnas
+        } else {
+            view.getEastPanel().disableWaterButton(); // Inaktivera knappen om ingen växt behöver vattnas
         }
     }
 

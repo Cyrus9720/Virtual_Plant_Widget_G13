@@ -60,4 +60,7 @@ public class MainPanel extends JPanel
         return centerPanel;
     }
 
+    public EastPanel getEastPanel() {
+        return eastPanel;
+    }
 }
