@@ -15,6 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * The Controller class serves as the main controller for managing the interaction between the model and the view.
+ * It handles actions such as switching plants, watering plants, adding new plants, and updating the game state.
+ */
+
 public class Controller {
     private MainFrame view;
     private ArrayList<Plant> plantList = new ArrayList<>();
@@ -25,6 +30,9 @@ public class Controller {
     private long lastWateringTime = 0; // Variabel för att hålla koll på tiden när plantorna senast vattnades
     private static final long WATERING_INTERVAL = 2 * 60 * 1000; // Vattningstiden i millisekunder (2 minuter)
 
+    /**
+     * Constructor for the controller class.
+     */
 
     public Controller() {
         try {
@@ -36,6 +44,10 @@ public class Controller {
         view = new MainFrame(this);
     }
 
+    /**
+     *
+     * @param id
+     */
     public void switchPlant(String id) {
         // Konvertera id till en int för att få plantIndex
         int plantIndex = Integer.parseInt(id);
@@ -66,6 +78,12 @@ public class Controller {
         }
     }
 
+    /**
+     * Adds a new rose plant to the list of plants.
+     * Generates a random name for the rose plant and initializes its properties.
+     * @author annagranberg
+     */
+
     public void addNewRose() {
         Random random = new Random();
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10Random random = new Random();
@@ -74,6 +92,11 @@ public class Controller {
         plantList.add(newRose);
     }
 
+    /**
+     * Adds a new sunflower plant to the list of plants.
+     * Generates a random name for the rose plant and initializes its properties.
+     * @author annagranberg
+     */
     public void addNewSunflower(){
         Random random = new Random();
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
@@ -82,6 +105,11 @@ public class Controller {
         plantList.add(newSunflower);
     }
 
+    /**
+     * Adds a new tomato plant to the list of plants.
+     * Generates a random name for the rose plant and initializes its properties.
+     * @author annagranberg
+     */
     public void addNewTomatoPlant(){
         Random random = new Random();
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
@@ -89,6 +117,12 @@ public class Controller {
         TomatoPlant newSunflower = new TomatoPlant(newTomatoName, PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
         plantList.add(newSunflower);
     }
+
+    /**
+     * Handles button presses in the application.
+     *
+     * @param button The type of button pressed.
+     */
     public void buttonPressed(ButtonType button) {
         switch (button) {
             case Water:
@@ -131,6 +165,7 @@ public class Controller {
     /**
      * Checks if the plants need to be watered based on a certain timestamp (24h).
      * @return boolean
+     * @auhor annagranberg
      */
     private boolean checkWateringStatus() {
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -155,6 +190,12 @@ public class Controller {
         return false; // Ingen växt behöver vattnas
     }
 
+    /**
+     * Updates the status of the water button based on whether any plant needs watering.
+     *
+     * @param waterstatus A boolean indicating whether any plant needs watering.
+     * @author Anna Granberg
+     */
     public void updateWaterButtonStatus(boolean waterstatus) {
         if (waterstatus) {
             view.getEastPanel().enableWaterButton(); // Aktivera knappen om någon växt behöver vattnas
@@ -163,6 +204,11 @@ public class Controller {
         }
     }
 
+    /**
+     * Retrieves the number of lives of the first plant in the plant list.
+     *
+     * @return The number of lives of the first plant, or 0 if the plant list is empty or the first plant is null.
+     */
     public int getNbrOfLives() {
         if (!plantList.isEmpty()) { // Check if plantList is not empty
             //Plant firstPlant = plants[currentPlantIndex];// Get the first plant if available
@@ -181,6 +227,11 @@ public class Controller {
         }
     }
 
+    /**
+     * Retrieves the number of times watered of the first plant in the plant list.
+     *
+     * @return The number of times watered of the first plant, or 0 if the plant list is empty or the first plant is null.
+     */
     public int getTimesWatered() {
         if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
             if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
@@ -205,6 +256,11 @@ public class Controller {
         }
     }
 
+    /**
+     * Retrieves the plantlevel of the first plant in the plant list.
+     *
+     * @return The plantlevel of the first plant, or 0 if the plant list is empty or the first plant is null.
+     */
     public int getPlantLevel() {
         if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
             if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
@@ -238,6 +294,11 @@ public class Controller {
         return plantInfo;
     }
 
+    /**
+     * Retrieves the plant name of the first plant in the plant list.
+     *
+     * @return The plant name of the first plant, or 0 if the plant list is empty or the first plant is null.
+     */
     public String getPlantName() {
         if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
             if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
@@ -261,6 +322,11 @@ public class Controller {
         }
     }
 
+    /**
+     * Retrieves the plant art of the first plant in the plant list.
+     *
+     * @return The plant art of the first plant, or 0 if the plant list is empty or the first plant is null.
+     */
     public PlantArt getPlantArt(){
         if (!plantList.isEmpty() && currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
             Plant currentPlant = plantList.get(currentPlantIndex);
@@ -278,6 +344,11 @@ public class Controller {
         }
     }
 
+    /**
+     * Retrieves the paths of images associated with each plant in the plant list.
+     *
+     * @return A list of image paths corresponding to each plant in the plant list.
+     */
     public List<String> getPlantImagePaths() {
         List<String> imagePaths = new ArrayList<>();
         for (Plant plant : plantList) {
@@ -286,6 +357,12 @@ public class Controller {
         return imagePaths;
     }
 
+    /**
+     * Calculates the time elapsed since the game was last played.
+     *
+     * @return The time elapsed since the game was last played, in seconds.
+     * @author Anna Granberg
+     */
     public long getTimeSinceLastPlayed() {
         LocalDateTime timeWhenClosed = SaveGame.getTimestamp();
         LocalDateTime timeWhenOpened = LoadGame.getTimestamp();
