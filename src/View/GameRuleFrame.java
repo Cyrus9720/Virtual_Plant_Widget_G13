@@ -23,15 +23,15 @@ public class GameRuleFrame extends JFrame {
         gameRulesLabel = new JLabel();
 
         String rules = "<html>Game rules:<br/>" + // String för spelregler
-                "1. Plant different types of plants and take care of them.<br/>" +
+                " "+
+                "<br/" +
+                "Plant different types of plants and take care of them by opening Plants in menu.<br/>" +
                 "  <br/>" +
-                "2. Water your plants regularly to keep them healthy.<br/>" +
+                "Water your plants regularly to keep them healthy.<br/>" +
                 "  <br/>" +
-                "3. Beware of deadlines for watering, or your plants may die.<br/>" +
+                "Beware of deadlines for watering, or your plants may die.<br/>" +
                 "  <br/>" +
-                "4. Harvest seeds from mature plants to grow new ones.<br/>" +
-                "  <br/>" +
-                "5. Enjoy watching your garden flourish!</html>";
+                "Enjoy watching your garden flourish!</html>";
 
         gameRulesLabel.setText(rules);
         gameRulesLabel.setFont(CUSTOM_FONT);

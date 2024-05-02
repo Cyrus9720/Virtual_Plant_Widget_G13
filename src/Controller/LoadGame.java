@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.*;
+import View.MainFrame;
 
 import javax.swing.*;
 import java.io.BufferedReader;
@@ -21,6 +22,7 @@ import java.util.List;
 public class LoadGame {
     private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
     private static LocalDateTime timestamp;
+    private static MainFrame view;
     private static Plant plant;
 
     /**
@@ -30,6 +32,8 @@ public class LoadGame {
      * @return The list of Plant objects populated with data from the save file.
      */
     public static List<Plant> loadGame(List<Plant> plantList, Controller controller) {
+
+        view = controller.getView();
 
         try (BufferedReader reader = new BufferedReader(new FileReader("game_save.txt"))) {
 
@@ -75,8 +79,9 @@ public class LoadGame {
                 // clearSaveFile();
             }
 
-            if (fileNotEmpty) {  // ifall fil inte är tom
-                SaveGame.writeGamePlayedNotice();
+            if (fileNotEmpty) {  // ifall fil är tom
+                view.welcomeBackMessage();
+                // SaveGame.writeGamePlayedNotice();
             } else{
                 controller.firstTimePlaying();
             }

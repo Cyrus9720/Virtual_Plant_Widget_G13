@@ -19,70 +19,18 @@ import java.util.Random;
 public class Controller {
     private MainFrame view;
     private ArrayList<Plant> plantList = new ArrayList<>();
-    private Plant[] plants;
     private Plant currentPlant;
     private Clip wateringSoundClip;
     private int currentPlantIndex;
 
     public Controller() {
-
         try {
             LoadGame.loadGame(plantList, this); // ifall spelet spelats tidigare kommer plantList hämtas här
         } catch (Exception e) {
             System.err.println("Error loading game data: " + e.getMessage());
         }
 
-        garden();
         view = new MainFrame(this);
-    }
-
-    private void garden() {
-        if (plantList.isEmpty()) {
-            plants = new Plant[]{
-                    new Rose("Rose", PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null),
-                    new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null),
-                    new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null),
-            };
-        } else if (plantList.size() < 3) {
-            Plant plant = plantList.get(0);
-            PlantArt plantArt = plant.getPlantArt();
-            switch (plantArt) {
-                case TOMATO_PLANT:
-                    plants = new Plant[]{
-                            new Rose("Rose", PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null),
-                            new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null)
-                    };
-                    break;
-                case ROSE:
-                    plants = new Plant[]{
-                            new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null),
-                            new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null),
-                    };
-                    break;
-                case SUNFLOWER:
-                    plants = new Plant[]{
-                            new Rose("Rose", PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null),
-                            new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null)
-                    };
-                    break;
-            }
-
-            for (Plant potentialPlant : plants) {
-                boolean exists = false;
-                for (Plant existingPlant : plantList) {
-                    if (potentialPlant.getPlantName().equals(existingPlant.getPlantName())) {
-                        exists = true;
-                        break;
-                    }
-                }
-                if (!exists) {
-                    plantList.add(potentialPlant);
-                }
-            }
-            plants = plantList.toArray(new Plant[0]);
-        } else {
-            System.out.println("Load game har fyllt plantlist");
-        }
     }
 
     public void switchPlant(String id) {
@@ -346,4 +294,7 @@ public class Controller {
         GameRuleFrame gameRuleFrame = new GameRuleFrame();
     }
 
+    public MainFrame getView() {
+        return view;
+    }
 }
