@@ -24,6 +24,7 @@ public class MainFrame extends JFrame {
     private int height = 1000; // dimensions for frame size
     private MainPanel mainPanel; // reference to mainPanel
     private GardenView gardenView; // reference to gardenView
+    private SouthPanel southPanel;
 
     /**
      * Constructs a new MainFrame with the specified controller.
@@ -51,7 +52,7 @@ public class MainFrame extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(new Color(225, 240, 218));
 
-        JMenu alternatives = new JMenu("Alternatives");
+        JMenu menu = new JMenu("Menu");
 
         JMenuItem gameRules = new JMenuItem("Game Rules");
         gameRules.addActionListener(new ActionListener() {
@@ -69,16 +70,13 @@ public class MainFrame extends JFrame {
             }
         });
 
-        alternatives.add(gameRules);
-        alternatives.add(differentPlants);
-        menuBar.add(alternatives);
-
+        menuBar.add(differentPlants);
+        menuBar.add(gameRules);
         setJMenuBar(menuBar);
 
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                // Anropar SaveGame() för att spara spelet när fönstret stängs
                 controller.saveGame();
             }
         });
@@ -87,6 +85,7 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
+
 
     public void timeToWater(){
         String message = "It's time to water the plant!\nDon't forget to give it some love and hydration.";
@@ -122,5 +121,10 @@ public class MainFrame extends JFrame {
 
     public CenterPanel getCenterPanel() {
         return mainPanel.getCenterPanel();
+    }
+
+
+    public SouthPanel getSouthPanel() {
+        return southPanel;
     }
 }

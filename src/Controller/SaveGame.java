@@ -42,6 +42,18 @@ public class SaveGame {
         }
     }
 
+    /**
+     * Writes a notice to the game save file indicating that the game has been played previously.
+     */
+    public static void writeGamePlayedNotice() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("game_save.txt", true))) {
+            writer.newLine(); // Add a new line
+            writer.write("The game has been played");
+        } catch (IOException e) {
+            System.err.println("Error writing game played notice: " + e.getMessage());
+        }
+    }
+
     public static LocalDateTime getTimestamp() {
         return timestamp;
     }

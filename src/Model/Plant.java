@@ -4,7 +4,7 @@ import javax.swing.ImageIcon;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Plant {
+public abstract class Plant {
     private String name;
     private int nbrOfLives;
     private int timesWatered;
@@ -24,13 +24,15 @@ public class Plant {
      * @param plantLevel Level of the plant
      * @author Cyrus Shaerpour
      */
-    public Plant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel) {
+    public Plant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
         this.name = name;
         this.plantArt = plantArt;
         this.nbrOfLives = nbrOfLives;
         this.timesWatered = timesWatered;
         this.plantPicture = plantPicture;
         this.plantLevel = plantLevel;
+        this.lastWatered = lastWatered;
+
         // System.out.println("Plant created " + name);
     }
 
@@ -175,4 +177,6 @@ public class Plant {
         }
         return String.format("Plant art; %s | Plant name; %s | Plant level; %d | Times watered; %d | Number of lives; %d | Plant picture; %s | Last time watered; %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture, formattedLastWatered);
     }
+
+    public abstract String getPlantInfo();
 }
