@@ -34,4 +34,11 @@ public class TomatoPlant extends Plant{
                 break;
         }
     }
+
+    public String getPlantInfo() {
+        return "The sunflower is a large inflorescence, \n" +
+                " this means that the flower head is actually made of many tiny flowers called florets. \n" +
+                " The central florets look like the center of a normal flower and the outer florets look like yellow petals. \n" +
+                " All together they make up a 'false flower'.";
+    }
 }
