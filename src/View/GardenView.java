@@ -31,13 +31,8 @@ public class GardenView extends JDialog {
         //int xCoordinate = parentFrame.getX() - centerPanel.getX() - 280; // Move to the left side by subtracting the width
         int yCoordinate = parentFrame.getY() + centerPanel.getY() - 12; // Adjust as needed
 
-
-
         //TODO: assistent added this
         this.centerPanel = centerPanel;
-
-
-
 
         // Set the location of GardenView relative to the CenterPanel
         setLocation(xCoordinate, yCoordinate);
@@ -58,9 +53,9 @@ public class GardenView extends JDialog {
                     "src/Images/RoseArt3.JPG",
                     "src/Images/Sunflower3.JPG",
                     "src/Images/Tomatoe3.JPG",
-                    "src/Images/RoseArt3.JPG",
-                    "src/Images/RoseArt3.JPG",
-                    "src/Images/RoseArt3.JPG"
+                    "src/Images/Cactus3.JPG",
+                    "src/Images/MiniTree3.JPG",
+                    "src/Images/Blackberry3.JPG"
                     // Add more paths for additional buttons
             };
 

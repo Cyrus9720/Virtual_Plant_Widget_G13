@@ -38,22 +38,33 @@ public class Controller {
      */
     private void garden() {
         plants = new Plant[] {
-            new Rose("Rose", PlantArt.ROSE, 3, 0,new ImageIcon("src/Images/PotArt1.JPG"), 0,
+                new Rose("Rose", PlantArt.ROSE, 3, 0,new ImageIcon("src/Images/PotArt1.JPG"), 0,
                     "The rose is a type of flowering shrub. Its name comes from the Latin word Rosa. \n " +
                             "The flowers of the rose grow in many different colors, \n " +
                             "from the well-known red rose or yellow roses and sometimes white or purple roses. \n " +
                             "Roses belong to the family of plants called Rosaceae."),
 
-            new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0,
+                new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0,
                     "The sunflower is a large inflorescence, \n" +
                             " this means that the flower head is actually made of many tiny flowers called florets. \n" +
                             " The central florets look like the center of a normal flower and the outer florets look like yellow petals. \n" +
                             " All together they make up a 'false flower'."),
 
-            new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0,
+                new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0,
                     "The tomato is the edible berry of the plant Solanum lycopersicum, \n" +
                             " commonly known as a tomato plant. The species originated in western South America and Central America. \n" +
                             " The Nahuatl word tomatl gave rise to the Spanish word tomate, from which the English word tomato derived."),
+
+                new Cactus("Cactus", PlantArt.CACTUS, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0,"Cacti are members of the plant family Cactaceae, in the order Caryophyllales. \n" +
+                    "The word 'cactus' derives, through Latin, from the Ancient Greek κάκτος, kaktos, a name originally used by Theophrastus for a spiny plant whose identity is now not certain. \n" +
+                    "Cacti are native to the Americas, ranging from Patagonia in the south to parts of western Canada in the north—except for Rhipsalis baccifera, which also grows in Africa and Sri Lanka."),
+
+                new MiniTree("MiniTree", PlantArt.MINI_TREE, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0,"A tree is a tall plant with a trunk and branches made of wood. Trees can live for many years. \n" +
+                    "The oldest tree ever discovered is approximately 5,000 years old. The four main parts of a tree are the roots, the trunk, the branches, and the leaves. \n" +
+                    "The roots of a tree are usually under the ground. Most trees have a single trunk. "),
+
+                new Blackberry("Blackberry", PlantArt.BLACKBERRY, 3,0, new ImageIcon("src/Images/PotArt1.JPG"), 0,"The blackberry is an edible fruit produced by many species in the genus Rubus in the family Rosaceae, hybrids among these species within the subgenus Rubus, and hybrids between the subgenera Rubus and Idaeobatus. \n" +
+                    "The taxonomy of the blackberries has historically been confused because of hybridization and apomixis, so that species have often been grouped together and called species aggregates. "),
         };
     }
 

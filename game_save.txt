@@ -1,0 +1,1 @@
+Plant art: BLACKBERRY | Plant name: Blackberry | Plant level: 3 | Times watered: 0 | Number of lives: 3 | Plant picture: src/Images/Blackberry3.JPG | Last time watered: null | Timestamp: 2024-05-02 16:26:08
