@@ -38,9 +38,9 @@ public class Controller {
     private void garden() {
         if (plantList.isEmpty()) {
             plants = new Plant[]{
-                    new Rose("Rose", PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
-                    new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
-                    new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
+                    new Rose("Rose", PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null),
+                    new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null),
+                    new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null),
             };
         } else if (plantList.size() < 3) {
             Plant plant = plantList.get(0);
@@ -48,20 +48,20 @@ public class Controller {
             switch (plantArt) {
                 case TOMATO_PLANT:
                     plants = new Plant[]{
-                            new Rose("Rose", PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
-                            new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0)
+                            new Rose("Rose", PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null),
+                            new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null)
                     };
                     break;
                 case ROSE:
                     plants = new Plant[]{
-                            new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
-                            new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0)
+                            new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null),
+                            new Sunflower("Sunflower", PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null),
                     };
                     break;
                 case SUNFLOWER:
                     plants = new Plant[]{
-                            new Rose("Rose", PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0),
-                            new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0)
+                            new Rose("Rose", PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null),
+                            new TomatoPlant("TomatoPlant", PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null)
                     };
                     break;
             }
@@ -112,7 +112,7 @@ public class Controller {
         Random random = new Random();
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10Random random = new Random();
         String newRoseName = "Rose" + randomNumber;
-        Rose newRose = new Rose(newRoseName, PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0);
+        Rose newRose = new Rose(newRoseName, PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
         plantList.add(newRose);
     }
 
@@ -120,7 +120,7 @@ public class Controller {
         Random random = new Random();
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
         String newSunflowerName = "Sunflower" + randomNumber;
-        Sunflower newSunflower = new Sunflower(newSunflowerName, PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0);
+        Sunflower newSunflower = new Sunflower(newSunflowerName, PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
         plantList.add(newSunflower);
     }
 
@@ -128,7 +128,7 @@ public class Controller {
         Random random = new Random();
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
         String newTomatoName = "TomatoPlant" + randomNumber;
-        TomatoPlant newSunflower = new TomatoPlant(newTomatoName, PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0);
+        TomatoPlant newSunflower = new TomatoPlant(newTomatoName, PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
         plantList.add(newSunflower);
     }
     public void buttonPressed(ButtonType button) {

@@ -54,13 +54,13 @@ public class LoadGame {
 
                 switch (plantArt) {
                     case ROSE:
-                        plant = new Rose(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel);
+                        plant = new Rose(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
                         break;
                     case SUNFLOWER:
-                        plant = new Sunflower(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel);
+                        plant = new Sunflower(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
                         break;
                     case TOMATO_PLANT:
-                        plant = new TomatoPlant(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel);
+                        plant = new TomatoPlant(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
                         break;
                     default:
                         System.err.println("Unknown plant type: " + plantType);

@@ -24,13 +24,15 @@ public class Plant {
      * @param plantLevel Level of the plant
      * @author Cyrus Shaerpour
      */
-    public Plant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel) {
+    public Plant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
         this.name = name;
         this.plantArt = plantArt;
         this.nbrOfLives = nbrOfLives;
         this.timesWatered = timesWatered;
         this.plantPicture = plantPicture;
         this.plantLevel = plantLevel;
+        this.lastWatered = lastWatered;
+
         // System.out.println("Plant created " + name);
     }
 
