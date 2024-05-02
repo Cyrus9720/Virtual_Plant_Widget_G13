@@ -34,4 +34,13 @@ public class Sunflower extends Plant{
                 break;
         }
     }
+
+    public String getPlantInfo() {
+        // You can customize this method to provide specific information about the rose plant
+        return "Sunflower: " + getPlantName() + "\n"
+                + "Number of lives: " + getNbrOfLives() + "\n"
+                + "Times watered: " + getTimesWatered() + "\n"
+                + "Plant level: " + getPlantLevel() + "\n"
+                + "Last watered: " + getLastWatered();
+    }
 }

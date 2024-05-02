@@ -80,7 +80,7 @@ public class LoadGame {
             }
 
             if (fileNotEmpty) {  // ifall fil är tom
-                view.welcomeBackMessage();
+                // view.welcomeBackMessage(); todo: få detta att fungera?
                 // SaveGame.writeGamePlayedNotice();
             } else{
                 controller.firstTimePlaying();
