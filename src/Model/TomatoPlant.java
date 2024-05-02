@@ -36,9 +36,8 @@ public class TomatoPlant extends Plant{
     }
 
     public String getPlantInfo() {
-        return "The sunflower is a large inflorescence, \n" +
-                " this means that the flower head is actually made of many tiny flowers called florets. \n" +
-                " The central florets look like the center of a normal flower and the outer florets look like yellow petals. \n" +
-                " All together they make up a 'false flower'.";
+        return "The tomato is the edible berry of the plant Solanum lycopersicum, \n" +
+                " commonly known as a tomato plant. The species originated in western South America and Central America. \n" +
+                " The Nahuatl word tomatl gave rise to the Spanish word tomate, from which the English word tomato derived.";
     }
 }
