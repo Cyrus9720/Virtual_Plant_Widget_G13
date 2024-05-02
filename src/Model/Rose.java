@@ -39,10 +39,9 @@ public class Rose extends Plant {
 
     public String getPlantInfo() {
         // You can customize this method to provide specific information about the rose plant
-        return "Rose plant: " + getPlantName() + "\n"
-                + "Number of lives: " + getNbrOfLives() + "\n"
-                + "Times watered: " + getTimesWatered() + "\n"
-                + "Plant level: " + getPlantLevel() + "\n"
-                + "Last watered: " + getLastWatered();
+        return "The rose is a type of flowering shrub. Its name comes from the Latin word Rosa. \n " +
+                "The flowers of the rose grow in many different colors, \n " +
+                "from the well-known red rose or yellow roses and sometimes white or purple roses. \n " +
+                "Roses belong to the family of plants called Rosaceae.";
     }
 }
