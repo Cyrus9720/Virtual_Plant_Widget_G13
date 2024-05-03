@@ -31,7 +31,7 @@ public class SouthPanel extends JPanel
      * @author Anna Granberg & Cyrus Shaerpour
      */
     public SouthPanel(Controller controller, int width, int height) {
-        setPreferredSize(new Dimension(320, 100));
+        setPreferredSize(new Dimension(320, 110));
         setBackground(new Color(225, 240, 218));
 
         this.controller = controller;
