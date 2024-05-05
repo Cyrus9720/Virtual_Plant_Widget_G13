@@ -37,23 +37,22 @@ public class SouthPanel extends JPanel
         setBorder(titledBorder);
 
 
-
         setBackground(new Color(225, 240, 218));
         setLayout(new BorderLayout());
     }
 
     private JLabel scalePlantInfo(String plantInfo, int maxWidth) {
-        JLabel label = new JLabel("<html>" + plantInfo + "</html>"); // Enable HTML rendering for text wrapping
-        label.setFont(new Font("Bebas Neue", Font.BOLD, 10));
-        label.setPreferredSize(new Dimension(maxWidth, 0)); // Set initial preferred size with max width
-        label.setVerticalAlignment(SwingConstants.TOP); // Align text to the top
+        plantInformation = new JLabel("<html>" + plantInfo + "</html>"); // Enable HTML rendering for text wrapping
+        plantInformation.setFont(new Font("Bebas Neue", Font.BOLD, 10));
+        plantInformation.setPreferredSize(new Dimension(maxWidth, 0)); // Set initial preferred size with max width
+        plantInformation.setVerticalAlignment(SwingConstants.TOP); // Align text to the top
 
         // Calculate preferred size based on the text
-        Dimension preferredSize = label.getPreferredSize();
+        Dimension preferredSize = plantInformation.getPreferredSize();
 
         // Update the preferred size with the calculated width and height
-        label.setPreferredSize(new Dimension(preferredSize.width, preferredSize.height));
-        return label;
+        plantInformation.setPreferredSize(new Dimension(preferredSize.width, preferredSize.height));
+        return plantInformation;
     }
 
 
@@ -64,7 +63,7 @@ public class SouthPanel extends JPanel
      */
     public void updatePlantInfo(String plantInfo) {
         // Remove the existing plant information label
-        remove(plantInformation);
+        // remove(plantInformation);
 
         // Create a new plant information label with dynamically adjusted size
         plantInformation = scalePlantInfo(plantInfo, getWidth()- 15); // Adjust width as needed

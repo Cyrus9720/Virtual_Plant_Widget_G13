@@ -127,4 +127,8 @@ public class MainFrame extends JFrame {
     public EastPanel getEastPanel() {
         return mainPanel.getEastPanel();
     }
+
+    public SouthPanel getSouthPanel(){
+        return mainPanel.getSouthPanel();
+    }
 }

@@ -49,33 +49,26 @@ public class Controller {
      * @param id
      */
     public void switchPlant(String id) {
-        // Konvertera id till en int för att få plantIndex
         int plantIndex = Integer.parseInt(id);
 
-        // Kontrollera om plantIndex är inom ett giltigt intervall (1 till plantList.size() - 1)
+        // Check if the plantIndex is valid
         if (plantIndex >= 0 && plantIndex < plantList.size()) {
-            // Om plantIndex är giltigt, hämta växten från plantList med det angivna indexet
             Plant plant = plantList.get(plantIndex);
 
-            // Uppdatera växtbilden i gränssnittet med den nya växten
+            // Update plant image in the center panel
             view.getCenterPanel().updatePlantImage(plant.getPlantPicture());
-            view.getCenterPanel().updatePlantName(plant.getPlantName());
-            // view.getSouthPanel().updatePlantInfo(plant.getPlantinfo()); todo: få det att funka
+            view.getSouthPanel().updatePlantInfo(plant.getPlantInfo());
 
-            // Uppdatera currentPlantIndex till det nya växtindexet
+            // Update current plant index
             currentPlantIndex = plantIndex;
 
-            // Uppdatera gränssnittet för att visa förändringar
+            // Refresh the bar in the main panel
             view.getCenterPanel().getMainPanel().refreshBar();
-
-            // Uppdatera tillståndet för vattenknappen baserat på om växten behöver vattnas eller inte
-            // boolean needsWatering = checkWateringStatus();
-            // updateWaterButtonStatus(needsWatering);
         } else {
-            // Om plantIndex är ogiltigt (utanför intervallet), skriv ut ett felmeddelande
             System.err.println("Invalid plant index: " + id);
         }
     }
+
 
     /**
      * Adds a new rose plant to the list of plants.
