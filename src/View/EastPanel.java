@@ -168,8 +168,13 @@ public class EastPanel extends JPanel
     }
 
     public ImageIcon updateAmountOfLife() {
-        int nbrOfLives = controller.getNbrOfLives();
         ImageIcon heartsIcon = null;
+        if (controller.getPlantList() == null || controller.getNbrOfLives() < 0) {
+            // Handle the case when the plant list is null or the number of lives is negative
+            return null;
+        }
+
+        int nbrOfLives = controller.getNbrOfLives();
 
         switch (nbrOfLives) {
             case 0:

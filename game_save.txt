@@ -1,1 +1,2 @@
-Plant art; ROSE | Plant name; Rose6 | Plant level; 2 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/RoseArt2.JPG | Last time watered; 2024-05-05 22:10:29.431 | Timestamp; 2024-05-05 22:10:31.042
+Plant art; ROSE | Plant name; Rose6 | Plant level; 3 | Times watered; 6 | Number of lives; 3 | Plant picture; src/Images/RoseArt3.JPG | Last time watered; 2024-05-05 23:00:43.519 | Timestamp; 2024-05-05 23:00:47.926
+Plant art; TOMATO_PLANT | Plant name; TomatoPlant5 | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/PotArt1.JPG | Last time watered; 2024-05-05 22:54:12.164 | Timestamp; 2024-05-05 23:00:47.926

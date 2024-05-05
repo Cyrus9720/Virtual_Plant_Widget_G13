@@ -49,26 +49,30 @@ public class Controller {
      * @param id
      */
     public void switchPlant(String id) {
+        // Konvertera id till en int för att få plantIndex
         int plantIndex = Integer.parseInt(id);
+        System.err.println(plantIndex);
 
-        // Check if the plantIndex is valid
+        // Kontrollera om plantIndex är inom ett giltigt intervall (1 till plantList.size() - 1)
         if (plantIndex >= 0 && plantIndex < plantList.size()) {
+            // Om plantIndex är giltigt, hämta växten från plantList med det angivna indexet
             Plant plant = plantList.get(plantIndex);
 
-            // Update plant image in the center panel
+            // Uppdatera växtbilden i gränssnittet med den nya växten
             view.getCenterPanel().updatePlantImage(plant.getPlantPicture());
-            view.getSouthPanel().updatePlantInfo(plant.getPlantInfo());
+            view.getCenterPanel().updatePlantName(plant.getPlantName());
+            // view.getSouthPanel().updatePlantInfo(plant.getPlantinfo()); todo: få det att funka
 
-            // Update current plant index
+            // Uppdatera currentPlantIndex till det nya växtindexet
             currentPlantIndex = plantIndex;
 
-            // Refresh the bar in the main panel
+            // Uppdatera gränssnittet för att visa förändringar, t.ex. en progressbar
             view.getCenterPanel().getMainPanel().refreshBar();
         } else {
+            // Om plantIndex är ogiltigt (utanför intervallet), skriv ut ett felmeddelande
             System.err.println("Invalid plant index: " + id);
         }
     }
-
 
     /**
      * Adds a new rose plant to the list of plants.
@@ -151,7 +155,6 @@ public class Controller {
                 break;
         }
     }
-
 
     /**
      * Checks if the plants need to be watered based on a certain timestamp (24h).
@@ -371,5 +374,9 @@ public class Controller {
 
     public MainFrame getView() {
         return view;
+    }
+
+    public ArrayList<Plant> getPlantList() {
+        return plantList;
     }
 }
