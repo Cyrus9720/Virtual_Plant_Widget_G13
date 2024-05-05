@@ -69,8 +69,8 @@ public class Controller {
             view.getCenterPanel().getMainPanel().refreshBar();
 
             // Uppdatera tillståndet för vattenknappen baserat på om växten behöver vattnas eller inte
-            boolean needsWatering = checkWateringStatus();
-            updateWaterButtonStatus(needsWatering);
+            // boolean needsWatering = checkWateringStatus();
+            // updateWaterButtonStatus(needsWatering);
         } else {
             // Om plantIndex är ogiltigt (utanför intervallet), skriv ut ett felmeddelande
             System.err.println("Invalid plant index: " + id);
@@ -141,7 +141,6 @@ public class Controller {
                 view.getCenterPanel().updatePlantImage(updatedImage);
 
                 currentPlant.setLastWatered(LocalDateTime.now());
-                updateWaterButtonStatus(checkWateringStatus());
 
                 try {
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/sounds/watering.wav"));
