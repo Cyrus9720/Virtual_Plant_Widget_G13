@@ -34,7 +34,7 @@ public class EastPanel extends JPanel {
      * @param width The width of the panel.
      * @param height The height of the panel.
      *
-     * @author annagranberg
+     * @author Anna Granberg
      */
     public EastPanel(Controller controller, int width, int height) {
         this.controller = controller;
@@ -179,6 +179,13 @@ public class EastPanel extends JPanel {
         return new ImageIcon(scaledImage);
     }
 
+    /**
+     * Updates and returns an ImageIcon representing the number of remaining lives for the user.
+     * Depending on the number of lives, different images of hearts are displayed.
+     *
+     * @return ImageIcon representing the number of remaining lives, or null if the plant list is null or the number of lives is negative.
+     * @author Anna Granberg
+     */
     public ImageIcon updateAmountOfLife() {
         ImageIcon heartsIcon = null;
         if (controller.getPlantList() == null || controller.getNbrOfLives() < 0) {
@@ -223,6 +230,9 @@ public class EastPanel extends JPanel {
 
     /**
      * Updates the time until label with the time until the next watering period.
+     *
+     * @return void
+     * @author Anna Granberg
      */
     private void updateTimeUntilLabel() {
         long timeUntilNextWatering = controller.getTimeUntilNextWatering();

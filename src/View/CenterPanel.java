@@ -48,7 +48,7 @@ public class CenterPanel extends JPanel {
         add(plantLabel); // Lägger till växt-label på panelen
     }
 
-    
+
     /**
      * Hämtar huvudpanelen som denna CenterPanel är en del av.
      *
