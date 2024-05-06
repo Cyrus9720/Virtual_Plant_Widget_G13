@@ -51,7 +51,7 @@ public class AddNewPlantFrame extends JFrame {
             tomatoButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    controller.addNewTomatoplant();
+                    controller.addNewTomatoPlant();
                     AddNewPlantFrame.this.dispose();
                 }
             });

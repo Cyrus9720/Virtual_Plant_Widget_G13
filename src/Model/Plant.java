@@ -32,8 +32,7 @@ public abstract class Plant {
         this.plantPicture = plantPicture;
         this.plantLevel = plantLevel;
         this.lastWatered = lastWatered;
-
-        // System.out.println("Plant created " + name);
+        plantinfo = null;
     }
 
     /**

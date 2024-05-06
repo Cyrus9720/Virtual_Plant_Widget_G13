@@ -20,10 +20,9 @@ public class CenterPanel extends JPanel {
         setPreferredSize(new Dimension(320, 485));
         setBackground(new Color(225, 240, 218));
 
-        //TODO: assistent added this
         this.mainPanel = mainPanel;
 
-        plantPicture = new ImageIcon("src/Images/PotArt1.JPG"); // Default bild
+        plantPicture = new ImageIcon("src/Images/deafult.png"); // Default bild
 
         String plantName = controller.getPlantName();
         titledBorder = BorderFactory.createTitledBorder("You must choose a plant"); // skapar en border runt panelen
@@ -37,7 +36,6 @@ public class CenterPanel extends JPanel {
         add(plantLabel);
     }
 
-    //TODO: assistent added this
     public MainPanel getMainPanel() {
         return mainPanel;
     }
