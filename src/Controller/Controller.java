@@ -13,6 +13,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 public class Controller {
 
@@ -191,6 +192,14 @@ public class Controller {
             System.err.println("Plant list is empty level");
             return 0;
         }
+    }
+
+    public void addNewTomatoPlant(){
+        Random random = new Random();
+        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
+        String newTomatoName = "TomatoPlant" + randomNumber;
+        TomatoPlant newSunflower = new TomatoPlant(newTomatoName, PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
+        plantList.add(newSunflower);
     }
 
     public void saveGame() {

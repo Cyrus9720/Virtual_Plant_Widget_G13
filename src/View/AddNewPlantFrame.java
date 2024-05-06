@@ -31,7 +31,7 @@ public class AddNewPlantFrame extends JFrame {
             sunflowerButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    controller.addNewSunflower();
+                   // controller.addNewSunflower();
                     AddNewPlantFrame.this.dispose();
                 }
             });
@@ -41,7 +41,7 @@ public class AddNewPlantFrame extends JFrame {
             roseButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    controller.addNewRose();
+                 //   controller.addNewRose();
                     AddNewPlantFrame.this.dispose();
                 }
             });
