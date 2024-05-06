@@ -3,6 +3,8 @@ package View;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 
 /**
  *
@@ -15,27 +17,28 @@ public class GameRuleFrame extends JFrame {
 
     // Konstanter för frame storlek
     private static final int FRAME_WIDTH = 500;
-    private static final int FRAME_HEIGHT = 250;
-
+    private static final int FRAME_HEIGHT = 350;
     private static final Font CUSTOM_FONT = new Font("Bebas Neue", Font.BOLD, 12); // Font för hela spelet
 
     public GameRuleFrame() {
         gameRulesLabel = new JLabel();
 
         String rules = "<html>Game rules:<br/>" + // String för spelregler
-                " "+
                 "<br/" +
-                "Plant different types of plants and take care of them by opening Plants in menu.<br/>" +
-                "  <br/>" +
-                "Water your plants regularly to keep them healthy.<br/>" +
-                "  <br/>" +
-                "Beware of deadlines for watering, or your plants may die.<br/>" +
-                "  <br/>" +
-                "Enjoy watching your garden flourish!</html>";
+                "coming soon"; // todo: lägga till spelregler som stämmer överrens med spelet, kanske med beskrivande bild?
 
         gameRulesLabel.setText(rules);
         gameRulesLabel.setFont(CUSTOM_FONT);
         gameRulesLabel.setSize(new Dimension(450, 200));
+
+        ImageIcon menuBar = new ImageIcon("src/Images/menuBar.png");
+        Image menuBarImage = menuBar.getImage();
+        Image scaledMenuBar = menuBarImage.getScaledInstance(400, 25, Image.SCALE_SMOOTH);
+        ImageIcon finalMenuBar = new ImageIcon(scaledMenuBar);
+
+        JLabel imageLabel = new JLabel(finalMenuBar);
+        add(imageLabel, BorderLayout.SOUTH);
+
 
         gameRulesLabel.setBackground(new Color(153, 188, 133)); // bakgrundsfärg
 
