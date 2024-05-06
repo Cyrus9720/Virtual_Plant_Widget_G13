@@ -22,9 +22,9 @@ public class EastPanel extends JPanel {
     private Controller controller; // Reference to controller
     private int width, height; // Dimensions of the panel
     private JButton Water; // Button for watering action
-    private JLabel progressbarLabel; // JLabel for progressbar
-    private JLabel threeHeartsLabel;
-    private JLabel timeUntil;
+    private JLabel progressbarLabel; // JLabel for progressbar / timesWatered
+    private JLabel threeHeartsLabel; // JLabel for nbrOfLives
+    private JLabel timeUntil; // JLabel to show time until next watering period
     private Timer timer; // Timer for updating the time until next watering
 
     /**
