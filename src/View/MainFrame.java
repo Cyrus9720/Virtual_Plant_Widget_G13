@@ -78,6 +78,7 @@ public class MainFrame extends JFrame {
 
         JMenuItem newGame = new JMenuItem("Start Over");
         newGame.setFont(customFont);
+        newGame.setBackground(new Color(225, 78, 78));
         newGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

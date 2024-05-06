@@ -70,7 +70,6 @@ public class GardenView extends JDialog {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         controller.switchPlant(e.getActionCommand());
-                        GardenView.this.dispose();
 
                     }
                 });
