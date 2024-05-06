@@ -26,6 +26,7 @@ public class EastPanel extends JPanel
     private JButton Water; // Button for watering action
     private JLabel progressbarLabel; // JLabel for progressbar
     private JLabel threeHeartsLabel;
+    private JLabel timeUntil;
     /**
      * Constructs a new EastPanel with the specified controller, width, and height.
      *
@@ -74,11 +75,19 @@ public class EastPanel extends JPanel
         Image scaledImage = originalImage.getScaledInstance(100, 75, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
 
+        timeUntil = new JLabel();
+        timeUntil.setText("Next watering period: ");
+        timeUntil.setFont(new Font("Bebas Neue", Font.BOLD, 9));
+
+        add(timeUntil, BorderLayout.NORTH);
+
         progressbarLabel.setIcon(scaledIcon);
         add(progressbarLabel, BorderLayout.SOUTH);
 
         threeHeartsLabel = new JLabel(updateAmountOfLife());
         add(threeHeartsLabel, BorderLayout.WEST);
+
+
 
         // ActionListener för vattenknappen
         Water.addActionListener(new ActionListener() {

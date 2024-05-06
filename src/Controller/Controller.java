@@ -25,9 +25,8 @@ public class Controller {
     private ArrayList<Plant> plantList = new ArrayList<>();
     private Clip wateringSoundClip;
     private int currentPlantIndex;
-
-
-    private long lastWateringTime = 0; // Variabel för att hålla koll på tiden när plantorna senast vattnades
+    private Plant currentPlant;
+    private LocalDateTime lastWatered;
     private static final long WATERING_INTERVAL = 2 * 60 * 1000; // Vattningstiden i millisekunder (2 minuter)
 
     /**
@@ -49,27 +48,16 @@ public class Controller {
      * @param id
      */
     public void switchPlant(String id) {
-        // Konvertera id till en int för att få plantIndex
         int plantIndex = Integer.parseInt(id);
-        System.err.println(plantIndex);
-
-        // Kontrollera om plantIndex är inom ett giltigt intervall (1 till plantList.size() - 1)
         if (plantIndex >= 0 && plantIndex < plantList.size()) {
-            // Om plantIndex är giltigt, hämta växten från plantList med det angivna indexet
-            Plant plant = plantList.get(plantIndex);
-
-            // Uppdatera växtbilden i gränssnittet med den nya växten
-            view.getCenterPanel().updatePlantImage(plant.getPlantPicture());
-            view.getCenterPanel().updatePlantName(plant.getPlantName());
-            // view.getSouthPanel().updatePlantInfo(plant.getPlantinfo()); todo: få det att funka
-
-            // Uppdatera currentPlantIndex till det nya växtindexet
             currentPlantIndex = plantIndex;
-
-            // Uppdatera gränssnittet för att visa förändringar, t.ex. en progressbar
+            currentPlant = plantList.get(plantIndex); // Update currentPlant whenever switchPlant is called
+            updateWaterButtonStatus();
+            view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
+            view.getCenterPanel().updatePlantName(currentPlant.getPlantName());
+            view.getSouthPanel().updatePlantInfo();
             view.getCenterPanel().getMainPanel().refreshBar();
         } else {
-            // Om plantIndex är ogiltigt (utanför intervallet), skriv ut ett felmeddelande
             System.err.println("Invalid plant index: " + id);
         }
     }
@@ -122,23 +110,15 @@ public class Controller {
     public void buttonPressed(ButtonType button) {
         switch (button) {
             case Water:
-                // Kontrollera om ingen växt är vald
                 if (plantList.isEmpty()) {
-                    // Visa felmeddelande om ingen växt är vald
                     JOptionPane.showMessageDialog(null, "Please select a plant to water.", "No Plant Selected", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
-
-                // Hämta den aktuella växten från plantList
-                Plant currentPlant = plantList.get(0);
-                // Vattna växten
+                currentPlant = plantList.get(currentPlantIndex);
                 currentPlant.waterPlant();
-                // Uppdatera växtbilden i vyn
                 ImageIcon updatedImage = currentPlant.getPlantPicture();
                 view.getCenterPanel().updatePlantImage(updatedImage);
-
                 currentPlant.setLastWatered(LocalDateTime.now());
-
                 try {
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/sounds/watering.wav"));
                     wateringSoundClip = AudioSystem.getClip();
@@ -146,12 +126,11 @@ public class Controller {
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-
-                // Spela vattningssoundet om växten vattnades framgångsrikt
                 if (wateringSoundClip != null) {
                     wateringSoundClip.setFramePosition(0);
-                    wateringSoundClip.start(); // Starta uppspelningen av ljudet
+                    wateringSoundClip.start();
                 }
+                updateWaterButtonStatus();
                 break;
         }
     }
@@ -162,39 +141,42 @@ public class Controller {
      * @auhor annagranberg
      */
     private boolean checkWateringStatus() {
-        LocalDateTime currentDateTime = LocalDateTime.now();
+        if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
+            Plant currentPlant = plantList.get(currentPlantIndex);
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            LocalDateTime lastWatered = currentPlant.getLastWatered();
 
-        for (Plant plant : plantList) {
-            LocalDateTime lastWatered = plant.getLastWatered();
+            if (lastWatered != null) {
+                Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
+                Duration wateringInterval = Duration.ofMillis(2 * 60 * 1000);
 
-            if (lastWatered == null) {
-                System.err.println("Plant last watered timestamp is null");
-                continue; // Skip this plant and move on to the next one
-            }
-
-            Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-            Duration wateringInterval = Duration.ofMinutes(2); // 2 minuter
-
-            if (timeSinceLastWatered.compareTo(wateringInterval) >= 0) {
-                // Plant needs to be watered
-                System.out.println("Plant needs to be watered");
+                if (timeSinceLastWatered.compareTo(wateringInterval) >= 0) {
+                    System.out.println("Current plant needs to be watered");
+                    return true; // Return true if the current plant needs watering
+                }
+            } else {
+                System.err.println("Current plant last watered timestamp is null");
                 return true;
             }
+        } else {
+            System.err.println("Invalid current plant index");
         }
-        return false; // Ingen växt behöver vattnas
+
+        return false; // Return false if the current plant does not need watering
     }
+
 
     /**
      * Updates the status of the water button based on whether any plant needs watering.
      *
-     * @param waterstatus A boolean indicating whether any plant needs watering.
      * @author Anna Granberg
      */
-    public void updateWaterButtonStatus(boolean waterstatus) {
+    public void updateWaterButtonStatus() {
+        boolean waterstatus = checkWateringStatus();
         if (waterstatus) {
-            view.getEastPanel().enableWaterButton(); // Aktivera knappen om någon växt behöver vattnas
+            view.getEastPanel().enableWaterButton();
         } else {
-            view.getEastPanel().disableWaterButton(); // Inaktivera knappen om ingen växt behöver vattnas
+            view.getEastPanel().disableWaterButton();
         }
     }
 
@@ -204,22 +186,20 @@ public class Controller {
      * @return The number of lives of the first plant, or 0 if the plant list is empty or the first plant is null.
      */
     public int getNbrOfLives() {
-        if (!plantList.isEmpty()) { // Check if plantList is not empty
-            //Plant firstPlant = plants[currentPlantIndex];// Get the first plant if available
+        if (!plantList.isEmpty()) {
             Plant firstPlant = plantList.get(0);
-            if (firstPlant != null) { // Check if the first plant is not null
+            if (firstPlant != null) {
                 return firstPlant.getNbrOfLives();
             } else {
-                // Handle the case when the first plant is null
                 System.err.println("First plant is null");
                 return 0;
             }
         } else {
-            // Handle the case when plantList is empty
             System.err.println("Plant list is empty");
             return 0;
         }
     }
+
 
     /**
      * Retrieves the number of times watered of the first plant in the plant list.
@@ -282,12 +262,6 @@ public class Controller {
         SaveGame.saveGame(plantList);
     }
 
-    public String getPlantInfo(){
-        Plant plant = plantList.get(0);
-        String plantInfo = plant.getPlantinfo();
-        return plantInfo;
-    }
-
     /**
      * Retrieves the plant name of the first plant in the plant list.
      *
@@ -324,19 +298,21 @@ public class Controller {
     public PlantArt getPlantArt(){
         if (!plantList.isEmpty() && currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
             Plant currentPlant = plantList.get(currentPlantIndex);
-            if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
+            if (currentPlant != null) {
+                // Return the plant art of the current plant
                 return currentPlant.getPlantArt();
             } else {
-                // Hantera fallet när den aktuella växten är null
+                // Handle the case when the current plant is null
                 System.err.println("Current plant is null");
                 return null;
             }
         } else {
-            // Hantera fallet när plantList är tom eller currentPlantIndex är utanför intervallet
+            // Handle the case when plantList is empty or currentPlantIndex is out of range
             System.err.println("No plant available at the current index");
             return null;
         }
     }
+
 
     /**
      * Retrieves the paths of images associated with each plant in the plant list.
