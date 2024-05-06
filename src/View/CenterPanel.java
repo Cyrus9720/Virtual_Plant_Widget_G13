@@ -22,7 +22,7 @@ public class CenterPanel extends JPanel {
 
         this.mainPanel = mainPanel;
 
-       //  plantPicture = new ImageIcon("src/Images/deafult.png"); // Default bild
+        plantPicture = new ImageIcon("src/Images/deafult.png"); // Default bild
 
         String plantName = controller.getPlantName();
         titledBorder = BorderFactory.createTitledBorder("You must choose a plant"); // skapar en border runt panelen
@@ -31,7 +31,7 @@ public class CenterPanel extends JPanel {
         setBorder(titledBorder);
 
         plantLabel = new JLabel();
-        // plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // skalar bild
+        plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // skalar bild
 
         add(plantLabel);
     }
