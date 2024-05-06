@@ -32,7 +32,6 @@ public class Controller {
     /**
      * Constructor for the controller class.
      */
-
     public Controller() {
         try {
             LoadGame.loadGame(plantList, this); // ifall spelet spelats tidigare kommer plantList hämtas här
@@ -164,6 +163,34 @@ public class Controller {
 
         return false; // Return false if the current plant does not need watering
     }
+
+    public long timeUntilNextWatering() {
+        if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
+            Plant currentPlant = plantList.get(currentPlantIndex);
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            LocalDateTime lastWatered = currentPlant.getLastWatered();
+
+            if (lastWatered != null) {
+                Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
+                Duration wateringInterval = Duration.ofMillis(2 * 60 * 1000); // Vattningstiden i millisekunder (2 minuter)
+
+                // Beräkna tiden kvar till nästa vattning i sekunder
+                long timeUntilNextWateringSeconds = wateringInterval.minus(timeSinceLastWatered).getSeconds();
+
+                return timeUntilNextWateringSeconds;
+            } else {
+                // Hantera fallet när den senaste vattentiden är null
+                System.err.println("Current plant last watered timestamp is null");
+            }
+        } else {
+            // Hantera fallet när indexet för den nuvarande växten är ogiltigt
+            System.err.println("Invalid current plant index");
+        }
+
+        return 0; // Returnera 0 om det inte går att beräkna tiden kvar
+    }
+
+
 
 
     /**

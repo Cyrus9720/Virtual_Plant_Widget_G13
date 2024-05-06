@@ -1,9 +1,8 @@
 package View;
+
 import Controller.Controller;
+
 import javax.swing.*;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
@@ -19,14 +18,15 @@ import java.awt.event.ActionListener;
  *
  * @author annagranberg
  */
-public class EastPanel extends JPanel
-{
+public class EastPanel extends JPanel {
     private Controller controller; // Reference to controller
     private int width, height; // Dimensions of the panel
     private JButton Water; // Button for watering action
     private JLabel progressbarLabel; // JLabel for progressbar
     private JLabel threeHeartsLabel;
     private JLabel timeUntil;
+    private Timer timer; // Timer for updating the time until next watering
+
     /**
      * Constructs a new EastPanel with the specified controller, width, and height.
      *
@@ -36,14 +36,13 @@ public class EastPanel extends JPanel
      *
      * @author annagranberg
      */
-    public EastPanel(Controller controller, int width, int height)
-    {
+    public EastPanel(Controller controller, int width, int height) {
         this.controller = controller;
         this.width = width;
         this.height = height;
 
         setBackground(new Color(225, 240, 218));
-        setPreferredSize(new Dimension(125, 300));
+        setPreferredSize(new Dimension(150, 300));
 
         TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant care");  // skapa en border runt panel
         Font myFont = new Font("Bebas Neue", Font.BOLD, 12);  // font för hela spelet
@@ -55,7 +54,7 @@ public class EastPanel extends JPanel
 
         ImageIcon waterButton = new ImageIcon("src/Images/Watercan.png"); // Bild för vattenknapp
         Image originalWaterButtonImage = waterButton.getImage();
-        Image scaledWaterButtonImage = originalWaterButtonImage.getScaledInstance(60,50, Image.SCALE_SMOOTH);
+        Image scaledWaterButtonImage = originalWaterButtonImage.getScaledInstance(60, 50, Image.SCALE_SMOOTH);
         ImageIcon scaledWaterIcon = new ImageIcon(scaledWaterButtonImage);
 
         Water = new JButton(scaledWaterIcon);
@@ -76,9 +75,8 @@ public class EastPanel extends JPanel
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
 
         timeUntil = new JLabel();
-        timeUntil.setText("Next watering period: ");
         timeUntil.setFont(new Font("Bebas Neue", Font.BOLD, 9));
-
+        updateTimeUntilLabel();
         add(timeUntil, BorderLayout.NORTH);
 
         progressbarLabel.setIcon(scaledIcon);
@@ -87,23 +85,28 @@ public class EastPanel extends JPanel
         threeHeartsLabel = new JLabel(updateAmountOfLife());
         add(threeHeartsLabel, BorderLayout.WEST);
 
-
-
         // ActionListener för vattenknappen
         Water.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(e.getSource() == Water){
+                if (e.getSource() == Water) {
                     controller.buttonPressed(ButtonType.Water);
                     progressbarLabel.setIcon(updateWaterProgress());
                     // System.out.println("Water button clicked");
-                    }
                 }
-
+            }
         });
 
+        // Create a timer to update the time until next watering every second
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateTimeUntilLabel();
+            }
+        });
+        timer.start();
     }
 
-    public void refreshBar(){
+    public void refreshBar() {
         progressbarLabel.setIcon(updateWaterProgress());
     }
 
@@ -216,6 +219,23 @@ public class EastPanel extends JPanel
             return null;
         }
     }
+
+
+    /**
+     * Updates the time until label with the time until the next watering period.
+     */
+    private void updateTimeUntilLabel() {
+        long timeUntilNextWatering = controller.timeUntilNextWatering();
+        long hours = timeUntilNextWatering / 3600; // Konvertera sekunder till timmar
+        long minutes = (timeUntilNextWatering % 3600) / 60; // Få återstående minuter
+        long seconds = timeUntilNextWatering % 60; // Få återstående sekunder
+
+        String formattedTime = String.format("%02d h %02d m %02d s", hours, minutes, seconds);
+
+        // Använd HTML för att bryta texten på tre rader och minska textstorleken
+        timeUntil.setText("<html><div style='text-align: center; font-size: 9px;'>Next watering period:<br>" + formattedTime + "</div></html>");
+    }
+
 
 
 }
