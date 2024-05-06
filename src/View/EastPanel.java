@@ -226,6 +226,10 @@ public class EastPanel extends JPanel {
      */
     private void updateTimeUntilLabel() {
         long timeUntilNextWatering = controller.timeUntilNextWatering();
+        // Kontrollera om tiden är negativ
+        if (timeUntilNextWatering < 0) {
+            timeUntilNextWatering = 0; // Sätt tiden till 0 om den är negativ
+        }
         long hours = timeUntilNextWatering / 3600; // Konvertera sekunder till timmar
         long minutes = (timeUntilNextWatering % 3600) / 60; // Få återstående minuter
         long seconds = timeUntilNextWatering % 60; // Få återstående sekunder
@@ -235,6 +239,7 @@ public class EastPanel extends JPanel {
         // Använd HTML för att bryta texten på tre rader och minska textstorleken
         timeUntil.setText("<html><div style='text-align: center; font-size: 9px;'>Next watering period:<br>" + formattedTime + "</div></html>");
     }
+
 
 
 
