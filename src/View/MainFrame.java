@@ -2,6 +2,7 @@ package View;
 
 import Controller.Controller;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,6 +23,7 @@ public class MainFrame extends JFrame {
     private Controller controller; // reference to controller
     private int width = 800; // dimensions for frame size
     private int height = 1000; // dimensions for frame size
+    private Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
     private MainPanel mainPanel; // reference to mainPanel
     private GardenView gardenView; // reference to gardenView
     private SouthPanel southPanel;
@@ -52,10 +54,12 @@ public class MainFrame extends JFrame {
 
         JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(new Color(225, 240, 218));
+        menuBar.setPreferredSize(new Dimension(200,25));
+        menuBar.setFont(customFont);
 
-        JMenu menu = new JMenu("Menu");
 
         JMenuItem gameRules = new JMenuItem("Game Rules");
+        gameRules.setFont(customFont);
         gameRules.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -63,7 +67,8 @@ public class MainFrame extends JFrame {
             }
         });
 
-        JMenuItem differentPlants = new JMenuItem("Plants");
+        JMenuItem differentPlants = new JMenuItem("Garden");
+        differentPlants.setFont(customFont);
         differentPlants.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -71,8 +76,38 @@ public class MainFrame extends JFrame {
             }
         });
 
+        JMenuItem newGame = new JMenuItem("Start Over");
+        newGame.setFont(customFont);
+        newGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // todo: implementera kod för att radera alla växter
+            }
+        });
+
+        JMenuItem gameHistory = new JMenuItem("Game History");
+        gameHistory.setFont(customFont);
+        gameHistory.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // todo: implementera kod för att se historik över alla växter
+            }
+        });
+
+        Border menuItemBorder = BorderFactory.createCompoundBorder(
+        BorderFactory.createLineBorder(Color.BLACK), // Add a line border
+        BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Add some padding
+
+        // Set the custom border for each JMenuItem
+        differentPlants.setBorder(menuItemBorder);
+        gameRules.setBorder(menuItemBorder);
+        gameHistory.setBorder(menuItemBorder);
+        newGame.setBorder(menuItemBorder);
+
         menuBar.add(differentPlants);
         menuBar.add(gameRules);
+        menuBar.add(gameHistory);
+        menuBar.add(newGame);
         setJMenuBar(menuBar);
 
         addWindowListener(new WindowAdapter() {
