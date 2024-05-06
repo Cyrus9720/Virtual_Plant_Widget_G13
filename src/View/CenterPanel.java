@@ -8,62 +8,63 @@ import java.awt.*;
 
 public class CenterPanel extends JPanel {
 
-    private ImageIcon plantPicture;
-    private String name;
-    private JLabel plantLabel;
-    private MainPanel mainPanel;
-    private TitledBorder titledBorder;
-    private static final int IMAGE_WIDTH = 300; // Desired width for scaled images
-    private static final int IMAGE_HEIGHT = 450; // Desired height for scaled images
+    private ImageIcon plantPicture; // Bilden på växten
+    private String name; // Namnet på växten
+    private JLabel plantLabel; // Label som visar växtbilden
+    private MainPanel mainPanel; // Referens till huvudpanelen
+    private TitledBorder titledBorder; // En border med text runt panelen för att visa växtnamnet
+    private static final int IMAGE_WIDTH = 300; // bredd för skalade bilder
+    private static final int IMAGE_HEIGHT = 450; // höjd för skalade bilder
 
+    // Konstruktor för CenterPanel
     public CenterPanel(int width, int height, MainPanel mainPanel, Controller controller) {
-        setPreferredSize(new Dimension(320, 485));
-        setBackground(new Color(225, 240, 218));
+        setPreferredSize(new Dimension(320, 485)); // Ställer in önskad storlek för panelen
+        setBackground(new Color(225, 240, 218)); // Ställer bakgrundsfärgen för panelen
 
-        this.mainPanel = mainPanel;
+        this.mainPanel = mainPanel; // Sätter huvudpanelen
 
-        plantPicture = new ImageIcon("src/Images/deafult.png"); // Default bild
+        plantPicture = new ImageIcon("src/Images/deafult.png"); // Laddar standardbilden för växten
 
-        String plantName = controller.getPlantName();
-        titledBorder = BorderFactory.createTitledBorder("You must choose a plant"); // skapar en border runt panelen
-        Font myFont = new Font("Bebas Neue", Font.BOLD, 12); // font för hela spelet
-        titledBorder.setTitleFont(myFont);
-        setBorder(titledBorder);
+        String plantName = controller.getPlantName(); // Hämtar växtnamnet från controller
+        titledBorder = BorderFactory.createTitledBorder("You must choose a plant"); // Skapar en border runt panelen med ett standardmeddelande
+        Font myFont = new Font("Bebas Neue", Font.BOLD, 12); // typsnitt för titeltexten
+        titledBorder.setTitleFont(myFont); // lägger till typsnittet
+        setBorder(titledBorder); // lägger till titelborder på panelen
 
-        plantLabel = new JLabel();
-        plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // skalar bild
+        plantLabel = new JLabel(); // Skapar en label för växtbilden
+        plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Skalar och lägger till växtbilden på label
 
-        add(plantLabel);
+        add(plantLabel); // Lägger till växt-label på panelen
     }
 
+    // Metod för att hämta huvudpanelen
     public MainPanel getMainPanel() {
         return mainPanel;
     }
 
     /**
-     * Updates the image of the plant in the center panel.
-     * @param newImage The new image to display.
-     * @author Cyrus Shaerpour
+     * Uppdaterar bilden på växten i centerpanelen.
+     * @param newImage Den nya bilden som ska visas.
+     * Author Cyrus Shaerpour
      */
     public void updatePlantImage(ImageIcon newImage) {
-        plantPicture = newImage;
-        //System.out.println(plantPicture.toString());
-        //plantLabel.setIcon(plantPicture);
-        plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Skalar och uppdaterar bilden
-        this.revalidate();
-        this.repaint();  // Repaint panelen för att uppdatera bild
+        plantPicture = newImage; // Uppdaterar bilden på växten
+        plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Skalar och uppdaterar växtbilden
+        this.revalidate(); //  för att uppdatera bilden
+        this.repaint(); // Repaint panelen för att visa den uppdaterade bilden
     }
 
+    // Metod för att uppdatera växtnamnet
     public void updatePlantName(String plantName){
-        name = plantName;
+        name = plantName; // Uppdatera växtnamnet
 
-        titledBorder.setTitle(name);
-        this.revalidate();
-        this.repaint();
+        titledBorder.setTitle(name); // Uppdatera titeln
+        this.revalidate(); // för att uppdatera titeln
+        this.repaint(); // Repaint panelen för att visa den uppdaterade titeln
     }
 
     /**
-     * Scales the image to the size of the gui frame
+     * Skalar bilden till storleken på GUI-fönstret
      * @param imageIcon
      * @param width
      * @param height
@@ -71,9 +72,9 @@ public class CenterPanel extends JPanel {
      * Author Cyrus Shaerpour
      */
     private ImageIcon scaleImageIcon(ImageIcon imageIcon, int width, int height) {
-        Image image = imageIcon.getImage(); // Transform ImageIcon to Image
-        Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH); // Scale image
-        return new ImageIcon(scaledImage); // Transform Image back to ImageIcon
+        Image image = imageIcon.getImage(); // ImageIcon till Image
+        Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH); // Skalar bilden
+        return new ImageIcon(scaledImage); // Omvandlar bilden tillbaka till ImageIcon
     }
 
 }
