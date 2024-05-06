@@ -15,6 +15,7 @@ public class GardenView extends JDialog {
     private int height = 450; // The height of the dialog
     private Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
     private GardenPanel gardenPanel;
+    CenterPanel centerPanel;
 
     public GardenView(JFrame parentFrame, Controller controller) {
         super(parentFrame, "Your garden!"); // modal dialog
@@ -26,13 +27,9 @@ public class GardenView extends JDialog {
         int xCoordinate = parentFrame.getX() - width;
         int yCoordinate = parentFrame.getY(); // You can adjust this as needed
 
-<<<<<<< HEAD
-        //TODO: assistent added this
         this.centerPanel = centerPanel;
 
         // Set the location of GardenView relative to the CenterPanel
-=======
->>>>>>> backUpBranch
         setLocation(xCoordinate, yCoordinate);
 
         // Initialize the GardenPanel
@@ -56,7 +53,6 @@ public class GardenView extends JDialog {
             setBackground(new Color(225, 240, 218));
             setLayout(new GridLayout(4, 3));
 
-<<<<<<< HEAD
             // Array of image paths for the buttons
             String[] imagePaths = {
                     "src/Images/RoseArt3.JPG",
@@ -69,10 +65,9 @@ public class GardenView extends JDialog {
             };
 
             generateButtons(imagePaths); // Call the method to generate buttons
-=======
+
             generateButtons(); // Call the method to generate buttons based on available plants
             addAddPlantButton(); // Call the method to add the "Add Plant" button
->>>>>>> backUpBranch
         }
 
         // Add plant buttons with images

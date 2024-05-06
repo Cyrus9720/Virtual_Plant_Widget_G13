@@ -22,16 +22,13 @@ public class EastPanel extends JPanel {
     private Controller controller; // Reference to controller
     private int width, height; // Dimensions of the panel
     private JButton Water; // Button for watering action
-<<<<<<< HEAD
     JLabel threeHeartsLabel;
     private JLabel progressbarLabel;
-=======
     private JLabel progressbarLabel; // JLabel for progressbar
     private JLabel threeHeartsLabel;
     private JLabel timeUntil;
     private Timer timer; // Timer for updating the time until next watering
 
->>>>>>> backUpBranch
     /**
      * Constructs a new EastPanel with the specified controller, width, and height.
      *
@@ -87,7 +84,6 @@ public class EastPanel extends JPanel {
         progressbarLabel.setIcon(scaledIcon);
         add(progressbarLabel, BorderLayout.SOUTH);
 
-<<<<<<< HEAD
         ImageIcon threeHearts = new ImageIcon("src/Images/treHjärtan.png");
         Image originalThreeHearts = threeHearts.getImage();
         Image scaledHeartsLivesImage = originalThreeHearts.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
@@ -96,12 +92,10 @@ public class EastPanel extends JPanel {
         add(threeHeartsLabel, BorderLayout.WEST);
 
         // Adding ActionListener to the water button
-=======
         threeHeartsLabel = new JLabel(updateAmountOfLife());
         add(threeHeartsLabel, BorderLayout.WEST);
 
         // ActionListener för vattenknappen
->>>>>>> backUpBranch
         Water.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == Water) {
@@ -196,10 +190,8 @@ public class EastPanel extends JPanel {
     }
 
     public ImageIcon updateAmountOfLife() {
-<<<<<<< HEAD
         int nbrOfLives = controller.getNbrOfLives();
         ImageIcon heartsIcon = null;
-=======
         ImageIcon heartsIcon = null;
         if (controller.getPlantList() == null || controller.getNbrOfLives() < 0) {
             // Handle the case when the plant list is null or the number of lives is negative
@@ -207,7 +199,6 @@ public class EastPanel extends JPanel {
         }
 
         int nbrOfLives = controller.getNbrOfLives();
->>>>>>> backUpBranch
 
         switch (nbrOfLives) {
             case 0:
@@ -227,11 +218,8 @@ public class EastPanel extends JPanel {
                 heartsIcon = new ImageIcon("src/Images/treHjärtan.png");
                 break;
             default:
-<<<<<<< HEAD
                 // Default case, do nothing or provide a default icon
-=======
                 heartsIcon = null;
->>>>>>> backUpBranch
                 break;
         }
 
@@ -244,8 +232,6 @@ public class EastPanel extends JPanel {
             return null;
         }
     }
-<<<<<<< HEAD
-=======
 
 
     /**
@@ -266,9 +252,4 @@ public class EastPanel extends JPanel {
         // Använd HTML för att bryta texten på tre rader och minska textstorleken
         timeUntil.setText("<html><div style='text-align: center; font-size: 9px;'>Next watering period:<br>" + formattedTime + "</div></html>");
     }
-
-
-
-
->>>>>>> backUpBranch
 }

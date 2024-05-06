@@ -8,20 +8,13 @@ import java.awt.*;
 
 public class SouthPanel extends JPanel {
     private Controller controller;
-<<<<<<< HEAD
     private JLabel progressbarLabel;
     JLabel plantInfoLabel;
-=======
     private JLabel plantInformation;
->>>>>>> backUpBranch
 
     public SouthPanel(Controller controller, int width, int height) {
-<<<<<<< HEAD
         setPreferredSize(new Dimension(320, 110));
         setBackground(new Color(225, 240, 218));
-
-=======
->>>>>>> backUpBranch
         this.controller = controller;
 
         TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant information");
@@ -32,7 +25,6 @@ public class SouthPanel extends JPanel {
         setBackground(new Color(225, 240, 218));
         setLayout(new BorderLayout());
 
-<<<<<<< HEAD
         ImageIcon threeHearts = new ImageIcon("src/Images/treHjärtan.png");
         Image originalThreeHearts = threeHearts.getImage();
         Image scaledHeartsLivesImage = originalThreeHearts.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
@@ -77,7 +69,6 @@ public class SouthPanel extends JPanel {
         add(plantInfoLabel, BorderLayout.EAST);
         revalidate();
         repaint();
-=======
         // Initialize plant information label with default text
         plantInformation = new JLabel("Choose a plant to see plant information");
         add(plantInformation, BorderLayout.CENTER);
@@ -108,6 +99,5 @@ public class SouthPanel extends JPanel {
                 plantInformation.setText("Unknown plant type.");
                 break;
         }
->>>>>>> backUpBranch
     }
 }
