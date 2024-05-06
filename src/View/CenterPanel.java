@@ -6,6 +6,10 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
+/**
+ * CenterPanel representerar den centrala panelen i användargränssnittet som visar en bild på en växt.
+ * Den innehåller också en titel som visar växtens namn.
+ */
 public class CenterPanel extends JPanel {
 
     private ImageIcon plantPicture; // Bilden på växten
@@ -16,7 +20,14 @@ public class CenterPanel extends JPanel {
     private static final int IMAGE_WIDTH = 300; // bredd för skalade bilder
     private static final int IMAGE_HEIGHT = 450; // höjd för skalade bilder
 
-    // Konstruktor för CenterPanel
+    /**
+     * Skapar en ny CenterPanel.
+     *
+     * @param width      Bredden på panelen
+     * @param height     Höjden på panelen
+     * @param mainPanel  Referens till huvudpanelen
+     * @param controller Referens till Controller för att hämta växtinformation
+     */
     public CenterPanel(int width, int height, MainPanel mainPanel, Controller controller) {
         setPreferredSize(new Dimension(320, 485)); // Ställer in önskad storlek för panelen
         setBackground(new Color(225, 240, 218)); // Ställer bakgrundsfärgen för panelen
@@ -37,7 +48,12 @@ public class CenterPanel extends JPanel {
         add(plantLabel); // Lägger till växt-label på panelen
     }
 
-    // Metod för att hämta huvudpanelen
+    
+    /**
+     * Hämtar huvudpanelen som denna CenterPanel är en del av.
+     *
+     * @return En referens till huvudpanelen.
+     */
     public MainPanel getMainPanel() {
         return mainPanel;
     }
