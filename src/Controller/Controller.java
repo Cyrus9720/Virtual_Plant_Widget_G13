@@ -28,6 +28,7 @@ public class Controller {
     private Plant currentPlant;
     private LocalDateTime lastWatered;
     private static final long WATERING_INTERVAL = 2 * 60 * 1000; // Vattningstiden i millisekunder (2 minuter)
+    private boolean chosenPlant = false;
 
     /**
      * Constructor for the controller class.
@@ -56,6 +57,7 @@ public class Controller {
             view.getCenterPanel().updatePlantName(currentPlant.getPlantName());
             view.getSouthPanel().updatePlantInfo();
             view.getCenterPanel().getMainPanel().refreshBar();
+            setChosenPlant(true);
         } else {
             System.err.println("Invalid plant index: " + id);
         }
@@ -134,6 +136,7 @@ public class Controller {
         }
     }
 
+
     /**
      * Checks if the plants need to be watered based on a certain timestamp (24h).
      * @return boolean
@@ -164,7 +167,7 @@ public class Controller {
         return false; // Return false if the current plant does not need watering
     }
 
-    public long timeUntilNextWatering() {
+    public long getTimeUntilNextWatering() {
         if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
             Plant currentPlant = plantList.get(currentPlantIndex);
             LocalDateTime currentDateTime = LocalDateTime.now();
@@ -172,7 +175,8 @@ public class Controller {
 
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-                Duration wateringInterval = Duration.ofMillis(2 * 60 * 1000); // Vattningstiden i millisekunder (2 minuter)
+                Duration wateringInterval = Duration.ofMillis(2 * 60 * 1000); // 2 min
+                // Ska ändras (24 timmar = 24 * 60 * 60 * 1000)
 
                 // Beräkna tiden kvar till nästa vattning i sekunder
                 long timeUntilNextWateringSeconds = wateringInterval.minus(timeSinceLastWatered).getSeconds();
@@ -190,9 +194,6 @@ public class Controller {
         return 0; // Returnera 0 om det inte går att beräkna tiden kvar
     }
 
-
-
-
     /**
      * Updates the status of the water button based on whether any plant needs watering.
      *
@@ -206,6 +207,7 @@ public class Controller {
             view.getEastPanel().disableWaterButton();
         }
     }
+
 
     /**
      * Retrieves the number of lives of the first plant in the plant list.
@@ -381,5 +383,13 @@ public class Controller {
 
     public ArrayList<Plant> getPlantList() {
         return plantList;
+    }
+
+    public boolean isChosenPlant() {
+        return chosenPlant;
+    }
+
+    public void setChosenPlant(boolean chosenPlant) {
+        this.chosenPlant = chosenPlant;
     }
 }

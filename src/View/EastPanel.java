@@ -225,7 +225,7 @@ public class EastPanel extends JPanel {
      * Updates the time until label with the time until the next watering period.
      */
     private void updateTimeUntilLabel() {
-        long timeUntilNextWatering = controller.timeUntilNextWatering();
+        long timeUntilNextWatering = controller.getTimeUntilNextWatering();
         // Kontrollera om tiden är negativ
         if (timeUntilNextWatering < 0) {
             timeUntilNextWatering = 0; // Sätt tiden till 0 om den är negativ
