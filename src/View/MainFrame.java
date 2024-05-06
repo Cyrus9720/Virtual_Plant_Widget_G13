@@ -20,13 +20,12 @@ import Controller.SaveGame;
  */
 public class MainFrame extends JFrame {
     private Controller controller; // reference to controller
-    private int width = 600; // dimensions for frame size
-    private int height = 800; // dimensions for frame size
+    private int width = 800; // dimensions for frame size
+    private int height = 1000; // dimensions for frame size
     private MainPanel mainPanel; // reference to mainPanel
     private GardenView gardenView; // reference to gardenView
     private SouthPanel southPanel;
-    private CenterPanel centerPanel;
-
+    private EastPanel eastPanel;
 
     /**
      * Constructs a new MainFrame with the specified controller.
@@ -50,12 +49,11 @@ public class MainFrame extends JFrame {
 
         mainPanel = new MainPanel(controller, width, height);
         setContentPane(mainPanel);
-        //centerPanel = new CenterPanel(400,400, mainPanel);
 
         JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(new Color(225, 240, 218));
 
-        JMenu alternatives = new JMenu("Alternatives");
+        JMenu menu = new JMenu("Menu");
 
         JMenuItem gameRules = new JMenuItem("Game Rules");
         gameRules.addActionListener(new ActionListener() {
@@ -73,16 +71,13 @@ public class MainFrame extends JFrame {
             }
         });
 
-        alternatives.add(gameRules);
-        alternatives.add(differentPlants);
-        menuBar.add(alternatives);
-
+        menuBar.add(differentPlants);
+        menuBar.add(gameRules);
         setJMenuBar(menuBar);
 
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                // Anropar SaveGame() för att spara spelet när fönstret stängs
                 controller.saveGame();
             }
         });
@@ -92,6 +87,7 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
+
     public void timeToWater(){
         String message = "It's time to water the plant!\nDon't forget to give it some love and hydration.";
         Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
@@ -99,6 +95,16 @@ public class MainFrame extends JFrame {
         UIManager.put("OptionPane.background", new Color(225, 240, 218));
         UIManager.put("Panel.background", new Color(225, 240, 218));
         JOptionPane.showMessageDialog(null, message, "Plant Watering Reminder", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void welcomeBackMessage(){
+        String message = "Welcome back! It's been " + controller.getTimeSinceLastPlayed() + " since you played"; // todo: insert some time method
+        Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
+        UIManager.put("OptionPane.messageFont", customFont);
+        UIManager.put("OptionPane.background", new Color(225, 240, 218));
+        UIManager.put("Panel.background", new Color(225, 240, 218));
+        JOptionPane.showMessageDialog(null, message, "Welcome back", JOptionPane.INFORMATION_MESSAGE);
+
     }
 
     /**
@@ -111,14 +117,18 @@ public class MainFrame extends JFrame {
     }
 
     public void switchPlant(){
-        gardenView = new GardenView(this, mainPanel.getCenterPanel(), controller);
+        gardenView = new GardenView(this, controller);
     }
 
     public CenterPanel getCenterPanel() {
         return mainPanel.getCenterPanel();
     }
 
-    public SouthPanel getSouthPanel() {
+    public EastPanel getEastPanel() {
+        return mainPanel.getEastPanel();
+    }
+
+    public SouthPanel getSouthPanel(){
         return mainPanel.getSouthPanel();
     }
 }

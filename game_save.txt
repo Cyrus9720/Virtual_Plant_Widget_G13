@@ -1,0 +1,6 @@
+<<<<<<< HEAD
+=======
+Plant art; ROSE | Plant name; Rose6 | Plant level; 3 | Times watered; 3 | Number of lives; 3 | Plant picture; src/Images/RoseArt3.JPG | Last time watered; 2024-05-06 15:57:02.324 | Timestamp; 2024-05-06 15:57:15.276
+Plant art; TOMATO_PLANT | Plant name; TomatoPlant6 | Plant level; 3 | Times watered; 2 | Number of lives; 3 | Plant picture; src/Images/Tomatoe3.JPG | Last time watered; 2024-05-06 15:57:09.130 | Timestamp; 2024-05-06 15:57:15.276
+Plant art; SUNFLOWER | Plant name; Sunflower8 | Plant level; 3 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/Sunflower3.JPG | Last time watered; 2024-05-06 15:57:12.006 | Timestamp; 2024-05-06 15:57:15.276
+>>>>>>> backUpBranch
