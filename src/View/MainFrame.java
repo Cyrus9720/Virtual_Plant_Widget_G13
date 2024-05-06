@@ -123,7 +123,10 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
-
+    /**
+     * Displays a message dialog reminding the user to water the plant.
+     * Uses a custom font and background colors for the dialog.
+     */
     public void timeToWater(){
         String message = "It's time to water the plant!\nDon't forget to give it some love and hydration.";
         Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
