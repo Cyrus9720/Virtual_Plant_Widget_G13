@@ -19,13 +19,13 @@ import java.awt.event.ActionListener;
  * @author annagranberg
  */
 public class EastPanel extends JPanel {
-    private Controller controller; // Reference to controller
-    private int width, height; // Dimensions of the panel
-    private JButton Water; // Button for watering action
-    private JLabel progressbarLabel; // JLabel for progressbar / timesWatered
-    private JLabel threeHeartsLabel; // JLabel for nbrOfLives
-    private JLabel timeUntil; // JLabel to show time until next watering period
-    private Timer timer; // Timer for updating the time until next watering
+    private Controller controller; // Referens till controller
+    private int width, height; // Storlek på panelen
+    private JButton Water; // Knapp för vattning
+    private JLabel progressbarLabel; // JLabel för progressbar / timesWatered
+    private JLabel threeHeartsLabel; // JLabel för nbrOfLives
+    private JLabel timeUntil; // JLabel för at visa tiden tills nästa vattning
+    private Timer timer; // Timer för uppdatering av tiden tills nästa vattning
 
     /**
      * Constructs a new EastPanel with the specified controller, width, and height.
