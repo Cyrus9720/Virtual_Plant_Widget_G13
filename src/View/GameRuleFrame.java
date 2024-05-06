@@ -18,16 +18,14 @@ public class GameRuleFrame extends JFrame {
     // Konstanter för frame storlek
     private static final int FRAME_WIDTH = 500;
     private static final int FRAME_HEIGHT = 350;
-    private static JLabel imageLabel;
     private static final Font CUSTOM_FONT = new Font("Bebas Neue", Font.BOLD, 12); // Font för hela spelet
 
     public GameRuleFrame() {
         gameRulesLabel = new JLabel();
 
         String rules = "<html>Game rules:<br/>" + // String för spelregler
-                " "+
                 "<br/" +
-                "coming soon";
+                "coming soon"; // todo: lägga till spelregler som stämmer överrens med spelet, kanske med beskrivande bild?
 
         gameRulesLabel.setText(rules);
         gameRulesLabel.setFont(CUSTOM_FONT);

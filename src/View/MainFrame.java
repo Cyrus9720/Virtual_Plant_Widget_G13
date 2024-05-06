@@ -1,6 +1,6 @@
 package View;
 
-import Controller.Controller;
+import Controller.*;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -81,7 +81,7 @@ public class MainFrame extends JFrame {
         newGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // todo: implementera kod för att radera alla växter
+                controller.setGameToNull();
             }
         });
 
