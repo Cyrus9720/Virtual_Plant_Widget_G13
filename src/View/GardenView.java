@@ -30,6 +30,7 @@ public class GardenView extends JDialog {
         int xCoordinate = parentFrame.getX() - width;
         int yCoordinate = parentFrame.getY(); // Du kan justera detta efter behov
 
+<<<<<<< HEAD
         setLocation(xCoordinate, yCoordinate); // Ställ in positionen för dialogrutan
 
         // Initialisera GardenPanel
@@ -37,6 +38,18 @@ public class GardenView extends JDialog {
         add(gardenPanel); // Lägg till trädgårdspanelen
 
         setVisible(true); // Gör dialogrutan synlig
+=======
+        //TODO: assistent added this
+        this.centerPanel = centerPanel;
+
+        // Set the location of GardenView relative to the CenterPanel
+        setLocation(xCoordinate, yCoordinate);
+
+        GardenPanel gardenPanel = new GardenPanel();
+        add(gardenPanel);
+
+        setVisible(true);
+>>>>>>> Cyrus_Branch_2
     }
 
     /**
@@ -54,6 +67,7 @@ public class GardenView extends JDialog {
     private class GardenPanel extends JPanel {
         private List<String> plantPaths; // Lista med växtvägar
 
+<<<<<<< HEAD
         /**
          * Constructor for GardenPanel.
          *
@@ -61,6 +75,18 @@ public class GardenView extends JDialog {
          */
         public GardenPanel(List<String> plantPaths) {
             this.plantPaths = plantPaths;
+=======
+            // Array of image paths for the buttons
+            String[] imagePaths = {
+                    "src/Images/RoseArt3.JPG",
+                    "src/Images/Sunflower3.JPG",
+                    "src/Images/Tomatoe3.JPG",
+                    "src/Images/Cactus3.JPG",
+                    "src/Images/MiniTree3.JPG",
+                    "src/Images/Blackberry3.JPG"
+                    // Add more paths for additional buttons
+            };
+>>>>>>> Cyrus_Branch_2
 
             setBackground(new Color(225, 240, 218)); // Ställ in bakgrundsfärg
             setLayout(new GridLayout(4, 3)); // Ställ in layout

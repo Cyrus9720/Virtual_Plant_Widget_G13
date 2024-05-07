@@ -74,6 +74,7 @@ public class LoadGame {
                         continue;
                 }
 
+<<<<<<< HEAD
                 // Lägg till den "nya" plantan i listan
                 plantList.add(plant);
                 // clearSaveFile();
@@ -84,6 +85,14 @@ public class LoadGame {
                 // SaveGame.writeGamePlayedNotice();
             } else{
                 controller.firstTimePlaying();
+=======
+                // Add the plant to plantList only if it doesn't already exist
+                if (!alreadyExists) {
+                    Plant plant = new Plant(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, "Plant info");
+                    plant.setLastWatered(lastWatered);
+                    plantList.add(plant);
+                }
+>>>>>>> Cyrus_Branch_2
             }
             System.out.println("Game loaded successfully.");
         } catch (IOException e) {

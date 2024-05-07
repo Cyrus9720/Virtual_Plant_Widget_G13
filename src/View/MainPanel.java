@@ -18,6 +18,7 @@ public class MainPanel extends JPanel
     private BorderLayout layout; // Layout manager for the panel
     private Controller controller; // Reference to controller
     private CenterPanel centerPanel;
+    private SouthPanel southPanel;
     private EastPanel eastPanel;
     private SouthPanel southPanel;
     /**
@@ -44,7 +45,11 @@ public class MainPanel extends JPanel
         centerPanel = new CenterPanel(300, 450, this, controller);
         add(centerPanel, BorderLayout.CENTER);
 
+<<<<<<< HEAD
         southPanel = new SouthPanel(controller, width, height);
+=======
+        southPanel = new SouthPanel(controller, width, 300);
+>>>>>>> Cyrus_Branch_2
         add(southPanel, BorderLayout.SOUTH);
         setVisible(true);
 
@@ -58,6 +63,9 @@ public class MainPanel extends JPanel
 
     public CenterPanel getCenterPanel() {
         return centerPanel;
+    }
+    public SouthPanel getSouthPanel() {
+        return southPanel;
     }
 
     public EastPanel getEastPanel() {

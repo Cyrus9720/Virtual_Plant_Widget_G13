@@ -27,7 +27,12 @@ public class MainFrame extends JFrame {
     private MainPanel mainPanel; // reference to mainPanel
     private GardenView gardenView; // reference to gardenView
     private SouthPanel southPanel;
+<<<<<<< HEAD
     private EastPanel eastPanel;
+=======
+    private CenterPanel centerPanel;
+
+>>>>>>> Cyrus_Branch_2
 
     /**
      * Constructs a new MainFrame with the specified controller.
@@ -163,11 +168,15 @@ public class MainFrame extends JFrame {
         return mainPanel.getCenterPanel();
     }
 
+<<<<<<< HEAD
     public EastPanel getEastPanel() {
         return mainPanel.getEastPanel();
     }
 
     public SouthPanel getSouthPanel(){
+=======
+    public SouthPanel getSouthPanel() {
+>>>>>>> Cyrus_Branch_2
         return mainPanel.getSouthPanel();
     }
 }

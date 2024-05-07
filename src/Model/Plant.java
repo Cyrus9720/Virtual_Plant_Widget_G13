@@ -12,9 +12,14 @@ public abstract class Plant {
     private int plantLevel;
     private String plantinfo;
     private PlantArt plantArt;
+<<<<<<< HEAD
     private LocalDateTime lastWatered;
     private LocalDateTime lastUpdatedTimestamp;
 
+=======
+    private Timestamp lastWatered;
+    private String plantInfo;
+>>>>>>> Cyrus_Branch_2
 
     /**
      * Constructor for Plant
@@ -24,15 +29,24 @@ public abstract class Plant {
      * @param plantLevel Level of the plant
      * @author Cyrus Shaerpour
      */
+<<<<<<< HEAD
     public Plant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
+=======
+    public Plant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, String plantInfo) {
+>>>>>>> Cyrus_Branch_2
         this.name = name;
         this.plantArt = plantArt;
         this.nbrOfLives = nbrOfLives;
         this.timesWatered = timesWatered;
         this.plantPicture = plantPicture;
         this.plantLevel = plantLevel;
+<<<<<<< HEAD
         this.lastWatered = lastWatered;
         plantinfo = null;
+=======
+        this.plantInfo = plantInfo;
+        // System.out.println("Plant created " + name);
+>>>>>>> Cyrus_Branch_2
     }
 
     /**
@@ -177,5 +191,11 @@ public abstract class Plant {
         return String.format("Plant art; %s | Plant name; %s | Plant level; %d | Times watered; %d | Number of lives; %d | Plant picture; %s | Last time watered; %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture, formattedLastWatered);
     }
 
+<<<<<<< HEAD
     public abstract String getPlantInfo();
+=======
+    public String getPlantInfo() {
+        return plantInfo;
+    }
+>>>>>>> Cyrus_Branch_2
 }

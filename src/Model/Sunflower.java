@@ -4,8 +4,13 @@ import javax.swing.*;
 import java.time.LocalDateTime;
 
 public class Sunflower extends Plant{
+<<<<<<< HEAD
     public Sunflower(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered ) {
         super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered);
+=======
+    public Sunflower(String name, PlantArt plantArt,int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, String plantInfo) {
+        super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, plantInfo);
+>>>>>>> Cyrus_Branch_2
     }
 
     @Override

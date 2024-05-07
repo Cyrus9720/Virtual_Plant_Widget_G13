@@ -5,8 +5,13 @@ import java.time.LocalDateTime;
 
 public class TomatoPlant extends Plant{
 
+<<<<<<< HEAD
     public TomatoPlant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered ) {
         super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered);
+=======
+    public TomatoPlant(String name, PlantArt plantArt,int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, String plantInfo) {
+        super(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, plantInfo);
+>>>>>>> Cyrus_Branch_2
     }
 
     @Override

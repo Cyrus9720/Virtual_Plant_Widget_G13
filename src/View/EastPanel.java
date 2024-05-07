@@ -3,6 +3,10 @@ package View;
 import Controller.Controller;
 
 import javax.swing.*;
+<<<<<<< HEAD
+=======
+import javax.sound.sampled.Clip;
+>>>>>>> Cyrus_Branch_2
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
@@ -18,6 +22,7 @@ import java.awt.event.ActionListener;
  *
  * @author annagranberg
  */
+<<<<<<< HEAD
 public class EastPanel extends JPanel {
     private Controller controller; // Referens till controller
     private int width, height; // Storlek på panelen
@@ -27,6 +32,15 @@ public class EastPanel extends JPanel {
     private JLabel timeUntil; // JLabel för at visa tiden tills nästa vattning
     private Timer timer; // Timer för uppdatering av tiden tills nästa vattning
 
+=======
+public class EastPanel extends JPanel
+{
+    private Controller controller; // Reference to controller
+    private int width, height; // Dimensions of the panel
+    private JButton Water; // Button for watering action
+    JLabel threeHeartsLabel;
+    private JLabel progressbarLabel;
+>>>>>>> Cyrus_Branch_2
     /**
      * Constructs a new EastPanel with the specified controller, width, and height.
      *
@@ -82,15 +96,27 @@ public class EastPanel extends JPanel {
         progressbarLabel.setIcon(scaledIcon);
         add(progressbarLabel, BorderLayout.SOUTH);
 
+<<<<<<< HEAD
         threeHeartsLabel = new JLabel(updateAmountOfLife());
         add(threeHeartsLabel, BorderLayout.WEST);
 
         // ActionListener för vattenknappen
+=======
+        ImageIcon threeHearts = new ImageIcon("src/Images/treHjärtan.png");
+        Image originalThreeHearts = threeHearts.getImage();
+        Image scaledHeartsLivesImage = originalThreeHearts.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        ImageIcon scaledThreeHearts = new ImageIcon(scaledHeartsLivesImage);
+        threeHeartsLabel = new JLabel(updateAmountOfLife());
+        add(threeHeartsLabel, BorderLayout.WEST);
+
+        // Adding ActionListener to the water button
+>>>>>>> Cyrus_Branch_2
         Water.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == Water) {
                     controller.buttonPressed(ButtonType.Water);
                     progressbarLabel.setIcon(updateWaterProgress());
+<<<<<<< HEAD
                     // System.out.println("Water button clicked");
                 }
             }
@@ -104,6 +130,12 @@ public class EastPanel extends JPanel {
             }
         });
         timer.start();
+=======
+                    System.out.println("Water button clicked");
+                    }
+                }
+        });
+>>>>>>> Cyrus_Branch_2
     }
 
     public void refreshBar() {
@@ -178,6 +210,7 @@ public class EastPanel extends JPanel {
         return new ImageIcon(scaledImage);
     }
 
+<<<<<<< HEAD
     /**
      * Updates and returns an ImageIcon representing the number of remaining lives for the user.
      * Depending on the number of lives, different images of hearts are displayed.
@@ -251,5 +284,41 @@ public class EastPanel extends JPanel {
 
 
 
+=======
+    public ImageIcon updateAmountOfLife() {
+        int nbrOfLives = controller.getNbrOfLives();
+        ImageIcon heartsIcon = null;
+>>>>>>> Cyrus_Branch_2
 
+        switch (nbrOfLives) {
+            case 0:
+                // If there are no lives left, display an empty heart icon
+                heartsIcon = new ImageIcon("src/Images/tommaHjärtan.png");
+                break;
+            case 1:
+                // If there is one life left, display one heart
+                heartsIcon = new ImageIcon("src/Images/ettHjärta.png");
+                break;
+            case 2:
+                // If there are two lives left, display two hearts
+                heartsIcon = new ImageIcon("src/Images/tvåHjärtan.png");
+                break;
+            case 3:
+                // If there are three lives left, display three hearts
+                heartsIcon = new ImageIcon("src/Images/treHjärtan.png");
+                break;
+            default:
+                // Default case, do nothing or provide a default icon
+                break;
+        }
+
+        if (heartsIcon != null) {
+            // Update the icon for the hearts label
+            Image originalHearts = heartsIcon.getImage();
+            Image scaledHearts = originalHearts.getScaledInstance(100, 30, Image.SCALE_SMOOTH);
+            return new ImageIcon(scaledHearts);
+        } else {
+            return null;
+        }
+    }
 }
