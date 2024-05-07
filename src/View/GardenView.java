@@ -63,7 +63,7 @@ public class GardenView extends JDialog {
             this.plantPaths = plantPaths;
 
             setBackground(new Color(225, 240, 218)); // Ställ in bakgrundsfärg
-            setLayout(new GridLayout(4, 3)); // Ställ in layout
+            setLayout(new GridLayout(0, 3)); // Set the layout to 3 columns
 
             generateButtons(); // Generera knappar baserat på tillgängliga växter
             addAddPlantButton(); // Lägg till knappen "Lägg till växt"
@@ -88,7 +88,7 @@ public class GardenView extends JDialog {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         controller.switchPlant(e.getActionCommand());
-
+                        GardenView.this.dispose();
                     }
                 });
 
@@ -113,19 +113,27 @@ public class GardenView extends JDialog {
          * Method to add the "Add Plant" button.
          */
         private void addAddPlantButton() {
-            JButton addPlantButton = new JButton("Add new plant");
-            addPlantButton.setPreferredSize(new Dimension(25,25));
-            addPlantButton.setFont(customFont);
-            addPlantButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    AddNewPlantFrame addNewPlantFrame = new AddNewPlantFrame(controller);
-                    GardenView.this.dispose();
-                }
-            });
-            setLayout(new GridLayout(plantPaths.size() + 1, 3));
-            add(addPlantButton);
+            // Check if the number of plant buttons is less than 6
+
+                JButton addPlantButton = new JButton("Add new plant");
+                addPlantButton.setPreferredSize(new Dimension(25, 25));
+                addPlantButton.setFont(customFont);
+                addPlantButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (controller.getPlantList().size() <= 6) {
+                            AddNewPlantFrame addNewPlantFrame = new AddNewPlantFrame(controller);
+                            GardenView.this.dispose();
+                        }else {
+                            JOptionPane.showMessageDialog(GardenView.this,
+                                    "You can only have 6 plants in your garden. Please remove a plant to continue",
+                                    "Too many plants :(", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+                });
+                add(addPlantButton);
         }
+
 
     }
 }

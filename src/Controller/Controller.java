@@ -53,8 +53,11 @@ public class Controller {
             updateWaterButtonStatus();
             view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
             view.getCenterPanel().updatePlantName(currentPlant.getPlantName());
+            view.getEastPanel().updateAmountOfLife();
             view.getSouthPanel().updatePlantInfo();
             view.getCenterPanel().getMainPanel().refreshBar();
+            view.getCenterPanel().repaint();
+            view.getEastPanel().repaint();
             setChosenPlant(true);
         } else {
             System.err.println("Invalid plant index: " + id);
@@ -159,6 +162,19 @@ public class Controller {
         }
     }
 
+    /**
+     * Updates the status of the water button based on whether any plant needs watering.
+     *
+     * @author Anna Granberg
+     */
+    public void updateWaterButtonStatus() {
+        boolean waterstatus = checkWateringStatus();
+        if (waterstatus) {
+            view.getEastPanel().enableWaterButton();
+        } else {
+            view.getEastPanel().disableWaterButton();
+        }
+    }
 
     /**
      * Checks if the plants need to be watered based on a certain timestamp (24h).
@@ -180,13 +196,9 @@ public class Controller {
                     return true; // Return true if the current plant needs watering
                 }
             } else {
-                System.err.println("Current plant last watered timestamp is null");
-                return true;
+                return true; // om något är null
             }
-        } else {
-            System.err.println("checkWateringStatus");
         }
-
         return false; // Return false if the current plant does not need watering
     }
 
@@ -210,19 +222,7 @@ public class Controller {
         return 0; // Returnera 0 om det inte går att beräkna tiden kvar
     }
 
-    /**
-     * Updates the status of the water button based on whether any plant needs watering.
-     *
-     * @author Anna Granberg
-     */
-    public void updateWaterButtonStatus() {
-        boolean waterstatus = checkWateringStatus();
-        if (waterstatus) {
-            view.getEastPanel().enableWaterButton();
-        } else {
-            view.getEastPanel().disableWaterButton();
-        }
-    }
+
 
     /**
      * Retrieves the number of lives of the first plant in the plant list.
@@ -397,6 +397,32 @@ public class Controller {
             JOptionPane.showMessageDialog(null, "All existing plants have been removed.", "Information", JOptionPane.INFORMATION_MESSAGE);
         }
     }
+
+    public void removePlant(String plantName) {
+        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this plant?", "Confirmation", JOptionPane.YES_NO_OPTION);
+        // Loop through the list to find the plant with the given name
+        if(confirm == JOptionPane.YES_OPTION){
+            boolean found = false;
+            for (int i = 0; i < plantList.size(); i++) {
+                Plant currentPlant = plantList.get(i);
+                if (currentPlant.getPlantName().equals(plantName)) {
+                    // Remove the plant from the list
+                    plantList.remove(i);
+                    System.out.println("Växten med namnet \"" + plantName + "\" har tagits bort från listan.");
+                    found = true;
+                    break; // Exit the loop once the plant is found and removed
+                }
+            }
+
+            // If the plant with the given name was not found
+            if (!found) {
+                System.err.println("Det finns ingen växt med namnet \"" + plantName + "\" i listan.");
+            }
+        }
+
+    }
+
+
     public void saveGame() {
         SaveGame.saveGame(plantList);
     }

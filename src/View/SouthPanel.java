@@ -12,7 +12,7 @@ public class SouthPanel extends JPanel {
 
     public SouthPanel(Controller controller, int width, int height) {
         this.controller = controller;
-        setPreferredSize(new Dimension(320,120));
+        setPreferredSize(new Dimension(320,165));
 
         TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant information");
         Font myFont = new Font("Bebas Neue", Font.BOLD, 12);
@@ -48,13 +48,20 @@ public class SouthPanel extends JPanel {
                         "The Nahuatl word tomatl gave rise to the Spanish word tomate, from which the English word tomato derived.</html>");
                 break;
             case BLACKBERRY:
-                plantInformation.setText(" ");
+                plantInformation.setText("<html> Blackberries have the highest antioxidant content per serving of any food. " +
+                        "Blackberries are not true berries. Each little bump in the “berry” is a fruit, or “drupelet” containing its own seed. <br>" +
+                        "Blackberries grow wild all over the world, on every continent except Australia and Antarctica. </html>");
                 break;
             case MINI_TREE:
-                plantInformation.setText(" ");
+                plantInformation.setText("<html> Minitree is a compact, innovative solution for urban greenery enthusiasts. Perfectly designed for small spaces like apartments or offices, " +
+                        "it brings the beauty of nature indoors. With its slender trunk and carefully cultivated foliage, it adds a touch of freshness and tranquility to any environment." +
+                        "A mini tree requires minimal maintenance, making it ideal for busy urban dwellers seeking a slice of nature in their hectic lives. Whether placed on a desk, shelf, or windowsill, " +
+                        "the mini tree effortlessly elevates the ambiance, offering a refreshing escape from the concrete jungle. </html>");
                 break;
             case CACTUS:
-                plantInformation.setText(" ");
+                plantInformation.setText("<html> One of the most unique things about cacti is their ability to store large amounts of water in their stems. " +
+                        "This adaptation helps them to survive in desert conditions where water is scarce. " +
+                        "When it rains, cacti absorb water through their roots and store it in their stems. </html>");
                 break;
             default:
                 // Handle the case if the plant type is unknown or unsupported
