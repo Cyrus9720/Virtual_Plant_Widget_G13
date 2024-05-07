@@ -39,6 +39,10 @@ public class Controller {
         }
 
         view = new MainFrame(this);
+
+        if(!LoadGame.isFileNotEmpty()){
+            firstTimePlaying();
+        }
     }
 
     /**
@@ -76,6 +80,7 @@ public class Controller {
         String newRoseName = "Rose" + randomNumber;
         Rose newRose = new Rose(newRoseName, PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
         plantList.add(newRose);
+
     }
 
     /**
@@ -390,12 +395,17 @@ public class Controller {
      * @author Anna Granberg
      */
     public void setGameToNull() {
-        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to erase everything?", "Confirmation", JOptionPane.YES_NO_OPTION);
+        if(!plantList.isEmpty()){
+            int confirm = JOptionPane.showConfirmDialog(null, "This action will remove all of your plants. Are you sure you want to do this?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
-        if (confirm == JOptionPane.YES_OPTION) {
-            plantList.clear();
-            JOptionPane.showMessageDialog(null, "All existing plants have been removed.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            if (confirm == JOptionPane.YES_OPTION) {
+                plantList.clear();
+                JOptionPane.showMessageDialog(null, "All existing plants have been removed.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }else if(plantList.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Your garden is empty! Nothing to remove :)", "Information", JOptionPane.INFORMATION_MESSAGE);
         }
+
     }
 
     public void removePlant(String plantName) {

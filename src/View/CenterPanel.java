@@ -42,8 +42,7 @@ public class CenterPanel extends JPanel {
         titledBorder.setTitleFont(myFont); // lägger till typsnittet
         setBorder(titledBorder); // lägger till titelborder på panelen
 
-        plantLabel = new JLabel("<html> Choose your plant in <br> Garden in the menu above"); // Skapar en label för växtbilden
-        plantLabel.setFont(myFont);
+        plantLabel = new JLabel(); // Skapar en label för växtbilden
         plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Skalar och lägger till växtbilden på label
 
         add(plantLabel); // Lägger till växt-label på panelen
