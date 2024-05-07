@@ -69,6 +69,15 @@ public class LoadGame {
                     case TOMATO_PLANT:
                         plant = new TomatoPlant(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
                         break;
+                    case BLACKBERRY:
+                        plant = new Blackberry(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        break;
+                    case CACTUS:
+                        plant = new Cactus(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        break;
+                    case MINI_TREE:
+                        plant = new MiniTree(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        break;
                     default:
                         System.err.println("Unknown plant type: " + plantType);
                         continue;

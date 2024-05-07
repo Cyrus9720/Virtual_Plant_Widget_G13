@@ -109,6 +109,22 @@ public class Controller {
         plantList.add(newBlackberry);
     }
 
+    public void addNewMiniTree(){
+        Random random = new Random();
+        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
+        String newMiniTreeName = "Mini Tree" + randomNumber;
+        MiniTree newMiniTree = new MiniTree(newMiniTreeName, PlantArt.MINI_TREE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
+        plantList.add(newMiniTree);
+    }
+
+    public void addNewCactus(){
+        Random random = new Random();
+        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
+        String newCactusName = "Mini Tree" + randomNumber;
+        Cactus newCactus = new Cactus(newCactusName, PlantArt.CACTUS, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
+        plantList.add(newCactus);
+    }
+
     /**
      * Handles button presses in the application.
      *
@@ -168,7 +184,7 @@ public class Controller {
                 return true;
             }
         } else {
-            System.err.println("Invalid current plant index");
+            System.err.println("Invalid current plant index in checkWateringStatus");
         }
 
         return false; // Return false if the current plant does not need watering
@@ -195,7 +211,7 @@ public class Controller {
             }
         } else {
             // Hantera fallet när indexet för den nuvarande växten är ogiltigt
-            System.err.println("Invalid current plant index");
+            System.err.println("Invalid current plant index in timeuntilnextwatering");
         }
 
         return 0; // Returnera 0 om det inte går att beräkna tiden kvar
@@ -254,7 +270,7 @@ public class Controller {
                 }
             } else {
                 // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
-                System.err.println("Invalid current plant index");
+                System.err.println("Invalid current plant index in getTimesWatered");
                 return 0;
             }
         } else {
@@ -282,7 +298,7 @@ public class Controller {
                 }
             } else {
                 // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
-                System.err.println("Invalid current plant index");
+                System.err.println("Invalid current plant index in getPlantLevel");
                 return 0;
             }
         } else {
@@ -310,7 +326,7 @@ public class Controller {
                 }
             } else {
                 // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
-                System.err.println("Invalid current plant index");
+                System.err.println("Invalid current plant index in getPlantName");
                 return null;
             }
         } else {
@@ -338,7 +354,7 @@ public class Controller {
             }
         } else {
             // Handle the case when plantList is empty or currentPlantIndex is out of range
-            System.err.println("No plant available at the current index");
+            System.err.println("No plant available at the current index in getPlantArt");
             return null;
         }
     }

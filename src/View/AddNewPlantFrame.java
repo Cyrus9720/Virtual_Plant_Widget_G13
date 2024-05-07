@@ -67,12 +67,35 @@ public class AddNewPlantFrame extends JFrame {
                 }
             });
 
+            JButton miniTreeButton = new JButton("Mini Tree");
+            miniTreeButton.setFont(customFont);
+            miniTreeButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    controller.addNewMiniTree();
+                    AddNewPlantFrame.this.dispose();
+                }
+            });
+
+            JButton cactusButton = new JButton("Cactus");
+            cactusButton.setFont(customFont);
+            cactusButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    controller.addNewCactus();
+                    AddNewPlantFrame.this.dispose();
+                }
+            });
+
+
             // Lägger till knapparna på panelen
             add(infoLabel);
             add(sunflowerButton);
             add(roseButton);
             add(tomatoButton);
             add(blackberryButton);
+            add(miniTreeButton);
+            add(cactusButton);
         }
     }
 }

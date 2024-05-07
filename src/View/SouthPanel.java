@@ -46,6 +46,15 @@ public class SouthPanel extends JPanel {
                         "commonly known as a tomato plant. The species originated in western South America and Central America.<br>" +
                         "The Nahuatl word tomatl gave rise to the Spanish word tomate, from which the English word tomato derived.</html>");
                 break;
+            case BLACKBERRY:
+                plantInformation.setText(" ");
+                break;
+            case MINI_TREE:
+                plantInformation.setText(" ");
+                break;
+            case CACTUS:
+                plantInformation.setText(" ");
+                break;
             default:
                 // Handle the case if the plant type is unknown or unsupported
                 plantInformation.setText("Unknown plant type.");

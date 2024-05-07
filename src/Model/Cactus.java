@@ -20,6 +20,11 @@ public class Cactus extends Plant{
         super(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
     }
 
+    @Override
+    public void setPlantLevel(int plantLevel) {
+        super.setPlantLevel(plantLevel);
+        updateImage();
+    }
     private void updateImage() {
         switch (getPlantLevel()) {
             case 0:
