@@ -61,6 +61,7 @@ public class AddNewPlantFrame extends JFrame {
             add(sunflowerButton);
             add(roseButton);
             add(tomatoButton);
+            System.out.println("NewPlantPanel created.");
         }
     }
 }
