@@ -3,60 +3,61 @@ package View;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 
+/**
+ * GameRuleFrame represents a window displaying the game rules for the game.
+ * It contains a JLabel to display the game rules and an image at the bottom as part of the menu.
+ * @author Anna Granberg
+ */
 
 public class GameRuleFrame extends JFrame {
 
-    private JLabel gameRulesLabel;
-    private JLabel imageLabel;
-    private ImageIcon imageIcon;
+    private JLabel gameRulesLabel; // JLabel för att visa spelreglerna
 
-    // Constants for frame size
+    // Storlek för frame size
     private static final int FRAME_WIDTH = 500;
-    private static final int FRAME_HEIGHT = 250;
+    private static final int FRAME_HEIGHT = 350;
+    private static final Font CUSTOM_FONT = new Font("Bebas Neue", Font.BOLD, 12); // Anpassat typsnitt för hela spelet
 
-    // Custom font
-    private static final Font CUSTOM_FONT = new Font("Bebas Neue", Font.BOLD, 12);
-
+    // Constructor för GameRuleFrame
     public GameRuleFrame() {
         gameRulesLabel = new JLabel();
 
-        String rules = "<html>Game rules:<br/>" +
-                "1. Plant different types of plants and take care of them.<br/>" +
-                "  <br/>" +
-                "2. Water your plants regularly to keep them healthy.<br/>" +
-                "  <br/>" +
-                "3. Beware of deadlines for watering, or your plants may die.<br/>" +
-                "  <br/>" +
-                "4. Harvest seeds from mature plants to grow new ones.<br/>" +
-                "  <br/>" +
-                "5. Enjoy watching your garden flourish!</html>";
+        // Text för spelreglerna
+        String rules = "<html>Game rules:<br/>" + // String för spelregler
+                "<br/" +
+                "coming soon"; // todo: lägga till spelregler som stämmer överrens med spelet, kanske med beskrivande bild?
 
-        gameRulesLabel.setText(rules);
-        gameRulesLabel.setFont(CUSTOM_FONT);
-        gameRulesLabel.setSize(new Dimension(450, 200));
+        gameRulesLabel.setText(rules); // lägger till spelreglerna på JLabel
+        gameRulesLabel.setFont(CUSTOM_FONT); // anpassat typsnitt på JLabel
+        gameRulesLabel.setSize(new Dimension(450, 200)); // Ställer storlek på JLabel
 
-        // Set background color
-        gameRulesLabel.setBackground(new Color(153, 188, 133));
+        // Skapar en ImageIcon för menyraden
+        ImageIcon menuBar = new ImageIcon("src/Images/menuBar.png");
+        Image menuBarImage = menuBar.getImage();
+        Image scaledMenuBar = menuBarImage.getScaledInstance(400, 25, Image.SCALE_SMOOTH);
+        ImageIcon finalMenuBar = new ImageIcon(scaledMenuBar);
 
-        // Create inner line border (the smaller rectangle)
-        Border innerBorder = BorderFactory.createLineBorder(Color.BLACK);
+        JLabel imageLabel = new JLabel(finalMenuBar); // Skapar en JLabel för menyraden
+        add(imageLabel, BorderLayout.SOUTH); // Lägger till menyraden längst ner i fönstret
 
-        // Create empty border with margin (the space between text and inner border)
-        Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10); // Adjust the values for desired margin
+        gameRulesLabel.setBackground(new Color(153, 188, 133)); // Ställer bakgrundsfärg för JLabel
 
-        // Combine the inner line border and empty border to create the compound border
-        Border compoundBorder = BorderFactory.createCompoundBorder(innerBorder, emptyBorder);
+        // Skapar olika borders för JLabel
+        Border innerBorder = BorderFactory.createLineBorder(Color.BLACK); // Skapar en inre border
+        Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10); // Skapar en tom border runt JLabel
+        Border compoundBorder = BorderFactory.createCompoundBorder(innerBorder, emptyBorder); // Skapar en sammansatt border
 
-        // Set the compound border as the border for gameRulesLabel
-        gameRulesLabel.setBorder(compoundBorder);
+        gameRulesLabel.setBorder(compoundBorder); // Tillämpar den sammansatta border på JLabel
 
-        add(gameRulesLabel, BorderLayout.CENTER);
+        add(gameRulesLabel, BorderLayout.CENTER); // Lägger till JLabel för spelreglerna i mitten av fönstret
 
-        setTitle("Game Rules");
-        getContentPane().setBackground(new Color(225, 240, 218)); // Set background color
-        setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
-        setResizable(false);
-        setVisible(true);
+        setTitle("Game Rules"); // Sätter titeln på fönstret
+        getContentPane().setBackground(new Color(225, 240, 218)); // Ställer bakgrundsfärg för fönstret
+        setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT)); // Sätter storlek på fönstret
+        setResizable(false); // Gör fönstret icke-omstoringsbart
+        setVisible(true); // Gör fönstret synligt när det skapas
     }
 }

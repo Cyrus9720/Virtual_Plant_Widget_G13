@@ -1,11 +1,12 @@
 package Model;
 
 import javax.swing.*;
+import java.time.LocalDateTime;
 
 public class TomatoPlant extends Plant{
 
-    public TomatoPlant(String name, PlantArt plantArt,int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, String plantInfo) {
-        super(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, plantInfo);
+    public TomatoPlant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered ) {
+        super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered);
     }
 
     @Override
@@ -32,5 +33,12 @@ public class TomatoPlant extends Plant{
                 // Handle any other cases or provide a default image
                 break;
         }
+    }
+
+    @Override
+    public String getPlantInfo() {
+        return "The tomato is the edible berry of the plant Solanum lycopersicum, \n" +
+                " commonly known as a tomato plant. The species originated in western South America and Central America. \n" +
+                " The Nahuatl word tomatl gave rise to the Spanish word tomate, from which the English word tomato derived.";
     }
 }

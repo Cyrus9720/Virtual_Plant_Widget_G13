@@ -1,62 +1,86 @@
 package View;
 
+import Controller.Controller;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
+/**
+ * CenterPanel representerar den centrala panelen i användargränssnittet som visar en bild på en växt.
+ * Den innehåller också en titel som visar växtens namn.
+ */
 public class CenterPanel extends JPanel {
 
-    private ImageIcon plantPicture;
-    private JLabel plantLabel;
-    private MainPanel mainPanel;
+    private ImageIcon plantPicture; // Bilden på växten
+    private String name; // Namnet på växten
+    private JLabel plantLabel; // Label som visar växtbilden
+    private MainPanel mainPanel; // Referens till huvudpanelen
+    private TitledBorder titledBorder; // En border med text runt panelen för att visa växtnamnet
+    private static final int IMAGE_WIDTH = 300; // bredd för skalade bilder
+    private static final int IMAGE_HEIGHT = 450; // höjd för skalade bilder
 
-    private static final int IMAGE_WIDTH = 300; // Desired width for scaled images
-    private static final int IMAGE_HEIGHT = 450; // Desired height for scaled images
+    /**
+     * Skapar en ny CenterPanel.
+     *
+     * @param width      Bredden på panelen
+     * @param height     Höjden på panelen
+     * @param mainPanel  Referens till huvudpanelen
+     * @param controller Referens till Controller för att hämta växtinformation
+     */
+    public CenterPanel(int width, int height, MainPanel mainPanel, Controller controller) {
+        setPreferredSize(new Dimension(320, 485)); // Ställer in önskad storlek för panelen
+        setBackground(new Color(225, 240, 218)); // Ställer bakgrundsfärgen för panelen
 
+        this.mainPanel = mainPanel; // Sätter huvudpanelen
 
-    public CenterPanel(int width, int height, MainPanel mainPanel) {
-        setPreferredSize(new Dimension(320, 485));
-        setBackground(new Color(225, 240, 218));
+        plantPicture = new ImageIcon("src/Images/deafult.png"); // Laddar standardbilden för växten
 
-        //TODO: assistent added this
-        this.mainPanel = mainPanel;
+        String plantName = controller.getPlantName(); // Hämtar växtnamnet från controller
+        titledBorder = BorderFactory.createTitledBorder("You must choose a plant"); // Skapar en border runt panelen med ett standardmeddelande
+        Font myFont = new Font("Bebas Neue", Font.BOLD, 12); // typsnitt för titeltexten
+        titledBorder.setTitleFont(myFont); // lägger till typsnittet
+        setBorder(titledBorder); // lägger till titelborder på panelen
 
-        plantPicture = new ImageIcon("src/Images/PotArt1.JPG"); // Default image
+        plantLabel = new JLabel(); // Skapar en label för växtbilden
+        plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Skalar och lägger till växtbilden på label
 
-        TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant name here");
-        Font myFont = new Font("Bebas Neue", Font.BOLD, 12);
-        titledBorder.setTitleFont(myFont);
-        setBorder(titledBorder);
-
-        plantLabel = new JLabel();
-        plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Scale imagee
-        Image plantPictureImage = plantPicture.getImage();
-        Image scaledPlantPictureImage = plantPictureImage.getScaledInstance(200,200, Image.SCALE_SMOOTH);
-        // ImageIcon scaledPlantPictureIcon = new ImageIcon(scaledPlantPictureImage); //Oklart om detta behövs //Cyrus
-        add(plantLabel);
+        add(plantLabel); // Lägger till växt-label på panelen
     }
 
-    //TODO: assistent added this
+
+    /**
+     * Hämtar huvudpanelen som denna CenterPanel är en del av.
+     *
+     * @return En referens till huvudpanelen.
+     */
     public MainPanel getMainPanel() {
         return mainPanel;
     }
 
     /**
-     * Updates the image of the plant in the center panel.
-     * @param newImage The new image to display.
-     * @author Cyrus Shaerpour
+     * Uppdaterar bilden på växten i centerpanelen.
+     * @param newImage Den nya bilden som ska visas.
+     * Author Cyrus Shaerpour
      */
     public void updatePlantImage(ImageIcon newImage) {
-        plantPicture = newImage;
-        //System.out.println(plantPicture.toString());
-        //plantLabel.setIcon(plantPicture);
-        plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Scale and update the image
-        this.revalidate();
-        this.repaint();  // Repaint the panel to update the image
+        plantPicture = newImage; // Uppdaterar bilden på växten
+        plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Skalar och uppdaterar växtbilden
+        this.revalidate(); //  för att uppdatera bilden
+        this.repaint(); // Repaint panelen för att visa den uppdaterade bilden
+    }
+
+    // Metod för att uppdatera växtnamnet
+    public void updatePlantName(String plantName){
+        name = plantName; // Uppdatera växtnamnet
+
+        titledBorder.setTitle(name); // Uppdatera titeln
+        this.revalidate(); // för att uppdatera titeln
+        this.repaint(); // Repaint panelen för att visa den uppdaterade titeln
     }
 
     /**
-     * Scales the image to the size of the gui frame
+     * Skalar bilden till storleken på GUI-fönstret
      * @param imageIcon
      * @param width
      * @param height
@@ -64,13 +88,9 @@ public class CenterPanel extends JPanel {
      * Author Cyrus Shaerpour
      */
     private ImageIcon scaleImageIcon(ImageIcon imageIcon, int width, int height) {
-        Image image = imageIcon.getImage(); // Transform ImageIcon to Image
-        Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH); // Scale image
-        return new ImageIcon(scaledImage); // Transform Image back to ImageIcon
+        Image image = imageIcon.getImage(); // ImageIcon till Image
+        Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH); // Skalar bilden
+        return new ImageIcon(scaledImage); // Omvandlar bilden tillbaka till ImageIcon
     }
 
-    public void updatePanel(ImageIcon plantPicture) {
-        //plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Scale and update the image
-        //Sunflower sunflower = new Sunflower("Sunflower", PlantArt.SUNFLOWER, 0, new ImageIcon("src/Images/Sunflower3.JPG"), 0);
-    }
 }
