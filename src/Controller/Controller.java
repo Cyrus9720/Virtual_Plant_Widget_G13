@@ -184,7 +184,7 @@ public class Controller {
                 return true;
             }
         } else {
-            System.err.println("Invalid current plant index in checkWateringStatus");
+            System.err.println("checkWateringStatus");
         }
 
         return false; // Return false if the current plant does not need watering
@@ -209,11 +209,7 @@ public class Controller {
                 // Hantera fallet när den senaste vattentiden är null
                 System.err.println("Current plant last watered timestamp is null");
             }
-        } else {
-            // Hantera fallet när indexet för den nuvarande växten är ogiltigt
-            System.err.println("Invalid current plant index in timeuntilnextwatering");
         }
-
         return 0; // Returnera 0 om det inte går att beräkna tiden kvar
     }
 
