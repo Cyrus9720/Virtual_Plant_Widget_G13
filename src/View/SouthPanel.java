@@ -46,6 +46,21 @@ public class SouthPanel extends JPanel {
                         "commonly known as a tomato plant. The species originated in western South America and Central America.<br>" +
                         "The Nahuatl word tomatl gave rise to the Spanish word tomate, from which the English word tomato derived.</html>");
                 break;
+            case CACTUS:
+                plantInformation.setText("<html>A cactus is a member of the plant family Cactaceae,<br>" +
+                        "a family comprising about 127 genera with some 1750 known species of the order Caryophyllales.<br>" +
+                        "The word 'cactus' derives, through Latin, from the Ancient Greek κάκτος, kaktos, a name originally used by Theophrastus for a spiny plant whose identity is now not certain.</html>");
+                break;
+            case BLACKBERRY:
+                plantInformation.setText("<html>The blackberry is an edible fruit produced by many species in the genus Rubus in the family Rosaceae,<br>" +
+                        "hybrids among these species within the subgenus Rubus, and hybrids between the subgenera Rubus and Idaeobatus.<br>" +
+                        "The taxonomy of the blackberries has historically been confused because of hybridization and apomixis.</html>");
+                break;
+            case MINI_TREE:
+                plantInformation.setText("<html>A tree is a tall plant with a trunk and branches made of wood.<br>" +
+                        "Trees can live for many years. The oldest tree ever discovered is approximately 5,000 years old.<br>" +
+                        "The four main parts of a tree are the roots, the trunk, the branches, and the leaves.</html>");
+                break;
             default:
                 // Handle the case if the plant type is unknown or unsupported
                 plantInformation.setText("Unknown plant type.");

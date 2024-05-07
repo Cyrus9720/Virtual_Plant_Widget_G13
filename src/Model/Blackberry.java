@@ -38,6 +38,8 @@ public class Blackberry extends Plant{
     }
     @Override
     public String getPlantInfo() {
-        return null;
+        return
+            "The blackberry is an edible fruit produced by many species in the genus Rubus in the family Rosaceae, hybrids among these species within the subgenus Rubus, and hybrids between the subgenera Rubus and Idaeobatus. \n"
+            + "The taxonomy of the blackberries has historically been confused because of hybridization and apomixis, so that species have often been grouped together and called species aggregates. ";
+        }
     }
-}

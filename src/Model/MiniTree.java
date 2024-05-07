@@ -37,7 +37,9 @@ public class MiniTree extends Plant {
 
     @Override
     public String getPlantInfo() {
-        return null;
+        return
+                "A tree is a tall plant with a trunk and branches made of wood. Trees can live for many years. \n" +
+                "The oldest tree ever discovered is approximately 5,000 years old. The four main parts of a tree are the roots, the trunk, the branches, and the leaves. \n" +
+                "The roots of a tree are usually under the ground. Most trees have a single trunk. ";
     }
-
 }

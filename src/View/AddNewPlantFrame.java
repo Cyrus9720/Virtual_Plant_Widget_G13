@@ -58,8 +58,8 @@ public class AddNewPlantFrame extends JFrame {
             });
 
             JButton cactusButton = new JButton("Cactus");
-            tomatoButton.setFont(customFont); // anpassat typsnittet på knappen
-            tomatoButton.addActionListener(new ActionListener() {
+            cactusButton.setFont(customFont); // anpassat typsnittet på knappen
+            cactusButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     controller.addNewCactus(); // controller-metod för att lägga till en ny tomatplanta
@@ -68,8 +68,8 @@ public class AddNewPlantFrame extends JFrame {
             });
 
             JButton blackberryButton = new JButton("Blackberry");
-            tomatoButton.setFont(customFont); // anpassat typsnittet på knappen
-            tomatoButton.addActionListener(new ActionListener() {
+            blackberryButton.setFont(customFont); // anpassat typsnittet på knappen
+            blackberryButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     controller.addNewBlackberry(); // controller-metod för att lägga till en ny tomatplanta
@@ -78,8 +78,8 @@ public class AddNewPlantFrame extends JFrame {
             });
 
             JButton minitreeButton = new JButton("Mini Tree");
-            tomatoButton.setFont(customFont); // anpassat typsnittet på knappen
-            tomatoButton.addActionListener(new ActionListener() {
+            minitreeButton.setFont(customFont); // anpassat typsnittet på knappen
+            minitreeButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     controller.addNewMiniTree(); // controller-metod för att lägga till en ny tomatplanta

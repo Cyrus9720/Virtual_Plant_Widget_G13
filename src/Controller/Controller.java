@@ -108,7 +108,7 @@ public class Controller {
         Random random = new Random();
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
         String newCactusName = "Cactus" + randomNumber;
-        TomatoPlant newCactus = new TomatoPlant(newCactusName, PlantArt.CACTUS, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
+        Cactus newCactus = new Cactus (newCactusName, PlantArt.CACTUS, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
         plantList.add(newCactus);
     }
 
@@ -116,7 +116,7 @@ public class Controller {
         Random random = new Random();
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
         String newBlackberryName = "Blackberry" + randomNumber;
-        TomatoPlant newBalckberry = new TomatoPlant(newBlackberryName, PlantArt.BLACKBERRY, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
+        Blackberry newBalckberry = new Blackberry(newBlackberryName, PlantArt.BLACKBERRY, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
         plantList.add(newBalckberry);
     }
 
@@ -124,7 +124,7 @@ public class Controller {
         Random random = new Random();
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
         String newMiniTreeName = "MiniTree" + randomNumber;
-        TomatoPlant newMiniTree = new TomatoPlant(newMiniTreeName, PlantArt.MINI_TREE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
+        MiniTree newMiniTree = new MiniTree(newMiniTreeName, PlantArt.MINI_TREE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
         plantList.add(newMiniTree);
     }
 
@@ -175,14 +175,14 @@ public class Controller {
 
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-                Duration wateringInterval = Duration.ofMillis(2 * 60 * 1);
+                Duration wateringInterval = Duration.ofMillis(1 * 5 * 1000);
 
                 if (timeSinceLastWatered.compareTo(wateringInterval) >= 0) {
                     System.out.println("Current plant needs to be watered");
                     return true; // Return true if the current plant needs watering
                 }
             } else {
-                System.err.println("Current plant last watered timestamp is null");
+                //System.err.println("Current plant last watered timestamp is null");
                 return true;
             }
         } else {
@@ -200,7 +200,7 @@ public class Controller {
 
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-                Duration wateringInterval = Duration.ofMillis(2 * 60 * 1); // 2 min
+                Duration wateringInterval = Duration.ofMillis(1 * 5 * 1000); // 2 min
                 // Ska ändras (24 timmar = 24 * 60 * 60 * 1000)
 
                 // Beräkna tiden kvar till nästa vattning i sekunder
@@ -209,7 +209,7 @@ public class Controller {
                 return timeUntilNextWateringSeconds;
             } else {
                 // Hantera fallet när den senaste vattentiden är null
-                System.err.println("Current plant last watered timestamp is null");
+                //System.err.println("Current plant last watered timestamp is null");
             }
         } else {
             // Hantera fallet när indexet för den nuvarande växten är ogiltigt
