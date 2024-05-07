@@ -57,11 +57,44 @@ public class AddNewPlantFrame extends JFrame {
                 }
             });
 
+            JButton cactusButton = new JButton("Cactus");
+            tomatoButton.setFont(customFont); // anpassat typsnittet på knappen
+            tomatoButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    controller.addNewCactus(); // controller-metod för att lägga till en ny tomatplanta
+                    AddNewPlantFrame.this.dispose(); // Stänger det aktuella fönstret när knappen trycks
+                }
+            });
+
+            JButton blackberryButton = new JButton("Blackberry");
+            tomatoButton.setFont(customFont); // anpassat typsnittet på knappen
+            tomatoButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    controller.addNewBlackberry(); // controller-metod för att lägga till en ny tomatplanta
+                    AddNewPlantFrame.this.dispose(); // Stänger det aktuella fönstret när knappen trycks
+                }
+            });
+
+            JButton minitreeButton = new JButton("Mini Tree");
+            tomatoButton.setFont(customFont); // anpassat typsnittet på knappen
+            tomatoButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    controller.addNewMiniTree(); // controller-metod för att lägga till en ny tomatplanta
+                    AddNewPlantFrame.this.dispose(); // Stänger det aktuella fönstret när knappen trycks
+                }
+            });
+
             // Lägger till knapparna på panelen
             add(infoLabel);
             add(sunflowerButton);
             add(roseButton);
             add(tomatoButton);
+            add(cactusButton);
+            add(blackberryButton);
+            add(minitreeButton);
         }
     }
 }

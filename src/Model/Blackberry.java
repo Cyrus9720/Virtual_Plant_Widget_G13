@@ -1,11 +1,14 @@
 package Model;
 
 import javax.swing.*;
+import java.time.LocalDateTime;
 
 public class Blackberry extends Plant{
 
-    public Blackberry(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, String plantInfo) {
-        super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, plantInfo);
+    private String plantInfo;
+
+    public Blackberry(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
+        super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered);
     }
 
     @Override
@@ -32,5 +35,9 @@ public class Blackberry extends Plant{
                 // Handle any other cases or provide a default image
                 break;
         }
+    }
+    @Override
+    public String getPlantInfo() {
+        return null;
     }
 }
