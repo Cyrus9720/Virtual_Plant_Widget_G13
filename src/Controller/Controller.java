@@ -9,7 +9,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
-import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -107,6 +106,7 @@ public class Controller {
      * Handles button presses in the application.
      *
      * @param button The type of button pressed.
+     * @author Cyrus och Roa
      */
     public void buttonPressed(ButtonType button) {
         switch (button) {
@@ -208,7 +208,6 @@ public class Controller {
         }
     }
 
-
     /**
      * Retrieves the number of lives of the first plant in the plant list.
      *
@@ -228,7 +227,6 @@ public class Controller {
             return 0;
         }
     }
-
 
     /**
      * Retrieves the number of times watered of the first plant in the plant list.

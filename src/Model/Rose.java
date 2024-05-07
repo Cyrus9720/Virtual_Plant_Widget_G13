@@ -5,8 +5,6 @@ import java.time.LocalDateTime;
 
 public class Rose extends Plant {
 
-    private String plantInfo;
-
     public Rose(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
         super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered);
     }
