@@ -27,13 +27,13 @@ public class MiniTree extends Plant{
                 setPlantPicture(new ImageIcon("src/Images/PotArt1.JPG"));
                 break;
             case 1:
-                setPlantPicture(new ImageIcon("src/Images/RoseArt1.JPG"));
+                setPlantPicture(new ImageIcon("src/Images/MiniTree1.JPG"));
                 break;
             case 2:
-                setPlantPicture(new ImageIcon("src/Images/RoseArt2.JPG"));
+                setPlantPicture(new ImageIcon("src/Images/Blackberry2.JPG"));
                 break;
             case 3:
-                setPlantPicture(new ImageIcon("src/Images/RoseArt3.JPG"));
+                setPlantPicture(new ImageIcon("src/Images/Blackberry3.JPG"));
                 break;
             default:
                 // Handle any other cases or provide a default image
