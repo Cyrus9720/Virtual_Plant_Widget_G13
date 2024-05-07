@@ -121,7 +121,7 @@ public class GardenView extends JDialog {
                 addPlantButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if (controller.getPlantList().size() < 6) {
+                        if (controller.getPlantList().size() < 6) { // kontroll så att man inte har fler än 6 växter
                             AddNewPlantFrame addNewPlantFrame = new AddNewPlantFrame(controller);
                             GardenView.this.dispose();
                         }else {
