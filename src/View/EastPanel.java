@@ -134,10 +134,9 @@ public class EastPanel extends JPanel {
 
         switch (plantLevel) {
             case 0: // när plantlevel är 0
-                if(timesWatered == 0){ // vattnad 0 gånger
+                if(timesWatered == 0) { // vattnad 0 gånger
                     imagePath = "src/Images/emptyProgressBar.png";
-                }
-                else if (timesWatered == 1) { // vattnad 1 gång
+                } else if (timesWatered == 1) { // vattnad 1 gång
                     imagePath = "src/Images/fullProgressBar.png";
                 }
                 break;
