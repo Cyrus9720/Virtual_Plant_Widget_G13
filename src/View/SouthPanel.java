@@ -24,7 +24,7 @@ public class SouthPanel extends JPanel {
 
         // Initialize plant information label with default text
         plantInformation = new JLabel("Choose a plant to see plant information");
-        add(plantInformation, BorderLayout.CENTER);
+        add(plantInformation, BorderLayout.NORTH);
     }
 
     public void updatePlantInfo() {

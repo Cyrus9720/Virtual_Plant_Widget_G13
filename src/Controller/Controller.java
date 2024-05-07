@@ -205,9 +205,6 @@ public class Controller {
                 long timeUntilNextWateringSeconds = wateringInterval.minus(timeSinceLastWatered).getSeconds();
 
                 return timeUntilNextWateringSeconds;
-            } else {
-                // Hantera fallet när den senaste vattentiden är null
-                System.err.println("Current plant last watered timestamp is null");
             }
         }
         return 0; // Returnera 0 om det inte går att beräkna tiden kvar
