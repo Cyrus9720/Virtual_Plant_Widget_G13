@@ -11,6 +11,7 @@ public class SouthPanel extends JPanel {
     private JLabel plantInformation;
 
     public SouthPanel(Controller controller, int width, int height) {
+        setPreferredSize(new Dimension(320, 120));
         this.controller = controller;
 
         TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant information");
@@ -23,7 +24,7 @@ public class SouthPanel extends JPanel {
 
         // Initialize plant information label with default text
         plantInformation = new JLabel("Choose a plant to see plant information");
-        add(plantInformation, BorderLayout.CENTER);
+        add(plantInformation, BorderLayout.NORTH);
     }
 
     public void updatePlantInfo() {
