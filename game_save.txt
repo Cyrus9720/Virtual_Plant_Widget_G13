@@ -1,7 +1,0 @@
-Plant art; ROSE | Plant name; Rose8 | Plant level; 1 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/RoseArt1.JPG | Last time watered; 2024-05-07 20:23:41.385 | Timestamp; 2024-05-07 20:32:57.053
-Plant art; ROSE | Plant name; Rose0 | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/PotArt1.JPG | Last time watered; null | Timestamp; 2024-05-07 20:32:57.053
-Plant art; TOMATO_PLANT | Plant name; TomatoPlant4 | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/PotArt1.JPG | Last time watered; null | Timestamp; 2024-05-07 20:32:57.053
-Plant art; MINI_TREE | Plant name; Mini Tree7 | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/PotArt1.JPG | Last time watered; null | Timestamp; 2024-05-07 20:32:57.053
-Plant art; CACTUS | Plant name; Mini Tree1 | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/PotArt1.JPG | Last time watered; null | Timestamp; 2024-05-07 20:32:57.053
-Plant art; ROSE | Plant name; Rose3 | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/PotArt1.JPG | Last time watered; null | Timestamp; 2024-05-07 20:32:57.053
-Plant art; SUNFLOWER | Plant name; Sunflower7 | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/PotArt1.JPG | Last time watered; null | Timestamp; 2024-05-07 20:32:57.053
