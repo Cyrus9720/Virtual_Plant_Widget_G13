@@ -27,7 +27,6 @@ public class Controller {
     private Clip wateringSoundClip;
     private int currentPlantIndex;
     private Plant currentPlant;
-    private LocalDateTime lastWatered;
     private static final long WATERING_INTERVAL = 2 * 60 * 1000; // Vattningstiden i millisekunder (2 minuter)
     private boolean chosenPlant = false;
 
@@ -261,9 +260,9 @@ public class Controller {
     }
 
     /**
-     * Retrieves the plantlevel of the first plant in the plant list.
+     * Retrieves the plant level of the first plant in the plant list.
      *
-     * @return The plantlevel of the first plant, or 0 if the plant list is empty or the first plant is null.
+     * @return The plant level of the first plant, or 0 if the plant list is empty or the first plant is null.
      */
     public int getPlantLevel() {
         if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
