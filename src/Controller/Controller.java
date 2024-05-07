@@ -9,6 +9,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -327,10 +328,6 @@ public class Controller {
         }
     }
 
-    public void saveGame() {
-        SaveGame.saveGame(plantList);
-    }
-
     /**
      * Retrieves the plant name of the first plant in the plant list.
      *
@@ -411,6 +408,24 @@ public class Controller {
         long timeSinceLastPlayedSeconds = duration.getSeconds();
 
         return timeSinceLastPlayedSeconds;
+    }
+
+    /**
+     * Clears the list of plants if the user confirms the action through a JOptionPane.
+     *
+     * @return True if the user confirms to clear the list, false otherwise.
+     * @author Anna Granberg
+     */
+    public void setGameToNull() {
+        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to erase everything?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            plantList.clear();
+            JOptionPane.showMessageDialog(null, "All existing plants have been removed.", "Information", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    public void saveGame() {
+        SaveGame.saveGame(plantList);
     }
 
     public void firstTimePlaying(){

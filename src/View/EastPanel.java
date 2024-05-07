@@ -19,15 +19,13 @@ import java.awt.event.ActionListener;
  * @author annagranberg
  */
 public class EastPanel extends JPanel {
-    private Controller controller; // Reference to controller
-    private int width, height; // Dimensions of the panel
-    private JButton Water; // Button for watering action
-    JLabel threeHeartsLabel;
-    private JLabel progressbarLabel;
-    private JLabel progressbarLabel; // JLabel for progressbar
-    private JLabel threeHeartsLabel;
-    private JLabel timeUntil;
-    private Timer timer; // Timer for updating the time until next watering
+    private Controller controller; // Referens till controller
+    private int width, height; // Storlek på panelen
+    private JButton Water; // Knapp för vattning
+    private JLabel progressbarLabel; // JLabel för progressbar / timesWatered
+    private JLabel threeHeartsLabel; // JLabel för nbrOfLives
+    private JLabel timeUntil; // JLabel för at visa tiden tills nästa vattning
+    private Timer timer; // Timer för uppdatering av tiden tills nästa vattning
 
     /**
      * Constructs a new EastPanel with the specified controller, width, and height.
@@ -36,7 +34,7 @@ public class EastPanel extends JPanel {
      * @param width The width of the panel.
      * @param height The height of the panel.
      *
-     * @author annagranberg
+     * @author Anna Granberg
      */
     public EastPanel(Controller controller, int width, int height) {
         this.controller = controller;
@@ -84,14 +82,6 @@ public class EastPanel extends JPanel {
         progressbarLabel.setIcon(scaledIcon);
         add(progressbarLabel, BorderLayout.SOUTH);
 
-        ImageIcon threeHearts = new ImageIcon("src/Images/treHjärtan.png");
-        Image originalThreeHearts = threeHearts.getImage();
-        Image scaledHeartsLivesImage = originalThreeHearts.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-        ImageIcon scaledThreeHearts = new ImageIcon(scaledHeartsLivesImage);
-        threeHeartsLabel = new JLabel(updateAmountOfLife());
-        add(threeHeartsLabel, BorderLayout.WEST);
-
-        // Adding ActionListener to the water button
         threeHeartsLabel = new JLabel(updateAmountOfLife());
         add(threeHeartsLabel, BorderLayout.WEST);
 
@@ -189,9 +179,14 @@ public class EastPanel extends JPanel {
         return new ImageIcon(scaledImage);
     }
 
+    /**
+     * Updates and returns an ImageIcon representing the number of remaining lives for the user.
+     * Depending on the number of lives, different images of hearts are displayed.
+     *
+     * @return ImageIcon representing the number of remaining lives, or null if the plant list is null or the number of lives is negative.
+     * @author Anna Granberg
+     */
     public ImageIcon updateAmountOfLife() {
-        int nbrOfLives = controller.getNbrOfLives();
-        ImageIcon heartsIcon = null;
         ImageIcon heartsIcon = null;
         if (controller.getPlantList() == null || controller.getNbrOfLives() < 0) {
             // Handle the case when the plant list is null or the number of lives is negative
@@ -218,7 +213,6 @@ public class EastPanel extends JPanel {
                 heartsIcon = new ImageIcon("src/Images/treHjärtan.png");
                 break;
             default:
-                // Default case, do nothing or provide a default icon
                 heartsIcon = null;
                 break;
         }
@@ -236,6 +230,9 @@ public class EastPanel extends JPanel {
 
     /**
      * Updates the time until label with the time until the next watering period.
+     *
+     * @return void
+     * @author Anna Granberg
      */
     private void updateTimeUntilLabel() {
         long timeUntilNextWatering = controller.getTimeUntilNextWatering();
@@ -252,4 +249,8 @@ public class EastPanel extends JPanel {
         // Använd HTML för att bryta texten på tre rader och minska textstorleken
         timeUntil.setText("<html><div style='text-align: center; font-size: 9px;'>Next watering period:<br>" + formattedTime + "</div></html>");
     }
+
+
+
+
 }
