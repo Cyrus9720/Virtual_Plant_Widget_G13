@@ -26,7 +26,6 @@ public class Controller {
     private Clip wateringSoundClip;
     private int currentPlantIndex;
     private Plant currentPlant;
-    private static final long WATERING_INTERVAL = 2 * 60 * 1000; // Vattningstiden i millisekunder (2 minuter)
     private boolean chosenPlant = false;
 
     /**
@@ -50,7 +49,7 @@ public class Controller {
         int plantIndex = Integer.parseInt(id);
         if (plantIndex >= 0 && plantIndex < plantList.size()) {
             currentPlantIndex = plantIndex;
-            currentPlant = plantList.get(plantIndex); // Update currentPlant whenever switchPlant is called
+            currentPlant = plantList.get(plantIndex); // Uppdatera currentPlant när switchPlant kallas
             updateWaterButtonStatus();
             view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
             view.getCenterPanel().updatePlantName(currentPlant.getPlantName());
@@ -105,8 +104,8 @@ public class Controller {
     public void addNewBlackberry(){
         Random random = new Random();
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
-        String newTomatoName = "Blackberry" + randomNumber;
-        Blackberry newBlackberry = new Blackberry(newTomatoName, PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
+        String newBlackberryName = "Blackberry" + randomNumber;
+        Blackberry newBlackberry = new Blackberry(newBlackberryName, PlantArt.BLACKBERRY, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
         plantList.add(newBlackberry);
     }
 
