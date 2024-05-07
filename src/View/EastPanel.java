@@ -113,10 +113,12 @@ public class EastPanel extends JPanel {
 
     public void enableWaterButton() {
         Water.setEnabled(true); // Aktivera vattenknappen
+        repaint();
     }
 
     public void disableWaterButton() {
         Water.setEnabled(false); // Aktivera vattenknappen
+        repaint();
     }
 
     /**
