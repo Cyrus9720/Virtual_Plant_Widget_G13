@@ -27,10 +27,10 @@ public class GardenView extends JDialog {
         this.controller = controller; // Sätt Controller-referens
 
         // Beräkna positionen
-        int xCoordinate = parentFrame.getX() - width;
-        int yCoordinate = parentFrame.getY(); // Du kan justera detta efter behov
+        int xCoordinate = parentFrame.getX() - width; // koordinater för att sätta frame på rätt plats
+        int yCoordinate = parentFrame.getY();
 
-        setLocation(xCoordinate, yCoordinate); // Ställ in positionen för dialogrutan
+        setLocation(xCoordinate, yCoordinate); // Ställ in positionen för frame
 
         // Initialisera GardenPanel
         gardenPanel = new GardenPanel(controller.getPlantImagePaths());
