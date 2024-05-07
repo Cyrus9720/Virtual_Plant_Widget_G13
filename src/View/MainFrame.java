@@ -58,7 +58,7 @@ public class MainFrame extends JFrame {
         menuBar.setFont(customFont);
 
 
-        JMenuItem gameRules = new JMenuItem("Game Rules");
+        JMenuItem gameRules = new JMenuItem("Game Rules"); // knapp för att visa spelregler
         gameRules.setFont(customFont);
         gameRules.addActionListener(new ActionListener() {
             @Override
@@ -67,7 +67,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        JMenuItem differentPlants = new JMenuItem("Garden");
+        JMenuItem differentPlants = new JMenuItem("Garden"); // knapp för att visa ens garden
         differentPlants.setFont(customFont);
         differentPlants.addActionListener(new ActionListener() {
             @Override
@@ -76,7 +76,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        JMenuItem newGame = new JMenuItem("Start Over");
+        JMenuItem newGame = new JMenuItem("Start Over"); // knapp för att starta om spel från början
         newGame.setFont(customFont);
         newGame.setBackground(new Color(225, 78, 78));
         newGame.addActionListener(new ActionListener() {
@@ -86,7 +86,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        JMenuItem gameHistory = new JMenuItem("Game History");
+        JMenuItem gameHistory = new JMenuItem("Game History"); // knapp för att visa history över gamla växter?
         gameHistory.setFont(customFont);
         gameHistory.addActionListener(new ActionListener() {
             @Override
@@ -96,8 +96,8 @@ public class MainFrame extends JFrame {
         });
 
         Border menuItemBorder = BorderFactory.createCompoundBorder(
-        BorderFactory.createLineBorder(Color.BLACK), // Add a line border
-        BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Add some padding
+        BorderFactory.createLineBorder(Color.BLACK),
+        BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
         // Set the custom border for each JMenuItem
         differentPlants.setBorder(menuItemBorder);
@@ -111,7 +111,7 @@ public class MainFrame extends JFrame {
         menuBar.add(newGame);
         setJMenuBar(menuBar);
 
-        addWindowListener(new WindowAdapter() {
+        addWindowListener(new WindowAdapter() { // listener för att spara spelet när man trycker på exit
             @Override
             public void windowClosing(WindowEvent e) {
                 controller.saveGame();

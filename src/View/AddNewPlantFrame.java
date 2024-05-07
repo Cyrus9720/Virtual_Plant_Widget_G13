@@ -57,11 +57,22 @@ public class AddNewPlantFrame extends JFrame {
                 }
             });
 
+            JButton blackberryButton = new JButton("Blackberry");
+            blackberryButton.setFont(customFont);
+            blackberryButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    controller.addNewBlackberry();
+                    AddNewPlantFrame.this.dispose();
+                }
+            });
+
             // Lägger till knapparna på panelen
             add(infoLabel);
             add(sunflowerButton);
             add(roseButton);
             add(tomatoButton);
+            add(blackberryButton);
         }
     }
 }

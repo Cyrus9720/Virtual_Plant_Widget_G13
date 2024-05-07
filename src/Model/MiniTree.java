@@ -1,19 +1,25 @@
 package Model;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 import java.time.LocalDateTime;
 
-public class Rose extends Plant {
-
-    public Rose(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
-        super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered);
+public class MiniTree extends Plant{
+    /**
+     * Constructor for Plant
+     *
+     * @param name         Name of the plant
+     * @param plantArt     Art of the plant
+     * @param nbrOfLives
+     * @param timesWatered
+     * @param plantPicture Picture of the plant
+     * @param plantLevel   Level of the plant
+     * @param lastWatered
+     * @author Cyrus Shaerpour
+     */
+    public MiniTree(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
+        super(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
     }
 
-    @Override
-    public void setPlantLevel(int plantLevel) {
-        super.setPlantLevel(plantLevel);
-        updateImage();
-    }
 
     private void updateImage() {
         switch (getPlantLevel()) {

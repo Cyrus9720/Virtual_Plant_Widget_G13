@@ -98,8 +98,16 @@ public class Controller {
         Random random = new Random();
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
         String newTomatoName = "TomatoPlant" + randomNumber;
-        TomatoPlant newSunflower = new TomatoPlant(newTomatoName, PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
-        plantList.add(newSunflower);
+        TomatoPlant newTomatoPlant = new TomatoPlant(newTomatoName, PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
+        plantList.add(newTomatoPlant);
+    }
+
+    public void addNewBlackberry(){
+        Random random = new Random();
+        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
+        String newTomatoName = "Blackberry" + randomNumber;
+        Blackberry newBlackberry = new Blackberry(newTomatoName, PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
+        plantList.add(newBlackberry);
     }
 
     /**

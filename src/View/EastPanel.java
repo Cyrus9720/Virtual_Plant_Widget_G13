@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
  */
 public class EastPanel extends JPanel {
     private Controller controller; // Referens till controller
+    private MainFrame view;
     private int width, height; // Storlek på panelen
     private JButton Water; // Knapp för vattning
     private JLabel progressbarLabel; // JLabel för progressbar / timesWatered
@@ -237,6 +238,7 @@ public class EastPanel extends JPanel {
         long timeUntilNextWatering = controller.getTimeUntilNextWatering();
         // Kontrollera om tiden är negativ
         if (timeUntilNextWatering < 0) {
+            // todo: lägg till mainFrame.timeToWater()
             timeUntilNextWatering = 0; // Sätt tiden till 0 om den är negativ
         }
         long hours = timeUntilNextWatering / 3600; // Konvertera sekunder till timmar
