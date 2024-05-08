@@ -175,7 +175,7 @@ public class Controller {
 
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-                Duration wateringInterval = Duration.ofMillis(1 * 5 * 1000);
+                Duration wateringInterval = Duration.ofMillis(2 * 5 * 1000);
 
                 if (timeSinceLastWatered.compareTo(wateringInterval) >= 0) {
                     System.out.println("Current plant needs to be watered");
@@ -200,13 +200,40 @@ public class Controller {
 
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-                Duration wateringInterval = Duration.ofMillis(1 * 5 * 1000); // 2 min
+                Duration wateringInterval = Duration.ofMillis(2 * 5 * 1000); // 2 min
                 // Ska ändras (24 timmar = 24 * 60 * 60 * 1000)
 
                 // Beräkna tiden kvar till nästa vattning i sekunder
                 long timeUntilNextWateringSeconds = wateringInterval.minus(timeSinceLastWatered).getSeconds();
 
                 return timeUntilNextWateringSeconds;
+            } else {
+                // Hantera fallet när den senaste vattentiden är null
+                //System.err.println("Current plant last watered timestamp is null");
+            }
+        } else {
+            // Hantera fallet när indexet för den nuvarande växten är ogiltigt
+            System.err.println("Invalid current plant index");
+        }
+
+        return 0; // Returnera 0 om det inte går att beräkna tiden kvar
+    }
+
+    public long getTimeUntilDeath() {
+        if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
+            Plant currentPlant = plantList.get(currentPlantIndex);
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            LocalDateTime lastWatered = currentPlant.getLastWatered();
+
+            if (lastWatered != null) {
+                Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
+                Duration wateringInterval = Duration.ofMillis(2 * 10 * 1000); // 2 min
+                // Ska ändras (24 timmar = 24 * 60 * 60 * 1000)
+
+                // Beräkna tiden kvar till nästa vattning i sekunder
+                long timeUntilDeathSeconds = wateringInterval.minus(timeSinceLastWatered).getSeconds();
+
+                return timeUntilDeathSeconds;
             } else {
                 // Hantera fallet när den senaste vattentiden är null
                 //System.err.println("Current plant last watered timestamp is null");

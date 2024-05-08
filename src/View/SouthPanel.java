@@ -14,7 +14,7 @@ public class SouthPanel extends JPanel {
         setPreferredSize(new Dimension(320, 120));
         this.controller = controller;
 
-        TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant information");
+        TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant Information");
         Font myFont = new Font("Bebas Neue", Font.BOLD, 12);
         titledBorder.setTitleFont(myFont);
         setBorder(titledBorder);

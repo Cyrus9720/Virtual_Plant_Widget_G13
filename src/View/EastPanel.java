@@ -25,15 +25,15 @@ public class EastPanel extends JPanel {
     private JLabel progressbarLabel; // JLabel för progressbar / timesWatered
     private JLabel threeHeartsLabel; // JLabel för nbrOfLives
     private JLabel timeUntil; // JLabel för at visa tiden tills nästa vattning
+    private JLabel timeUntilDeath; // JLabel för att visa tiden tills plantan dör
     private Timer timer; // Timer för uppdatering av tiden tills nästa vattning
 
     /**
      * Constructs a new EastPanel with the specified controller, width, and height.
      *
      * @param controller The controller object responsible for handling user actions.
-     * @param width The width of the panel.
-     * @param height The height of the panel.
-     *
+     * @param width      The width of the panel.
+     * @param height     The height of the panel.
      * @author Anna Granberg
      */
     public EastPanel(Controller controller, int width, int height) {
@@ -79,6 +79,11 @@ public class EastPanel extends JPanel {
         updateTimeUntilLabel();
         add(timeUntil, BorderLayout.NORTH);
 
+        timeUntilDeath = new JLabel();
+        timeUntilDeath.setFont(new Font("Bebas Neue", Font.BOLD, 9));
+        updateTimeUntilDeath();
+        add(timeUntilDeath, BorderLayout.NORTH);
+
         progressbarLabel.setIcon(scaledIcon);
         add(progressbarLabel, BorderLayout.SOUTH);
 
@@ -101,10 +106,12 @@ public class EastPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 updateTimeUntilLabel();
+                updateTimeUntilDeath();
             }
         });
         timer.start();
     }
+
 
     public void refreshBar() {
         progressbarLabel.setIcon(updateWaterProgress());
@@ -249,7 +256,21 @@ public class EastPanel extends JPanel {
         timeUntil.setText("<html><div style='text-align: center; font-size: 9px;'>Next watering period:<br>" + formattedTime + "</div></html>");
     }
 
+    /**
+     * Updates the time until death label with the time until the plant dies.
+     *
+     * @return void
+     */
+    private void updateTimeUntilDeath() {
+        long timeUntilDeathValue = controller.getTimeUntilDeath();
+        if (timeUntilDeathValue < 0) {
+            timeUntilDeathValue = 0;
+        }
+        long hours = timeUntilDeathValue / 3600;
+        long minutes = (timeUntilDeathValue % 3600) / 60;
+        long seconds = timeUntilDeathValue % 60;
 
-
-
+        String formattedTime = String.format("%02d h %02d m %02d s", hours, minutes, seconds);
+        timeUntilDeath.setText("<html><div style='text-align: center; font-size: 9px;'>Time until death:<br>" + formattedTime + "</div></html>");
+    }
 }
