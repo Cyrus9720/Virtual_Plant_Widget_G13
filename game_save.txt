@@ -1,2 +1,0 @@
-Plant art; BLACKBERRY | Plant name; Blackberry8 | Plant level; 1 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/Blackberry1.JPG | Last time watered; 2024-05-08 09:08:11.751 | Timestamp; 2024-05-08 09:11:46.542
-Plant art; CACTUS | Plant name; Mini Tree4 | Plant level; 1 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/Cactus1.JPG | Last time watered; 2024-05-08 09:08:19.888 | Timestamp; 2024-05-08 09:11:46.542

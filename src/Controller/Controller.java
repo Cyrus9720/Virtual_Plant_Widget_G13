@@ -400,6 +400,8 @@ public class Controller {
 
             if (confirm == JOptionPane.YES_OPTION) {
                 plantList.clear();
+                view.getCenterPanel().clearCenterPanel();
+                view.getSouthPanel().clearSouthPanel();
                 JOptionPane.showMessageDialog(null, "All existing plants have been removed.", "Information", JOptionPane.INFORMATION_MESSAGE);
             }
         }else if(plantList.isEmpty()){
