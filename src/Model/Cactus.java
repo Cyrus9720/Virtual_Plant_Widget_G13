@@ -5,15 +5,15 @@ import java.time.LocalDateTime;
 
 public class Cactus extends Plant{
     /**
-     * Constructor for Plant
+     * Constructor for Cactus
      *
      * @param name         Name of the plant
      * @param plantArt     Art of the plant
-     * @param nbrOfLives
-     * @param timesWatered
+     * @param nbrOfLives   Number of plant lives
+     * @param timesWatered How many times plant is watered
      * @param plantPicture Picture of the plant
      * @param plantLevel   Level of the plant
-     * @param lastWatered
+     * @param lastWatered  When plant was watered last time
      * @author Cyrus Shaerpour
      */
     public Cactus(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
