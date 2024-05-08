@@ -23,22 +23,12 @@ public class SouthPanel extends JPanel {
         setBackground(new Color(225, 240, 218));
         setLayout(new BorderLayout());
 
-        scrollBar = new JScrollBar();
-        scrollBar.setPreferredSize(new Dimension(320,100));
-        // Initialize plant information label with default text
-        // plantInformation = new JLabel("Choose a plant to see plant information");
-
-
+        // Initialize the plant information label with default text
         plantInformation = new JLabel("Choose a plant to see plant information");
-        JScrollPane scrollPane = new JScrollPane(plantInformation);
-        add(scrollPane, BorderLayout.CENTER);
 
-        scrollBar = new JScrollBar();
-        scrollPane.setVerticalScrollBar(scrollBar);
-
-        add(plantInformation, BorderLayout.NORTH);
-        add(scrollBar);
+        add(plantInformation);
     }
+
 
     public void updatePlantInfo() {
         // Update plant information based on the selected plant
