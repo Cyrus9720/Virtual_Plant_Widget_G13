@@ -3,6 +3,8 @@ package View;
 import Controller.Controller;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +15,6 @@ public class GardenPanel extends JPanel {
     private Font customFont = new Font("Bebas Neue", Font.BOLD, 12); // Anpassat typsnitt
     private Controller controller; // Referens till Controller
 
-
     /**
      * Constructor for GardenPanel.
      *
@@ -23,11 +24,14 @@ public class GardenPanel extends JPanel {
         this.plantPaths = plantPaths;
         this.controller = controller;
 
-        setPreferredSize(new Dimension(150,500));
+        setPreferredSize(new Dimension(175,500));
         setBackground(new Color(225, 240, 218)); // Ställ in bakgrundsfärg
         setLayout(new GridLayout(5,2));
         generateButtons(); // Generera knappar baserat på tillgängliga växter
         addAddPlantButton(); // Lägg till knappen "Lägg till växt"
+        Border border = BorderFactory.createLineBorder(Color.BLACK); // Gränsfärg
+        TitledBorder titledBorder = BorderFactory.createTitledBorder(border, "Garden", TitledBorder.CENTER, TitledBorder.TOP, customFont, Color.BLACK);
+        setBorder(titledBorder);
     }
 
     /**
@@ -59,10 +63,9 @@ public class GardenPanel extends JPanel {
                 }
             });
 
-            add(plantButton, BorderLayout.SOUTH); // Lägg till knappen
+            add(plantButton); // Lägg till panelen med knapp och etikett
         }
     }
-
     /**
      * Method to update buttons based on new plants.
      *
@@ -82,14 +85,14 @@ public class GardenPanel extends JPanel {
      */
     private void addAddPlantButton() {
         JButton addPlantButton = new JButton("Add new plant");
-        addPlantButton.setSize(new Dimension(25, 25));
+        // addPlantButton.setPreferredSize(new Dimension(100, 30));
+        addPlantButton.setMaximumSize(new Dimension(100, Integer.MAX_VALUE));
         addPlantButton.setFont(customFont);
         addPlantButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (controller.getPlantList().size() < 6) { // kontroll så att man inte har fler än 6 växter
                     AddNewPlantFrame addNewPlantFrame = new AddNewPlantFrame(controller);
-                    //GardenView.this.dispose();
                 }else {
                     JOptionPane.showMessageDialog(GardenPanel.this,
                             "You can only have 6 plants in your garden. Please remove a plant to continue",
