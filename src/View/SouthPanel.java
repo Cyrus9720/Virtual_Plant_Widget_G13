@@ -9,10 +9,11 @@ import java.awt.*;
 public class SouthPanel extends JPanel {
     private Controller controller;
     private JLabel plantInformation;
+    private JScrollBar scrollBar;
 
     public SouthPanel(Controller controller, int width, int height) {
         this.controller = controller;
-        setPreferredSize(new Dimension(320,165));
+        setPreferredSize(new Dimension(320,110));
 
         TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant information");
         Font myFont = new Font("Bebas Neue", Font.BOLD, 12);
@@ -22,10 +23,16 @@ public class SouthPanel extends JPanel {
         setBackground(new Color(225, 240, 218));
         setLayout(new BorderLayout());
 
-        // Initialize plant information label with default text
+        // Initialize the plant information label with default text
         plantInformation = new JLabel("Choose a plant to see plant information");
-        add(plantInformation, BorderLayout.NORTH);
+
+        add(plantInformation);
     }
+
+    /**
+     * A method to update plantInformation label whenever a plant is switched.
+     * @author Anna Granberg
+     */
 
     public void updatePlantInfo() {
         // Update plant information based on the selected plant
@@ -71,11 +78,11 @@ public class SouthPanel extends JPanel {
     }
 
     /**
-     * A method to clear the southpanel of text
+     * A method to clear the southPanel of text
+     * @author Anna Granberg
      */
 
     public void clearSouthPanel(){
-
         plantInformation.setText("Choose a plant to see plant information");
         revalidate();
         repaint();
