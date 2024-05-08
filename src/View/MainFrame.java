@@ -1,13 +1,14 @@
 package View;
 
-import Controller.Controller;
+import Controller.*;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import Controller.SaveGame;
+
 
 /**
  * The MainFrame class represents the main frame of the application.
@@ -20,13 +21,13 @@ import Controller.SaveGame;
  */
 public class MainFrame extends JFrame {
     private Controller controller; // reference to controller
-    private int width = 600; // dimensions for frame size
-    private int height = 800; // dimensions for frame size
+    private int width = 550; // dimensions for frame size
+    private int height = 600; // dimensions for frame size
+    private Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
     private MainPanel mainPanel; // reference to mainPanel
     private GardenView gardenView; // reference to gardenView
     private SouthPanel southPanel;
-    private CenterPanel centerPanel;
-
+    private EastPanel eastPanel;
 
     /**
      * Constructs a new MainFrame with the specified controller.
@@ -44,20 +45,21 @@ public class MainFrame extends JFrame {
      */
     public void setUpFrame() {
         setTitle("Virtual Plant Widget");
-        setSize(width, height);
+        setPreferredSize(new Dimension(width, height));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
 
         mainPanel = new MainPanel(controller, width, height);
         setContentPane(mainPanel);
-        //centerPanel = new CenterPanel(400,400, mainPanel);
 
         JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(new Color(225, 240, 218));
+        menuBar.setPreferredSize(new Dimension(200,25));
+        menuBar.setFont(customFont);
 
-        JMenu alternatives = new JMenu("Alternatives");
 
-        JMenuItem gameRules = new JMenuItem("Game Rules");
+        JMenuItem gameRules = new JMenuItem("Game Rules"); // knapp för att visa spelregler
+        gameRules.setFont(customFont);
         gameRules.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -65,7 +67,8 @@ public class MainFrame extends JFrame {
             }
         });
 
-        JMenuItem differentPlants = new JMenuItem("Plants");
+        JMenuItem differentPlants = new JMenuItem("Garden"); // knapp för att visa ens garden
+        differentPlants.setFont(customFont);
         differentPlants.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -73,16 +76,55 @@ public class MainFrame extends JFrame {
             }
         });
 
-        alternatives.add(gameRules);
-        alternatives.add(differentPlants);
-        menuBar.add(alternatives);
+        JMenuItem gameHistory = new JMenuItem("Game History"); // knapp för att visa history över gamla växter?
+        gameHistory.setFont(customFont);
+        gameHistory.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // todo: implementera kod för att se historik över alla växter
+            }
+        });
 
+        JMenuItem removePlant = new JMenuItem("Remove plant");
+        removePlant.setFont(customFont);
+        removePlant.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.removePlant(controller.getPlantName());
+            }
+        });
+
+        JMenuItem newGame = new JMenuItem("Start Over"); // knapp för att starta om spel från början
+        newGame.setFont(customFont);
+        newGame.setBackground(new Color(225, 78, 78));
+        newGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.setGameToNull();
+            }
+        });
+
+        Border menuItemBorder = BorderFactory.createCompoundBorder(
+        BorderFactory.createLineBorder(Color.BLACK),
+        BorderFactory.createEmptyBorder(4, 8, 4, 8));
+
+        // Set the custom border for each JMenuItem
+        differentPlants.setBorder(menuItemBorder);
+        gameRules.setBorder(menuItemBorder);
+        gameHistory.setBorder(menuItemBorder);
+        newGame.setBorder(menuItemBorder);
+        removePlant.setBorder(menuItemBorder);
+
+        menuBar.add(differentPlants);
+        menuBar.add(gameRules);
+        menuBar.add(gameHistory);
+        menuBar.add(removePlant);
+        menuBar.add(newGame);
         setJMenuBar(menuBar);
 
-        addWindowListener(new WindowAdapter() {
+        addWindowListener(new WindowAdapter() { // listener för att spara spelet när man trycker på exit
             @Override
             public void windowClosing(WindowEvent e) {
-                // Anropar SaveGame() för att spara spelet när fönstret stängs
                 controller.saveGame();
             }
         });
@@ -92,6 +134,10 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Displays a message dialog reminding the user to water the plant.
+     * Uses a custom font and background colors for the dialog.
+     */
     public void timeToWater(){
         String message = "It's time to water the plant!\nDon't forget to give it some love and hydration.";
         Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
@@ -99,6 +145,16 @@ public class MainFrame extends JFrame {
         UIManager.put("OptionPane.background", new Color(225, 240, 218));
         UIManager.put("Panel.background", new Color(225, 240, 218));
         JOptionPane.showMessageDialog(null, message, "Plant Watering Reminder", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void welcomeBackMessage(){
+        String message = "Welcome back! It's been " + controller.getTimeSinceLastPlayed() + " since you played"; // todo: insert some time method
+        Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
+        UIManager.put("OptionPane.messageFont", customFont);
+        UIManager.put("OptionPane.background", new Color(225, 240, 218));
+        UIManager.put("Panel.background", new Color(225, 240, 218));
+        JOptionPane.showMessageDialog(null, message, "Welcome back", JOptionPane.INFORMATION_MESSAGE);
+
     }
 
     /**
@@ -111,14 +167,18 @@ public class MainFrame extends JFrame {
     }
 
     public void switchPlant(){
-        gardenView = new GardenView(this, mainPanel.getCenterPanel(), controller);
+        gardenView = new GardenView(this, controller);
     }
 
     public CenterPanel getCenterPanel() {
         return mainPanel.getCenterPanel();
     }
 
-    public SouthPanel getSouthPanel() {
+    public EastPanel getEastPanel() {
+        return mainPanel.getEastPanel();
+    }
+
+    public SouthPanel getSouthPanel(){
         return mainPanel.getSouthPanel();
     }
 }

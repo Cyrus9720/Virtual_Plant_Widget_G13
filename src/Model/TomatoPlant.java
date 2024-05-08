@@ -1,11 +1,12 @@
 package Model;
 
 import javax.swing.*;
+import java.time.LocalDateTime;
 
 public class TomatoPlant extends Plant{
 
-    public TomatoPlant(String name, PlantArt plantArt,int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, String plantInfo) {
-        super(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, plantInfo);
+    public TomatoPlant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered ) {
+        super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered);
     }
 
     @Override

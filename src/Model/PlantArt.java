@@ -2,11 +2,10 @@ package Model;
 
 public enum PlantArt
 {
+    BLACKBERRY,
     CACTUS,
-    ORCHID,
-    POT,
     ROSE,
     TOMATO_PLANT,
     SUNFLOWER,
-    TREE;
+    MINI_TREE;
 }

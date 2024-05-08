@@ -3,20 +3,20 @@ package Model;
 import javax.swing.*;
 import java.time.LocalDateTime;
 
-public class Cactus extends Plant{
+public class Blackberry extends Plant{
     /**
-     * Constructor for Cactus
+     * Constructor for Plant
      *
      * @param name         Name of the plant
      * @param plantArt     Art of the plant
-     * @param nbrOfLives   Number of plant lives
-     * @param timesWatered How many times plant is watered
+     * @param nbrOfLives
+     * @param timesWatered
      * @param plantPicture Picture of the plant
      * @param plantLevel   Level of the plant
-     * @param lastWatered  When plant was watered last time
+     * @param lastWatered
      * @author Cyrus Shaerpour
      */
-    public Cactus(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
+    public Blackberry(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
         super(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
     }
 
@@ -25,19 +25,20 @@ public class Cactus extends Plant{
         super.setPlantLevel(plantLevel);
         updateImage();
     }
+
     private void updateImage() {
         switch (getPlantLevel()) {
             case 0:
                 setPlantPicture(new ImageIcon("src/Images/PotArt1.JPG"));
                 break;
             case 1:
-                setPlantPicture(new ImageIcon("src/Images/Cactus1.JPG"));
+                setPlantPicture(new ImageIcon("src/Images/Blackberry1.JPG"));
                 break;
             case 2:
-                setPlantPicture(new ImageIcon("src/Images/Cactus2.JPG"));
+                setPlantPicture(new ImageIcon("src/Images/Blackberry2.JPG"));
                 break;
             case 3:
-                setPlantPicture(new ImageIcon("src/Images/Cactus3.JPG"));
+                setPlantPicture(new ImageIcon("src/Images/Blackberry3.JPG"));
                 break;
             default:
                 // Handle any other cases or provide a default image
