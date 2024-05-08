@@ -421,7 +421,6 @@ public class Controller {
             if (confirm == JOptionPane.YES_OPTION) {
                 plantList.clear();
                 view.getCenterPanel().clearCenterPanel();
-                view.getSouthPanel().clearSouthPanel();
                 view.getMainPanel().updateButtons(getPlantImagePaths());
                 JOptionPane.showMessageDialog(null, "All existing plants have been removed.", "Information", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -444,7 +443,6 @@ public class Controller {
                     System.out.println("Växten med namnet \"" + plantName + "\" har tagits bort från listan.");
                     found = true;
                     view.getCenterPanel().clearCenterPanel();
-                    view.getSouthPanel().clearSouthPanel();
                     view.getMainPanel().updateButtons(getPlantImagePaths());
                     break; // Exit the loop once the plant is found and removed
                 }

@@ -87,12 +87,12 @@ public class GardenPanel extends JPanel {
         addPlantButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (controller.getPlantList().size() < 6) { // kontroll så att man inte har fler än 6 växter
+                if (controller.getPlantList().size() < 8) { // kontroll så att man inte har fler än 6 växter
                     AddNewPlantFrame addNewPlantFrame = new AddNewPlantFrame(controller);
                     //GardenView.this.dispose();
                 }else {
                     JOptionPane.showMessageDialog(GardenPanel.this,
-                            "You can only have 6 plants in your garden. Please remove a plant to continue",
+                            "You can only have 8 plants in your garden. Please remove a plant to continue",
                             "Too many plants :(", JOptionPane.INFORMATION_MESSAGE);
                 }
             }

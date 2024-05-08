@@ -245,6 +245,7 @@ public class EastPanel extends JPanel {
             if (timeUntilNextWatering < 0) {
                 // todo: lägg till mainFrame.timeToWater()
                 timeUntilNextWatering = 0; // Sätt tiden till 0 om den är negativ
+
             }
             long hours = timeUntilNextWatering / 3600; // Konvertera sekunder till timmar
             long minutes = (timeUntilNextWatering % 3600) / 60; // Få återstående minuter
@@ -259,7 +260,4 @@ public class EastPanel extends JPanel {
     private void updateWateringInterval(){
 
     }
-
-
-
 }
