@@ -26,9 +26,11 @@ public class GardenPanel extends JPanel {
 
         setPreferredSize(new Dimension(175,500));
         setBackground(new Color(225, 240, 218)); // Ställ in bakgrundsfärg
-        setLayout(new GridLayout(5,2));
-        generateButtons(); // Generera knappar baserat på tillgängliga växter
-        addAddPlantButton(); // Lägg till knappen "Lägg till växt"
+        setLayout(new GridLayout(4,2));
+
+        generateButtons();
+        addAddPlantButton();
+
         Border border = BorderFactory.createLineBorder(Color.BLACK); // Gränsfärg
         TitledBorder titledBorder = BorderFactory.createTitledBorder(border, "Garden", TitledBorder.CENTER, TitledBorder.TOP, customFont, Color.BLACK);
         setBorder(titledBorder);
@@ -85,18 +87,19 @@ public class GardenPanel extends JPanel {
      */
     private void addAddPlantButton() {
         JButton addPlantButton = new JButton("Add new plant");
-        // addPlantButton.setPreferredSize(new Dimension(100, 30));
-        addPlantButton.setMaximumSize(new Dimension(100, Integer.MAX_VALUE));
+        addPlantButton.setBackground(new Color(153, 188, 133));
+        addPlantButton.setPreferredSize(new Dimension(150, 30));
+        //addPlantButton.setMaximumSize(new Dimension(75, Integer.MAX_VALUE));
         addPlantButton.setFont(customFont);
         addPlantButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (controller.getPlantList().size() < 6) { // kontroll så att man inte har fler än 6 växter
+                if (controller.getPlantList().size() < 7) { // kontroll så att man inte har fler än 6 växter
                     AddNewPlantFrame addNewPlantFrame = new AddNewPlantFrame(controller);
                 }else {
                     JOptionPane.showMessageDialog(GardenPanel.this,
                             "You can only have 6 plants in your garden. Please remove a plant to continue",
-                            "Too many plants :(", JOptionPane.INFORMATION_MESSAGE);
+                            "You have too many plants :(", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
