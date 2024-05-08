@@ -1,0 +1,4 @@
+Plant art; CACTUS | Plant name; Cactus10 | Plant level; 2 | Times watered; 2 | Number of lives; 3 | Plant picture; src/Images/Cactus2.JPG | Last time watered; 2024-05-08 10:40:32.500 | Timestamp; 2024-05-08 10:40:37.936
+Plant art; BLACKBERRY | Plant name; Blackberry8 | Plant level; 1 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/Blackberry1.JPG | Last time watered; 2024-05-08 10:39:20.252 | Timestamp; 2024-05-08 10:40:37.936
+Plant art; ROSE | Plant name; Rose6 | Plant level; 1 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/RoseArt1.JPG | Last time watered; 2024-05-08 10:39:32.900 | Timestamp; 2024-05-08 10:40:37.936
+Plant art; ROSE | Plant name; Rose2 | Plant level; 1 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/RoseArt1.JPG | Last time watered; 2024-05-08 10:40:36.637 | Timestamp; 2024-05-08 10:40:37.936

@@ -13,7 +13,7 @@ public class SouthPanel extends JPanel {
 
     public SouthPanel(Controller controller, int width, int height) {
         this.controller = controller;
-        setPreferredSize(new Dimension(320,100));
+        setPreferredSize(new Dimension(320,110));
 
         TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant information");
         Font myFont = new Font("Bebas Neue", Font.BOLD, 12);
@@ -23,22 +23,16 @@ public class SouthPanel extends JPanel {
         setBackground(new Color(225, 240, 218));
         setLayout(new BorderLayout());
 
-        scrollBar = new JScrollBar();
-        scrollBar.setPreferredSize(new Dimension(320,100));
-        // Initialize plant information label with default text
-        // plantInformation = new JLabel("Choose a plant to see plant information");
-
-
+        // Initialize the plant information label with default text
         plantInformation = new JLabel("Choose a plant to see plant information");
-        JScrollPane scrollPane = new JScrollPane(plantInformation);
-        add(scrollPane, BorderLayout.CENTER);
-
-        scrollBar = new JScrollBar();
-        scrollPane.setVerticalScrollBar(scrollBar);
 
         add(plantInformation, BorderLayout.NORTH);
-        add(scrollBar);
     }
+
+    /**
+     * A method to update plantInformation label whenever a plant is switched.
+     * @author Anna Granberg
+     */
 
     public void updatePlantInfo() {
         // Update plant information based on the selected plant
@@ -52,7 +46,7 @@ public class SouthPanel extends JPanel {
             case SUNFLOWER:
                 plantInformation.setText("<html>The sunflower is a large inflorescence,<br>" +
                         "this means that the flower head is actually made of many tiny flowers called florets.<br>" +
-                        "The central florets look like the center of a normal flower and the outer florets look like yellow petals.<br>" +
+                        "The central florets look like the center of a normal flower and the outer florets look like yellow petals. " +
                         "All together they make up a 'false flower'.</html>");
                 break;
             case TOMATO_PLANT:
@@ -85,10 +79,10 @@ public class SouthPanel extends JPanel {
 
     /**
      * A method to clear the southPanel of text
+     * @author Anna Granberg
      */
 
     public void clearSouthPanel(){
-
         plantInformation.setText("Choose a plant to see plant information");
         revalidate();
         repaint();
