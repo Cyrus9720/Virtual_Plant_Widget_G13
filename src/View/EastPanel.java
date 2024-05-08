@@ -254,11 +254,11 @@ public class EastPanel extends JPanel {
             // Använd HTML för att bryta texten på tre rader och minska textstorleken
             timeUntil.setText("<html><div style='text-align: center; font-size: 9px;'>Next watering period:<br>" + formattedTime + "</div></html>");
         }
-
-
-
     }
 
+    private void updateWateringInterval(){
+        
+    }
 
 
 

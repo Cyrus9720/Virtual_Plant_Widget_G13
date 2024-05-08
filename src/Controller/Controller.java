@@ -217,7 +217,7 @@ public class Controller {
      */
     private boolean checkWateringStatus() {
         if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
-            Plant currentPlant = plantList.get(currentPlantIndex);
+            currentPlant = plantList.get(currentPlantIndex);
             LocalDateTime currentDateTime = LocalDateTime.now();
             LocalDateTime lastWatered = currentPlant.getLastWatered();
 
@@ -238,7 +238,7 @@ public class Controller {
 
     public long getTimeUntilNextWatering() {
         if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
-            Plant currentPlant = plantList.get(currentPlantIndex);
+            currentPlant = plantList.get(currentPlantIndex);
             LocalDateTime currentDateTime = LocalDateTime.now();
             LocalDateTime lastWatered = currentPlant.getLastWatered();
 
@@ -256,7 +256,17 @@ public class Controller {
         return 0; // Returnera 0 om det inte går att beräkna tiden kvar
     }
 
+    public LocalDateTime wateringPeriod(){
+        if(currentPlantIndex >= 0 && currentPlantIndex < plantList.size()){
+             currentPlant = plantList.get(currentPlantIndex);
+             LocalDateTime lastWatered = currentPlant.getLastWatered();
+             Duration wateringInterval = Duration.ofMinutes(1);
+             LocalDateTime lastTimeToWater = lastWatered.plus(wateringInterval);
 
+            return lastTimeToWater;
+        }
+        return null;
+    }
 
     /**
      * Retrieves the number of lives of the first plant in the plant list.
@@ -284,7 +294,7 @@ public class Controller {
     public int getTimesWatered() {
         if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
             if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
-                Plant currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
+                currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
                 if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
                     System.out.println("times watered: " + currentPlant.getTimesWatered());
                     return currentPlant.getTimesWatered();
@@ -313,7 +323,7 @@ public class Controller {
     public int getPlantLevel() {
         if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
             if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
-                Plant currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
+                currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
                 if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
                     return currentPlant.getPlantLevel();
                 } else {
@@ -341,7 +351,7 @@ public class Controller {
     public String getPlantName() {
         if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
             if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
-                Plant currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
+                currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
                 if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
                     return currentPlant.getPlantName();
                 } else {
@@ -368,7 +378,7 @@ public class Controller {
      */
     public PlantArt getPlantArt(){
         if (!plantList.isEmpty() && currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
-            Plant currentPlant = plantList.get(currentPlantIndex);
+            currentPlant = plantList.get(currentPlantIndex);
             if (currentPlant != null) {
                 // Return the plant art of the current plant
                 return currentPlant.getPlantArt();
@@ -443,7 +453,7 @@ public class Controller {
         if(confirm == JOptionPane.YES_OPTION){
             boolean found = false;
             for (int i = 0; i < plantList.size(); i++) {
-                Plant currentPlant = plantList.get(i);
+                currentPlant = plantList.get(i);
                 if (currentPlant.getPlantName().equals(plantName)) {
                     // Remove the plant from the list
                     plantList.remove(i);
