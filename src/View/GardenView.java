@@ -65,8 +65,9 @@ public class GardenView extends JDialog {
             setBackground(new Color(225, 240, 218)); // Ställ in bakgrundsfärg
             setLayout(new GridLayout(0, 3)); // Set the layout to 3 columns
 
-            generateButtons(); // Generera knappar baserat på tillgängliga växter
             addAddPlantButton(); // Lägg till knappen "Lägg till växt"
+            generateButtons(); // Generera knappar baserat på tillgängliga växter
+
         }
 
         /**
