@@ -81,10 +81,10 @@ public class Controller {
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
         Rose newRose = new Rose(newRoseName, PlantArt.ROSE, 3, 0, plantImage, 0, null);
         plantList.add(newRose);
-        showNewPlantInGUI(plantImage);
+        currentPlant = newRose;
+        showNewPlantInGUI(plantImage, newRoseName);
         view.getSouthPanel().updatePlantInfo();
         view.getEastPanel().updateAmountOfLife();
-
     }
 
     /**
@@ -99,7 +99,8 @@ public class Controller {
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
         Sunflower newSunflower = new Sunflower(newSunflowerName, PlantArt.SUNFLOWER, 3, 0, plantImage, 0, null);
         plantList.add(newSunflower);
-        showNewPlantInGUI(plantImage);
+        currentPlant = newSunflower;
+        showNewPlantInGUI(plantImage, newSunflowerName);
         view.getSouthPanel().updatePlantInfo();
         view.getEastPanel().updateAmountOfLife();
     }
@@ -116,7 +117,8 @@ public class Controller {
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
         TomatoPlant newTomatoPlant = new TomatoPlant(newTomatoName, PlantArt.TOMATO_PLANT, 3, 0, plantImage, 0, null);
         plantList.add(newTomatoPlant);
-        showNewPlantInGUI(plantImage);
+        currentPlant = newTomatoPlant;
+        showNewPlantInGUI(plantImage, newTomatoName);
         view.getSouthPanel().updatePlantInfo();
         view.getEastPanel().updateAmountOfLife();
     }
@@ -128,7 +130,8 @@ public class Controller {
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
         Blackberry newBlackberry = new Blackberry(newBlackberryName, PlantArt.BLACKBERRY, 3, 0, plantImage, 0, null);
         plantList.add(newBlackberry);
-        showNewPlantInGUI(plantImage);
+        currentPlant = newBlackberry;
+        showNewPlantInGUI(plantImage, newBlackberryName);
         view.getSouthPanel().updatePlantInfo();
         view.getEastPanel().updateAmountOfLife();
     }
@@ -140,7 +143,8 @@ public class Controller {
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
         MiniTree newMiniTree = new MiniTree(newMiniTreeName, PlantArt.MINI_TREE, 3, 0, plantImage, 0, null);
         plantList.add(newMiniTree);
-        showNewPlantInGUI(plantImage);
+        currentPlant = newMiniTree;
+        showNewPlantInGUI(plantImage, newMiniTreeName);
         view.getSouthPanel().updatePlantInfo();
         view.getEastPanel().updateAmountOfLife();
     }
@@ -152,7 +156,8 @@ public class Controller {
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
         Cactus newCactus = new Cactus(newCactusName, PlantArt.CACTUS, 3, 0, plantImage, 0, null);
         plantList.add(newCactus);
-        showNewPlantInGUI(plantImage);
+        currentPlant = newCactus;
+        showNewPlantInGUI(plantImage, newCactusName);
         view.getSouthPanel().updatePlantInfo();
         view.getEastPanel().updateAmountOfLife();
     }
@@ -457,8 +462,9 @@ public class Controller {
         }
     }
 
-    public void showNewPlantInGUI(ImageIcon image){
+    public void showNewPlantInGUI(ImageIcon image, String name){
         view.getCenterPanel().updatePlantImage(image);
+        view.getCenterPanel().updatePlantName(name);
     }
 
 

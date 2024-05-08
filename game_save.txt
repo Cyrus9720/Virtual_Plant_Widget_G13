@@ -1,0 +1,2 @@
+Plant art; BLACKBERRY | Plant name; Blackberry1 | Plant level; 1 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/Blackberry1.JPG | Last time watered; 2024-05-08 09:36:53.327 | Timestamp; 2024-05-08 09:36:59.424
+Plant art; TOMATO_PLANT | Plant name; TomatoPlant6 | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/PotArt1.JPG | Last time watered; null | Timestamp; 2024-05-08 09:36:59.424
