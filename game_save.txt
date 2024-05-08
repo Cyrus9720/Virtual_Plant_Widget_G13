@@ -1,2 +1,0 @@
-Plant art; ROSE | Plant name; Rose5 | Plant level; 1 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/RoseArt1.JPG | Last time watered; 2024-05-07 21:13:56.816 | Timestamp; 2024-05-07 21:24:28.647
-Plant art; CACTUS | Plant name; Mini Tree7 | Plant level; 1 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/Cactus1.JPG | Last time watered; 2024-05-07 21:13:08.838 | Timestamp; 2024-05-07 21:24:28.647

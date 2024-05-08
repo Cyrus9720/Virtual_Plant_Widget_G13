@@ -420,6 +420,8 @@ public class Controller {
                     plantList.remove(i);
                     System.out.println("Växten med namnet \"" + plantName + "\" har tagits bort från listan.");
                     found = true;
+                    view.getCenterPanel().clearCenterPanel();
+                    view.getSouthPanel().clearSouthPanel();
                     break; // Exit the loop once the plant is found and removed
                 }
             }

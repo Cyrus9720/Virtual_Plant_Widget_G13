@@ -69,4 +69,15 @@ public class SouthPanel extends JPanel {
                 break;
         }
     }
+
+    /**
+     * A method to clear the southpanel of text
+     */
+
+    public void clearSouthPanel(){
+
+        plantInformation.setText("Choose a plant to see plant information");
+        revalidate();
+        repaint();
+    }
 }
