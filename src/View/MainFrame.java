@@ -21,11 +21,10 @@ import java.awt.event.WindowEvent;
  */
 public class MainFrame extends JFrame {
     private Controller controller; // reference to controller
-    private int width = 550; // dimensions for frame size
+    private int width = 650; // dimensions for frame size
     private int height = 675; // dimensions for frame size
     private Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
     private MainPanel mainPanel; // reference to mainPanel
-    private GardenView gardenView; // reference to gardenView
     private SouthPanel southPanel;
     private EastPanel eastPanel;
 
@@ -67,14 +66,6 @@ public class MainFrame extends JFrame {
             }
         });
 
-        JMenuItem differentPlants = new JMenuItem("Garden"); // knapp för att visa ens garden
-        differentPlants.setFont(customFont);
-        differentPlants.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                switchPlant();
-            }
-        });
 
         JMenuItem gameHistory = new JMenuItem("Game History"); // knapp för att visa history över gamla växter?
         gameHistory.setFont(customFont);
@@ -109,13 +100,11 @@ public class MainFrame extends JFrame {
         BorderFactory.createEmptyBorder(4, 8, 4, 8));
 
         // Set the custom border for each JMenuItem
-        differentPlants.setBorder(menuItemBorder);
         gameRules.setBorder(menuItemBorder);
         gameHistory.setBorder(menuItemBorder);
         newGame.setBorder(menuItemBorder);
         removePlant.setBorder(menuItemBorder);
 
-        menuBar.add(differentPlants);
         menuBar.add(gameRules);
         menuBar.add(gameHistory);
         menuBar.add(removePlant);
@@ -166,9 +155,6 @@ public class MainFrame extends JFrame {
         GameRuleFrame gameRuleFrame = new GameRuleFrame();
     }
 
-    public void switchPlant(){
-        gardenView = new GardenView(this, controller);
-    }
 
     public CenterPanel getCenterPanel() {
         return mainPanel.getCenterPanel();
@@ -180,5 +166,8 @@ public class MainFrame extends JFrame {
 
     public SouthPanel getSouthPanel(){
         return mainPanel.getSouthPanel();
+    }
+    public MainPanel getMainPanel(){
+        return mainPanel;
     }
 }

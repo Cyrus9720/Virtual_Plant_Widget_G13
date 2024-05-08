@@ -85,6 +85,7 @@ public class Controller {
         showNewPlantInGUI(plantImage, newRoseName);
         view.getSouthPanel().updatePlantInfo();
         view.getEastPanel().updateAmountOfLife();
+        view.getMainPanel().updateButtons(getPlantImagePaths());
     }
 
     /**
@@ -103,6 +104,7 @@ public class Controller {
         showNewPlantInGUI(plantImage, newSunflowerName);
         view.getSouthPanel().updatePlantInfo();
         view.getEastPanel().updateAmountOfLife();
+        view.getMainPanel().updateButtons(getPlantImagePaths());
     }
 
     /**
@@ -121,6 +123,7 @@ public class Controller {
         showNewPlantInGUI(plantImage, newTomatoName);
         view.getSouthPanel().updatePlantInfo();
         view.getEastPanel().updateAmountOfLife();
+        view.getMainPanel().updateButtons(getPlantImagePaths());
     }
 
     public void addNewBlackberry(){
@@ -134,6 +137,7 @@ public class Controller {
         showNewPlantInGUI(plantImage, newBlackberryName);
         view.getSouthPanel().updatePlantInfo();
         view.getEastPanel().updateAmountOfLife();
+        view.getMainPanel().updateButtons(getPlantImagePaths());
     }
 
     public void addNewMiniTree(){
@@ -147,6 +151,7 @@ public class Controller {
         showNewPlantInGUI(plantImage, newMiniTreeName);
         view.getSouthPanel().updatePlantInfo();
         view.getEastPanel().updateAmountOfLife();
+        view.getMainPanel().updateButtons(getPlantImagePaths());
     }
 
     public void addNewCactus(){
@@ -160,6 +165,7 @@ public class Controller {
         showNewPlantInGUI(plantImage, newCactusName);
         view.getSouthPanel().updatePlantInfo();
         view.getEastPanel().updateAmountOfLife();
+        view.getMainPanel().updateButtons(getPlantImagePaths());
     }
 
     /**
@@ -180,6 +186,7 @@ public class Controller {
                 ImageIcon updatedImage = currentPlant.getPlantPicture();
                 view.getCenterPanel().updatePlantImage(updatedImage);
                 currentPlant.setLastWatered(LocalDateTime.now());
+                view.getMainPanel().updateButtons(getPlantImagePaths());
                 try {
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/sounds/watering.wav"));
                     wateringSoundClip = AudioSystem.getClip();
@@ -400,8 +407,8 @@ public class Controller {
      *
      * @return A list of image paths corresponding to each plant in the plant list.
      */
-    public List<String> getPlantImagePaths() {
-        List<String> imagePaths = new ArrayList<>();
+    public ArrayList<String> getPlantImagePaths() {
+        ArrayList<String> imagePaths = new ArrayList<>();
         for (Plant plant : plantList) {
             imagePaths.add(plant.getPlantPicture().toString());
         }
@@ -439,6 +446,7 @@ public class Controller {
                 plantList.clear();
                 view.getCenterPanel().clearCenterPanel();
                 view.getSouthPanel().clearSouthPanel();
+                view.getMainPanel().updateButtons(getPlantImagePaths());
                 JOptionPane.showMessageDialog(null, "All existing plants have been removed.", "Information", JOptionPane.INFORMATION_MESSAGE);
             }
         }else if(plantList.isEmpty()){
@@ -461,6 +469,7 @@ public class Controller {
                     found = true;
                     view.getCenterPanel().clearCenterPanel();
                     view.getSouthPanel().clearSouthPanel();
+                    view.getMainPanel().updateButtons(getPlantImagePaths());
                     break; // Exit the loop once the plant is found and removed
                 }
             }

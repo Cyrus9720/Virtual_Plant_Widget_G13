@@ -257,7 +257,7 @@ public class EastPanel extends JPanel {
     }
 
     private void updateWateringInterval(){
-        
+
     }
 
 

@@ -4,6 +4,8 @@ import Controller.Controller;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.*;
 
 /**
@@ -20,6 +22,7 @@ public class MainPanel extends JPanel
     private CenterPanel centerPanel;
     private EastPanel eastPanel;
     private SouthPanel southPanel;
+    private GardenPanel gardenPanel;
     /**
      * Constructs a new MainPanel with the specified controller, width, and height.
      *
@@ -46,9 +49,16 @@ public class MainPanel extends JPanel
 
         southPanel = new SouthPanel(controller, width, height);
         add(southPanel, BorderLayout.SOUTH);
+
+        gardenPanel = new GardenPanel(controller.getPlantImagePaths(), controller);
+        add(gardenPanel, BorderLayout.WEST);
         setVisible(true);
 
         JLabel plantInfoLabel = new JLabel("Plant information");
+    }
+
+    public void updateButtons(ArrayList<String> newPlantPaths) {
+        gardenPanel.updateButtons(newPlantPaths);
     }
 
     //TODO: assistent added this
@@ -65,5 +75,9 @@ public class MainPanel extends JPanel
     }
     public SouthPanel getSouthPanel(){
         return southPanel;
+    }
+
+    public GardenPanel getGardenPanel() {
+        return gardenPanel;
     }
 }
