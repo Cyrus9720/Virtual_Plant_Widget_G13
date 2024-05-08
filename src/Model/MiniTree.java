@@ -3,10 +3,21 @@ package Model;
 import javax.swing.*;
 import java.time.LocalDateTime;
 
-public class MiniTree extends Plant {
-
+public class MiniTree extends Plant{
+    /**
+     * Constructor for Plant
+     *
+     * @param name         Name of the plant
+     * @param plantArt     Art of the plant
+     * @param nbrOfLives
+     * @param timesWatered
+     * @param plantPicture Picture of the plant
+     * @param plantLevel   Level of the plant
+     * @param lastWatered
+     * @author Cyrus Shaerpour
+     */
     public MiniTree(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
-        super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered);
+        super(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
     }
 
     @Override
@@ -30,16 +41,7 @@ public class MiniTree extends Plant {
                 setPlantPicture(new ImageIcon("src/Images/MiniTree3.JPG"));
                 break;
             default:
-                // Handle any other cases or provide a default image
                 break;
         }
-    }
-
-    @Override
-    public String getPlantInfo() {
-        return
-                "A tree is a tall plant with a trunk and branches made of wood. Trees can live for many years. \n" +
-                "The oldest tree ever discovered is approximately 5,000 years old. The four main parts of a tree are the roots, the trunk, the branches, and the leaves. \n" +
-                "The roots of a tree are usually under the ground. Most trees have a single trunk. ";
     }
 }

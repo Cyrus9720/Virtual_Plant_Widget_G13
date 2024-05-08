@@ -5,8 +5,6 @@ import java.time.LocalDateTime;
 
 public class Rose extends Plant {
 
-    private String plantInfo;
-
     public Rose(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
         super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered);
     }
@@ -35,14 +33,5 @@ public class Rose extends Plant {
                 // Handle any other cases or provide a default image
                 break;
         }
-    }
-
-    @Override
-    public String getPlantInfo() {
-        // You can customize this method to provide specific information about the rose plant
-        return "The rose is a type of flowering shrub. Its name comes from the Latin word Rosa. \n " +
-                "The flowers of the rose grow in many different colors, \n " +
-                "from the well-known red rose or yellow roses and sometimes white or purple roses. \n " +
-                "Roses belong to the family of plants called Rosaceae.";
     }
 }

@@ -64,6 +64,7 @@ public class CenterPanel extends JPanel {
      * Author Cyrus Shaerpour
      */
     public void updatePlantImage(ImageIcon newImage) {
+        plantLabel.setText("");
         plantPicture = newImage; // Uppdaterar bilden på växten
         plantLabel.setIcon(scaleImageIcon(plantPicture, IMAGE_WIDTH, IMAGE_HEIGHT)); // Skalar och uppdaterar växtbilden
         this.revalidate(); //  för att uppdatera bilden
@@ -93,4 +94,12 @@ public class CenterPanel extends JPanel {
         return new ImageIcon(scaledImage); // Omvandlar bilden tillbaka till ImageIcon
     }
 
+    public void clearCenterPanel() {
+        name = "You must choose a plant";
+        plantPicture = null;
+        plantLabel.setIcon(null);
+        titledBorder.setTitle(name);
+        revalidate();
+        repaint();
+    }
 }

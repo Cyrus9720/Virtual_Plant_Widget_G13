@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
  */
 public class EastPanel extends JPanel {
     private Controller controller; // Referens till controller
+    private MainFrame view;
     private int width, height; // Storlek på panelen
     private JButton Water; // Knapp för vattning
     private JLabel progressbarLabel; // JLabel för progressbar / timesWatered
@@ -119,10 +120,12 @@ public class EastPanel extends JPanel {
 
     public void enableWaterButton() {
         Water.setEnabled(true); // Aktivera vattenknappen
+        Water.repaint();
     }
 
     public void disableWaterButton() {
         Water.setEnabled(false); // Aktivera vattenknappen
+        Water.repaint();
     }
 
     /**
@@ -241,19 +244,26 @@ public class EastPanel extends JPanel {
      * @author Anna Granberg
      */
     private void updateTimeUntilLabel() {
-        long timeUntilNextWatering = controller.getTimeUntilNextWatering();
-        // Kontrollera om tiden är negativ
-        if (timeUntilNextWatering < 0) {
-            timeUntilNextWatering = 0; // Sätt tiden till 0 om den är negativ
+        if(controller.getPlantList() == null){
+            timeUntil.setText(" ");
+        }else{
+            long timeUntilNextWatering = controller.getTimeUntilNextWatering();
+            // Kontrollera om tiden är negativ
+            if (timeUntilNextWatering < 0) {
+                // todo: lägg till mainFrame.timeToWater()
+                timeUntilNextWatering = 0; // Sätt tiden till 0 om den är negativ
+            }
+            long hours = timeUntilNextWatering / 3600; // Konvertera sekunder till timmar
+            long minutes = (timeUntilNextWatering % 3600) / 60; // Få återstående minuter
+            long seconds = timeUntilNextWatering % 60; // Få återstående sekunder
+
+            String formattedTime = String.format("%02d h %02d m %02d s", hours, minutes, seconds);
+            // Använd HTML för att bryta texten på tre rader och minska textstorleken
+            timeUntil.setText("<html><div style='text-align: center; font-size: 9px;'>Next watering period:<br>" + formattedTime + "</div></html>");
         }
-        long hours = timeUntilNextWatering / 3600; // Konvertera sekunder till timmar
-        long minutes = (timeUntilNextWatering % 3600) / 60; // Få återstående minuter
-        long seconds = timeUntilNextWatering % 60; // Få återstående sekunder
 
-        String formattedTime = String.format("%02d h %02d m %02d s", hours, minutes, seconds);
 
-        // Använd HTML för att bryta texten på tre rader och minska textstorleken
-        timeUntil.setText("<html><div style='text-align: center; font-size: 9px;'>Next watering period:<br>" + formattedTime + "</div></html>");
+
     }
 
     /**

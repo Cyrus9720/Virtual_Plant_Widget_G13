@@ -25,24 +25,26 @@ public class GameRuleFrame extends JFrame {
     public GameRuleFrame() {
         gameRulesLabel = new JLabel();
 
-        // Text för spelreglerna
-        String rules = "<html>Game rules:<br/>" + // String för spelregler
-                "<br/" +
-                "coming soon"; // todo: lägga till spelregler som stämmer överrens med spelet, kanske med beskrivande bild?
 
-        gameRulesLabel.setText(rules); // lägger till spelreglerna på JLabel
+        String welcome = "<html> Welcome to Virtual Plant Widgets!\n" +
+                "You've just gained access to your very own virtual garden where you can plant and nurture your own plants. <br/>"
+                + "<br/>";
+        // Text för spelreglerna
+        String rules = "<html><h2 style='margin-bottom: 5px;'>How to Play:</h2>" +
+                "<ul>" +
+                "<li>Add plants to your garden through the 'Garden' menu.</li>" +
+                "<li>Enter your garden to water your plants regularly.</li>" +
+                "<li>Observe your plants as they progress from seeds to maturity.</li>" +
+                "<li>Monitor your plant's health using the hearts on the right side. Missing watering reduces a life.</li>" +
+                "<li>Track water progress displayed above the hearts.</li>" +
+                "<li>To remove a plant, simply delete it from your garden.</li>" +
+                "</ul>" +
+                "<p>Have fun and enjoy your virtual garden!</p>";
+
+
+        gameRulesLabel.setText(welcome + rules); // lägger till spelreglerna på JLabel
         gameRulesLabel.setFont(CUSTOM_FONT); // anpassat typsnitt på JLabel
         gameRulesLabel.setSize(new Dimension(450, 200)); // Ställer storlek på JLabel
-
-        // Skapar en ImageIcon för menyraden
-        ImageIcon menuBar = new ImageIcon("src/Images/menuBar.png");
-        Image menuBarImage = menuBar.getImage();
-        Image scaledMenuBar = menuBarImage.getScaledInstance(400, 25, Image.SCALE_SMOOTH);
-        ImageIcon finalMenuBar = new ImageIcon(scaledMenuBar);
-
-        JLabel imageLabel = new JLabel(finalMenuBar); // Skapar en JLabel för menyraden
-        add(imageLabel, BorderLayout.SOUTH); // Lägger till menyraden längst ner i fönstret
-
         gameRulesLabel.setBackground(new Color(153, 188, 133)); // Ställer bakgrundsfärg för JLabel
 
         // Skapar olika borders för JLabel
@@ -59,5 +61,23 @@ public class GameRuleFrame extends JFrame {
         setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT)); // Sätter storlek på fönstret
         setResizable(false); // Gör fönstret icke-omstoringsbart
         setVisible(true); // Gör fönstret synligt när det skapas
+        centerAndToFront();
+
+    }
+    private void centerAndToFront() {
+        // Get the screen dimensions
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
+        // Calculate the center position of the frame
+        int frameX = (screenWidth - getWidth()) / 2;
+        int frameY = (screenHeight - getHeight()) / 2;
+
+        // Set the frame's position
+        setLocation(frameX, frameY);
+
+        // Bring the frame to the front
+        toFront();
     }
 }

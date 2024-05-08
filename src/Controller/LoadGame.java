@@ -22,6 +22,7 @@ import java.util.List;
 public class LoadGame {
     private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
     private static LocalDateTime timestamp;
+    private static boolean fileNotEmpty;
     private static MainFrame view;
     private static Plant plant;
 
@@ -38,7 +39,7 @@ public class LoadGame {
         try (BufferedReader reader = new BufferedReader(new FileReader("game_save.txt"))) {
 
             String line;
-            boolean fileNotEmpty = false; // Flagga för att checka ifall filen är tom
+            fileNotEmpty = false; // Flagga för att checka ifall filen är tom
 
             while ((line = reader.readLine()) != null) {
                 fileNotEmpty = true;
@@ -69,11 +70,11 @@ public class LoadGame {
                     case TOMATO_PLANT:
                         plant = new TomatoPlant(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
                         break;
-                        case CACTUS:
-                        plant = new Cactus(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
-                        break;
                     case BLACKBERRY:
                         plant = new Blackberry(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        break;
+                    case CACTUS:
+                        plant = new Cactus(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
                         break;
                     case MINI_TREE:
                         plant = new MiniTree(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
@@ -92,7 +93,7 @@ public class LoadGame {
                 // view.welcomeBackMessage(); todo: få detta att fungera?
                 // SaveGame.writeGamePlayedNotice();
             } else{
-                controller.firstTimePlaying();
+               // controller.firstTimePlaying();
             }
             System.out.println("Game loaded successfully.");
         } catch (IOException e) {
@@ -140,5 +141,9 @@ public class LoadGame {
 
     public static LocalDateTime getTimestamp() {
         return timestamp;
+    }
+
+    public static boolean isFileNotEmpty() {
+        return fileNotEmpty;
     }
 }

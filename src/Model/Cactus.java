@@ -3,16 +3,19 @@ package Model;
 import javax.swing.*;
 import java.time.LocalDateTime;
 
-public class Cactus extends Plant {
-    private ImageIcon plantPicture;
-
+public class Cactus extends Plant{
     /**
-     * @param name
-     * @param timesWatered
-     * @param plantLevel
-     * @author annagranberg
+     * Constructor for Cactus
+     *
+     * @param name         Name of the plant
+     * @param plantArt     Art of the plant
+     * @param nbrOfLives   Number of plant lives
+     * @param timesWatered How many times plant is watered
+     * @param plantPicture Picture of the plant
+     * @param plantLevel   Level of the plant
+     * @param lastWatered  When plant was watered last time
+     * @author Cyrus Shaerpour
      */
-
     public Cactus(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
         super(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
     }
@@ -22,7 +25,6 @@ public class Cactus extends Plant {
         super.setPlantLevel(plantLevel);
         updateImage();
     }
-
     private void updateImage() {
         switch (getPlantLevel()) {
             case 0:
@@ -41,13 +43,5 @@ public class Cactus extends Plant {
                 // Handle any other cases or provide a default image
                 break;
         }
-    }
-
-    @Override
-    public String getPlantInfo() {
-        return
-                "Cacti are members of the plant family Cactaceae, in the order Caryophyllales. \n"
-                + "The word 'cactus' derives, through Latin, from the Ancient Greek κάκτος, kaktos, a name originally used by Theophrastus for a spiny plant whose identity is now not certain. \n"
-                + "Cacti are native to the Americas, ranging from Patagonia in the south to parts of western Canada in the north—except for Rhipsalis baccifera, which also grows in Africa and Sri Lanka.";
     }
 }

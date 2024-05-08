@@ -4,11 +4,20 @@ import javax.swing.*;
 import java.time.LocalDateTime;
 
 public class Blackberry extends Plant{
-
-    private String plantInfo;
-
+    /**
+     * Constructor for Plant
+     *
+     * @param name         Name of the plant
+     * @param plantArt     Art of the plant
+     * @param nbrOfLives
+     * @param timesWatered
+     * @param plantPicture Picture of the plant
+     * @param plantLevel   Level of the plant
+     * @param lastWatered
+     * @author Cyrus Shaerpour
+     */
     public Blackberry(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
-        super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered);
+        super(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
     }
 
     @Override
@@ -36,10 +45,4 @@ public class Blackberry extends Plant{
                 break;
         }
     }
-    @Override
-    public String getPlantInfo() {
-        return
-            "The blackberry is an edible fruit produced by many species in the genus Rubus in the family Rosaceae, hybrids among these species within the subgenus Rubus, and hybrids between the subgenera Rubus and Idaeobatus. \n"
-            + "The taxonomy of the blackberries has historically been confused because of hybridization and apomixis, so that species have often been grouped together and called species aggregates. ";
-        }
-    }
+}

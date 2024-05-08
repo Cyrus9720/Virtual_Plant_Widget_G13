@@ -9,7 +9,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
-import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,8 +26,6 @@ public class Controller {
     private Clip wateringSoundClip;
     private int currentPlantIndex;
     private Plant currentPlant;
-    private LocalDateTime lastWatered;
-    private static final long WATERING_INTERVAL = 2 * 60 * 1000; // Vattningstiden i millisekunder (2 minuter)
     private boolean chosenPlant = false;
 
     /**
@@ -42,6 +39,10 @@ public class Controller {
         }
 
         view = new MainFrame(this);
+
+        if(!LoadGame.isFileNotEmpty()){
+            firstTimePlaying();
+        }
     }
 
     /**
@@ -52,12 +53,15 @@ public class Controller {
         int plantIndex = Integer.parseInt(id);
         if (plantIndex >= 0 && plantIndex < plantList.size()) {
             currentPlantIndex = plantIndex;
-            currentPlant = plantList.get(plantIndex); // Update currentPlant whenever switchPlant is called
+            currentPlant = plantList.get(plantIndex); // Uppdatera currentPlant när switchPlant kallas
             updateWaterButtonStatus();
             view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
             view.getCenterPanel().updatePlantName(currentPlant.getPlantName());
+            view.getEastPanel().updateAmountOfLife();
             view.getSouthPanel().updatePlantInfo();
             view.getCenterPanel().getMainPanel().refreshBar();
+            view.getCenterPanel().repaint();
+            view.getEastPanel().repaint();
             setChosenPlant(true);
         } else {
             System.err.println("Invalid plant index: " + id);
@@ -76,6 +80,7 @@ public class Controller {
         String newRoseName = "Rose" + randomNumber;
         Rose newRose = new Rose(newRoseName, PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
         plantList.add(newRose);
+
     }
 
     /**
@@ -104,34 +109,35 @@ public class Controller {
         plantList.add(newTomatoPlant);
     }
 
-    public void addNewCactus(){
-        Random random = new Random();
-        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
-        String newCactusName = "Cactus" + randomNumber;
-        Cactus newCactus = new Cactus (newCactusName, PlantArt.CACTUS, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
-        plantList.add(newCactus);
-    }
-
     public void addNewBlackberry(){
         Random random = new Random();
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
         String newBlackberryName = "Blackberry" + randomNumber;
-        Blackberry newBalckberry = new Blackberry(newBlackberryName, PlantArt.BLACKBERRY, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
-        plantList.add(newBalckberry);
+        Blackberry newBlackberry = new Blackberry(newBlackberryName, PlantArt.BLACKBERRY, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
+        plantList.add(newBlackberry);
     }
 
     public void addNewMiniTree(){
         Random random = new Random();
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
-        String newMiniTreeName = "MiniTree" + randomNumber;
+        String newMiniTreeName = "Mini Tree" + randomNumber;
         MiniTree newMiniTree = new MiniTree(newMiniTreeName, PlantArt.MINI_TREE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
         plantList.add(newMiniTree);
+    }
+
+    public void addNewCactus(){
+        Random random = new Random();
+        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
+        String newCactusName = "Mini Tree" + randomNumber;
+        Cactus newCactus = new Cactus(newCactusName, PlantArt.CACTUS, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
+        plantList.add(newCactus);
     }
 
     /**
      * Handles button presses in the application.
      *
      * @param button The type of button pressed.
+     * @author Cyrus och Roa
      */
     public void buttonPressed(ButtonType button) {
         switch (button) {
@@ -161,6 +167,19 @@ public class Controller {
         }
     }
 
+    /**
+     * Updates the status of the water button based on whether any plant needs watering.
+     *
+     * @author Anna Granberg
+     */
+    public void updateWaterButtonStatus() {
+        boolean waterstatus = checkWateringStatus();
+        if (waterstatus) {
+            view.getEastPanel().enableWaterButton();
+        } else {
+            view.getEastPanel().disableWaterButton();
+        }
+    }
 
     /**
      * Checks if the plants need to be watered based on a certain timestamp (24h).
@@ -175,20 +194,16 @@ public class Controller {
 
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-                Duration wateringInterval = Duration.ofMillis(2 * 5 * 1000);
+                Duration wateringInterval = Duration.ofMillis(1 * 10 * 1000);
 
                 if (timeSinceLastWatered.compareTo(wateringInterval) >= 0) {
                     System.out.println("Current plant needs to be watered");
                     return true; // Return true if the current plant needs watering
                 }
             } else {
-                //System.err.println("Current plant last watered timestamp is null");
-                return true;
+                return true; // om något är null
             }
-        } else {
-            System.err.println("Invalid current plant index");
         }
-
         return false; // Return false if the current plant does not need watering
     }
 
@@ -200,65 +215,18 @@ public class Controller {
 
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-                Duration wateringInterval = Duration.ofMillis(2 * 5 * 1000); // 2 min
+                Duration wateringInterval = Duration.ofMillis(1 * 10 * 1000); // 30 sek
                 // Ska ändras (24 timmar = 24 * 60 * 60 * 1000)
 
                 // Beräkna tiden kvar till nästa vattning i sekunder
                 long timeUntilNextWateringSeconds = wateringInterval.minus(timeSinceLastWatered).getSeconds();
 
                 return timeUntilNextWateringSeconds;
-            } else {
-                // Hantera fallet när den senaste vattentiden är null
-                //System.err.println("Current plant last watered timestamp is null");
             }
-        } else {
-            // Hantera fallet när indexet för den nuvarande växten är ogiltigt
-            System.err.println("Invalid current plant index");
         }
-
         return 0; // Returnera 0 om det inte går att beräkna tiden kvar
     }
 
-    public long getTimeUntilDeath() {
-        if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
-            Plant currentPlant = plantList.get(currentPlantIndex);
-            LocalDateTime currentDateTime = LocalDateTime.now();
-            LocalDateTime lastWatered = currentPlant.getLastWatered();
-
-            if (lastWatered != null) {
-                Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-                Duration wateringInterval = Duration.ofMillis(2 * 10 * 1000); // 2 min
-                // Ska ändras (24 timmar = 24 * 60 * 60 * 1000)
-
-                // Beräkna tiden kvar till nästa vattning i sekunder
-                long timeUntilDeathSeconds = wateringInterval.minus(timeSinceLastWatered).getSeconds();
-
-                return timeUntilDeathSeconds;
-            } else {
-                // Hantera fallet när den senaste vattentiden är null
-                //System.err.println("Current plant last watered timestamp is null");
-            }
-        } else {
-            // Hantera fallet när indexet för den nuvarande växten är ogiltigt
-            System.err.println("Invalid current plant index");
-        }
-
-        return 0; // Returnera 0 om det inte går att beräkna tiden kvar
-    }
-
-    /**
-     * Updates the status of the water button based on whether any plant needs watering.
-     *
-     * @author Anna Granberg
-     */
-    public void updateWaterButtonStatus() {
-        boolean waterstatus = checkWateringStatus();
-        if (waterstatus) {
-            view.getEastPanel().enableWaterButton();
-        } else {
-            view.getEastPanel().disableWaterButton();
-        }
-    }
 
 
     /**
@@ -281,7 +249,6 @@ public class Controller {
         }
     }
 
-
     /**
      * Retrieves the number of times watered of the first plant in the plant list.
      *
@@ -301,7 +268,7 @@ public class Controller {
                 }
             } else {
                 // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
-                System.err.println("Invalid current plant index");
+                System.err.println("Invalid current plant index in getTimesWatered");
                 return 0;
             }
         } else {
@@ -312,9 +279,9 @@ public class Controller {
     }
 
     /**
-     * Retrieves the plantlevel of the first plant in the plant list.
+     * Retrieves the plant level of the first plant in the plant list.
      *
-     * @return The plantlevel of the first plant, or 0 if the plant list is empty or the first plant is null.
+     * @return The plant level of the first plant, or 0 if the plant list is empty or the first plant is null.
      */
     public int getPlantLevel() {
         if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
@@ -329,7 +296,7 @@ public class Controller {
                 }
             } else {
                 // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
-                System.err.println("Invalid current plant index");
+                System.err.println("Invalid current plant index in getPlantLevel");
                 return 0;
             }
         } else {
@@ -357,7 +324,7 @@ public class Controller {
                 }
             } else {
                 // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
-                System.err.println("Invalid current plant index");
+                System.err.println("Invalid current plant index in getPlantName");
                 return null;
             }
         } else {
@@ -385,7 +352,7 @@ public class Controller {
             }
         } else {
             // Handle the case when plantList is empty or currentPlantIndex is out of range
-            System.err.println("No plant available at the current index");
+            System.err.println("No plant available at the current index in getPlantArt");
             return null;
         }
     }
@@ -428,13 +395,46 @@ public class Controller {
      * @author Anna Granberg
      */
     public void setGameToNull() {
-        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to erase everything?", "Confirmation", JOptionPane.YES_NO_OPTION);
+        if(!plantList.isEmpty()){
+            int confirm = JOptionPane.showConfirmDialog(null, "This action will remove all of your plants. Are you sure you want to do this?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
-        if (confirm == JOptionPane.YES_OPTION) {
-            plantList.clear();
-            JOptionPane.showMessageDialog(null, "All existing plants have been removed.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            if (confirm == JOptionPane.YES_OPTION) {
+                plantList.clear();
+                JOptionPane.showMessageDialog(null, "All existing plants have been removed.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }else if(plantList.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Your garden is empty! Nothing to remove :)", "Information", JOptionPane.INFORMATION_MESSAGE);
         }
+
     }
+
+    public void removePlant(String plantName) {
+        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this plant?", "Confirmation", JOptionPane.YES_NO_OPTION);
+        // Loop through the list to find the plant with the given name
+        if(confirm == JOptionPane.YES_OPTION){
+            boolean found = false;
+            for (int i = 0; i < plantList.size(); i++) {
+                Plant currentPlant = plantList.get(i);
+                if (currentPlant.getPlantName().equals(plantName)) {
+                    // Remove the plant from the list
+                    plantList.remove(i);
+                    System.out.println("Växten med namnet \"" + plantName + "\" har tagits bort från listan.");
+                    found = true;
+                    view.getCenterPanel().clearCenterPanel();
+                    view.getSouthPanel().clearSouthPanel();
+                    break; // Exit the loop once the plant is found and removed
+                }
+            }
+
+            // If the plant with the given name was not found
+            if (!found) {
+                System.err.println("Det finns ingen växt med namnet \"" + plantName + "\" i listan.");
+            }
+        }
+
+    }
+
+
     public void saveGame() {
         SaveGame.saveGame(plantList);
     }
