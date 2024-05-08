@@ -32,8 +32,9 @@ public class GardenPanel extends JPanel {
         setBackground(new Color(225, 240, 218)); // Ställ in bakgrundsfärg
         setLayout(new GridLayout(4,2)); // sätt layout
 
-        generateButtons();
         addAddPlantButton();
+        generateButtons();
+
 
         Border border = BorderFactory.createLineBorder(Color.BLACK); // Gränsfärg
         TitledBorder titledBorder = BorderFactory.createTitledBorder(border, "Garden", TitledBorder.CENTER, TitledBorder.TOP, customFont, Color.BLACK);
@@ -110,11 +111,5 @@ public class GardenPanel extends JPanel {
             }
         });
         add(addPlantButton);
-    }
-
-    private ImageIcon scaleImageIcon(ImageIcon imageIcon, int width, int height) {
-        Image image = imageIcon.getImage(); // ImageIcon till Image
-        Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH); // Skalar bilden
-        return new ImageIcon(scaledImage); // Omvandlar bilden tillbaka till ImageIcon
     }
 }
