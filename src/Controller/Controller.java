@@ -215,7 +215,7 @@ public class Controller {
 
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-                Duration wateringInterval = Duration.ofMillis(1 * 10 * 1000); // 30 sek
+                Duration wateringInterval = Duration.ofMillis(2 * 1 * 1000); // 30 sek
                 // Ska ändras (24 timmar = 24 * 60 * 60 * 1000)
 
                 // Beräkna tiden kvar till nästa vattning i sekunder
@@ -225,6 +225,34 @@ public class Controller {
             }
         }
         return 0; // Returnera 0 om det inte går att beräkna tiden kvar
+    }
+
+    public long getTimeUntilDeath() {
+        if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
+            Plant currentPlant = plantList.get(currentPlantIndex);
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            LocalDateTime lastWatered = currentPlant.getLastWatered();
+
+            if (getTimeUntilNextWatering() == 0) {
+                Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
+                Duration wateringInterval = Duration.ofMillis(2 * 5 * 1000); // 30 sek
+                // Ska ändras (24 timmar = 24 * 60 * 60 * 1000)
+
+                // Beräkna tiden kvar till nästa vattning i sekunder
+                long timeUntilNextWateringSeconds = wateringInterval.minus(timeSinceLastWatered).getSeconds();
+
+                return timeUntilNextWateringSeconds;
+            }
+        }
+        return 0; // Returnera 0 om det inte går att beräkna tiden kvar
+    }
+
+    public void reduceLife() {
+        if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
+            Plant currentPlant = plantList.get(currentPlantIndex);
+            currentPlant.reduceLife();
+            System.out.println("Life reduced " + currentPlant.getNbrOfLives() + " " + currentPlant.getPlantName());
+        }
     }
 
 
@@ -433,7 +461,6 @@ public class Controller {
 
     }
 
-
     public void saveGame() {
         SaveGame.saveGame(plantList);
     }
@@ -456,25 +483,5 @@ public class Controller {
 
     public void setChosenPlant(boolean chosenPlant) {
         this.chosenPlant = chosenPlant;
-    }
-
-    public long getTimeUntilDeath() {
-        if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
-            Plant currentPlant = plantList.get(currentPlantIndex);
-            LocalDateTime currentDateTime = LocalDateTime.now();
-            LocalDateTime lastWatered = currentPlant.getLastWatered();
-
-            if (lastWatered != null) {
-                Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-                Duration wateringInterval = Duration.ofMillis(1 * 10 * 1000); // 30 sek
-                // Ska ändras (24 timmar = 24 * 60 * 60 * 1000)
-
-                // Beräkna tiden kvar till nästa vattning i sekunder
-                long timeUntilNextWateringSeconds = wateringInterval.minus(timeSinceLastWatered).getSeconds();
-
-                return timeUntilNextWateringSeconds;
-            }
-        }
-        return 0; // Returnera 0 om det inte går att beräkna tiden kvar
     }
 }

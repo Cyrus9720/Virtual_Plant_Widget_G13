@@ -84,6 +84,7 @@ public class EastPanel extends JPanel {
         timeUntilDeath.setFont(new Font("Bebas Neue", Font.BOLD, 9));
         updateTimeUntilDeath();
         add(timeUntilDeath, BorderLayout.NORTH);
+        timeUntilDeath.setVisible(false);
 
         progressbarLabel.setIcon(scaledIcon);
         add(progressbarLabel, BorderLayout.SOUTH);
@@ -279,6 +280,7 @@ public class EastPanel extends JPanel {
         long hours = timeUntilDeathValue / 3600;
         long minutes = (timeUntilDeathValue % 3600) / 60;
         long seconds = timeUntilDeathValue % 60;
+        controller.reduceLife();
 
         String formattedTime = String.format("%02d h %02d m %02d s", hours, minutes, seconds);
         timeUntilDeath.setText("<html><div style='text-align: center; font-size: 9px;'>Time until death:<br>" + formattedTime + "</div></html>");
