@@ -10,8 +10,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+/**
+ *
+ * @author Anna Granberg
+ */
 public class GardenPanel extends JPanel {
-    private List<String> plantPaths; // Lista med växtvägar
+    private List<String> plantPaths; // Lista med image paths
     private Font customFont = new Font("Bebas Neue", Font.BOLD, 12); // Anpassat typsnitt
     private Controller controller; // Referens till Controller
 
@@ -24,9 +28,9 @@ public class GardenPanel extends JPanel {
         this.plantPaths = plantPaths;
         this.controller = controller;
 
-        setPreferredSize(new Dimension(175,500));
+        setPreferredSize(new Dimension(175,500)); // sätt storlek
         setBackground(new Color(225, 240, 218)); // Ställ in bakgrundsfärg
-        setLayout(new GridLayout(4,2));
+        setLayout(new GridLayout(4,2)); // sätt layout
 
         generateButtons();
         addAddPlantButton();
@@ -84,11 +88,13 @@ public class GardenPanel extends JPanel {
 
     /**
      * Method to add the "Add Plant" button.
+     *
      */
     private void addAddPlantButton() {
         JButton addPlantButton = new JButton("Add new plant");
         addPlantButton.setBackground(new Color(153, 188, 133));
-        addPlantButton.setPreferredSize(new Dimension(150, 30));
+        //addPlantButton.setPreferredSize(new Dimension(150, 30));
+        addPlantButton.setSize(150,30);
         //addPlantButton.setMaximumSize(new Dimension(75, Integer.MAX_VALUE));
         addPlantButton.setFont(customFont);
         addPlantButton.addActionListener(new ActionListener() {
