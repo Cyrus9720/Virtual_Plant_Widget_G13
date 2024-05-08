@@ -13,7 +13,7 @@ public class SouthPanel extends JPanel {
 
     public SouthPanel(Controller controller, int width, int height) {
         this.controller = controller;
-        setPreferredSize(new Dimension(320,100));
+        setPreferredSize(new Dimension(320,110));
 
         TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant information");
         Font myFont = new Font("Bebas Neue", Font.BOLD, 12);
@@ -29,6 +29,10 @@ public class SouthPanel extends JPanel {
         add(plantInformation);
     }
 
+    /**
+     * A method to update plantInformation label whenever a plant is switched.
+     * @author Anna Granberg
+     */
 
     public void updatePlantInfo() {
         // Update plant information based on the selected plant
@@ -75,10 +79,10 @@ public class SouthPanel extends JPanel {
 
     /**
      * A method to clear the southPanel of text
+     * @author Anna Granberg
      */
 
     public void clearSouthPanel(){
-
         plantInformation.setText("Choose a plant to see plant information");
         revalidate();
         repaint();

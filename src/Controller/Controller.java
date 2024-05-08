@@ -78,8 +78,12 @@ public class Controller {
         Random random = new Random();
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10Random random = new Random();
         String newRoseName = "Rose" + randomNumber;
-        Rose newRose = new Rose(newRoseName, PlantArt.ROSE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
+        ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
+        Rose newRose = new Rose(newRoseName, PlantArt.ROSE, 3, 0, plantImage, 0, null);
         plantList.add(newRose);
+        showNewPlantInGUI(plantImage);
+        view.getSouthPanel().updatePlantInfo();
+        view.getEastPanel().updateAmountOfLife();
 
     }
 
@@ -92,8 +96,12 @@ public class Controller {
         Random random = new Random();
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
         String newSunflowerName = "Sunflower" + randomNumber;
-        Sunflower newSunflower = new Sunflower(newSunflowerName, PlantArt.SUNFLOWER, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
+        ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
+        Sunflower newSunflower = new Sunflower(newSunflowerName, PlantArt.SUNFLOWER, 3, 0, plantImage, 0, null);
         plantList.add(newSunflower);
+        showNewPlantInGUI(plantImage);
+        view.getSouthPanel().updatePlantInfo();
+        view.getEastPanel().updateAmountOfLife();
     }
 
     /**
@@ -105,32 +113,48 @@ public class Controller {
         Random random = new Random();
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
         String newTomatoName = "TomatoPlant" + randomNumber;
-        TomatoPlant newTomatoPlant = new TomatoPlant(newTomatoName, PlantArt.TOMATO_PLANT, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
+        ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
+        TomatoPlant newTomatoPlant = new TomatoPlant(newTomatoName, PlantArt.TOMATO_PLANT, 3, 0, plantImage, 0, null);
         plantList.add(newTomatoPlant);
+        showNewPlantInGUI(plantImage);
+        view.getSouthPanel().updatePlantInfo();
+        view.getEastPanel().updateAmountOfLife();
     }
 
     public void addNewBlackberry(){
         Random random = new Random();
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
         String newBlackberryName = "Blackberry" + randomNumber;
-        Blackberry newBlackberry = new Blackberry(newBlackberryName, PlantArt.BLACKBERRY, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
+        ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
+        Blackberry newBlackberry = new Blackberry(newBlackberryName, PlantArt.BLACKBERRY, 3, 0, plantImage, 0, null);
         plantList.add(newBlackberry);
+        showNewPlantInGUI(plantImage);
+        view.getSouthPanel().updatePlantInfo();
+        view.getEastPanel().updateAmountOfLife();
     }
 
     public void addNewMiniTree(){
         Random random = new Random();
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
         String newMiniTreeName = "Mini Tree" + randomNumber;
-        MiniTree newMiniTree = new MiniTree(newMiniTreeName, PlantArt.MINI_TREE, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
+        ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
+        MiniTree newMiniTree = new MiniTree(newMiniTreeName, PlantArt.MINI_TREE, 3, 0, plantImage, 0, null);
         plantList.add(newMiniTree);
+        showNewPlantInGUI(plantImage);
+        view.getSouthPanel().updatePlantInfo();
+        view.getEastPanel().updateAmountOfLife();
     }
 
     public void addNewCactus(){
         Random random = new Random();
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
-        String newCactusName = "Mini Tree" + randomNumber;
-        Cactus newCactus = new Cactus(newCactusName, PlantArt.CACTUS, 3, 0, new ImageIcon("src/Images/PotArt1.JPG"), 0, null);
+        String newCactusName = "Cactus" + randomNumber;
+        ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
+        Cactus newCactus = new Cactus(newCactusName, PlantArt.CACTUS, 3, 0, plantImage, 0, null);
         plantList.add(newCactus);
+        showNewPlantInGUI(plantImage);
+        view.getSouthPanel().updatePlantInfo();
+        view.getEastPanel().updateAmountOfLife();
     }
 
     /**
@@ -240,12 +264,10 @@ public class Controller {
             if (firstPlant != null) {
                 return firstPlant.getNbrOfLives();
             } else {
-                System.err.println("First plant is null");
-                return 0;
+                return 3;
             }
         } else {
-            System.err.println("Plant list is empty");
-            return 0;
+            return 3;
         }
     }
 
@@ -433,7 +455,10 @@ public class Controller {
                 System.err.println("Det finns ingen växt med namnet \"" + plantName + "\" i listan.");
             }
         }
+    }
 
+    public void showNewPlantInGUI(ImageIcon image){
+        view.getCenterPanel().updatePlantImage(image);
     }
 
 
@@ -451,10 +476,6 @@ public class Controller {
 
     public ArrayList<Plant> getPlantList() {
         return plantList;
-    }
-
-    public boolean isChosenPlant() {
-        return chosenPlant;
     }
 
     public void setChosenPlant(boolean chosenPlant) {
