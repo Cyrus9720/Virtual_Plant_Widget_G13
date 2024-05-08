@@ -1,0 +1,4 @@
+Plant art; BLACKBERRY | Plant name; Blackberry7 | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/PotArt1.JPG | Last time watered; null | Timestamp; 2024-05-08 08:52:03.635
+Plant art; ROSE | Plant name; Rose6 | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/PotArt1.JPG | Last time watered; null | Timestamp; 2024-05-08 08:52:03.635
+Plant art; TOMATO_PLANT | Plant name; TomatoPlant0 | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/PotArt1.JPG | Last time watered; null | Timestamp; 2024-05-08 08:52:03.635
+Plant art; MINI_TREE | Plant name; Mini Tree2 | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/PotArt1.JPG | Last time watered; null | Timestamp; 2024-05-08 08:52:03.635
