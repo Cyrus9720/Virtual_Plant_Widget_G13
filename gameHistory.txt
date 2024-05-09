@@ -1,0 +1,3 @@
+Plant art; ROSE | Plant name; Rose10 | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/PotArt1.JPG | Last time watered; null
+Plant art; MINI_TREE | Plant name; Mini Tree3 | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/PotArt1.JPG | Last time watered; null
+Plant art; BLACKBERRY | Plant name; Blackberry1 | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/PotArt1.JPG | Last time watered; null

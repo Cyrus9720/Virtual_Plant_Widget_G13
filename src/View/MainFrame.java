@@ -72,7 +72,7 @@ public class MainFrame extends JFrame {
         gameHistory.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // todo: implementera kod för att se historik över alla växter
+                showGameHistory();
             }
         });
 
@@ -123,29 +123,16 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
-    /**
-     * Displays a message dialog reminding the user to water the plant.
-     * Uses a custom font and background colors for the dialog.
-     */
-    public void timeToWater(){
-        String message = "It's time to water the plant!\nDon't forget to give it some love and hydration.";
-        Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
-        UIManager.put("OptionPane.messageFont", customFont);
-        UIManager.put("OptionPane.background", new Color(225, 240, 218));
-        UIManager.put("Panel.background", new Color(225, 240, 218));
-        JOptionPane.showMessageDialog(null, message, "Plant Watering Reminder", JOptionPane.INFORMATION_MESSAGE);
+
+    public void showGameHistory(){
+        String[] plantData = GameHistoryReader.readGameHistory();
+        StringBuilder historyBuilder = new StringBuilder();
+        for (String plantDatum : plantData) {
+            historyBuilder.append(plantDatum).append("\n");
+        }
+
+        JOptionPane.showMessageDialog(null, historyBuilder.toString());
     }
-
-    public void welcomeBackMessage(){
-        String message = "Welcome back! It's been " + controller.getTimeSinceLastPlayed() + " since you played"; // todo: insert some time method
-        Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
-        UIManager.put("OptionPane.messageFont", customFont);
-        UIManager.put("OptionPane.background", new Color(225, 240, 218));
-        UIManager.put("Panel.background", new Color(225, 240, 218));
-        JOptionPane.showMessageDialog(null, message, "Welcome back", JOptionPane.INFORMATION_MESSAGE);
-
-    }
-
     /**
      * Displays gameRulesFrame showing the game rules.
      *

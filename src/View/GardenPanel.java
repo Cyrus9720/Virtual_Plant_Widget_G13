@@ -32,9 +32,9 @@ public class GardenPanel extends JPanel {
         setBackground(new Color(225, 240, 218)); // Ställ in bakgrundsfärg
         setLayout(new GridLayout(4,2)); // sätt layout
 
-        addAddPlantButton();
-        generateButtons();
 
+        generateButtons();
+        addAddPlantButton();
 
         Border border = BorderFactory.createLineBorder(Color.BLACK); // Gränsfärg
         TitledBorder titledBorder = BorderFactory.createTitledBorder(border, "Garden", TitledBorder.CENTER, TitledBorder.TOP, customFont, Color.BLACK);

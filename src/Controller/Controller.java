@@ -417,8 +417,12 @@ public class Controller {
     public void setGameToNull() {
         if(!plantList.isEmpty()){
             int confirm = JOptionPane.showConfirmDialog(null, "This action will remove all of your plants. Are you sure you want to do this?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            ArrayList<Plant> deadPlants = new ArrayList<>();
+            deadPlants = getPlantList();
 
             if (confirm == JOptionPane.YES_OPTION) {
+                GameHistoryWriter.historyWriter(deadPlants);
+                System.out.println(deadPlants.toString());
                 plantList.clear();
                 view.getCenterPanel().clearCenterPanel();
                 view.getSouthPanel().clearSouthPanel();
