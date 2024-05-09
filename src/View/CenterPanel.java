@@ -29,7 +29,7 @@ public class CenterPanel extends JPanel {
      * @param controller Referens till Controller för att hämta växtinformation
      */
     public CenterPanel(int width, int height, MainPanel mainPanel, Controller controller) {
-        setPreferredSize(new Dimension(400, 500)); // Ställer in önskad storlek för panelen
+        setPreferredSize(new Dimension(450, 500)); // Ställer in önskad storlek för panelen
         setBackground(new Color(225, 240, 218)); // Ställer bakgrundsfärgen för panelen
 
         this.mainPanel = mainPanel; // Sätter huvudpanelen
