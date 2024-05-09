@@ -1,4 +1,4 @@
-Plant art; CACTUS | Plant name; Cactus10 | Plant level; 3 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/Cactus3.JPG | Last time watered; 2024-05-08 11:04:56.777 | Timestamp; 2024-05-08 11:05:10.093
-Plant art; BLACKBERRY | Plant name; Blackberry8 | Plant level; 1 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/Blackberry1.JPG | Last time watered; 2024-05-08 10:39:20.252 | Timestamp; 2024-05-08 11:05:10.093
-Plant art; ROSE | Plant name; Rose6 | Plant level; 1 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/RoseArt1.JPG | Last time watered; 2024-05-08 10:39:32.900 | Timestamp; 2024-05-08 11:05:10.093
-Plant art; ROSE | Plant name; Rose2 | Plant level; 1 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/RoseArt1.JPG | Last time watered; 2024-05-08 10:40:36.637 | Timestamp; 2024-05-08 11:05:10.093
+Plant art; CACTUS | Plant name; Cactus10 | Plant level; 3 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/Cactus3.JPG | Last time watered; 2024-05-08 11:32:19.106 | Timestamp; 2024-05-09 10:26:27.471
+Plant art; BLACKBERRY | Plant name; Blackberry8 | Plant level; 1 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/Blackberry1.JPG | Last time watered; 2024-05-08 11:43:52.206 | Timestamp; 2024-05-09 10:26:27.471
+Plant art; ROSE | Plant name; Rose6 | Plant level; 1 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/RoseArt1.JPG | Last time watered; 2024-05-08 10:39:32.900 | Timestamp; 2024-05-09 10:26:27.471
+Plant art; ROSE | Plant name; Rose2 | Plant level; 1 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/RoseArt1.JPG | Last time watered; 2024-05-08 10:40:36.637 | Timestamp; 2024-05-09 10:26:27.471

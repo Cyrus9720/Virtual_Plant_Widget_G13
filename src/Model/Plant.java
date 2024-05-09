@@ -55,6 +55,10 @@ public abstract class Plant {
         }
     }
 
+    public void reduceLife() {
+        nbrOfLives--;
+    }
+
     //@TODO: Lägg till javadocs efterhand när metoderna börjar användas.
     public String getPlantName() {
         return name;
