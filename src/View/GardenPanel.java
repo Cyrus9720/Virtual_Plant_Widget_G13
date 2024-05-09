@@ -3,16 +3,21 @@ package View;
 import Controller.Controller;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+/**
+ *
+ * @author Anna Granberg
+ */
 public class GardenPanel extends JPanel {
-    private List<String> plantPaths; // Lista med växtvägar
+    private List<String> plantPaths; // Lista med image paths
     private Font customFont = new Font("Bebas Neue", Font.BOLD, 12); // Anpassat typsnitt
     private Controller controller; // Referens till Controller
-
 
     /**
      * Constructor for GardenPanel.
@@ -23,11 +28,17 @@ public class GardenPanel extends JPanel {
         this.plantPaths = plantPaths;
         this.controller = controller;
 
-        setPreferredSize(new Dimension(150,500));
+        setPreferredSize(new Dimension(175,500)); // sätt storlek
         setBackground(new Color(225, 240, 218)); // Ställ in bakgrundsfärg
-        setLayout(new GridLayout(5,2));
-        generateButtons(); // Generera knappar baserat på tillgängliga växter
-        addAddPlantButton(); // Lägg till knappen "Lägg till växt"
+        setLayout(new GridLayout(4,2)); // sätt layout
+
+
+        generateButtons();
+        addAddPlantButton();
+
+        Border border = BorderFactory.createLineBorder(Color.BLACK); // Gränsfärg
+        TitledBorder titledBorder = BorderFactory.createTitledBorder(border, "Garden", TitledBorder.CENTER, TitledBorder.TOP, customFont, Color.BLACK);
+        setBorder(titledBorder);
     }
 
     /**
@@ -59,10 +70,9 @@ public class GardenPanel extends JPanel {
                 }
             });
 
-            add(plantButton, BorderLayout.SOUTH); // Lägg till knappen
+            add(plantButton); // Lägg till panelen med knapp och etikett
         }
     }
-
     /**
      * Method to update buttons based on new plants.
      *
@@ -79,30 +89,27 @@ public class GardenPanel extends JPanel {
 
     /**
      * Method to add the "Add Plant" button.
+     *
      */
     private void addAddPlantButton() {
         JButton addPlantButton = new JButton("Add new plant");
-        addPlantButton.setSize(new Dimension(25, 25));
+        addPlantButton.setBackground(new Color(153, 188, 133));
+        //addPlantButton.setPreferredSize(new Dimension(150, 30));
+        addPlantButton.setSize(150,30);
+        //addPlantButton.setMaximumSize(new Dimension(75, Integer.MAX_VALUE));
         addPlantButton.setFont(customFont);
         addPlantButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (controller.getPlantList().size() < 8) { // kontroll så att man inte har fler än 6 växter
+                if (controller.getPlantList().size() < 7) { // kontroll så att man inte har fler än 6 växter
                     AddNewPlantFrame addNewPlantFrame = new AddNewPlantFrame(controller);
-                    //GardenView.this.dispose();
                 }else {
                     JOptionPane.showMessageDialog(GardenPanel.this,
-                            "You can only have 8 plants in your garden. Please remove a plant to continue",
-                            "Too many plants :(", JOptionPane.INFORMATION_MESSAGE);
+                            "You can only have 6 plants in your garden. Please remove a plant to continue",
+                            "You have too many plants :(", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
         add(addPlantButton);
-    }
-
-    private ImageIcon scaleImageIcon(ImageIcon imageIcon, int width, int height) {
-        Image image = imageIcon.getImage(); // ImageIcon till Image
-        Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH); // Skalar bilden
-        return new ImageIcon(scaledImage); // Omvandlar bilden tillbaka till ImageIcon
     }
 }

@@ -21,7 +21,7 @@ import java.awt.event.WindowEvent;
  */
 public class MainFrame extends JFrame {
     private Controller controller; // reference to controller
-    private int width = 650; // dimensions for frame size
+    private int width = 675; // dimensions for frame size
     private int height = 700; // dimensions for frame size
     private Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
     private MainPanel mainPanel; // reference to mainPanel
