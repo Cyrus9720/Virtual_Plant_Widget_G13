@@ -55,6 +55,12 @@ public abstract class Plant {
         }
     }
 
+    public void decreaseLife() {
+        if (nbrOfLives > 0) {
+            nbrOfLives--; // Minska livräknaren med ett om den är större än noll
+        }
+    }
+
     //@TODO: Lägg till javadocs efterhand när metoderna börjar användas.
     public String getPlantName() {
         return name;
