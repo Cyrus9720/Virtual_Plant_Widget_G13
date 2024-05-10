@@ -57,7 +57,6 @@ public class Controller {
             updateWaterButtonStatus();
             view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
             view.getCenterPanel().updatePlantName(currentPlant.getPlantName());
-            view.getEastPanel().updateAmountOfLife();
             view.getSouthPanel().updatePlantInfo();
             view.getCenterPanel().getMainPanel().refreshBar();
             view.getCenterPanel().repaint();
@@ -453,6 +452,15 @@ public class Controller {
             // If the plant with the given name was not found
             if (!found) {
                 System.err.println("Det finns ingen växt med namnet \"" + plantName + "\" i listan.");
+            }
+        }
+    }
+    public void checkPlantStatus() {
+        for (Plant plant : plantList) {
+            if (plant.needsWatering()) {
+                if (plant.getNbrOfLives() > 0) {
+                    plant.decreaseLife();
+                }
             }
         }
     }
