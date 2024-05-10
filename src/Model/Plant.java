@@ -3,6 +3,7 @@ package Model;
 import javax.swing.ImageIcon;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.Duration;
 
 public abstract class Plant {
     private String name;
@@ -14,6 +15,10 @@ public abstract class Plant {
     private PlantArt plantArt;
     private LocalDateTime lastWatered;
     private LocalDateTime lastUpdatedTimestamp;
+
+    private boolean isDead = false;
+
+
 
 
     /**
@@ -31,9 +36,13 @@ public abstract class Plant {
         this.timesWatered = timesWatered;
         this.plantPicture = plantPicture;
         this.plantLevel = plantLevel;
-        this.lastWatered = lastWatered;
+        this.lastWatered = (lastWatered != null)? lastWatered: LocalDateTime.now();
         plantinfo = null;
     }
+
+
+
+
 
     /**
      * Method for watering the plant and increasing the plant level
@@ -53,6 +62,37 @@ public abstract class Plant {
                 }
             }
         }
+        //to check if the plant needs watering and decrease its lives if necessary
+        if (needsWatering()){
+            decreaseLife();
+        }
+    }
+    /**
+     * Method for checking if the plant needs watering based on time since last watering
+     * @return boolean True if the plant needs watering, false otherwise
+     * @author Roa Jamhour
+     */
+    public boolean needsWatering() {
+        if (lastWatered == null){
+            return true;
+        }
+        LocalDateTime currentTime = LocalDateTime.now();
+        Duration duration = Duration.between(lastWatered, currentTime);
+        return duration.toMinutes() >= 1; // Assuming the plant needs watering every 1 minute
+    }
+
+    /**
+     * Method for decreasing the number of lives of the plant
+     */
+    public void decreaseLife() {
+        this.nbrOfLives--;
+        if (nbrOfLives <= 0) {
+            System.out.println(name + " has died.");
+        }
+    }
+
+    public boolean isDead() {
+        return nbrOfLives <= 0;
     }
 
     //@TODO: Lägg till javadocs efterhand när metoderna börjar användas.
@@ -71,6 +111,8 @@ public abstract class Plant {
     public void setNbrOfLives(int nbrOfLives) {
         this.nbrOfLives = nbrOfLives;
     }
+
+
 
     /**
      * Method for getting the number of times the plant has been watered
