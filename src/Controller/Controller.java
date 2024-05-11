@@ -424,7 +424,7 @@ public class Controller {
             deadPlants = getPlantList();
 
             if (confirm == JOptionPane.YES_OPTION) {
-                GameHistoryWriter.historyWriter(deadPlants);
+                GameHistoryWriter.GameHistoryWriter(deadPlants);
                 System.out.println(deadPlants.toString());
                 plantList.clear();
                 view.getCenterPanel().clearCenterPanel();

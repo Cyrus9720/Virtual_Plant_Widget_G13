@@ -72,7 +72,8 @@ public class MainFrame extends JFrame {
         gameHistory.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showGameHistory();
+                // showGameHistory();
+                GameHistoryFrame gameHistoryFrame = new GameHistoryFrame();
             }
         });
 
@@ -124,7 +125,7 @@ public class MainFrame extends JFrame {
     }
 
 
-    public void showGameHistory(){
+   /* public void showGameHistory(){
         String[] plantData = GameHistoryReader.readGameHistory();
         StringBuilder historyBuilder = new StringBuilder();
         for (String plantDatum : plantData) {
@@ -132,7 +133,8 @@ public class MainFrame extends JFrame {
         }
 
         JOptionPane.showMessageDialog(null, historyBuilder.toString());
-    }
+    }*/
+
     /**
      * Displays gameRulesFrame showing the game rules.
      *

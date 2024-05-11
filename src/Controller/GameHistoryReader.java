@@ -7,45 +7,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameHistoryReader {
-    private static List<String> plantPicturePaths;
+    private static ArrayList<String> gameHistory = new ArrayList<>();
 
-    public static String[] readGameHistory() {
-        List<String> plantDataList = new ArrayList<>();
-        plantPicturePaths = new ArrayList<>();
+    public static ArrayList<String> getGameHistory() {
+        gameHistory = new ArrayList<>();
 
-        try {
-            FileReader fileReader = new FileReader("gameHistory.txt");
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
+        // Read game history data from a file
+        try (BufferedReader reader = new BufferedReader(new FileReader("gameHistory.txt"))) {
             String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                // Remove "Plant picture" part and add the line to plantDataList
-                line = line.replace("Plant picture;", "");
-                plantDataList.add(line);
-
-                String[] parts = line.split("\\|"); // Split the line by '|'
-                for (String part : parts) {
-                    if (part.trim().startsWith("Plant picture")) {
-                        // Extract the filepath from the part
-                        String[] filepathPart = part.split(";");
-                        if (filepathPart.length > 1) {
-                            String filepath = filepathPart[1].trim(); // Extract the filepath
-                            plantPicturePaths.add(filepath);
-                        }
-                    }
-                }
+            while ((line = reader.readLine()) != null) {
+                gameHistory.add(line);
             }
-
-            bufferedReader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error reading game history: " + e.getMessage());
         }
 
-        // Convert the list to an array
-        return plantDataList.toArray(new String[0]);
+        return gameHistory;
     }
 
-    public static List<String> getPlantPicturePaths() {
-        return plantPicturePaths;
-    }
+
 }
