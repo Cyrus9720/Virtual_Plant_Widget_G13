@@ -9,6 +9,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
+import java.awt.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -415,8 +416,10 @@ public class Controller {
      * @author Anna Granberg
      */
     public void setGameToNull() {
-        if(!plantList.isEmpty()){
+        if(!plantList.isEmpty() || plantList != null){
             int confirm = JOptionPane.showConfirmDialog(null, "This action will remove all of your plants. Are you sure you want to do this?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            javax.swing.UIManager.put("OptionPane.background", new Color(225, 240, 218));
+            javax.swing.UIManager.put("Panel.background", new Color(225, 240, 218));
             ArrayList<Plant> deadPlants = new ArrayList<>();
             deadPlants = getPlantList();
 
@@ -429,37 +432,48 @@ public class Controller {
                 view.getMainPanel().updateButtons(getPlantImagePaths());
                 JOptionPane.showMessageDialog(null, "All existing plants have been removed.", "Information", JOptionPane.INFORMATION_MESSAGE);
             }
-        }else if(plantList.isEmpty()){
+        }else if(plantList.isEmpty() || plantList == null){
             JOptionPane.showMessageDialog(null, "Your garden is empty! Nothing to remove :)", "Information", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }
 
     public void removePlant(String plantName) {
-        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this plant?", "Confirmation", JOptionPane.YES_NO_OPTION);
-        // Loop through the list to find the plant with the given name
-        if(confirm == JOptionPane.YES_OPTION){
-            boolean found = false;
-            for (int i = 0; i < plantList.size(); i++) {
-                currentPlant = plantList.get(i);
-                if (currentPlant.getPlantName().equals(plantName)) {
-                    // Remove the plant from the list
-                    plantList.remove(i);
-                    System.out.println("Växten med namnet \"" + plantName + "\" har tagits bort från listan.");
-                    found = true;
-                    view.getCenterPanel().clearCenterPanel();
-                    view.getSouthPanel().clearSouthPanel();
-                    view.getMainPanel().updateButtons(getPlantImagePaths());
-                    break; // Exit the loop once the plant is found and removed
+        if (plantList != null) {
+            // Anpassa färgen på dialogrutan
+            javax.swing.UIManager.put("OptionPane.background", new Color(225, 240, 218));
+            javax.swing.UIManager.put("Panel.background", new Color(225, 240, 218));
+
+            // Visa bekräftelsedialogrutan
+            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this plant?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+            // Loop through the list to find the plant with the given name
+            if (confirm == JOptionPane.YES_OPTION) {
+                boolean found = false;
+                for (int i = 0; i < plantList.size(); i++) {
+                    currentPlant = plantList.get(i);
+                    if (currentPlant.getPlantName().equals(plantName)) {
+                        // Remove the plant from the list
+                        plantList.remove(i);
+                        System.out.println("Växten med namnet \"" + plantName + "\" har tagits bort från listan.");
+                        found = true;
+                        view.getCenterPanel().clearCenterPanel();
+                        view.getSouthPanel().clearSouthPanel();
+                        view.getMainPanel().updateButtons(getPlantImagePaths());
+                        break; // Exit the loop once the plant is found and removed
+                    }
+                }
+
+                // If the plant with the given name was not found
+                if (!found) {
+                    System.err.println("Det finns ingen växt med namnet \"" + plantName + "\" i listan.");
                 }
             }
-
-            // If the plant with the given name was not found
-            if (!found) {
-                System.err.println("Det finns ingen växt med namnet \"" + plantName + "\" i listan.");
-            }
+        } else {
+            JOptionPane.showMessageDialog(null, "You have no plants to remove", ":(", JOptionPane.INFORMATION_MESSAGE);
         }
     }
+
 
     public void showNewPlantInGUI(ImageIcon image, String name){
         view.getCenterPanel().updatePlantImage(image);
