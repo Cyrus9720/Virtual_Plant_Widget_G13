@@ -36,27 +36,26 @@ public class GameHistoryFrame extends JFrame {
         gameHistory = getGameHistory(); // Populate game history
 
         for (String entry : gameHistory) {
-            // Split each game history entry based on the delimiter "|"
             String[] parts = entry.split("\\|");
 
-            // Create a panel for each entry
-            JPanel entryPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
+            // panel
+            JPanel entryPanel = new JPanel();
+            entryPanel.setLayout(new BoxLayout(entryPanel, BoxLayout.Y_AXIS));
             entryPanel.setBackground(new Color(225, 240, 218));
 
-            // Load and display the image
-            String imagePath = parts[3].trim().split(";")[1].trim(); // Assuming image path is the sixth part of the entry
+            // gör bildväg till bild
+            String imagePath = parts[3].trim().split(";")[1].trim();
             try {
                 ImageIcon originalIcon = new ImageIcon(ImageIO.read(new File(imagePath)));
-                ImageIcon scaledIcon = scaleImageIcon(originalIcon, 50, 75); // Scale to desired width and height
+                ImageIcon scaledIcon = scaleImageIcon(originalIcon, 50, 75); // skala bild
                 JLabel imageLabel = new JLabel(scaledIcon);
                 entryPanel.add(imageLabel);
             } catch (IOException e) {
                 System.err.println("Error loading image: " + e.getMessage());
             }
 
-            // Add other information
             for (int i = 0; i < parts.length-1; i++) {
-                JLabel label = new JLabel(parts[i].trim()); // Assuming each part contains "key; value"
+                JLabel label = new JLabel(parts[i].trim());
                 label.setFont(customFont);
                 label.setBackground(new Color(225, 240, 218));
                 entryPanel.add(label);
