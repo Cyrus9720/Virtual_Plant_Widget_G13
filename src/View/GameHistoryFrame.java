@@ -11,9 +11,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents a JFrame that displays the game history including information about old plants.
+ */
 public class GameHistoryFrame extends JFrame {
-
-    private static final int PANEL_WIDTH = 700;
     private static final int IMAGE_WIDTH = 75;
     private static final int IMAGE_HEIGHT = 100;
     private static final int BORDER_PADDING = 20;
@@ -21,6 +22,10 @@ public class GameHistoryFrame extends JFrame {
     private Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
     private JPanel panel;
 
+    /**
+     * Constructs a new GameHistoryFrame.
+     * @author Anna Granberg
+     */
     public GameHistoryFrame() {
         setTitle("Game History");
         setPreferredSize(new Dimension(200,600));
@@ -81,10 +86,25 @@ public class GameHistoryFrame extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Retrieves the game history data.
+     *
+     * @return an ArrayList containing the game history data
+     * @author Anna Granberg
+     */
     public static ArrayList<String> getGameHistory() {
         return GameHistoryReader.getGameHistory();
     }
 
+    /**
+     * Scales the given ImageIcon to the specified width and height.
+     *
+     * @param imageIcon the ImageIcon to scale
+     * @param width     the desired width of the scaled image
+     * @param height    the desired height of the scaled image
+     * @return a new ImageIcon containing the scaled image
+     * @author Cyrus
+     */
     private ImageIcon scaleImageIcon(ImageIcon imageIcon, int width, int height) {
         Image image = imageIcon.getImage();
         Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
