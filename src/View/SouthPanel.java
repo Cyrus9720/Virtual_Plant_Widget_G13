@@ -13,7 +13,7 @@ public class SouthPanel extends JPanel {
 
     public SouthPanel(Controller controller, int width, int height) {
         this.controller = controller;
-        setPreferredSize(new Dimension(320,110));
+        setPreferredSize(new Dimension(320,130));
 
         TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant information");
         Font myFont = new Font("Bebas Neue", Font.BOLD, 12);

@@ -4,3 +4,4 @@ Plant name: Sunflower4 | Plant art: SUNFLOWER | Plant level: 2 | Plant Picture: 
 Plant name: Blackberry1 | Plant art: BLACKBERRY | Plant level: 2 | Plant Picture: src/Images/Blackberry2.JPG
 Plant name: Blackberry0 | Plant art: BLACKBERRY | Plant level: 1 | Plant Picture: src/Images/Blackberry1.JPG
 Plant name: Mini Tree2 | Plant art: MINI_TREE | Plant level: 1 | Plant Picture: src/Images/MiniTree1.JPG
+Plant name: TomatoPlant4 | Plant art: TOMATO_PLANT | Plant level: 1 | Plant Picture: src/Images/Tomatoe1.JPG
