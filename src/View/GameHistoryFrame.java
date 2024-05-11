@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public class GameHistoryFrame extends JFrame {
 
     private static final int PANEL_WIDTH = 700;
-    private static final int IMAGE_WIDTH = 25;
-    private static final int IMAGE_HEIGHT = 50;
+    private static final int IMAGE_WIDTH = 75;
+    private static final int IMAGE_HEIGHT = 100;
     private static final int BORDER_PADDING = 20;
 
     private Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
