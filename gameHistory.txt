@@ -1,3 +1,6 @@
-Plant name; Rose5 | Plant art; ROSE | Times watered; 0 | Plant Picture; src/Images/RoseArt1.JPG
-Plant name; Cactus4 | Plant art; CACTUS | Times watered; 0 | Plant Picture; src/Images/Cactus1.JPG
-Plant name; Cactus6 | Plant art; CACTUS | Times watered; 0 | Plant Picture; src/Images/Cactus1.JPG
+Plant name: Cactus7 | Plant art: CACTUS | Plant level: 1 | Plant Picture: src/Images/Cactus1.JPG
+Plant name: Mini Tree9 | Plant art: MINI_TREE | Plant level: 1 | Plant Picture: src/Images/MiniTree1.JPG
+Plant name: Sunflower4 | Plant art: SUNFLOWER | Plant level: 2 | Plant Picture: src/Images/Sunflower2.JPG
+Plant name: Blackberry1 | Plant art: BLACKBERRY | Plant level: 2 | Plant Picture: src/Images/Blackberry2.JPG
+Plant name: Blackberry0 | Plant art: BLACKBERRY | Plant level: 1 | Plant Picture: src/Images/Blackberry1.JPG
+Plant name: Mini Tree2 | Plant art: MINI_TREE | Plant level: 1 | Plant Picture: src/Images/MiniTree1.JPG

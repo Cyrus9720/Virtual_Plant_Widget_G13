@@ -3,6 +3,7 @@ package View;
 import Controller.Controller;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
@@ -35,7 +36,7 @@ public class CenterPanel extends JPanel {
         this.mainPanel = mainPanel; // Sätter huvudpanelen
 
         plantPicture = new ImageIcon("src/Images/deafult.png"); // Laddar standardbilden för växten
-
+        
         String plantName = controller.getPlantName(); // Hämtar växtnamnet från controller
         titledBorder = BorderFactory.createTitledBorder("You must choose a plant"); // Skapar en border runt panelen med ett standardmeddelande
         Font myFont = new Font("Bebas Neue", Font.BOLD, 12); // typsnitt för titeltexten

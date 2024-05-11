@@ -12,17 +12,17 @@ import java.util.ArrayList;
 public class GameHistoryWriter {
     public static void GameHistoryWriter(ArrayList<Plant> deadPlants) {
         // Use try-with-resources to automatically close BufferedWriter
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("gameHistory.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("gameHistory.txt",true))) {
             // Loop through each dead plant in the list
             for (Plant plant : deadPlants) {
                 // Extract the plant name, plant art, and times watered
                 String name = plant.getPlantName();
                 PlantArt art = plant.getPlantArt();
-                int timesWatered = plant.getTimesWatered();
+                int plantLevel = plant.getPlantLevel();
                 ImageIcon imagePath = plant.getPlantPicture();
 
                 // Create a string representation with the required data
-                String data = "Plant name: " + name + " | Plant art: " + art + " | Times watered: " + timesWatered + " | Plant Picture: " + imagePath;
+                String data = "Plant name: " + name + " | Plant art: " + art + " | Plant level: " + plantLevel + " | Plant Picture: " + imagePath;
 
                 // Write the string representation to the file and add a new line
                 writer.write(data);

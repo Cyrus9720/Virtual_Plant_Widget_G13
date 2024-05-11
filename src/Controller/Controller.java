@@ -450,6 +450,7 @@ public class Controller {
             // Loop through the list to find the plant with the given name
             if (confirm == JOptionPane.YES_OPTION) {
                 boolean found = false;
+                ArrayList<Plant> deadPlants = new ArrayList<>();
                 for (int i = 0; i < plantList.size(); i++) {
                     currentPlant = plantList.get(i);
                     if (currentPlant.getPlantName().equals(plantName)) {
@@ -460,6 +461,8 @@ public class Controller {
                         view.getCenterPanel().clearCenterPanel();
                         view.getSouthPanel().clearSouthPanel();
                         view.getMainPanel().updateButtons(getPlantImagePaths());
+                        deadPlants.add(currentPlant);
+                        GameHistoryWriter.GameHistoryWriter(deadPlants);
                         break; // Exit the loop once the plant is found and removed
                     }
                 }
