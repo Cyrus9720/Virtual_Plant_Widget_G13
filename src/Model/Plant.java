@@ -60,6 +60,7 @@ public abstract class Plant {
     public void deathTimer() {
         if (plantLevel == 1) {
             System.out.println("Timer started");
+            JOptionPane.showMessageDialog(null, "Congrats on your new plant! \nBut be mindful, it will need water int coming days!");
             Timer timer = new Timer(1000 * 20, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     decreaseLife();
