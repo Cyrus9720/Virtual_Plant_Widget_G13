@@ -460,9 +460,26 @@ public class Controller {
             if (plant.needsWatering()) {
                 if (plant.getNbrOfLives() > 0) {
                     plant.decreaseLife();
+                    if(plant.isDead()){
+                        ImageIcon deadPlantImage = getDeadPlantImage(plant.getPlantArt(), plant.getPlantLevel());
+                        view.getCenterPanel().updatePlantImage(deadPlantImage); //uppdatera GUI med döda växter
+                    }
+                }
+            }
+            else {
+                Duration timeSinceLastWatered = Duration.between(plant.getLastWatered(), LocalDateTime.now());
+                Duration wateringInterval = Duration.ofMinutes(1); // Till exempel: 1 minut
+                if (timeSinceLastWatered.compareTo(wateringInterval) >= 0) {
+                    plant.setDead(true);
+                    // Uppdatera GUI med döda växter
+                    ImageIcon deadPlantImage = getDeadPlantImage(plant.getPlantArt(), plant.getPlantLevel());
+                    view.getCenterPanel().updatePlantImage(deadPlantImage);
                 }
             }
         }
+
+
+
     }
 
     public void showNewPlantInGUI(ImageIcon image, String name){
@@ -490,4 +507,58 @@ public class Controller {
     public void setChosenPlant(boolean chosenPlant) {
         this.chosenPlant = chosenPlant;
     }
+    private ImageIcon getDeadPlantImage(PlantArt plantArt, int deadPlantLevel){
+            ImageIcon deadPlantImage = null;
+            String basePath = "src/Image/";
+
+            String fileName = "";
+            switch (plantArt) {
+                case BLACKBERRY:
+                    fileName = "BlackberryDead" + deadPlantLevel + ".JPG";
+
+                    deadPlantImage = new ImageIcon("src/Images/BlackberryDead.JPG");
+                    break;
+                case CACTUS:
+                    deadPlantImage = new ImageIcon("src/Images/CactusDead.JPG");
+                    break;
+                case ROSE:
+                    deadPlantImage = new ImageIcon("src/Images/RoseDead.JPG");
+                    break;
+                case TOMATO_PLANT:
+                    deadPlantImage = new ImageIcon("src/Images/TomatoPlantDead.JPG");
+                    break;
+                case SUNFLOWER:
+                    deadPlantImage = new ImageIcon("src/Images/SunflowerDead.JPG");
+                    break;
+                case MINI_TREE:
+                    deadPlantImage = new ImageIcon("src/Images/MiniTreeDead.JPG");
+                    break;
+                default:
+                    // Handle any other cases or provide a default dead plant image
+                    break;
+            }
+            if (!fileName.isEmpty()) {
+                deadPlantImage = new ImageIcon(basePath + fileName);
+            }
+            return deadPlantImage;
+        }
+
+
+
+
+    /**
+     * Uppdaterar växtens bild till en död växtbild.
+     *
+     * @param plant Växten som ska uppdateras.
+     * @param deadPlantImage Bilden som representerar den döda växten.
+     * @author Roa Jamhour
+     */
+    public void updatePlantToDeadImage(Plant plant, ImageIcon deadPlantImage) {
+        if (plant != null) {
+            plant.setPlantPicture(deadPlantImage);
+        } else {
+            System.err.println("Cannot update plant image to dead image. Plant object is null.");
+        }
+    }
+
 }
