@@ -79,39 +79,6 @@ public abstract class Plant {
     }
 
 
-    public void deathTimer() {
-        if (plantLevel == 1) {
-            System.out.println("Timer started");
-            JOptionPane.showMessageDialog(null, "Congrats on your new plant! \nBut be mindful, it will need water in the coming days!");
-
-            // Create the timer
-            timer = new Timer(1000 * 5, new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    decreaseLife();
-                    System.out.println("Plant life " + nbrOfLives);
-                }
-            });
-            timer.start();
-        }
-    }
-
-    // Method to pause the timer for 2 minutes
-    public void pauseDeathTimer() {
-        if (timer != null && timer.isRunning()) {
-            timer.stop(); // Pause the timer
-            // Schedule a task to resume the timer after 2 minutes
-            new java.util.Timer().schedule(
-                    new java.util.TimerTask() {
-                        @Override
-                        public void run() {
-                            timer.start(); // Resume the timer
-                        }
-                    },
-                    2 * 5 * 1000 // 2 minutes in milliseconds
-            );
-        }
-    }
-
     public void decreaseLife() {
         if (nbrOfLives > 0) {
             nbrOfLives--; // Minska livräknaren med ett om den är större än noll

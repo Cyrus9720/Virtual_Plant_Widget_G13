@@ -27,7 +27,6 @@ public class Sunflower extends Plant{
                 setPlantPicture(new ImageIcon("src/Images/PotArt1.JPG"));
                 break;
             case 1:
-                deathTimer();
                 setPlantPicture(new ImageIcon("src/Images/Sunflower1.JPG"));
                 break;
             case 2:

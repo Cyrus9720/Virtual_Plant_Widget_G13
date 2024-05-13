@@ -27,7 +27,6 @@ public class TomatoPlant extends Plant{
                 setPlantPicture(new ImageIcon("src/Images/PotArt1.JPG"));
                 break;
             case 1:
-                deathTimer();
                 setPlantPicture(new ImageIcon("src/Images/Tomatoe1.JPG"));
                 break;
             case 2:

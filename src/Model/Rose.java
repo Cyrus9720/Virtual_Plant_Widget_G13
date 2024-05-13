@@ -1,5 +1,7 @@
 package Model;
 
+import Controller.Controller;
+
 import javax.swing.ImageIcon;
 import java.time.LocalDateTime;
 
@@ -30,7 +32,6 @@ public class Rose extends Plant {
                 setPlantPicture(new ImageIcon("src/Images/PotArt1.JPG"));
                 break;
             case 1:
-                deathTimer();
                 setPlantPicture(new ImageIcon("src/Images/RoseArt1.JPG"));
                 break;
             case 2:

@@ -7,6 +7,8 @@ import View.MainFrame;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class Controller {
     private int currentPlantIndex;
     private Plant currentPlant;
     private boolean chosenPlant = false;
+    private Timer timer;
 
     /**
      * Constructor for the controller class.
@@ -159,9 +162,49 @@ public class Controller {
                 view.getCenterPanel().updatePlantImage(updatedImage);
                 currentPlant.setLastWatered(LocalDateTime.now());
                 view.getMainPanel().updateButtons(getPlantImagePaths());
-                currentPlant.pauseDeathTimer();
+                deathTimer();
+                pauseDeathTimer();
                 updateWaterButtonStatus();
                 break;
+        }
+    }
+
+    public void deathTimer() {
+        if (currentPlant.getPlantLevel() == 1) {
+            System.out.println("Timer started");
+            JOptionPane.showMessageDialog(null, "Congrats on your new plant! \nBut be mindful, it will need water in the coming days!");
+            // Create the timer
+            timer = new Timer(1000 * 5, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    currentPlant.decreaseLife();
+                    checkLife();
+                    System.out.println("Plant life " + currentPlant.getNbrOfLives());
+                }
+            });
+            timer.start();
+        }
+    }
+
+    // Method to pause the timer for 2 minutes
+    public void pauseDeathTimer() {
+        if (timer != null && timer.isRunning()) {
+            timer.stop(); // Pause the timer
+            // Schedule a task to resume the timer after 2 minutes
+            new java.util.Timer().schedule(
+                    new java.util.TimerTask() {
+                        @Override
+                        public void run() {
+                            timer.start(); // Resume the timer
+                        }
+                    },
+                    2 * 5 * 1000 // 2 minutes in milliseconds
+            );
+        }
+    }
+
+    public void checkLife(){
+        if(currentPlant.getNbrOfLives() == 0){
+            view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
         }
     }
 
