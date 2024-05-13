@@ -87,7 +87,7 @@ public class GameHistoryFrame extends JFrame {
     }
 
     /**
-     * Retrieves the game history data.
+     * Retrieves the game history data from GameHistoryReader class.
      *
      * @return an ArrayList containing the game history data
      * @author Anna Granberg
