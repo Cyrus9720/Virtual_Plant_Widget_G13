@@ -5,3 +5,6 @@ Plant name: Blackberry1 | Plant art: BLACKBERRY | Plant level: 2 | Plant Picture
 Plant name: Blackberry0 | Plant art: BLACKBERRY | Plant level: 1 | Plant Picture: src/Images/Blackberry1.JPG
 Plant name: Mini Tree2 | Plant art: MINI_TREE | Plant level: 1 | Plant Picture: src/Images/MiniTree1.JPG
 Plant name: TomatoPlant4 | Plant art: TOMATO_PLANT | Plant level: 1 | Plant Picture: src/Images/Tomatoe1.JPG
+Plant name: Rose8 | Plant art: ROSE | Plant level: 1 | Plant Picture: src/Images/RoseArt1.JPG
+Plant name: Rose9 | Plant art: ROSE | Plant level: 1 | Plant Picture: src/Images/RoseArt1.JPG
+Plant name: Rose2 | Plant art: ROSE | Plant level: 1 | Plant Picture: src/Images/RoseDead1.JPG

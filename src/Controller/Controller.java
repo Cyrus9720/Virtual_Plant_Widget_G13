@@ -4,16 +4,12 @@ import Model.*;
 import View.ButtonType;
 import View.GameRuleFrame;
 import View.MainFrame;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -24,7 +20,6 @@ import java.util.Random;
 public class Controller {
     private MainFrame view;
     private ArrayList<Plant> plantList = new ArrayList<>();
-    private Clip wateringSoundClip;
     private int currentPlantIndex;
     private Plant currentPlant;
     private boolean chosenPlant = false;
@@ -164,17 +159,7 @@ public class Controller {
                 view.getCenterPanel().updatePlantImage(updatedImage);
                 currentPlant.setLastWatered(LocalDateTime.now());
                 view.getMainPanel().updateButtons(getPlantImagePaths());
-                try {
-                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/sounds/watering.wav"));
-                    wateringSoundClip = AudioSystem.getClip();
-                    wateringSoundClip.open(audioInputStream);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-                if (wateringSoundClip != null) {
-                    wateringSoundClip.setFramePosition(0);
-                    wateringSoundClip.start();
-                }
+                currentPlant.pauseDeathTimer();
                 updateWaterButtonStatus();
                 break;
         }

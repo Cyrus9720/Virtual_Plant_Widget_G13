@@ -1,10 +1,13 @@
 package Model;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.sound.sampled.Clip;
 
 public abstract class Plant {
     private String name;
@@ -15,7 +18,10 @@ public abstract class Plant {
     private String plantinfo;
     private PlantArt plantArt;
     private LocalDateTime lastWatered;
+    private Timer timer;
     private LocalDateTime lastUpdatedTimestamp;
+    private Clip wateringSoundClip;
+
 
 
     /**
@@ -44,30 +50,64 @@ public abstract class Plant {
      * @author Cyrus Shaerpour
      */
     public void waterPlant() {
-        setTimesWatered(getTimesWatered() + 1);
-        if (plantLevel < 3) {
-            if (getTimesWatered() == plantLevel + 1) {
-                setPlantLevel(getPlantLevel() + 1);
-                setTimesWatered(0);
-                //System.out.println("Plant level " + plantLevel);
-                if (plantLevel == 3) {
-                    System.out.println("Plant is fully grown");
+        if (nbrOfLives >0) {
+            setTimesWatered(getTimesWatered() + 1);
+            if (plantLevel < 3) {
+                if (getTimesWatered() == plantLevel + 1) {
+                    setPlantLevel(getPlantLevel() + 1);
+                    setTimesWatered(0);
+                    //System.out.println("Plant level " + plantLevel);
+                    if (plantLevel == 3) {
+                        System.out.println("Plant is fully grown");
+                    }
+                }try {
+                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/sounds/watering.wav"));
+                    wateringSoundClip = AudioSystem.getClip();
+                    wateringSoundClip.open(audioInputStream);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                if (wateringSoundClip != null) {
+                    wateringSoundClip.setFramePosition(0);
+                    wateringSoundClip.start();
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Your plant is dead! \nWatering won't bring it back ):");
         }
     }
+
 
     public void deathTimer() {
         if (plantLevel == 1) {
             System.out.println("Timer started");
-            JOptionPane.showMessageDialog(null, "Congrats on your new plant! \nBut be mindful, it will need water int coming days!");
-            Timer timer = new Timer(1000 * 20, new ActionListener() {
+            JOptionPane.showMessageDialog(null, "Congrats on your new plant! \nBut be mindful, it will need water in the coming days!");
+
+            // Create the timer
+            timer = new Timer(1000 * 5, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     decreaseLife();
                     System.out.println("Plant life " + nbrOfLives);
                 }
             });
             timer.start();
+        }
+    }
+
+    // Method to pause the timer for 2 minutes
+    public void pauseDeathTimer() {
+        if (timer != null && timer.isRunning()) {
+            timer.stop(); // Pause the timer
+            // Schedule a task to resume the timer after 2 minutes
+            new java.util.Timer().schedule(
+                    new java.util.TimerTask() {
+                        @Override
+                        public void run() {
+                            timer.start(); // Resume the timer
+                        }
+                    },
+                    2 * 5 * 1000 // 2 minutes in milliseconds
+            );
         }
     }
 
