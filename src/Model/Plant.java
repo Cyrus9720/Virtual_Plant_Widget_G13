@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import javax.sound.sampled.Clip;
 
 public abstract class Plant {
@@ -61,7 +62,7 @@ public abstract class Plant {
                         System.out.println("Plant is fully grown");
                     }
                 }try {
-                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/sounds/watering.wav"));
+                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResourceAsStream("/sounds/watering.wav")));
                     wateringSoundClip = AudioSystem.getClip();
                     wateringSoundClip.open(audioInputStream);
                 } catch (Exception ex) {
@@ -110,7 +111,6 @@ public abstract class Plant {
             );
         }
     }
-
 
     public void decreaseLife() {
         if (nbrOfLives > 0) {
@@ -240,6 +240,4 @@ public abstract class Plant {
         }
         return String.format("Plant art; %s | Plant name; %s | Plant level; %d | Times watered; %d | Number of lives; %d | Plant picture; %s | Last time watered; %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture, formattedLastWatered);
     }
-
-
 }
