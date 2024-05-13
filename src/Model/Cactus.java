@@ -44,4 +44,10 @@ public class Cactus extends Plant{
                 break;
         }
     }
+
+
+    /**
+     * Markera växten som död och uppdatera dess bild.
+     */
+
 }
