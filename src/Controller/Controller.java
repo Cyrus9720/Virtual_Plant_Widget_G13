@@ -75,7 +75,7 @@ public class Controller {
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10Random random = new Random();
         String newRoseName = "Rose" + randomNumber;
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        Rose newRose = new Rose(newRoseName, PlantArt.ROSE, 3, 0, plantImage, 0, null);
+        Rose newRose = new Rose(newRoseName, PlantArt.ROSE, 3, 0, plantImage, 0, null, this);
         plantList.add(newRose);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
@@ -90,7 +90,7 @@ public class Controller {
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
         String newSunflowerName = "Sunflower" + randomNumber;
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        Sunflower newSunflower = new Sunflower(newSunflowerName, PlantArt.SUNFLOWER, 3, 0, plantImage, 0, null);
+        Sunflower newSunflower = new Sunflower(newSunflowerName, PlantArt.SUNFLOWER, 3, 0, plantImage, 0, null, this);
         plantList.add(newSunflower);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
@@ -105,7 +105,7 @@ public class Controller {
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
         String newTomatoName = "TomatoPlant" + randomNumber;
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        TomatoPlant newTomatoPlant = new TomatoPlant(newTomatoName, PlantArt.TOMATO_PLANT, 3, 0, plantImage, 0, null);
+        TomatoPlant newTomatoPlant = new TomatoPlant(newTomatoName, PlantArt.TOMATO_PLANT, 3, 0, plantImage, 0, null, this);
         plantList.add(newTomatoPlant);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
@@ -115,7 +115,7 @@ public class Controller {
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
         String newBlackberryName = "Blackberry" + randomNumber;
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        Blackberry newBlackberry = new Blackberry(newBlackberryName, PlantArt.BLACKBERRY, 3, 0, plantImage, 0, null);
+        Blackberry newBlackberry = new Blackberry(newBlackberryName, PlantArt.BLACKBERRY, 3, 0, plantImage, 0, null, this);
         plantList.add(newBlackberry);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
@@ -125,7 +125,7 @@ public class Controller {
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
         String newMiniTreeName = "Mini Tree" + randomNumber;
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        MiniTree newMiniTree = new MiniTree(newMiniTreeName, PlantArt.MINI_TREE, 3, 0, plantImage, 0, null);
+        MiniTree newMiniTree = new MiniTree(newMiniTreeName, PlantArt.MINI_TREE, 3, 0, plantImage, 0, null, this);
         plantList.add(newMiniTree);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
@@ -135,7 +135,7 @@ public class Controller {
         int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
         String newCactusName = "Cactus" + randomNumber;
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        Cactus newCactus = new Cactus(newCactusName, PlantArt.CACTUS, 3, 0, plantImage, 0, null);
+        Cactus newCactus = new Cactus(newCactusName, PlantArt.CACTUS, 3, 0, plantImage, 0, null, this);
         plantList.add(newCactus);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
@@ -162,6 +162,12 @@ public class Controller {
                 currentPlant.pauseDeathTimer();
                 updateWaterButtonStatus();
                 break;
+        }
+    }
+
+    public  void checkLife(){
+        if (currentPlant.getNbrOfLives() == 0) {
+            view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
         }
     }
 
@@ -224,6 +230,7 @@ public class Controller {
         }
         return 0; // Returnera 0 om det inte går att beräkna tiden kvar
     }
+
 
     public LocalDateTime wateringPeriod(){
         if(currentPlantIndex >= 0 && currentPlantIndex < plantList.size()){

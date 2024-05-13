@@ -16,8 +16,8 @@ public class MiniTree extends Plant{
      * @param lastWatered
      * @author Cyrus Shaerpour
      */
-    public MiniTree(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
-        super(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+    public MiniTree(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered, Controller.Controller controller) {
+        super(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, controller);
     }
 
     @Override

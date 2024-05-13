@@ -16,8 +16,8 @@ public class Cactus extends Plant{
      * @param lastWatered  When plant was watered last time
      * @author Cyrus Shaerpour
      */
-    public Cactus(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
-        super(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+    public Cactus(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered, Controller.Controller controller) {
+        super(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, controller);
     }
 
     @Override

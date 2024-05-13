@@ -62,22 +62,22 @@ public class LoadGame {
                 // Skapa "nya" plantor beroende på plantArt
                 switch (plantArt) {
                     case ROSE:
-                        plant = new Rose(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        plant = new Rose(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, controller);
                         break;
                     case SUNFLOWER:
-                        plant = new Sunflower(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        plant = new Sunflower(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, controller);
                         break;
                     case TOMATO_PLANT:
-                        plant = new TomatoPlant(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        plant = new TomatoPlant(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, controller);
                         break;
                     case BLACKBERRY:
-                        plant = new Blackberry(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        plant = new Blackberry(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, controller);
                         break;
                     case CACTUS:
-                        plant = new Cactus(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        plant = new Cactus(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, controller);
                         break;
                     case MINI_TREE:
-                        plant = new MiniTree(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        plant = new MiniTree(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, controller);
                         break;
                     default:
                         System.err.println("Unknown plant type: " + plantType);

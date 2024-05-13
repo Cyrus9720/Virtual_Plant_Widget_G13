@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 
 public class TomatoPlant extends Plant{
 
-    public TomatoPlant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered ) {
-        super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered);
+    public TomatoPlant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered, Controller.Controller controller) {
+        super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered, controller);
     }
 
     @Override
@@ -44,13 +44,13 @@ public class TomatoPlant extends Plant{
 
     private void updateDeathImage() {
         if (getNbrOfLives() == 0 && getPlantLevel() == 1) {
-            setPlantPicture(new ImageIcon("src/Images/TomatoeDead1.JPG"));
+            setPlantPicture(new ImageIcon("src/Images/TomatoDead1.JPG"));
         }
         else if (getNbrOfLives() == 0 && getPlantLevel() == 2) {
-            setPlantPicture(new ImageIcon("src/Images/TomatoeDead2.JPG"));
+            setPlantPicture(new ImageIcon("src/Images/TomatoDead2.JPG"));
         }
         else if (getNbrOfLives() == 0 && getPlantLevel() == 3) {
-            setPlantPicture(new ImageIcon("src/Images/TomatoeDead3.JPG"));
+            setPlantPicture(new ImageIcon("src/Images/TomatoDead3.JPG"));
         }
     }
 }

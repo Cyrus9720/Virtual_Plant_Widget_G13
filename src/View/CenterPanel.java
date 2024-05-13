@@ -3,7 +3,6 @@ package View;
 import Controller.Controller;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
@@ -100,6 +99,12 @@ public class CenterPanel extends JPanel {
         plantPicture = null;
         plantLabel.setIcon(null);
         titledBorder.setTitle(name);
+        revalidate();
+        repaint();
+    }
+
+    public void updatePlantPicture() {
+        this.plantPicture = plantPicture;
         revalidate();
         repaint();
     }

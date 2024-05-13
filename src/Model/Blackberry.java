@@ -16,8 +16,8 @@ public class Blackberry extends Plant{
      * @param lastWatered
      * @author Cyrus Shaerpour
      */
-    public Blackberry(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
-        super(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+    public Blackberry(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered, Controller.Controller controller) {
+        super(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, controller);
     }
 
     @Override

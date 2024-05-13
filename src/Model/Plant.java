@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import javax.sound.sampled.Clip;
+import Controller.Controller;
 
 public abstract class Plant {
     private String name;
@@ -20,6 +21,7 @@ public abstract class Plant {
     private PlantArt plantArt;
     private LocalDateTime lastWatered;
     private Timer timer;
+    private Controller controller;
     private LocalDateTime lastUpdatedTimestamp;
     private Clip wateringSoundClip;
 
@@ -33,7 +35,7 @@ public abstract class Plant {
      * @param plantLevel Level of the plant
      * @author Cyrus Shaerpour
      */
-    public Plant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
+    public Plant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered, Controller controller) {
         this.name = name;
         this.plantArt = plantArt;
         this.nbrOfLives = nbrOfLives;
@@ -41,6 +43,7 @@ public abstract class Plant {
         this.plantPicture = plantPicture;
         this.plantLevel = plantLevel;
         this.lastWatered = lastWatered;
+        this.controller = controller;
         plantinfo = null;
     }
 
@@ -85,9 +88,10 @@ public abstract class Plant {
             JOptionPane.showMessageDialog(null, "Congrats on your new plant! \nBut be mindful, it will need water in the coming days!");
 
             // Create the timer
-            timer = new Timer(1000 * 5, new ActionListener() {
+            timer = new Timer(1000 * 1, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     decreaseLife();
+                    controller.checkLife();
                     System.out.println("Plant life " + nbrOfLives);
                 }
             });
@@ -107,7 +111,7 @@ public abstract class Plant {
                             timer.start(); // Resume the timer
                         }
                     },
-                    2 * 5 * 1000 // 2 minutes in milliseconds
+                    2 * 1 * 1000 // 2 minutes in milliseconds
             );
         }
     }
