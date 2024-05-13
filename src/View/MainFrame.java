@@ -125,16 +125,6 @@ public class MainFrame extends JFrame {
     }
 
 
-   /* public void showGameHistory(){
-        String[] plantData = GameHistoryReader.readGameHistory();
-        StringBuilder historyBuilder = new StringBuilder();
-        for (String plantDatum : plantData) {
-            historyBuilder.append(plantDatum).append("\n");
-        }
-
-        JOptionPane.showMessageDialog(null, historyBuilder.toString());
-    }*/
-
     /**
      * Displays gameRulesFrame showing the game rules.
      *

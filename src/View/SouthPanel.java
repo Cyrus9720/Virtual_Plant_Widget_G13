@@ -9,7 +9,6 @@ import java.awt.*;
 public class SouthPanel extends JPanel {
     private Controller controller;
     private JLabel plantInformation;
-    private JScrollBar scrollBar;
 
     public SouthPanel(Controller controller, int width, int height) {
         this.controller = controller;
