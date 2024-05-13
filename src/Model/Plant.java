@@ -1,6 +1,8 @@
 package Model;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -55,9 +57,24 @@ public abstract class Plant {
         }
     }
 
+    public void deathTimer() {
+        if (plantLevel == 1) {
+            System.out.println("Timer started");
+            Timer timer = new Timer(1000 * 20, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    decreaseLife();
+                    System.out.println("Plant life " + nbrOfLives);
+                }
+            });
+            timer.start();
+        }
+    }
+
+
     public void decreaseLife() {
         if (nbrOfLives > 0) {
             nbrOfLives--; // Minska livräknaren med ett om den är större än noll
+            setNbrOfLives(getNbrOfLives());
         }
     }
 
