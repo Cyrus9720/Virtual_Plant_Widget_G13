@@ -220,4 +220,6 @@ public abstract class Plant {
     }
 
 
+    public void setDead(boolean b) {
+    }
 }
