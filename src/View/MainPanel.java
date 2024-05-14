@@ -76,8 +76,4 @@ public class MainPanel extends JPanel
     public SouthPanel getSouthPanel(){
         return southPanel;
     }
-
-    public GardenPanel getGardenPanel() {
-        return gardenPanel;
-    }
 }

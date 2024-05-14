@@ -25,6 +25,8 @@ public class MainFrame extends JFrame {
     private int height = 700; // dimensions for frame size
     private Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
     private MainPanel mainPanel; // reference to mainPanel
+    private SouthPanel southPanel;
+    private EastPanel eastPanel;
 
     /**
      * Constructs a new MainFrame with the specified controller.
@@ -136,11 +138,9 @@ public class MainFrame extends JFrame {
     public CenterPanel getCenterPanel() {
         return mainPanel.getCenterPanel();
     }
-
     public EastPanel getEastPanel() {
         return mainPanel.getEastPanel();
     }
-
     public SouthPanel getSouthPanel(){
         return mainPanel.getSouthPanel();
     }
