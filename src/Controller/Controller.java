@@ -26,6 +26,7 @@ public class Controller {
     private Plant currentPlant;
     private boolean chosenPlant = false;
     private Timer timer;
+    private long remainingDeathTimerMilliseconds;
 
     /**
      * Constructor for the controller class.
@@ -167,6 +168,7 @@ public class Controller {
                 currentPlant.setLastWatered(LocalDateTime.now());
                 view.getMainPanel().updateButtons(getPlantImagePaths());
                 updateWaterButtonStatus();
+                pauseDeathTimer();
                 break;
         }
     }
@@ -175,6 +177,11 @@ public class Controller {
      * Starts the timer for the plant's life. Stops when life reaches 0.
      * @author Cyrus Shaerpour
      */
+    public long getRemainingDeathTimerMilliseconds() {
+        return remainingDeathTimerMilliseconds;
+    }
+
+    // Modified deathTimer method to update remainingDeathTimerMilliseconds
     public void deathTimer() {
         if (currentPlant.getPlantLevel() == 0) {
             System.out.println("Timer started");
@@ -184,7 +191,6 @@ public class Controller {
                 public void actionPerformed(ActionEvent e) {
                     currentPlant.decreaseLife();
                     checkLife();
-                    view.getEastPanel().updateAmountOfLife();
                     System.out.println("Plant life " + currentPlant.getNbrOfLives() + " " + currentPlant.getPlantName());
 
                     // Check if the plant's number of lives is zero and stop the timer
@@ -192,9 +198,15 @@ public class Controller {
                         timer.stop();
                         System.out.println("Timer stopped");
                     }
+
+                    // Update the remaining death timer
+                    remainingDeathTimerMilliseconds = timer.getDelay() * timer.getInitialDelay();
                 }
             });
             timer.start();
+
+            // Set the initial value of remainingDeathTimerMilliseconds
+            remainingDeathTimerMilliseconds = timer.getDelay() * timer.getInitialDelay();
         }
     }
 
@@ -204,6 +216,7 @@ public class Controller {
      */
     public void pauseDeathTimer() {
         if (timer != null && timer.isRunning()) {
+            System.out.println("Timer paused");
             timer.stop(); // Pause the timer
             new java.util.Timer().schedule(
                     new java.util.TimerTask() {
@@ -225,6 +238,8 @@ public class Controller {
         if(currentPlant.getNbrOfLives() == 0){
             view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
             view.getMainPanel().updateButtons(getPlantImagePaths());
+            view.getEastPanel().repaint();
+            view.getEastPanel().updateAmountOfLife();
         }
     }
 
@@ -307,9 +322,9 @@ public class Controller {
      */
     public int getNbrOfLives() {
         if (!plantList.isEmpty()) {
-            Plant firstPlant = plantList.get(0);
+            Plant firstPlant = plantList.getFirst();
             if (firstPlant != null) {
-                return firstPlant.getNbrOfLives();
+                return currentPlant.getNbrOfLives();
             } else {
                 return 3;
             }

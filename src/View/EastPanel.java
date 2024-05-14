@@ -26,6 +26,7 @@ public class EastPanel extends JPanel {
     private JLabel progressbarLabel; // JLabel för progressbar / timesWatered
     private JLabel threeHeartsLabel; // JLabel för nbrOfLives
     private JLabel timeUntil; // JLabel för at visa tiden tills nästa vattning
+    private JLabel timeUntilDeath; // JLabel för att visa tiden tills plantan dör
     private Timer timer; // Timer för uppdatering av tiden tills nästa vattning
 
     /**
@@ -77,8 +78,15 @@ public class EastPanel extends JPanel {
 
         timeUntil = new JLabel();
         timeUntil.setFont(new Font("Bebas Neue", Font.BOLD, 9));
-        updateTimeUntilLabel();
         add(timeUntil, BorderLayout.NORTH);
+        updateTimeUntilLabel();
+        updateDeathTimer();
+
+        System.out.println("Before initializing timeUntilDeath: " + (timeUntilDeath == null));
+        timeUntilDeath = new JLabel("DT");
+        timeUntilDeath.setFont(new Font("Bebas Neue", Font.BOLD, 9));
+        System.out.println("After initializing timeUntilDeath: " + (timeUntilDeath == null));
+
 
         progressbarLabel.setIcon(scaledIcon);
         add(progressbarLabel, BorderLayout.SOUTH);
@@ -101,7 +109,14 @@ public class EastPanel extends JPanel {
         timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (controller.getTimeUntilNextWatering() == 0) {
+                    Water.setEnabled(true);
+                }
                 updateTimeUntilLabel();
+                //updateDeathTimer();
+                updateAmountOfLife();
+                repaint();
+                revalidate();
             }
         });
         timer.start();
@@ -114,6 +129,8 @@ public class EastPanel extends JPanel {
     public void enableWaterButton() {
         Water.setEnabled(true); // Aktivera vattenknappen
         Water.repaint();
+        repaint();
+        revalidate();
     }
 
     public void disableWaterButton() {
@@ -205,15 +222,17 @@ public class EastPanel extends JPanel {
             case 1:
                 // If there is one life left, display one heart
                 heartsIcon = new ImageIcon("src/Images/ettHjärta.PNG");
+                System.out.println("ett hjärta " + controller.getNbrOfLives() + " liv kvar");
                 break;
             case 2:
                 // If there are two lives left, display two hearts
                 heartsIcon = new ImageIcon("src/Images/tvåHjärtan.PNG");
+                System.out.println("två hjärtan " + controller.getNbrOfLives() + " liv kvar");
                 break;
             case 3:
                 // If there are three lives left, display three hearts
                 heartsIcon = new ImageIcon("src/Images/treHjärtan.PNG");
-                System.out.println("tre hjärtan");
+                System.out.println("tre hjärtan " + controller.getNbrOfLives() + " liv kvar");
                 break;
             default:
                 heartsIcon = null;
@@ -256,4 +275,28 @@ public class EastPanel extends JPanel {
             timeUntil.setText("<html><div style='text-align: center; font-size: 9px;'>Next watering period:<br>" + formattedTime + "</div></html>");
         }
     }
+
+    private void updateDeathTimer() {
+        if(timeUntilDeath == null){
+            System.out.println("is null");
+            return;
+        } else {
+            long remainingDeathTimer = controller.getRemainingDeathTimerMilliseconds(); // Corrected method name
+            // Kontrollera om tiden är negativ
+            if (remainingDeathTimer < 0) {
+                // todo: lägg till mainFrame.timeToWater()
+                remainingDeathTimer = 0; // Sätt tiden till 0 om den är negativ
+            }
+            long hours = remainingDeathTimer / (1000 * 3600); // Convert milliseconds to hours
+            long minutes = (remainingDeathTimer % (1000 * 3600)) / (1000 * 60); // Få återstående minuter
+            long seconds = (remainingDeathTimer % (1000 * 60)) / 1000; // Få återstående sekunder
+
+            String formattedTime = String.format("%02d h %02d m %02d s", hours, minutes, seconds);
+            // Använd HTML för att bryta texten på tre rader och minska textstorleken
+            timeUntilDeath.setText("<html><div style='text-align: center; font-size: 9px;'>Time until death:<br>" + formattedTime + "</div></html>");
+            add(timeUntilDeath, BorderLayout.CENTER);
+        }
+    }
+
+
 }
