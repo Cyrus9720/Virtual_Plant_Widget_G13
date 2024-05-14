@@ -13,7 +13,7 @@ public abstract class Plant {
     private String plantinfo;
     private PlantArt plantArt;
     private LocalDateTime lastWatered;
-    
+
 
 
     /**
@@ -65,17 +65,8 @@ public abstract class Plant {
     public String getPlantName() {
         return name;
     }
-
-    public void setPlantName(String name) {
-        this.name = name;
-    }
-
     public int getNbrOfLives() {
         return nbrOfLives;
-    }
-
-    public void setNbrOfLives(int nbrOfLives) {
-        this.nbrOfLives = nbrOfLives;
     }
 
     /**
@@ -153,14 +144,6 @@ public abstract class Plant {
     }
     public LocalDateTime getLastWatered() {
         return lastWatered;
-    }
-
-    public String getPlantinfo() {
-        return plantinfo;
-    }
-
-    public void setPlantArt(PlantArt plantArt) {
-        this.plantArt = plantArt;
     }
 
     /**
