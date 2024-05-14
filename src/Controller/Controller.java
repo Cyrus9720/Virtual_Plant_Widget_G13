@@ -152,24 +152,28 @@ public class Controller {
     public void buttonPressed(ButtonType button) {
         switch (button) {
             case Water:
-                if (plantList.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Please select a plant to water.", "No Plant Selected", JOptionPane.INFORMATION_MESSAGE);
-                    return;
-                } if (currentPlant.getPlantPicture().toString().endsWith("PotArt1.JPG")) {
-                deathTimer();
-                pauseDeathTimer();
-                System.out.println("PotArt1 triggered");
-
-            }
-                currentPlant = plantList.get(currentPlantIndex);
-                currentPlant.waterPlant();
-                ImageIcon updatedImage = currentPlant.getPlantPicture();
-                view.getCenterPanel().updatePlantImage(updatedImage);
-                currentPlant.setLastWatered(LocalDateTime.now());
-                view.getMainPanel().updateButtons(getPlantImagePaths());
-                updateWaterButtonStatus();
-                pauseDeathTimer();
-                break;
+                if (currentPlant.getNbrOfLives() > 0) {
+                    if (plantList.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Please select a plant to water.", "No Plant Selected", JOptionPane.INFORMATION_MESSAGE);
+                        return;
+                    }
+                    if (currentPlant.getPlantPicture().toString().endsWith("PotArt1.JPG")) {
+                        deathTimer();
+                        pauseDeathTimer();
+                        System.out.println("PotArt1 triggered");
+                    }
+                    currentPlant = plantList.get(currentPlantIndex);
+                    currentPlant.waterPlant();
+                    ImageIcon updatedImage = currentPlant.getPlantPicture();
+                    view.getCenterPanel().updatePlantImage(updatedImage);
+                    currentPlant.setLastWatered(LocalDateTime.now());
+                    view.getMainPanel().updateButtons(getPlantImagePaths());
+                    updateWaterButtonStatus();
+                    pauseDeathTimer();
+                    break;
+                }
+                JOptionPane.showMessageDialog(null, "Your plant is dead! \nWatering won't bring it back ):");
+                return;
         }
     }
 
