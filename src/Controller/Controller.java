@@ -4,16 +4,15 @@ import Model.*;
 import View.ButtonType;
 import View.GameRuleFrame;
 import View.MainFrame;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
+import static jdk.jfr.internal.consumer.EventLog.stop;
 
 /**
  * The Controller class serves as the main controller for managing the interaction between the model and the view.
@@ -23,10 +22,11 @@ import java.util.Random;
 public class Controller {
     private MainFrame view;
     private ArrayList<Plant> plantList = new ArrayList<>();
-    private Clip wateringSoundClip;
     private int currentPlantIndex;
     private Plant currentPlant;
     private boolean chosenPlant = false;
+    private Timer timer;
+    private long remainingDeathTimerMilliseconds;
 
     /**
      * Constructor for the controller class.
@@ -37,7 +37,6 @@ public class Controller {
         } catch (Exception e) {
             System.err.println("Error loading game data: " + e.getMessage());
         }
-
         view = new MainFrame(this);
 
         if(!LoadGame.isFileNotEmpty()){
@@ -156,26 +155,91 @@ public class Controller {
                 if (plantList.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Please select a plant to water.", "No Plant Selected", JOptionPane.INFORMATION_MESSAGE);
                     return;
-                }
+                } if (currentPlant.getPlantPicture().toString().endsWith("PotArt1.JPG")) {
+                deathTimer();
+                pauseDeathTimer();
+                System.out.println("PotArt1 triggered");
+
+            }
                 currentPlant = plantList.get(currentPlantIndex);
                 currentPlant.waterPlant();
                 ImageIcon updatedImage = currentPlant.getPlantPicture();
                 view.getCenterPanel().updatePlantImage(updatedImage);
                 currentPlant.setLastWatered(LocalDateTime.now());
                 view.getMainPanel().updateButtons(getPlantImagePaths());
-                try {
-                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/sounds/watering.wav"));
-                    wateringSoundClip = AudioSystem.getClip();
-                    wateringSoundClip.open(audioInputStream);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-                if (wateringSoundClip != null) {
-                    wateringSoundClip.setFramePosition(0);
-                    wateringSoundClip.start();
-                }
                 updateWaterButtonStatus();
+                pauseDeathTimer();
                 break;
+        }
+    }
+
+    /**
+     * Starts the timer for the plant's life. Stops when life reaches 0.
+     * @author Cyrus Shaerpour
+     */
+    public long getRemainingDeathTimerMilliseconds() {
+        return remainingDeathTimerMilliseconds;
+    }
+
+    // Modified deathTimer method to update remainingDeathTimerMilliseconds
+    public void deathTimer() {
+        if (currentPlant.getPlantLevel() == 0) {
+            System.out.println("Timer started");
+            JOptionPane.showMessageDialog(null, "Congrats on your new plant! \nBut be mindful, it will need water in the coming days!");
+            // Create the timer
+            timer = new Timer(1000 * 10, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    currentPlant.decreaseLife();
+                    checkLife();
+                    System.out.println("Plant life " + currentPlant.getNbrOfLives() + " " + currentPlant.getPlantName());
+
+                    // Check if the plant's number of lives is zero and stop the timer
+                    if (currentPlant.getNbrOfLives() == 0) {
+                        timer.stop();
+                        System.out.println("Timer stopped");
+                    }
+
+                    // Update the remaining death timer
+                    remainingDeathTimerMilliseconds = timer.getDelay() * timer.getInitialDelay();
+                }
+            });
+            timer.start();
+
+            // Set the initial value of remainingDeathTimerMilliseconds
+            remainingDeathTimerMilliseconds = timer.getDelay() * timer.getInitialDelay();
+        }
+    }
+
+    /**
+     * Pauses the death timer for the plant.
+     * @author Cyrus Shaerpour
+     */
+    public void pauseDeathTimer() {
+        if (timer != null && timer.isRunning()) {
+            System.out.println("Timer paused");
+            timer.stop(); // Pause the timer
+            new java.util.Timer().schedule(
+                    new java.util.TimerTask() {
+                        @Override
+                        public void run() {
+                            timer.start(); // Resume the timer
+                        }
+                    },
+                    1000 * 10
+            );
+        }
+    }
+
+    /**
+     * Checks the life of the plant and updates the image if the plant has no lives left.
+     * @author Cyrus Shaerpour
+     */
+    public void checkLife(){
+        if(currentPlant.getNbrOfLives() == 0){
+            view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
+            view.getMainPanel().updateButtons(getPlantImagePaths());
+            view.getEastPanel().repaint();
+            view.getEastPanel().updateAmountOfLife();
         }
     }
 
@@ -258,9 +322,9 @@ public class Controller {
      */
     public int getNbrOfLives() {
         if (!plantList.isEmpty()) {
-            Plant firstPlant = plantList.get(0);
+            Plant firstPlant = plantList.getFirst();
             if (firstPlant != null) {
-                return firstPlant.getNbrOfLives();
+                return currentPlant.getNbrOfLives();
             } else {
                 return 3;
             }
@@ -415,45 +479,67 @@ public class Controller {
      * @author Anna Granberg
      */
     public void setGameToNull() {
-        if(!plantList.isEmpty()){
+        if(!plantList.isEmpty() || plantList != null){
             int confirm = JOptionPane.showConfirmDialog(null, "This action will remove all of your plants. Are you sure you want to do this?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            javax.swing.UIManager.put("OptionPane.background", new Color(225, 240, 218));
+            javax.swing.UIManager.put("Panel.background", new Color(225, 240, 218));
+            ArrayList<Plant> deadPlants = new ArrayList<>();
+            deadPlants = getPlantList();
 
             if (confirm == JOptionPane.YES_OPTION) {
+                GameHistoryWriter.GameHistoryWriter(deadPlants);
+                System.out.println(deadPlants.toString());
                 plantList.clear();
                 view.getCenterPanel().clearCenterPanel();
+                view.getSouthPanel().clearSouthPanel();
                 view.getMainPanel().updateButtons(getPlantImagePaths());
                 JOptionPane.showMessageDialog(null, "All existing plants have been removed.", "Information", JOptionPane.INFORMATION_MESSAGE);
             }
-        }else if(plantList.isEmpty()){
+        }else if(plantList.isEmpty() || plantList == null){
             JOptionPane.showMessageDialog(null, "Your garden is empty! Nothing to remove :)", "Information", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }
 
     public void removePlant(String plantName) {
-        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this plant?", "Confirmation", JOptionPane.YES_NO_OPTION);
-        // Loop through the list to find the plant with the given name
-        if(confirm == JOptionPane.YES_OPTION){
-            boolean found = false;
-            for (int i = 0; i < plantList.size(); i++) {
-                currentPlant = plantList.get(i);
-                if (currentPlant.getPlantName().equals(plantName)) {
-                    // Remove the plant from the list
-                    plantList.remove(i);
-                    System.out.println("Växten med namnet \"" + plantName + "\" har tagits bort från listan.");
-                    found = true;
-                    view.getCenterPanel().clearCenterPanel();
-                    view.getMainPanel().updateButtons(getPlantImagePaths());
-                    break; // Exit the loop once the plant is found and removed
+        if (plantList != null) {
+            // Anpassa färgen på dialogrutan
+            javax.swing.UIManager.put("OptionPane.background", new Color(225, 240, 218));
+            javax.swing.UIManager.put("Panel.background", new Color(225, 240, 218));
+
+            // Visa bekräftelsedialogrutan
+            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this plant?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+            // Loop through the list to find the plant with the given name
+            if (confirm == JOptionPane.YES_OPTION) {
+                boolean found = false;
+                ArrayList<Plant> deadPlants = new ArrayList<>();
+                for (int i = 0; i < plantList.size(); i++) {
+                    currentPlant = plantList.get(i);
+                    if (currentPlant.getPlantName().equals(plantName)) {
+                        // Remove the plant from the list
+                        plantList.remove(i);
+                        System.out.println("Växten med namnet \"" + plantName + "\" har tagits bort från listan.");
+                        found = true;
+                        view.getCenterPanel().clearCenterPanel();
+                        view.getSouthPanel().clearSouthPanel();
+                        view.getMainPanel().updateButtons(getPlantImagePaths());
+                        deadPlants.add(currentPlant);
+                        GameHistoryWriter.GameHistoryWriter(deadPlants);
+                        break; // Exit the loop once the plant is found and removed
+                    }
+                }
+
+                // If the plant with the given name was not found
+                if (!found) {
+                    System.err.println("Det finns ingen växt med namnet \"" + plantName + "\" i listan.");
                 }
             }
-
-            // If the plant with the given name was not found
-            if (!found) {
-                System.err.println("Det finns ingen växt med namnet \"" + plantName + "\" i listan.");
-            }
+        } else {
+            JOptionPane.showMessageDialog(null, "You have no plants to remove", ":(", JOptionPane.INFORMATION_MESSAGE);
         }
     }
+
 
     public void showNewPlantInGUI(ImageIcon image, String name){
         view.getCenterPanel().updatePlantImage(image);

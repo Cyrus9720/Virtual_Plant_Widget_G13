@@ -1,5 +1,7 @@
 package Model;
 
+import Controller.Controller;
+
 import javax.swing.ImageIcon;
 import java.time.LocalDateTime;
 
@@ -13,6 +15,15 @@ public class Rose extends Plant {
     public void setPlantLevel(int plantLevel) {
         super.setPlantLevel(plantLevel);
         updateImage();
+        System.out.println(getPlantPicture());
+    }
+
+    @Override
+    public void setNbrOfLives(int nbrOfLives) {
+        super.setNbrOfLives(nbrOfLives);
+        updateDeathImage();
+        System.out.println(getPlantPicture());
+        System.out.println("We here!");
     }
 
     private void updateImage() {
@@ -32,6 +43,18 @@ public class Rose extends Plant {
             default:
                 // Handle any other cases or provide a default image
                 break;
+        }
+    }
+
+    private void updateDeathImage() {
+        if (getNbrOfLives() == 0 && getPlantLevel() == 1) {
+            setPlantPicture(new ImageIcon("src/Images/RoseDead1.JPG"));
+        }
+        else if (getNbrOfLives() == 0 && getPlantLevel() == 2) {
+            setPlantPicture(new ImageIcon("src/Images/RoseDead2.JPG"));
+        }
+        else if (getNbrOfLives() == 0 && getPlantLevel() == 3) {
+            setPlantPicture(new ImageIcon("src/Images/RoseDead3.JPG"));
         }
     }
 }
