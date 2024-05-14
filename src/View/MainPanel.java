@@ -44,10 +44,10 @@ public class MainPanel extends JPanel
         eastPanel = new EastPanel(controller, width/2-60, height-130);
         add(eastPanel, BorderLayout.EAST);
 
-        centerPanel = new CenterPanel(300, 450, this, controller);
+        centerPanel = new CenterPanel( this, controller);
         add(centerPanel, BorderLayout.CENTER);
 
-        southPanel = new SouthPanel(controller, width, height);
+        southPanel = new SouthPanel(controller);
         add(southPanel, BorderLayout.SOUTH);
 
         gardenPanel = new GardenPanel(controller.getPlantImagePaths(), controller);

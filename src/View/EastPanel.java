@@ -20,7 +20,6 @@ import java.awt.event.ActionListener;
  */
 public class EastPanel extends JPanel {
     private Controller controller; // Referens till controller
-    private MainFrame view;
     private int width, height; // Storlek på panelen
     private JButton Water; // Knapp för vattning
     private JLabel progressbarLabel; // JLabel för progressbar / timesWatered
@@ -255,11 +254,5 @@ public class EastPanel extends JPanel {
             timeUntil.setText("<html><div style='text-align: center; font-size: 9px;'>Next watering period:<br>" + formattedTime + "</div></html>");
         }
     }
-
-    private void updateWateringInterval(){
-
-    }
-
-
 
 }
