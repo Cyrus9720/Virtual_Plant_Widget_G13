@@ -154,15 +154,18 @@ public class Controller {
                 if (plantList.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Please select a plant to water.", "No Plant Selected", JOptionPane.INFORMATION_MESSAGE);
                     return;
-                }
+                } if (currentPlant.getPlantPicture().toString().endsWith("PotArt1.JPG")) {
+                deathTimer();
+                pauseDeathTimer();
+                System.out.println("PotArt1 triggered");
+
+            }
                 currentPlant = plantList.get(currentPlantIndex);
                 currentPlant.waterPlant();
                 ImageIcon updatedImage = currentPlant.getPlantPicture();
                 view.getCenterPanel().updatePlantImage(updatedImage);
                 currentPlant.setLastWatered(LocalDateTime.now());
                 view.getMainPanel().updateButtons(getPlantImagePaths());
-                deathTimer();
-                pauseDeathTimer();
                 updateWaterButtonStatus();
                 break;
         }
@@ -173,7 +176,7 @@ public class Controller {
      * @author Cyrus Shaerpour
      */
     public void deathTimer() {
-        if (currentPlant.getPlantLevel() == 1) {
+        if (currentPlant.getPlantLevel() == 0) {
             System.out.println("Timer started");
             JOptionPane.showMessageDialog(null, "Congrats on your new plant! \nBut be mindful, it will need water in the coming days!");
             // Create the timer

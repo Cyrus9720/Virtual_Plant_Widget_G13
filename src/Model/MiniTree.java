@@ -24,6 +24,15 @@ public class MiniTree extends Plant{
     public void setPlantLevel(int plantLevel) {
         super.setPlantLevel(plantLevel);
         updateImage();
+        System.out.println(getPlantPicture());
+    }
+
+    @Override
+    public void setNbrOfLives(int nbrOfLives) {
+        super.setNbrOfLives(nbrOfLives);
+        updateDeathImage();
+        System.out.println(getPlantPicture());
+        System.out.println("We here!");
     }
 
     private void updateImage() {
@@ -42,6 +51,15 @@ public class MiniTree extends Plant{
                 break;
             default:
                 break;
+        }
+    }
+    private void updateDeathImage() {
+        if (getNbrOfLives() == 0 && getPlantLevel() == 1) {
+            setPlantPicture(new ImageIcon("src/Images/MiniTreeDead1.JPG"));
+        } else if (getNbrOfLives() == 0 && getPlantLevel() == 2) {
+            setPlantPicture(new ImageIcon("src/Images/MiniTreeDead2.JPG"));
+        } else if (getNbrOfLives() == 0 && getPlantLevel() == 3) {
+            setPlantPicture(new ImageIcon("src/Images/MiniTreeDead3.JPG"));
         }
     }
 }
