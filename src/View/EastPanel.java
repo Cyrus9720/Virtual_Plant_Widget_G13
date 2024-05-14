@@ -189,30 +189,31 @@ public class EastPanel extends JPanel {
      * @author Anna Granberg
      */
     public ImageIcon updateAmountOfLife() {
-        ImageIcon heartsIcon = null;
+        ImageIcon heartsIcon;
         if (controller.getPlantList() == null || controller.getNbrOfLives() < 0) {
             // Handle the case when the plant list is null or the number of lives is negative
             return null;
         }
 
-        int nbrOfLives = controller.getNbrOfLives();
+        //int nbrOfLives = controller.getNbrOfLives();
 
-        switch (nbrOfLives) {
+        switch (controller.getNbrOfLives()) {
             case 0:
                 // If there are no lives left, display an empty heart icon
-                heartsIcon = new ImageIcon("src/Images/tommaHjärtan.png");
+                heartsIcon = new ImageIcon("src/Images/tommaHjärtan.PNG");
                 break;
             case 1:
                 // If there is one life left, display one heart
-                heartsIcon = new ImageIcon("src/Images/ettHjärta.png");
+                heartsIcon = new ImageIcon("src/Images/ettHjärta.PNG");
                 break;
             case 2:
                 // If there are two lives left, display two hearts
-                heartsIcon = new ImageIcon("src/Images/tvåHjärtan.png");
+                heartsIcon = new ImageIcon("src/Images/tvåHjärtan.PNG");
                 break;
             case 3:
                 // If there are three lives left, display three hearts
-                heartsIcon = new ImageIcon("src/Images/treHjärtan.png");
+                heartsIcon = new ImageIcon("src/Images/treHjärtan.PNG");
+                System.out.println("tre hjärtan");
                 break;
             default:
                 heartsIcon = null;
@@ -255,11 +256,4 @@ public class EastPanel extends JPanel {
             timeUntil.setText("<html><div style='text-align: center; font-size: 9px;'>Next watering period:<br>" + formattedTime + "</div></html>");
         }
     }
-
-    private void updateWateringInterval(){
-
-    }
-
-
-
 }

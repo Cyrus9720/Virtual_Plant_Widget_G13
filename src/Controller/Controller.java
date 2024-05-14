@@ -4,7 +4,6 @@ import Model.*;
 import View.ButtonType;
 import View.GameRuleFrame;
 import View.MainFrame;
-import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,6 +12,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
+import static jdk.jfr.internal.consumer.EventLog.stop;
 
 /**
  * The Controller class serves as the main controller for managing the interaction between the model and the view.
@@ -36,7 +36,6 @@ public class Controller {
         } catch (Exception e) {
             System.err.println("Error loading game data: " + e.getMessage());
         }
-
         view = new MainFrame(this);
 
         if(!LoadGame.isFileNotEmpty()){
@@ -169,27 +168,40 @@ public class Controller {
         }
     }
 
+    /**
+     * Starts the timer for the plant's life. Stops when life reaches 0.
+     * @author Cyrus Shaerpour
+     */
     public void deathTimer() {
         if (currentPlant.getPlantLevel() == 1) {
             System.out.println("Timer started");
             JOptionPane.showMessageDialog(null, "Congrats on your new plant! \nBut be mindful, it will need water in the coming days!");
             // Create the timer
-            timer = new Timer(1000 * 5, new ActionListener() {
+            timer = new Timer(1000 * 10, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     currentPlant.decreaseLife();
                     checkLife();
-                    System.out.println("Plant life " + currentPlant.getNbrOfLives());
+                    view.getEastPanel().updateAmountOfLife();
+                    System.out.println("Plant life " + currentPlant.getNbrOfLives() + " " + currentPlant.getPlantName());
+
+                    // Check if the plant's number of lives is zero and stop the timer
+                    if (currentPlant.getNbrOfLives() == 0) {
+                        timer.stop();
+                        System.out.println("Timer stopped");
+                    }
                 }
             });
             timer.start();
         }
     }
 
-    // Method to pause the timer for 2 minutes
+    /**
+     * Pauses the death timer for the plant.
+     * @author Cyrus Shaerpour
+     */
     public void pauseDeathTimer() {
         if (timer != null && timer.isRunning()) {
             timer.stop(); // Pause the timer
-            // Schedule a task to resume the timer after 2 minutes
             new java.util.Timer().schedule(
                     new java.util.TimerTask() {
                         @Override
@@ -197,14 +209,19 @@ public class Controller {
                             timer.start(); // Resume the timer
                         }
                     },
-                    2 * 5 * 1000 // 2 minutes in milliseconds
+                    1000 * 10
             );
         }
     }
 
+    /**
+     * Checks the life of the plant and updates the image if the plant has no lives left.
+     * @author Cyrus Shaerpour
+     */
     public void checkLife(){
         if(currentPlant.getNbrOfLives() == 0){
             view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
+            view.getMainPanel().updateButtons(getPlantImagePaths());
         }
     }
 
