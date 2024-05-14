@@ -13,7 +13,7 @@ public abstract class Plant {
     private String plantinfo;
     private PlantArt plantArt;
     private LocalDateTime lastWatered;
-    private LocalDateTime lastUpdatedTimestamp;
+    
 
 
     /**
@@ -161,10 +161,6 @@ public abstract class Plant {
 
     public void setPlantArt(PlantArt plantArt) {
         this.plantArt = plantArt;
-    }
-
-    public void updateTimestamp(LocalDateTime timestamp) {
-        this.lastUpdatedTimestamp = timestamp;
     }
 
     /**
