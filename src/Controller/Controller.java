@@ -39,7 +39,7 @@ public class Controller {
         }
         view = new MainFrame(this);
 
-        if(!LoadGame.isFileNotEmpty()){
+        if(!LoadGame.isFileNotEmpty() || GameHistoryReader.getGameHistory().isEmpty()){
             firstTimePlaying();
         }
     }
@@ -274,7 +274,7 @@ public class Controller {
 
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-                Duration wateringInterval = Duration.ofMillis(1 * 10 * 1000);
+                Duration wateringInterval = Duration.ofMillis(24 * 60 * 60 * 1000);
 
                 if (timeSinceLastWatered.compareTo(wateringInterval) >= 0) {
                     System.out.println("Current plant needs to be watered");
@@ -295,7 +295,7 @@ public class Controller {
 
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-                Duration wateringInterval = Duration.ofMillis(1 * 10 * 1000); // 30 sek
+                Duration wateringInterval = Duration.ofMillis(24 * 60 * 60 * 1000); // 30 sek
                 // Ska ändras (24 timmar = 24 * 60 * 60 * 1000)
 
                 // Beräkna tiden kvar till nästa vattning i sekunder
@@ -505,6 +505,11 @@ public class Controller {
 
     }
 
+    /**
+     *
+     * @param plantName
+     * @author Anna Granberg
+     */
     public void removePlant(String plantName) {
         if (plantList != null) {
             // Anpassa färgen på dialogrutan
@@ -514,14 +519,14 @@ public class Controller {
             // Visa bekräftelsedialogrutan
             int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this plant?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
-            // Loop through the list to find the plant with the given name
+            // Loopa genom listan för att hitta rätt växt genom växtnamn
             if (confirm == JOptionPane.YES_OPTION) {
                 boolean found = false;
                 ArrayList<Plant> deadPlants = new ArrayList<>();
                 for (int i = 0; i < plantList.size(); i++) {
                     currentPlant = plantList.get(i);
                     if (currentPlant.getPlantName().equals(plantName)) {
-                        // Remove the plant from the list
+                        // ta bort plantan från listan
                         plantList.remove(i);
                         System.out.println("Växten med namnet \"" + plantName + "\" har tagits bort från listan.");
                         found = true;
@@ -530,11 +535,11 @@ public class Controller {
                         view.getMainPanel().updateButtons(getPlantImagePaths());
                         deadPlants.add(currentPlant);
                         GameHistoryWriter.GameHistoryWriter(deadPlants);
-                        break; // Exit the loop once the plant is found and removed
+                        break;
                     }
                 }
 
-                // If the plant with the given name was not found
+                //ifall namnet inte kan hittas
                 if (!found) {
                     System.err.println("Det finns ingen växt med namnet \"" + plantName + "\" i listan.");
                 }
