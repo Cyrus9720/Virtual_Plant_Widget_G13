@@ -9,11 +9,11 @@ import java.awt.*;
 public class SouthPanel extends JPanel {
     private Controller controller;
     private JLabel plantInformation;
-    private JScrollBar scrollBar;
+    
 
-    public SouthPanel(Controller controller, int width, int height) {
+    public SouthPanel(Controller controller) {
         this.controller = controller;
-        setPreferredSize(new Dimension(320,110));
+        setPreferredSize(new Dimension(320,130));
 
         TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant information");
         Font myFont = new Font("Bebas Neue", Font.BOLD, 12);
@@ -26,7 +26,7 @@ public class SouthPanel extends JPanel {
         // Initialize the plant information label with default text
         plantInformation = new JLabel("Choose a plant to see plant information");
 
-        add(plantInformation);
+        add(plantInformation, BorderLayout.NORTH);
     }
 
     /**
@@ -46,7 +46,7 @@ public class SouthPanel extends JPanel {
             case SUNFLOWER:
                 plantInformation.setText("<html>The sunflower is a large inflorescence,<br>" +
                         "this means that the flower head is actually made of many tiny flowers called florets.<br>" +
-                        "The central florets look like the center of a normal flower and the outer florets look like yellow petals.<br>" +
+                        "The central florets look like the center of a normal flower and the outer florets look like yellow petals. " +
                         "All together they make up a 'false flower'.</html>");
                 break;
             case TOMATO_PLANT:

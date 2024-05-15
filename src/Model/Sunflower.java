@@ -14,6 +14,12 @@ public class Sunflower extends Plant{
         updateImage();
     }
 
+    @Override
+    public void setNbrOfLives(int nbrOfLives) {
+        super.setNbrOfLives(nbrOfLives);
+        updateDeathImage();
+    }
+
 
     private void updateImage() {
         switch (getPlantLevel()) {
@@ -32,6 +38,18 @@ public class Sunflower extends Plant{
             default:
                 // Handle any other cases or provide a default image
                 break;
+        }
+    }
+
+    private void updateDeathImage() {
+        if (getNbrOfLives() == 0 && getPlantLevel() == 1) {
+            setPlantPicture(new ImageIcon("src/Images/SunflowerDead1.JPG"));
+        }
+        else if (getNbrOfLives() == 0 && getPlantLevel() == 2) {
+            setPlantPicture(new ImageIcon("src/Images/SunflowerDead2.JPG"));
+        }
+        else if (getNbrOfLives() == 0 && getPlantLevel() == 3) {
+            setPlantPicture(new ImageIcon("src/Images/SunflowerDead3.JPG"));
         }
     }
 }

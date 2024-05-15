@@ -1,8 +1,14 @@
 package Model;
 
-import javax.swing.ImageIcon;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
+import javax.sound.sampled.Clip;
 
 public abstract class Plant {
     private String name;
@@ -13,7 +19,10 @@ public abstract class Plant {
     private String plantinfo;
     private PlantArt plantArt;
     private LocalDateTime lastWatered;
+    private Timer timer;
     private LocalDateTime lastUpdatedTimestamp;
+    private Clip wateringSoundClip;
+
 
 
     /**
@@ -42,16 +51,38 @@ public abstract class Plant {
      * @author Cyrus Shaerpour
      */
     public void waterPlant() {
-        setTimesWatered(getTimesWatered() + 1);
-        if (plantLevel < 3) {
-            if (getTimesWatered() == plantLevel + 1) {
-                setPlantLevel(getPlantLevel() + 1);
-                setTimesWatered(0);
-                //System.out.println("Plant level " + plantLevel);
-                if (plantLevel == 3) {
-                    System.out.println("Plant is fully grown");
+        if (nbrOfLives >0) {
+            setTimesWatered(getTimesWatered() + 1);
+            if (plantLevel <=3) {
+                if (getTimesWatered() == plantLevel + 1) {
+                    setPlantLevel(getPlantLevel() + 1);
+                    setTimesWatered(0);
+                    //System.out.println("Plant level " + plantLevel);
+                    if (plantLevel == 3) {
+                        System.out.println("Plant is fully grown");
+                    }
+                }try {
+                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResourceAsStream("/sounds/watering.wav")));
+                    wateringSoundClip = AudioSystem.getClip();
+                    wateringSoundClip.open(audioInputStream);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                if (wateringSoundClip != null) {
+                    wateringSoundClip.setFramePosition(0);
+                    wateringSoundClip.start();
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Your plant is dead! \nWatering won't bring it back ):");
+        }
+    }
+
+
+    public void decreaseLife() {
+        if (nbrOfLives > 0) {
+            nbrOfLives--; // Minska livräknaren med ett om den är större än noll
+            setNbrOfLives(getNbrOfLives());
         }
     }
 
@@ -176,6 +207,4 @@ public abstract class Plant {
         }
         return String.format("Plant art; %s | Plant name; %s | Plant level; %d | Times watered; %d | Number of lives; %d | Plant picture; %s | Last time watered; %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture, formattedLastWatered);
     }
-
-
 }
