@@ -122,19 +122,6 @@ public class LoadGame {
         }
     }
 
-    /**
-     * Empties the contents of the game save file after it has been read.
-     */
-    public static void clearSaveFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("game_save.txt"))) {
-            writer.write(""); // Skriv en tom sträng till filen för att tömma den
-            System.out.println("Game save file cleared successfully.");
-        } catch (IOException e) {
-            System.err.println("Error clearing game save file: " + e.getMessage());
-        }
-    }
-
-
     public static Plant getPlant() {
         return plant;
     }

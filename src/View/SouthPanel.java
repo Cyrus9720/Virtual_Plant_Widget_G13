@@ -11,7 +11,7 @@ public class SouthPanel extends JPanel {
     private JLabel plantInformation;
     
 
-    public SouthPanel(Controller controller, int width, int height) {
+    public SouthPanel(Controller controller) {
         this.controller = controller;
         setPreferredSize(new Dimension(320,130));
 

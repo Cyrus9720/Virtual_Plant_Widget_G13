@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameHistoryReader {
-    private static ArrayList<String> gameHistory = new ArrayList<>();
+    private static ArrayList<String> gameHistory;
 
     public static ArrayList<String> getGameHistory() {
         gameHistory = new ArrayList<>();
@@ -24,6 +24,5 @@ public class GameHistoryReader {
 
         return gameHistory;
     }
-
 
 }

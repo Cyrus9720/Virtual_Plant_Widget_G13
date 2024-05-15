@@ -3,8 +3,6 @@ package View;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 
 /**
  * GameRuleFrame represents a window displaying the game rules for the game.
@@ -19,7 +17,7 @@ public class GameRuleFrame extends JFrame {
     // Storlek för frame size
     private static final int FRAME_WIDTH = 500;
     private static final int FRAME_HEIGHT = 350;
-    private static final Font CUSTOM_FONT = new Font("Bebas Neue", Font.BOLD, 12); // Anpassat typsnitt för hela spelet
+    private static final Font customFont = new Font("Bebas Neue", Font.BOLD, 12); // Anpassat typsnitt för hela spelet
 
     // Constructor för GameRuleFrame
     public GameRuleFrame() {
@@ -43,7 +41,7 @@ public class GameRuleFrame extends JFrame {
 
 
         gameRulesLabel.setText(welcome + rules); // lägger till spelreglerna på JLabel
-        gameRulesLabel.setFont(CUSTOM_FONT); // anpassat typsnitt på JLabel
+        gameRulesLabel.setFont(customFont); // anpassat typsnitt på JLabel
         gameRulesLabel.setSize(new Dimension(450, 200)); // Ställer storlek på JLabel
         gameRulesLabel.setBackground(new Color(153, 188, 133)); // Ställer bakgrundsfärg för JLabel
 
