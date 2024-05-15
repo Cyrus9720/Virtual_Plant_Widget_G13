@@ -13,7 +13,6 @@ import java.awt.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -41,7 +40,7 @@ public class Controller {
 
         view = new MainFrame(this);
 
-        if(!LoadGame.isFileNotEmpty()){
+        if(!LoadGame.isFileNotEmpty() || GameHistoryReader.getGameHistory().isEmpty()){
             firstTimePlaying();
         }
     }
