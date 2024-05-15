@@ -30,3 +30,7 @@ Plant name: TomatoPlant7 | Plant art: TOMATO_PLANT | Plant level: 1 | Plant Pict
 Plant name: TomatoPlant10 | Plant art: TOMATO_PLANT | Plant level: 0 | Plant Picture: src/Images/Tomatoe1.JPG
 Plant name: Mini Tree6 | Plant art: MINI_TREE | Plant level: 1 | Plant Picture: src/Images/MiniTreeDead1.JPG
 Plant name: Blackberry8 | Plant art: BLACKBERRY | Plant level: 1 | Plant Picture: src/Images/Blackberry1.JPG
+Plant name: Blackberry3 | Plant art: BLACKBERRY | Plant level: 1 | Plant Picture: src/Images/Blackberry1.JPG
+Plant name: TomatoPlant7 | Plant art: TOMATO_PLANT | Plant level: 1 | Plant Picture: src/Images/Tomatoe1.JPG
+Plant name: Cactus8 | Plant art: CACTUS | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
+Plant name: Cactus8 | Plant art: CACTUS | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
