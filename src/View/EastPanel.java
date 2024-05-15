@@ -281,7 +281,7 @@ public class EastPanel extends JPanel {
 
     private void updateDeathTimer() {
         if(timeUntilDeath == null){
-            System.out.println("is null");
+            System.out.println("death timer is null");
             return;
         } else {
             long remainingDeathTimer = controller.getRemainingDeathTimerMilliseconds(); // Corrected method name
