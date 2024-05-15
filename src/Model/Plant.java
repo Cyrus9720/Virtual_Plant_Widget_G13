@@ -53,7 +53,7 @@ public abstract class Plant {
     public void waterPlant() {
         if (nbrOfLives >0) {
             setTimesWatered(getTimesWatered() + 1);
-            if (plantLevel < 3) {
+            if (plantLevel <= 3) {
                 if (getTimesWatered() == plantLevel + 1) {
                     setPlantLevel(getPlantLevel() + 1);
                     setTimesWatered(0);

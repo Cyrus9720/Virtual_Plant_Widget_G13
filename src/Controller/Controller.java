@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import static jdk.jfr.internal.consumer.EventLog.stop;
 
@@ -26,6 +28,7 @@ public class Controller {
     private Plant currentPlant;
     private boolean chosenPlant = false;
     private Timer timer;
+    private Map<Plant, Timer> plantTimers;
     private long remainingDeathTimerMilliseconds;
 
     /**
@@ -42,6 +45,7 @@ public class Controller {
         if(!LoadGame.isFileNotEmpty()){
             firstTimePlaying();
         }
+        plantTimers = new HashMap<>();
     }
 
     /**
@@ -158,10 +162,11 @@ public class Controller {
                         return;
                     }
                     if (currentPlant.getPlantPicture().toString().endsWith("PotArt1.JPG")) {
-                        deathTimer();
-                        pauseDeathTimer();
+                        deathTimer(currentPlant);
+                        pauseDeathTimer(currentPlant);
                         System.out.println("PotArt1 triggered");
                     }
+                    view.getEastPanel().updateHeartLabel();
                     currentPlant = plantList.get(currentPlantIndex);
                     currentPlant.waterPlant();
                     ImageIcon updatedImage = currentPlant.getPlantPicture();
@@ -169,7 +174,7 @@ public class Controller {
                     currentPlant.setLastWatered(LocalDateTime.now());
                     view.getMainPanel().updateButtons(getPlantImagePaths());
                     updateWaterButtonStatus();
-                    pauseDeathTimer();
+                    pauseDeathTimer(currentPlant);
                     break;
                 }
                 JOptionPane.showMessageDialog(null, "Your plant is dead! \nWatering won't bring it back ):");
@@ -186,42 +191,45 @@ public class Controller {
     }
 
     // Modified deathTimer method to update remainingDeathTimerMilliseconds
-    public void deathTimer() {
-        if (currentPlant.getPlantLevel() == 0) {
-            System.out.println("Timer started");
+    public void deathTimer(Plant plant) {
+        if (plant.getPlantLevel() == 0) {
+            System.out.println("Timer started for plant: " + plant.getPlantName());
             JOptionPane.showMessageDialog(null, "Congrats on your new plant! \nBut be mindful, it will need water in the coming days!");
-            // Create the timer
-            timer = new Timer(1000 * 10, new ActionListener() {
+
+            // Create a new timer for the plant
+            Timer timer = new Timer(1000 * 10, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    currentPlant.decreaseLife();
+                    plant.decreaseLife();
                     checkLife();
-                    System.out.println("Plant life " + currentPlant.getNbrOfLives() + " " + currentPlant.getPlantName());
+                    System.out.println("Plant life " + plant.getNbrOfLives() + " " + plant.getPlantName());
 
                     // Check if the plant's number of lives is zero and stop the timer
-                    if (currentPlant.getNbrOfLives() == 0) {
-                        timer.stop();
-                        System.out.println("Timer stopped");
+                    if (plant.getNbrOfLives() == 0) {
+                        Timer timer = plantTimers.get(plant);
+                        if (timer != null) {
+                            view.getMainPanel().updateButtons(getPlantImagePaths());
+                            timer.stop(); // Stop the timer
+                            System.out.println("Timer stopped for plant: " + plant.getPlantName());
+                        }
                     }
-
-                    // Update the remaining death timer
-                    remainingDeathTimerMilliseconds = timer.getDelay() * timer.getInitialDelay();
                 }
             });
+
+            // Start the timer
             timer.start();
 
-            // Set the initial value of remainingDeathTimerMilliseconds
-            remainingDeathTimerMilliseconds = timer.getDelay() * timer.getInitialDelay();
+            // Store the timer for the plant in the map
+            plantTimers.put(plant, timer);
         }
     }
 
-    /**
-     * Pauses the death timer for the plant.
-     * @author Cyrus Shaerpour
-     */
-    public void pauseDeathTimer() {
+    public void pauseDeathTimer(Plant plant) {
+        Timer timer = plantTimers.get(plant);
         if (timer != null && timer.isRunning()) {
-            System.out.println("Timer paused");
-            timer.stop(); // Pause the timer
+            // Pause the timer
+            timer.stop();
+            System.out.println("Timer paused for " + plant.getPlantName());
+            // Schedule a task to resume the timer after a brief delay
             new java.util.Timer().schedule(
                     new java.util.TimerTask() {
                         @Override
@@ -229,7 +237,7 @@ public class Controller {
                             timer.start(); // Resume the timer
                         }
                     },
-                    1000 * 10
+                    1000 * 10 // Delay in milliseconds (e.g., 10 seconds)
             );
         }
     }

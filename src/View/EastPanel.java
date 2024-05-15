@@ -113,13 +113,17 @@ public class EastPanel extends JPanel {
                     Water.setEnabled(true);
                 }
                 updateTimeUntilLabel();
-                //updateDeathTimer();
+                updateDeathTimer();
                 updateAmountOfLife();
                 repaint();
                 revalidate();
             }
         });
         timer.start();
+    }
+
+    public  void updateHeartLabel(){
+       updateAmountOfLife();
     }
 
     public void refreshBar() {
@@ -211,10 +215,9 @@ public class EastPanel extends JPanel {
             // Handle the case when the plant list is null or the number of lives is negative
             return null;
         }
+        int nbrOfLives = controller.getNbrOfLives();
 
-        //int nbrOfLives = controller.getNbrOfLives();
-
-        switch (controller.getNbrOfLives()) {
+        switch (nbrOfLives) {
             case 0:
                 // If there are no lives left, display an empty heart icon
                 heartsIcon = new ImageIcon("src/Images/tommaHjärtan.PNG");
