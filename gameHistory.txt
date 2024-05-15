@@ -30,3 +30,5 @@ Plant name: TomatoPlant7 | Plant art: TOMATO_PLANT | Plant level: 1 | Plant Pict
 Plant name: TomatoPlant10 | Plant art: TOMATO_PLANT | Plant level: 0 | Plant Picture: src/Images/Tomatoe1.JPG
 Plant name: Blackberry6 | Plant art: BLACKBERRY | Plant level: 1 | Plant Picture: src/Images/BlackberryDead1.JPG
 Plant name: Cactus9 | Plant art: CACTUS | Plant level: 1 | Plant Picture: src/Images/CactusDead1.JPG
+Plant name: Rose1 | Plant art: ROSE | Plant level: 0 | Plant Picture: src/Images/RoseArt1.JPG
+Plant name: TomatoPlant10 | Plant art: TOMATO_PLANT | Plant level: 0 | Plant Picture: src/Images/Tomatoe1.JPG
