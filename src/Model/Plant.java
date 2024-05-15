@@ -146,6 +146,10 @@ public abstract class Plant {
         return lastWatered;
     }
 
+    public void setNbrOfLives(int nbrOfLives) {
+        this.nbrOfLives = nbrOfLives;
+    }
+
     /**
      * toString method
      * @return textOut
