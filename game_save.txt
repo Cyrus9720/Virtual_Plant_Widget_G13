@@ -1,0 +1,2 @@
+Plant art; ROSE | Plant name; Rose3 | Plant level; 2 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/RoseArt2.JPG | Last time watered; 2024-05-16 14:27:59.359 | Timestamp; 2024-05-16 14:28:00.790
+Plant art; ROSE | Plant name; Rose10 | Plant level; 1 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/RoseArt1.JPG | Last time watered; 2024-05-16 14:27:53.837 | Timestamp; 2024-05-16 14:28:00.790

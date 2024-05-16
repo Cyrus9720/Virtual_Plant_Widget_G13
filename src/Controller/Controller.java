@@ -206,7 +206,7 @@ public class Controller {
 
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-                Duration wateringInterval = Duration.ofMillis(24 * 60 * 60 * 1000);
+                Duration wateringInterval = Duration.ofSeconds(5);
 
                 if (timeSinceLastWatered.compareTo(wateringInterval) >= 0) {
                     System.out.println("Current plant needs to be watered");
@@ -227,7 +227,7 @@ public class Controller {
 
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-                Duration wateringInterval = Duration.ofMillis(24 * 60 * 60 * 1000); // 30 sek
+                Duration wateringInterval = Duration.ofSeconds(5); // 5 sek
                 // Ska ändras (24 timmar = 24 * 60 * 60 * 1000)
 
                 // Beräkna tiden kvar till nästa vattning i sekunder
@@ -243,7 +243,7 @@ public class Controller {
         if(currentPlantIndex >= 0 && currentPlantIndex < plantList.size()){
              currentPlant = plantList.get(currentPlantIndex);
              LocalDateTime lastWatered = currentPlant.getLastWatered();
-             Duration wateringInterval = Duration.ofMinutes(1);
+             Duration wateringInterval = Duration.ofSeconds(5);
              LocalDateTime lastTimeToWater = lastWatered.plus(wateringInterval);
 
             return lastTimeToWater;

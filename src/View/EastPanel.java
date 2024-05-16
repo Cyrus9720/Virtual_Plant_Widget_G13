@@ -9,6 +9,8 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 /**
  * The EastPanel class represents the panel containing plant care controls on the east side of the user interface.
@@ -236,9 +238,9 @@ public class EastPanel extends JPanel {
      * @author Anna Granberg
      */
     private void updateTimeUntilLabel() {
-        if(controller.getPlantList() == null){
+        if (controller.getPlantList() == null) {
             timeUntil.setText(" ");
-        }else{
+        } else {
             long timeUntilNextWatering = controller.getTimeUntilNextWatering();
             // Kontrollera om tiden är negativ
             if (timeUntilNextWatering < 0) {
@@ -254,5 +256,4 @@ public class EastPanel extends JPanel {
             timeUntil.setText("<html><div style='text-align: center; font-size: 9px;'>Next watering period:<br>" + formattedTime + "</div></html>");
         }
     }
-
 }
