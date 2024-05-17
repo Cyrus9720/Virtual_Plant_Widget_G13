@@ -391,8 +391,15 @@ public class Controller {
         return imagePaths;
     }
 
+    /**
+     * Tells the user to enter a new name for the current plant.
+     * If a valid name is provided, updates the plant's name,
+     * displays a confirmation message, and updates the view accordingly.
+     * If the input is invalid (null or empty), displays an error message.
+     * @author Anna Granberg
+     */
     public void changePlantName() {
-        String newName = JOptionPane.showInputDialog("Input new name: ");
+        String newName = JOptionPane.showInputDialog("Please enter the new plant name: ");
         if (newName != null && !newName.trim().isEmpty()) {
             currentPlant.setName(newName);
             JOptionPane.showMessageDialog(null, "Plant name changed to: " + currentPlant.getName());
