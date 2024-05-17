@@ -18,7 +18,7 @@ import static jdk.jfr.internal.consumer.EventLog.stop;
 
 /**
  * The Controller class serves as the main controller for managing the interaction between the model and the view.
- * It handles actions such as switching plants, watering plants, adding new plants, and updating the game state.
+ * It handles actions such as switching plants, watering plants, adding new plants, and updating the game sstate.
  */
 
 public class Controller {
@@ -26,10 +26,12 @@ public class Controller {
     private ArrayList<Plant> plantList = new ArrayList<>();
     private int currentPlantIndex;
     private Plant currentPlant;
+
     private boolean chosenPlant = false;
     private Timer timer;
     private Map<Plant, Timer> plantTimers;
     private long remainingDeathTimerMilliseconds;
+
 
     /**
      * Constructor for the controller class.
@@ -42,15 +44,16 @@ public class Controller {
         }
         view = new MainFrame(this);
 
-        if(!LoadGame.isFileNotEmpty() || GameHistoryReader.getGameHistory().isEmpty()){
+        if (!LoadGame.isFileNotEmpty() || GameHistoryReader.getGameHistory().isEmpty()) {
             firstTimePlaying();
         }
         plantTimers = new HashMap<>();
     }
 
     /**
+     * Switches the current plant to the one with the specified ID.
      *
-     * @param id
+     * @param id The ID of the plant to switch to.
      */
     public void switchPlant(String id) {
         int plantIndex = Integer.parseInt(id);
@@ -65,7 +68,6 @@ public class Controller {
             view.getCenterPanel().getMainPanel().refreshBar();
             view.getCenterPanel().repaint();
             view.getEastPanel().repaint();
-            setChosenPlant(true);
         } else {
             System.err.println("Invalid plant index: " + id);
         }
@@ -73,76 +75,159 @@ public class Controller {
 
     /**
      * Adds a new rose plant to the list of plants.
-     * Generates a random name for the rose plant and initializes its properties.
+     * Generates a random name for the plant if plant name is null
+     *
      * @author annagranberg
      */
-
     public void addNewRose() {
-        Random random = new Random();
-        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10Random random = new Random();
-        String newRoseName = "Rose" + randomNumber;
+        int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
+        String newName;
+        if (response == JOptionPane.YES_OPTION) {
+            newName = JOptionPane.showInputDialog("Please enter the new plant name:");
+            if (newName == null || newName.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Invalid input. You will get a random name instead, but it can be changed later :)");
+                Random random = new Random();
+                newName = "Rose" + random.nextInt(11);
+            }
+        } else {
+            Random random = new Random();
+            newName = "Rose" + random.nextInt(11);
+        }
+
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        Rose newRose = new Rose(newRoseName, PlantArt.ROSE, 3, 0, plantImage, 0, null);
+        Rose newRose = new Rose(newName, PlantArt.ROSE, 3, 0, plantImage, 0, null);
         plantList.add(newRose);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
 
     /**
      * Adds a new sunflower plant to the list of plants.
-     * Generates a random name for the rose plant and initializes its properties.
+     * Generates a random name for the plant if plant name is null
+     *
      * @author annagranberg
      */
-    public void addNewSunflower(){
-        Random random = new Random();
-        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
-        String newSunflowerName = "Sunflower" + randomNumber;
+    public void addNewSunflower() {
+        int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
+        String newName;
+        if (response == JOptionPane.YES_OPTION) {
+            newName = JOptionPane.showInputDialog("Please enter the new plant name:");
+            if (newName == null || newName.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Invalid input. You will get a random name instead, but it can be changed later :)");
+                Random random = new Random();
+                newName = "Sunflower" + random.nextInt(11);
+            }
+        } else {
+            Random random = new Random();
+            newName = "Sunflower" + random.nextInt(11);
+        }
+
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        Sunflower newSunflower = new Sunflower(newSunflowerName, PlantArt.SUNFLOWER, 3, 0, plantImage, 0, null);
+        Sunflower newSunflower = new Sunflower(newName, PlantArt.SUNFLOWER, 3, 0, plantImage, 0, null);
         plantList.add(newSunflower);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
 
     /**
      * Adds a new tomato plant to the list of plants.
-     * Generates a random name for the rose plant and initializes its properties.
+     * Generates a random name for the plant if plant name is null
+     *
      * @author annagranberg
      */
-    public void addNewTomatoPlant(){
-        Random random = new Random();
-        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
-        String newTomatoName = "TomatoPlant" + randomNumber;
+    public void addNewTomatoPlant() {
+        int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
+        String newName;
+        if (response == JOptionPane.YES_OPTION) {
+            newName = JOptionPane.showInputDialog("Please enter the new plant name:");
+            if (newName == null || newName.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Invalid input. You will get a random name instead, but it can be changed later :)");
+                Random random = new Random();
+                newName = "TomatoPlant" + random.nextInt(11);
+            }
+        } else {
+            Random random = new Random();
+            newName = "TomatoPlant" + random.nextInt(11);
+        }
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        TomatoPlant newTomatoPlant = new TomatoPlant(newTomatoName, PlantArt.TOMATO_PLANT, 3, 0, plantImage, 0, null);
+        TomatoPlant newTomatoPlant = new TomatoPlant(newName, PlantArt.TOMATO_PLANT, 3, 0, plantImage, 0, null);
         plantList.add(newTomatoPlant);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
 
-    public void addNewBlackberry(){
-        Random random = new Random();
-        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
-        String newBlackberryName = "Blackberry" + randomNumber;
+    /**
+     * Adds a new blackberry plant to the list of plants.
+     * Generates a random name for the plant if plant name is null
+     *
+     * @author annagranberg
+     */
+    public void addNewBlackberry() {
+        int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
+        String newName;
+        if (response == JOptionPane.YES_OPTION) {
+            newName = JOptionPane.showInputDialog("Please enter the new plant name:");
+            if (newName == null || newName.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Invalid input. You will get a random name instead, but it can be changed later :)");
+                Random random = new Random();
+                newName = "Blackberry" + random.nextInt(11);
+            }
+        } else {
+            Random random = new Random();
+            newName = "Blackberry" + random.nextInt(11);
+        }
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        Blackberry newBlackberry = new Blackberry(newBlackberryName, PlantArt.BLACKBERRY, 3, 0, plantImage, 0, null);
+        Blackberry newBlackberry = new Blackberry(newName, PlantArt.BLACKBERRY, 3, 0, plantImage, 0, null);
         plantList.add(newBlackberry);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
 
-    public void addNewMiniTree(){
-        Random random = new Random();
-        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
-        String newMiniTreeName = "Mini Tree" + randomNumber;
+    /**
+     * Adds a new mini tree plant to the list of plants.
+     * Generates a random name for the plant if plant name is null
+     *
+     * @author annagranberg
+     */
+    public void addNewMiniTree() {
+        int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
+        String newName;
+        if (response == JOptionPane.YES_OPTION) {
+            newName = JOptionPane.showInputDialog("Please enter the new plant name:");
+            if (newName == null || newName.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Invalid input. You will get a random name instead, but it can be changed later :)");
+                Random random = new Random();
+                newName = "Minitree" + random.nextInt(11);
+            }
+        } else {
+            Random random = new Random();
+            newName = "Minitree" + random.nextInt(11);
+        }
+
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        MiniTree newMiniTree = new MiniTree(newMiniTreeName, PlantArt.MINI_TREE, 3, 0, plantImage, 0, null);
+        MiniTree newMiniTree = new MiniTree(newName, PlantArt.MINI_TREE, 3, 0, plantImage, 0, null);
         plantList.add(newMiniTree);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
 
-    public void addNewCactus(){
-        Random random = new Random();
-        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
-        String newCactusName = "Cactus" + randomNumber;
+    /**
+     * Adds a new cactus plant to the list of plants.
+     * Generates a random name for the plant if plant name is null
+     *
+     * @author annagranberg
+     */
+    public void addNewCactus() {
+        int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
+        String newName;
+        if (response == JOptionPane.YES_OPTION) {
+            newName = JOptionPane.showInputDialog("Please enter the new plant name:");
+            if (newName == null || newName.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Invalid input. You will get a random name instead, but it can be changed later :)");
+                Random random = new Random();
+                newName = "Cactus" + random.nextInt(11);
+            }
+        } else {
+            Random random = new Random();
+            newName = "Cactus" + random.nextInt(11);
+        }
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        Cactus newCactus = new Cactus(newCactusName, PlantArt.CACTUS, 3, 0, plantImage, 0, null);
+        Cactus newCactus = new Cactus(newName, PlantArt.CACTUS, 3, 0, plantImage, 0, null);
         plantList.add(newCactus);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
@@ -166,7 +251,7 @@ public class Controller {
                         pauseDeathTimer(currentPlant);
                         System.out.println("PotArt1 triggered");
                     }
-                    view.getEastPanel().updateHeartLabel();
+                    //view.getEastPanel().updateHeartLabel();
                     currentPlant = plantList.get(currentPlantIndex);
                     currentPlant.waterPlant();
                     ImageIcon updatedImage = currentPlant.getPlantPicture();
@@ -184,6 +269,7 @@ public class Controller {
 
     /**
      * Starts the timer for the plant's life. Stops when life reaches 0.
+     *
      * @author Cyrus Shaerpour
      */
     public long getRemainingDeathTimerMilliseconds() {
@@ -244,10 +330,11 @@ public class Controller {
 
     /**
      * Checks the life of the plant and updates the image if the plant has no lives left.
+     *
      * @author Cyrus Shaerpour
      */
-    public void checkLife(){
-        if(currentPlant.getNbrOfLives() == 0){
+    public void checkLife() {
+        if (currentPlant.getNbrOfLives() == 0) {
             view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
             view.getMainPanel().updateButtons(getPlantImagePaths());
             view.getEastPanel().repaint();
@@ -262,7 +349,7 @@ public class Controller {
      */
     public void updateWaterButtonStatus() {
         boolean waterstatus = checkWateringStatus();
-        if (waterstatus) {
+        if (waterstatus ) {
             view.getEastPanel().enableWaterButton();
         } else {
             view.getEastPanel().disableWaterButton();
@@ -271,6 +358,7 @@ public class Controller {
 
     /**
      * Checks if the plants need to be watered based on a certain timestamp (24h).
+     *
      * @return boolean
      * @auhor annagranberg
      */
@@ -282,6 +370,7 @@ public class Controller {
 
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
+
                 Duration wateringInterval = Duration.ofMillis(10 * 1000);
 
                 if (timeSinceLastWatered.compareTo(wateringInterval) >= 0) {
@@ -295,6 +384,13 @@ public class Controller {
         return false; // Return false if the current plant does not need watering
     }
 
+    /**
+     * Calculates the time until the next watering for the current plant.
+     * If the current plant index is valid and the plant has been watered before,
+     * it calculates the time remaining until the next watering based on the specified watering interval.
+     *
+     * @return The time in seconds until the next watering, or 0 if it cannot be calculated.
+     */
     public long getTimeUntilNextWatering() {
         if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
             currentPlant = plantList.get(currentPlantIndex);
@@ -303,29 +399,22 @@ public class Controller {
 
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-                Duration wateringInterval = Duration.ofMillis(10 * 1000); // 30 sek
-                // Ska ändras (24 timmar = 24 * 60 * 60 * 1000)
+                Duration wateringInterval = Duration.ofSeconds(10); // 10 seconds
 
-                // Beräkna tiden kvar till nästa vattning i sekunder
+                // Calculate the time left until the next watering in seconds
                 long timeUntilNextWateringSeconds = wateringInterval.minus(timeSinceLastWatered).getSeconds();
+
+                if (timeUntilNextWateringSeconds <= 0) {
+                    view.getEastPanel().enableWaterButton();
+                    return 0; // The plant is due for watering or overdue
+                }
 
                 return timeUntilNextWateringSeconds;
             }
         }
-        return 0; // Returnera 0 om det inte går att beräkna tiden kvar
+        return 0; // Return 0 if it is not possible to calculate the remaining time
     }
 
-    public LocalDateTime wateringPeriod(){
-        if(currentPlantIndex >= 0 && currentPlantIndex < plantList.size()){
-             currentPlant = plantList.get(currentPlantIndex);
-             LocalDateTime lastWatered = currentPlant.getLastWatered();
-             Duration wateringInterval = Duration.ofMinutes(1);
-             LocalDateTime lastTimeToWater = lastWatered.plus(wateringInterval);
-
-            return lastTimeToWater;
-        }
-        return null;
-    }
 
     /**
      * Retrieves the number of lives of the first plant in the plant list.
@@ -333,254 +422,284 @@ public class Controller {
      * @return The number of lives of the first plant, or 0 if the plant list is empty or the first plant is null.
      */
     public int getNbrOfLives() {
+
         if (!plantList.isEmpty()) {
             Plant firstPlant = plantList.getFirst();
             if (firstPlant != null) {
+
                 return currentPlant.getNbrOfLives();
             } else {
-                return 3;
-            }
-        } else {
-            return 3;
-        }
-    }
-
-    /**
-     * Retrieves the number of times watered of the first plant in the plant list.
-     *
-     * @return The number of times watered of the first plant, or 0 if the plant list is empty or the first plant is null.
-     */
-    public int getTimesWatered() {
-        if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
-            if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
-                currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
-                if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
-                    System.out.println("times watered: " + currentPlant.getTimesWatered());
-                    return currentPlant.getTimesWatered();
-                } else {
-                    // Hantera fallet när den aktuella växten är null
-                    System.err.println("Current plant is null");
-                    return 0;
-                }
-            } else {
-                // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
-                System.err.println("Invalid current plant index in getTimesWatered");
+                System.out.println("current plant är null: " + currentPlant.getNbrOfLives());
                 return 0;
             }
         } else {
-            // Hantera fallet när plantList är tom
-            System.err.println("Plant list is empty");
+            System.out.println("plantList är tom: " + currentPlant.getNbrOfLives());
             return 0;
         }
     }
 
-    /**
-     * Retrieves the plant level of the first plant in the plant list.
-     *
-     * @return The plant level of the first plant, or 0 if the plant list is empty or the first plant is null.
-     */
-    public int getPlantLevel() {
-        if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
-            if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
-                currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
-                if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
-                    return currentPlant.getPlantLevel();
+        /**
+         * Retrieves the number of times watered of the first plant in the plant list.
+         *
+         * @return The number of times watered of the first plant, or 0 if the plant list is empty or the first plant is null.
+         */
+        public int getTimesWatered () {
+            if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
+                if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
+                    currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
+                    if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
+                        System.out.println("times watered: " + currentPlant.getTimesWatered());
+                        return currentPlant.getTimesWatered();
+                    } else {
+                        // Hantera fallet när den aktuella växten är null
+                        System.err.println("Current plant is null");
+                        return 0;
+                    }
                 } else {
-                    // Hantera fallet när den aktuella växten är null
-                    System.err.println("Current plant is null");
+                    // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
+                    System.err.println("Invalid current plant index in getTimesWatered");
                     return 0;
                 }
             } else {
-                // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
-                System.err.println("Invalid current plant index in getPlantLevel");
+                // Hantera fallet när plantList är tom
+                System.err.println("Plant list is empty");
                 return 0;
             }
-        } else {
-            // Hantera fallet när plantList är tom
-            System.err.println("Plant list is empty");
-            return 0;
         }
-    }
 
-    /**
-     * Retrieves the plant name of the first plant in the plant list.
-     *
-     * @return The plant name of the first plant, or 0 if the plant list is empty or the first plant is null.
-     */
-    public String getPlantName() {
-        if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
-            if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
-                currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
-                if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
-                    return currentPlant.getPlantName();
+        /**
+         * Retrieves the plant level of the first plant in the plant list.
+         *
+         * @return The plant level of the first plant, or 0 if the plant list is empty or the first plant is null.
+         */
+        public int getPlantLevel () {
+            if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
+                if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
+                    currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
+                    if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
+                        return currentPlant.getPlantLevel();
+                    } else {
+                        // Hantera fallet när den aktuella växten är null
+                        System.err.println("Current plant is null");
+                        return 0;
+                    }
                 } else {
-                    // Hantera fallet när den aktuella växten är null
+                    // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
+                    System.err.println("Invalid current plant index in getPlantLevel");
+                    return 0;
+                }
+            } else {
+                // Hantera fallet när plantList är tom
+                System.err.println("Plant list is empty");
+                return 0;
+            }
+        }
+
+        /**
+         * Retrieves the plant name of the first plant in the plant list.
+         *
+         * @return The plant name of the first plant, or 0 if the plant list is empty or the first plant is null.
+         */
+        public String getPlantName () {
+            if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
+                if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
+                    currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
+                    if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
+                        return currentPlant.getPlantName();
+                    } else {
+                        // Hantera fallet när den aktuella växten är null
+                        System.err.println("Current plant is null");
+                        return null;
+                    }
+                } else {
+                    // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
+                    System.err.println("Invalid current plant index in getPlantName");
+                    return null;
+                }
+            } else {
+                // Hantera fallet när plantList är tom
+                System.err.println("Plant list is empty");
+                return null;
+            }
+        }
+
+        /**
+         * Retrieves the plant art of the first plant in the plant list.
+         *
+         * @return The plant art of the first plant, or 0 if the plant list is empty or the first plant is null.
+         */
+        public PlantArt getPlantArt () {
+            if (!plantList.isEmpty() && currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
+                currentPlant = plantList.get(currentPlantIndex);
+                if (currentPlant != null) {
+                    // Return the plant art of the current plant
+                    return currentPlant.getPlantArt();
+                } else {
+                    // Handle the case when the current plant is null
                     System.err.println("Current plant is null");
                     return null;
                 }
             } else {
-                // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
-                System.err.println("Invalid current plant index in getPlantName");
+                // Handle the case when plantList is empty or currentPlantIndex is out of range
+                System.err.println("No plant available at the current index in getPlantArt");
                 return null;
             }
-        } else {
-            // Hantera fallet när plantList är tom
-            System.err.println("Plant list is empty");
-            return null;
         }
-    }
 
-    /**
-     * Retrieves the plant art of the first plant in the plant list.
-     *
-     * @return The plant art of the first plant, or 0 if the plant list is empty or the first plant is null.
-     */
-    public PlantArt getPlantArt(){
-        if (!plantList.isEmpty() && currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
-            currentPlant = plantList.get(currentPlantIndex);
-            if (currentPlant != null) {
-                // Return the plant art of the current plant
-                return currentPlant.getPlantArt();
+
+        /**
+         * Retrieves the paths of images associated with each plant in the plant list.
+         *
+         * @return A list of image paths corresponding to each plant in the plant list.
+         */
+        public ArrayList<String> getPlantImagePaths () {
+            ArrayList<String> imagePaths = new ArrayList<>();
+            for (Plant plant : plantList) {
+                imagePaths.add(plant.getPlantPicture().toString());
+            }
+            return imagePaths;
+        }
+
+        /**
+         * Tells the user to enter a new name for the current plant.
+         * If a valid name is provided, updates the plant's name,
+         * displays a confirmation message, and updates the view accordingly.
+         * If the input is invalid (null or empty), displays an error message.
+         * @author Anna Granberg
+         */
+        public void changePlantName () {
+            String newName = JOptionPane.showInputDialog("Please enter the new plant name: ");
+            if (newName != null && !newName.trim().isEmpty()) {
+                currentPlant.setName(newName);
+                view.getCenterPanel().updatePlantName(currentPlant.getPlantName());
             } else {
-                // Handle the case when the current plant is null
-                System.err.println("Current plant is null");
-                return null;
+                JOptionPane.showMessageDialog(null, "Invalid input. Name not changed.");
             }
-        } else {
-            // Handle the case when plantList is empty or currentPlantIndex is out of range
-            System.err.println("No plant available at the current index in getPlantArt");
-            return null;
-        }
-    }
-
-
-    /**
-     * Retrieves the paths of images associated with each plant in the plant list.
-     *
-     * @return A list of image paths corresponding to each plant in the plant list.
-     */
-    public ArrayList<String> getPlantImagePaths() {
-        ArrayList<String> imagePaths = new ArrayList<>();
-        for (Plant plant : plantList) {
-            imagePaths.add(plant.getPlantPicture().toString());
-        }
-        return imagePaths;
-    }
-
-    /**
-     * Calculates the time elapsed since the game was last played.
-     *
-     * @return The time elapsed since the game was last played, in seconds.
-     * @author Anna Granberg
-     */
-    public long getTimeSinceLastPlayed() {
-        LocalDateTime timeWhenClosed = SaveGame.getTimestamp();
-        LocalDateTime timeWhenOpened = LoadGame.getTimestamp();
-
-        Duration duration = Duration.between(timeWhenClosed, timeWhenOpened);
-
-        long timeSinceLastPlayedSeconds = duration.getSeconds();
-
-        return timeSinceLastPlayedSeconds;
-    }
-
-    /**
-     * Clears the list of plants if the user confirms the action through a JOptionPane.
-     *
-     * @return True if the user confirms to clear the list, false otherwise.
-     * @author Anna Granberg
-     */
-    public void setGameToNull() {
-        if(!plantList.isEmpty() || plantList != null){
-            int confirm = JOptionPane.showConfirmDialog(null, "This action will remove all of your plants. Are you sure you want to do this?", "Confirmation", JOptionPane.YES_NO_OPTION);
-            javax.swing.UIManager.put("OptionPane.background", new Color(225, 240, 218));
-            javax.swing.UIManager.put("Panel.background", new Color(225, 240, 218));
-            ArrayList<Plant> deadPlants = new ArrayList<>();
-            deadPlants = getPlantList();
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                GameHistoryWriter.GameHistoryWriter(deadPlants);
-                System.out.println(deadPlants.toString());
-                plantList.clear();
-                view.getCenterPanel().clearCenterPanel();
-                view.getSouthPanel().clearSouthPanel();
-                view.getMainPanel().updateButtons(getPlantImagePaths());
-                JOptionPane.showMessageDialog(null, "All existing plants have been removed.", "Information", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }else if(plantList.isEmpty() || plantList == null){
-            JOptionPane.showMessageDialog(null, "Your garden is empty! Nothing to remove :)", "Information", JOptionPane.INFORMATION_MESSAGE);
         }
 
-    }
+        /**
+         * Calculates the time elapsed since the game was last played.
+         *
+         * @return The time elapsed since the game was last played, in seconds.
+         * @author Anna Granberg
+         */
+        public long getTimeSinceLastPlayed () {
+            LocalDateTime timeWhenClosed = SaveGame.getTimestamp();
+            LocalDateTime timeWhenOpened = LoadGame.getTimestamp();
 
-    /**
-     *
-     * @param plantName
-     * @author Anna Granberg
-     */
-    public void removePlant(String plantName) {
-        if (plantList != null) {
-            // Anpassa färgen på dialogrutan
-            javax.swing.UIManager.put("OptionPane.background", new Color(225, 240, 218));
-            javax.swing.UIManager.put("Panel.background", new Color(225, 240, 218));
+            Duration duration = Duration.between(timeWhenClosed, timeWhenOpened);
 
-            // Visa bekräftelsedialogrutan
-            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this plant?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            long timeSinceLastPlayedSeconds = duration.getSeconds();
 
-            // Loopa genom listan för att hitta rätt växt genom växtnamn
-            if (confirm == JOptionPane.YES_OPTION) {
-                boolean found = false;
+            return timeSinceLastPlayedSeconds;
+        }
+
+        /**
+         * Clears the list of plants if the user confirms the action through a JOptionPane.
+         *
+         * @return True if the user confirms to clear the list, false otherwise.
+         * @author Anna Granberg
+         */
+        public void setGameToNull () {
+            if (!plantList.isEmpty() || plantList != null) {
+                int confirm = JOptionPane.showConfirmDialog(null, "This action will remove all of your plants. Are you sure you want to do this?", "Confirmation", JOptionPane.YES_NO_OPTION);
+                javax.swing.UIManager.put("OptionPane.background", new Color(225, 240, 218));
+                javax.swing.UIManager.put("Panel.background", new Color(225, 240, 218));
                 ArrayList<Plant> deadPlants = new ArrayList<>();
-                for (int i = 0; i < plantList.size(); i++) {
-                    currentPlant = plantList.get(i);
-                    if (currentPlant.getPlantName().equals(plantName)) {
-                        // ta bort plantan från listan
-                        plantList.remove(i);
-                        System.out.println("Växten med namnet \"" + plantName + "\" har tagits bort från listan.");
-                        found = true;
-                        view.getCenterPanel().clearCenterPanel();
-                        view.getSouthPanel().clearSouthPanel();
-                        view.getMainPanel().updateButtons(getPlantImagePaths());
-                        deadPlants.add(currentPlant);
-                        GameHistoryWriter.GameHistoryWriter(deadPlants);
-                        break;
+                deadPlants = getPlantList();
+
+                if (confirm == JOptionPane.YES_OPTION) {
+                    GameHistoryWriter.GameHistoryWriter(deadPlants);
+                    System.out.println(deadPlants.toString());
+                    plantList.clear();
+                    view.getCenterPanel().clearCenterPanel();
+                    view.getSouthPanel().clearSouthPanel();
+                    view.getMainPanel().updateButtons(getPlantImagePaths());
+                    JOptionPane.showMessageDialog(null, "All existing plants have been removed.", "Information", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else if (plantList.isEmpty() || plantList == null) {
+                JOptionPane.showMessageDialog(null, "Your garden is empty! Nothing to remove :)", "Information", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        }
+
+        /**
+         * Removes a plant from the plant list.
+         * Displays a confirmation dialog before removing the plant.
+         *
+         * @param plantName The name of the plant to be removed.
+         * @author Anna Granberg
+         */
+        public void removePlant (String plantName){
+            if (plantList != null) {
+                // Anpassa färgen på dialogrutan
+                javax.swing.UIManager.put("OptionPane.background", new Color(225, 240, 218));
+                javax.swing.UIManager.put("Panel.background", new Color(225, 240, 218));
+
+                // Visa bekräftelsedialogrutan
+                int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this plant?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+                // Loopa genom listan för att hitta rätt växt genom växtnamn
+                if (confirm == JOptionPane.YES_OPTION) {
+                    boolean found = false;
+                    ArrayList<Plant> deadPlants = new ArrayList<>();
+                    for (int i = 0; i < plantList.size(); i++) {
+                        currentPlant = plantList.get(i);
+                        if (currentPlant.getPlantName().equals(plantName)) {
+                            // ta bort plantan från listan
+                            plantList.remove(i);
+                            System.out.println("Växten med namnet \"" + plantName + "\" har tagits bort från listan.");
+                            found = true;
+                            view.getCenterPanel().clearCenterPanel();
+                            view.getSouthPanel().clearSouthPanel();
+                            view.getMainPanel().updateButtons(getPlantImagePaths());
+                            deadPlants.add(currentPlant);
+                            GameHistoryWriter.GameHistoryWriter(deadPlants);
+                            break;
+                        }
+                    }
+
+                    //ifall namnet inte kan hittas
+                    if (!found) {
+                        System.err.println("Det finns ingen växt med namnet \"" + plantName + "\" i listan.");
                     }
                 }
-
-                //ifall namnet inte kan hittas
-                if (!found) {
-                    System.err.println("Det finns ingen växt med namnet \"" + plantName + "\" i listan.");
-                }
+            } else {
+                JOptionPane.showMessageDialog(null, "You have no plants to remove", ":(", JOptionPane.INFORMATION_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "You have no plants to remove", ":(", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        /**
+         * Saves the current game state by invoking the SaveGame class's saveGame method with the plantList.
+         * @author Anna Granberg
+         */
+        public void saveGame () {
+            SaveGame.saveGame(plantList);
+        }
+
+        /**
+         * Initializes the game rule frame for the first time playing.
+         */
+        public void firstTimePlaying () {
+            GameRuleFrame gameRuleFrame = new GameRuleFrame();
+        }
+
+        /**
+         * Retrieves the main frame view.
+         *
+         * @return The main frame view.
+         */
+        public MainFrame getView () {
+            return view;
+        }
+
+        /**
+         * Retrieves the list of plants.
+         *
+         * @return The list of plants.
+         */
+        public ArrayList<Plant> getPlantList () {
+            return plantList;
         }
     }
 
-
-    public void showNewPlantInGUI(ImageIcon image, String name){
-        view.getCenterPanel().updatePlantImage(image);
-        view.getCenterPanel().updatePlantName(name);
-    }
-
-
-    public void saveGame() {
-        SaveGame.saveGame(plantList);
-    }
-
-    public void firstTimePlaying(){
-        GameRuleFrame gameRuleFrame = new GameRuleFrame();
-    }
-
-    public MainFrame getView() {
-        return view;
-    }
-
-    public ArrayList<Plant> getPlantList() {
-        return plantList;
-    }
-
-    public void setChosenPlant(boolean chosenPlant) {
-        this.chosenPlant = chosenPlant;
-    }
-}

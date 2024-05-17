@@ -1,8 +1,14 @@
 package Model;
 
-import javax.swing.ImageIcon;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
+import javax.sound.sampled.Clip;
 
 public abstract class Plant {
     private String name;
@@ -13,8 +19,9 @@ public abstract class Plant {
     private String plantinfo;
     private PlantArt plantArt;
     private LocalDateTime lastWatered;
-
-
+    private Timer timer;
+    private LocalDateTime lastUpdatedTimestamp;
+    private Clip wateringSoundClip;
 
     /**
      * Constructor for Plant
@@ -42,34 +49,67 @@ public abstract class Plant {
      * @author Cyrus Shaerpour
      */
     public void waterPlant() {
-        setTimesWatered(getTimesWatered() + 1);
-        if (plantLevel < 3) {
-            if (getTimesWatered() == plantLevel + 1) {
-                setPlantLevel(getPlantLevel() + 1);
-                setTimesWatered(0);
-                //System.out.println("Plant level " + plantLevel);
-                if (plantLevel == 3) {
-                    System.out.println("Plant is fully grown");
+        if (nbrOfLives >0) {
+            setTimesWatered(getTimesWatered() + 1);
+            if (plantLevel <=3) {
+                if (getTimesWatered() == plantLevel + 1) {
+                    setPlantLevel(getPlantLevel() + 1);
+                    setTimesWatered(0);
+                    //System.out.println("Plant level " + plantLevel);
+                    if (plantLevel == 3) {
+                        System.out.println("Plant is fully grown");
+                    }
+                }try {
+                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResourceAsStream("/sounds/watering.wav")));
+                    wateringSoundClip = AudioSystem.getClip();
+                    wateringSoundClip.open(audioInputStream);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                if (wateringSoundClip != null) {
+                    wateringSoundClip.setFramePosition(0);
+                    wateringSoundClip.start();
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Your plant is dead! \nWatering won't bring it back ):");
         }
     }
+
 
     public void decreaseLife() {
         if (nbrOfLives > 0) {
             nbrOfLives--; // Minska livräknaren med ett om den är större än noll
+            setNbrOfLives(getNbrOfLives());
         }
     }
 
-    //@TODO: Lägg till javadocs efterhand när metoderna börjar användas.
+    /**
+     * Retrieves the name of the plant.
+     *
+     * @return The name of the plant.
+     */
     public String getPlantName() {
         return name;
     }
+
+
+    public void setPlantName(String name) {
+        this.name = name;
+    }
+
+
+    /**
+     * Retrieves the number of lives of the plant.
+     *
+     * @return The number of lives of the plant.
+     */
+
     public int getNbrOfLives() {
         return nbrOfLives;
     }
 
-    public void setNbrOfLives(int nbrOfLives){
+    public void setNbrOfLives(int nbrOfLives) {
         this.nbrOfLives = nbrOfLives;
     }
 
@@ -140,22 +180,53 @@ public abstract class Plant {
         return plantArt;
     }
 
-
-
+    /**
+     * Sets the last time the plant was watered.
+     *
+     * @param lastWatered The LocalDateTime object representing the last time the plant was watered.
+     */
     public void setLastWatered(LocalDateTime lastWatered) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         String formattedDateTime = lastWatered.format(formatter);
-        System.out.println(formattedDateTime); // För att kontrollera utskriften
+        System.out.println(formattedDateTime); // For debugging purposes
         this.lastWatered = lastWatered;
     }
+
+    /**
+     * Retrieves the last time the plant was watered.
+     *
+     * @return The LocalDateTime object representing the last time the plant was watered.
+     */
     public LocalDateTime getLastWatered() {
         return lastWatered;
     }
 
+    public String getPlantinfo() {
+        return plantinfo;
+    }
+
+    public void setPlantArt(PlantArt plantArt) {
+        this.plantArt = plantArt;
+    }
+
+    public void updateTimestamp(LocalDateTime timestamp) {
+        this.lastUpdatedTimestamp = timestamp;
+    }
+
+    /**
+     * Sets the name of the plant.
+     *
+     * @param name The name to set for the plant.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Retrieves the name of the plant.
+     *
+     * @return The name of the plant.
+     */
     public String getName() {
         return name;
     }
@@ -171,10 +242,8 @@ public abstract class Plant {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
             formattedLastWatered = lastWatered.format(formatter);
         }catch (Exception e){
-            System.err.println("Could not format date");
+            // System.err.println("Could not format date");
         }
         return String.format("Plant art; %s | Plant name; %s | Plant level; %d | Times watered; %d | Number of lives; %d | Plant picture; %s | Last time watered; %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture, formattedLastWatered);
     }
-
-
 }

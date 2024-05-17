@@ -19,11 +19,11 @@ public class GameRuleFrame extends JFrame {
     private static final int FRAME_HEIGHT = 350;
     private static final Font customFont = new Font("Bebas Neue", Font.BOLD, 12); // Anpassat typsnitt för hela spelet
 
-    // Constructor för GameRuleFrame
+    /**
+     * Constructs a GameRuleFrame to display the game rules.
+     */
     public GameRuleFrame() {
         gameRulesLabel = new JLabel();
-
-
         String welcome = "<html> Welcome to Virtual Plant Widgets!\n" +
                 "You've just gained access to your very own virtual garden where you can plant and nurture your own plants. <br/>"
                 + "<br/>";
@@ -62,6 +62,10 @@ public class GameRuleFrame extends JFrame {
         centerAndToFront();
 
     }
+
+    /**
+     * Centers the frame on the screen and brings it to the front.
+     */
     private void centerAndToFront() {
         // Get the screen dimensions
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

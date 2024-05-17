@@ -8,7 +8,11 @@ import java.util.List;
 
 public class GameHistoryReader {
     private static ArrayList<String> gameHistory;
-
+    /**
+     * Retrieves the game history from a file.
+     *
+     * @return The list containing the game history data.
+     */
     public static ArrayList<String> getGameHistory() {
         gameHistory = new ArrayList<>();
 
