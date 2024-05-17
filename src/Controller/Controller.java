@@ -26,7 +26,6 @@ public class Controller {
     private Clip wateringSoundClip;
     private int currentPlantIndex;
     private Plant currentPlant;
-    private boolean chosenPlant = false;
 
     /**
      * Constructor for the controller class.
@@ -62,7 +61,6 @@ public class Controller {
             view.getCenterPanel().getMainPanel().refreshBar();
             view.getCenterPanel().repaint();
             view.getEastPanel().repaint();
-            setChosenPlant(true);
         } else {
             System.err.println("Invalid plant index: " + id);
         }
@@ -70,7 +68,7 @@ public class Controller {
 
     /**
      * Adds a new rose plant to the list of plants.
-     * Generates a random name for the rose plant and initializes its properties.
+     * Generates a random name for the plant if plant name is null
      * @author annagranberg
      */
     public void addNewRose() {
@@ -96,7 +94,7 @@ public class Controller {
 
     /**
      * Adds a new sunflower plant to the list of plants.
-     * Generates a random name for the rose plant and initializes its properties.
+     * Generates a random name for the plant if plant name is null
      * @author annagranberg
      */
     public void addNewSunflower(){
@@ -122,7 +120,7 @@ public class Controller {
 
     /**
      * Adds a new tomato plant to the list of plants.
-     * Generates a random name for the rose plant and initializes its properties.
+     * Generates a random name for the plant if plant name is null
      * @author annagranberg
      */
     public void addNewTomatoPlant(){
@@ -145,6 +143,11 @@ public class Controller {
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
 
+    /**
+     * Adds a new blackberry plant to the list of plants.
+     * Generates a random name for the plant if plant name is null
+     * @author annagranberg
+     */
     public void addNewBlackberry(){
         int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
         String newName;
@@ -165,6 +168,11 @@ public class Controller {
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
 
+    /**
+     * Adds a new mini tree plant to the list of plants.
+     * Generates a random name for the plant if plant name is null
+     * @author annagranberg
+     */
     public void addNewMiniTree(){
         int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
         String newName;
@@ -185,7 +193,11 @@ public class Controller {
         plantList.add(newMiniTree);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
-
+    /**
+     * Adds a new cactus plant to the list of plants.
+     * Generates a random name for the plant if plant name is null
+     * @author annagranberg
+     */
     public void addNewCactus(){
         int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
         String newName;
@@ -281,6 +293,13 @@ public class Controller {
         return false; // Return false if the current plant does not need watering
     }
 
+    /**
+     * Calculates the time until the next watering for the current plant.
+     * If the current plant index is valid and the plant has been watered before,
+     * it calculates the time remaining until the next watering based on the specified watering interval.
+     *
+     * @return The time in seconds until the next watering, or 0 if it cannot be calculated.
+     */
     public long getTimeUntilNextWatering() {
         if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
             currentPlant = plantList.get(currentPlantIndex);
@@ -299,18 +318,6 @@ public class Controller {
             }
         }
         return 0; // Returnera 0 om det inte går att beräkna tiden kvar
-    }
-
-    public LocalDateTime wateringPeriod(){
-        if(currentPlantIndex >= 0 && currentPlantIndex < plantList.size()){
-             currentPlant = plantList.get(currentPlantIndex);
-             LocalDateTime lastWatered = currentPlant.getLastWatered();
-             Duration wateringInterval = Duration.ofSeconds(5);
-             LocalDateTime lastTimeToWater = lastWatered.plus(wateringInterval);
-
-            return lastTimeToWater;
-        }
-        return null;
     }
 
     /**
@@ -513,8 +520,10 @@ public class Controller {
     }
 
     /**
+     * Removes a plant from the plant list.
+     * Displays a confirmation dialog before removing the plant.
      *
-     * @param plantName
+     * @param plantName The name of the plant to be removed.
      * @author Anna Granberg
      */
     public void removePlant(String plantName) {
@@ -556,30 +565,36 @@ public class Controller {
         }
     }
 
-
-    public void showNewPlantInGUI(ImageIcon image, String name){
-        view.getCenterPanel().updatePlantImage(image);
-        view.getCenterPanel().updatePlantName(name);
-    }
-
-
+    /**
+     * Saves the current game state by invoking the SaveGame class's saveGame method with the plantList.
+     * @author Anna Granberg
+     */
     public void saveGame() {
         SaveGame.saveGame(plantList);
     }
 
+    /**
+     * Initializes the game rule frame for the first time playing.
+     */
     public void firstTimePlaying(){
         GameRuleFrame gameRuleFrame = new GameRuleFrame();
     }
 
+    /**
+     * Retrieves the main frame view.
+     *
+     * @return The main frame view.
+     */
     public MainFrame getView() {
         return view;
     }
 
+    /**
+     * Retrieves the list of plants.
+     *
+     * @return The list of plants.
+     */
     public ArrayList<Plant> getPlantList() {
         return plantList;
-    }
-
-    public void setChosenPlant(boolean chosenPlant) {
-        this.chosenPlant = chosenPlant;
     }
 }
