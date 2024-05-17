@@ -319,16 +319,12 @@ public class Controller {
      * @return The number of lives of the first plant, or 0 if the plant list is empty or the first plant is null.
      */
     public int getNbrOfLives() {
-        if (!plantList.isEmpty()) {
-            Plant firstPlant = plantList.get(0);
-            if (firstPlant != null) {
-                return firstPlant.getNbrOfLives();
+            if (currentPlant != null) {
+                return currentPlant.getNbrOfLives();
             } else {
-                return 3;
+                System.out.println("current plant är null: " + currentPlant.getNbrOfLives());
+                return 0;
             }
-        } else {
-            return 3;
-        }
     }
 
     /**
