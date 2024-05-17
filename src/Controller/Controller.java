@@ -73,13 +73,23 @@ public class Controller {
      * Generates a random name for the rose plant and initializes its properties.
      * @author annagranberg
      */
-
     public void addNewRose() {
-        Random random = new Random();
-        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10Random random = new Random();
-        String newRoseName = "Rose" + randomNumber;
+        int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
+        String newName;
+        if(response == JOptionPane.YES_OPTION){
+            newName = JOptionPane.showInputDialog("Please enter the new plant name:");
+            if (newName == null || newName.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Invalid input. You will get a random name instead, but it can be changed later :)");
+                Random random = new Random();
+                newName = "Rose" + random.nextInt(11);
+            }
+        } else {
+            Random random = new Random();
+            newName = "Rose" + random.nextInt(11);
+        }
+
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        Rose newRose = new Rose(newRoseName, PlantArt.ROSE, 3, 0, plantImage, 0, null);
+        Rose newRose = new Rose(newName, PlantArt.ROSE, 3, 0, plantImage, 0, null);
         plantList.add(newRose);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
@@ -90,11 +100,22 @@ public class Controller {
      * @author annagranberg
      */
     public void addNewSunflower(){
-        Random random = new Random();
-        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
-        String newSunflowerName = "Sunflower" + randomNumber;
+        int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
+        String newName;
+        if(response == JOptionPane.YES_OPTION){
+            newName = JOptionPane.showInputDialog("Please enter the new plant name:");
+            if (newName == null || newName.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Invalid input. You will get a random name instead, but it can be changed later :)");
+                Random random = new Random();
+                newName = "Sunflower" + random.nextInt(11);
+            }
+        } else {
+            Random random = new Random();
+            newName = "Sunflower" + random.nextInt(11);
+        }
+
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        Sunflower newSunflower = new Sunflower(newSunflowerName, PlantArt.SUNFLOWER, 3, 0, plantImage, 0, null);
+        Sunflower newSunflower = new Sunflower(newName, PlantArt.SUNFLOWER, 3, 0, plantImage, 0, null);
         plantList.add(newSunflower);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
@@ -105,41 +126,82 @@ public class Controller {
      * @author annagranberg
      */
     public void addNewTomatoPlant(){
-        Random random = new Random();
-        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
-        String newTomatoName = "TomatoPlant" + randomNumber;
+        int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
+        String newName;
+        if(response == JOptionPane.YES_OPTION){
+            newName = JOptionPane.showInputDialog("Please enter the new plant name:");
+            if (newName == null || newName.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Invalid input. You will get a random name instead, but it can be changed later :)");
+                Random random = new Random();
+                newName = "TomatoPlant" + random.nextInt(11);
+            }
+        } else {
+            Random random = new Random();
+            newName = "TomatoPlant" + random.nextInt(11);
+        }
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        TomatoPlant newTomatoPlant = new TomatoPlant(newTomatoName, PlantArt.TOMATO_PLANT, 3, 0, plantImage, 0, null);
+        TomatoPlant newTomatoPlant = new TomatoPlant(newName, PlantArt.TOMATO_PLANT, 3, 0, plantImage, 0, null);
         plantList.add(newTomatoPlant);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
 
     public void addNewBlackberry(){
-        Random random = new Random();
-        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
-        String newBlackberryName = "Blackberry" + randomNumber;
+        int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
+        String newName;
+        if(response == JOptionPane.YES_OPTION){
+            newName = JOptionPane.showInputDialog("Please enter the new plant name:");
+            if (newName == null || newName.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Invalid input. You will get a random name instead, but it can be changed later :)");
+                Random random = new Random();
+                newName = "Blackberry" + random.nextInt(11);
+            }
+        } else {
+            Random random = new Random();
+            newName = "Blackberry" + random.nextInt(11);
+        }
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        Blackberry newBlackberry = new Blackberry(newBlackberryName, PlantArt.BLACKBERRY, 3, 0, plantImage, 0, null);
+        Blackberry newBlackberry = new Blackberry(newName, PlantArt.BLACKBERRY, 3, 0, plantImage, 0, null);
         plantList.add(newBlackberry);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
 
     public void addNewMiniTree(){
-        Random random = new Random();
-        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
-        String newMiniTreeName = "Mini Tree" + randomNumber;
+        int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
+        String newName;
+        if(response == JOptionPane.YES_OPTION){
+            newName = JOptionPane.showInputDialog("Please enter the new plant name:");
+            if (newName == null || newName.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Invalid input. You will get a random name instead, but it can be changed later :)");
+                Random random = new Random();
+                newName = "Minitree" + random.nextInt(11);
+            }
+        } else {
+            Random random = new Random();
+            newName = "Minitree" + random.nextInt(11);
+        }
+
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        MiniTree newMiniTree = new MiniTree(newMiniTreeName, PlantArt.MINI_TREE, 3, 0, plantImage, 0, null);
+        MiniTree newMiniTree = new MiniTree(newName, PlantArt.MINI_TREE, 3, 0, plantImage, 0, null);
         plantList.add(newMiniTree);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
 
     public void addNewCactus(){
-        Random random = new Random();
-        int randomNumber = random.nextInt(11); // Generera en slumpmässig siffra mellan 0 och 10
-        String newCactusName = "Cactus" + randomNumber;
+        int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
+        String newName;
+        if(response == JOptionPane.YES_OPTION){
+            newName = JOptionPane.showInputDialog("Please enter the new plant name:");
+            if (newName == null || newName.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Invalid input. You will get a random name instead, but it can be changed later :)");
+                Random random = new Random();
+                newName = "Cactus" + random.nextInt(11);
+            }
+        } else {
+            Random random = new Random();
+            newName = "Cactus" + random.nextInt(11);
+        }
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        Cactus newCactus = new Cactus(newCactusName, PlantArt.CACTUS, 3, 0, plantImage, 0, null);
+        Cactus newCactus = new Cactus(newName, PlantArt.CACTUS, 3, 0, plantImage, 0, null);
         plantList.add(newCactus);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }

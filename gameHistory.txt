@@ -8,3 +8,12 @@ Plant name: TomatoPlant4 | Plant art: TOMATO_PLANT | Plant level: 1 | Plant Pict
 Plant name: Rose6 | Plant art: ROSE | Plant level: 1 | Plant Picture: src/Images/RoseArt1.JPG
 Plant name: Sunflower0 | Plant art: SUNFLOWER | Plant level: 1 | Plant Picture: src/Images/Sunflower1.JPG
 Plant name: Cactus1 | Plant art: CACTUS | Plant level: 1 | Plant Picture: src/Images/Cactus1.JPG
+Plant name: MYPrettyRose | Plant art: BLACKBERRY | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
+Plant name: My Pretty Cactus | Plant art: CACTUS | Plant level: 1 | Plant Picture: src/Images/Cactus1.JPG
+Plant name: Sunflower9 | Plant art: SUNFLOWER | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
+Plant name: MYPrettyRose | Plant art: ROSE | Plant level: 1 | Plant Picture: src/Images/RoseArt1.JPG
+Plant name: Cactus2 | Plant art: CACTUS | Plant level: 1 | Plant Picture: src/Images/Cactus1.JPG
+Plant name: Sunflower6 | Plant art: SUNFLOWER | Plant level: 1 | Plant Picture: src/Images/Sunflower1.JPG
+Plant name: MyPinkRose | Plant art: ROSE | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
+Plant name: Myprettyrose | Plant art: ROSE | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
+Plant name: Rose8 | Plant art: CACTUS | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
