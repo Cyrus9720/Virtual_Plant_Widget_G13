@@ -1,5 +1,8 @@
 package Model;
 
+/**
+ * Enumeration representing different types of plant art.
+ */
 public enum PlantArt
 {
     BLACKBERRY,

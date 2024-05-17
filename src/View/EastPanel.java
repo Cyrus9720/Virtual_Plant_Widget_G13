@@ -9,6 +9,8 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 /**
  * The EastPanel class represents the panel containing plant care controls on the east side of the user interface.
@@ -20,13 +22,11 @@ import java.awt.event.ActionListener;
  */
 public class EastPanel extends JPanel {
     private Controller controller; // Referens till controller
-    private MainFrame view;
     private int width, height; // Storlek på panelen
     private JButton Water; // Knapp för vattning
     private JLabel progressbarLabel; // JLabel för progressbar / timesWatered
     private JLabel threeHeartsLabel; // JLabel för nbrOfLives
     private JLabel timeUntil; // JLabel för at visa tiden tills nästa vattning
-    private JLabel timeUntilDeath; // JLabel för att visa tiden tills plantan dör
     private Timer timer; // Timer för uppdatering av tiden tills nästa vattning
 
     /**
@@ -78,15 +78,8 @@ public class EastPanel extends JPanel {
 
         timeUntil = new JLabel();
         timeUntil.setFont(new Font("Bebas Neue", Font.BOLD, 9));
-        add(timeUntil, BorderLayout.NORTH);
         updateTimeUntilLabel();
-        updateDeathTimer();
-
-        System.out.println("Before initializing timeUntilDeath: " + (timeUntilDeath == null));
-        timeUntilDeath = new JLabel("DT");
-        timeUntilDeath.setFont(new Font("Bebas Neue", Font.BOLD, 9));
-        System.out.println("After initializing timeUntilDeath: " + (timeUntilDeath == null));
-
+        add(timeUntil, BorderLayout.NORTH);
 
         progressbarLabel.setIcon(scaledIcon);
         add(progressbarLabel, BorderLayout.SOUTH);
@@ -109,36 +102,34 @@ public class EastPanel extends JPanel {
         timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (controller.getTimeUntilNextWatering() == 0) {
-                    Water.setEnabled(true);
-                }
                 updateTimeUntilLabel();
-                updateDeathTimer();
-                updateAmountOfLife();
-                repaint();
-                revalidate();
             }
         });
         timer.start();
     }
 
-    public  void updateHeartLabel(){
-       updateAmountOfLife();
-    }
-
+    /**
+     * Refreshes the progress bar by updating its icon.
+     */
     public void refreshBar() {
         progressbarLabel.setIcon(updateWaterProgress());
     }
 
+    /**
+     * Enables the water button.
+     * @author anna granberg
+     */
     public void enableWaterButton() {
-        Water.setEnabled(true); // Aktivera vattenknappen
+        Water.setEnabled(true); // Enables the water button
         Water.repaint();
-        repaint();
-        revalidate();
     }
 
+    /**
+     * Disables the water button.
+     * @author anna granberg
+     */
     public void disableWaterButton() {
-        Water.setEnabled(false); // Aktivera vattenknappen
+        Water.setEnabled(false); // Disables the water button
         Water.repaint();
     }
 
@@ -210,32 +201,30 @@ public class EastPanel extends JPanel {
      * @author Anna Granberg
      */
     public ImageIcon updateAmountOfLife() {
-        ImageIcon heartsIcon;
+        ImageIcon heartsIcon = null;
         if (controller.getPlantList() == null || controller.getNbrOfLives() < 0) {
             // Handle the case when the plant list is null or the number of lives is negative
             return null;
         }
+
         int nbrOfLives = controller.getNbrOfLives();
 
         switch (nbrOfLives) {
             case 0:
                 // If there are no lives left, display an empty heart icon
-                heartsIcon = new ImageIcon("src/Images/tommaHjärtan.PNG");
+                heartsIcon = new ImageIcon("src/Images/tommaHjärtan.png");
                 break;
             case 1:
                 // If there is one life left, display one heart
-                heartsIcon = new ImageIcon("src/Images/ettHjärta.PNG");
-                System.out.println("ett hjärta " + controller.getNbrOfLives() + " liv kvar");
+                heartsIcon = new ImageIcon("src/Images/ettHjärta.png");
                 break;
             case 2:
                 // If there are two lives left, display two hearts
-                heartsIcon = new ImageIcon("src/Images/tvåHjärtan.PNG");
-                System.out.println("två hjärtan " + controller.getNbrOfLives() + " liv kvar");
+                heartsIcon = new ImageIcon("src/Images/tvåHjärtan.png");
                 break;
             case 3:
                 // If there are three lives left, display three hearts
-                heartsIcon = new ImageIcon("src/Images/treHjärtan.PNG");
-                System.out.println("tre hjärtan " + controller.getNbrOfLives() + " liv kvar");
+                heartsIcon = new ImageIcon("src/Images/treHjärtan.png");
                 break;
             default:
                 heartsIcon = null;
@@ -260,9 +249,9 @@ public class EastPanel extends JPanel {
      * @author Anna Granberg
      */
     private void updateTimeUntilLabel() {
-        if(controller.getPlantList() == null){
+        if (controller.getPlantList() == null) {
             timeUntil.setText(" ");
-        }else{
+        } else {
             long timeUntilNextWatering = controller.getTimeUntilNextWatering();
             // Kontrollera om tiden är negativ
             if (timeUntilNextWatering < 0) {
@@ -278,28 +267,4 @@ public class EastPanel extends JPanel {
             timeUntil.setText("<html><div style='text-align: center; font-size: 9px;'>Next watering period:<br>" + formattedTime + "</div></html>");
         }
     }
-
-    private void updateDeathTimer() {
-        if(timeUntilDeath == null){
-            System.out.println("death timer is null");
-            return;
-        } else {
-            long remainingDeathTimer = controller.getRemainingDeathTimerMilliseconds(); // Corrected method name
-            // Kontrollera om tiden är negativ
-            if (remainingDeathTimer < 0) {
-                // todo: lägg till mainFrame.timeToWater()
-                remainingDeathTimer = 0; // Sätt tiden till 0 om den är negativ
-            }
-            long hours = remainingDeathTimer / (1000 * 3600); // Convert milliseconds to hours
-            long minutes = (remainingDeathTimer % (1000 * 3600)) / (1000 * 60); // Få återstående minuter
-            long seconds = (remainingDeathTimer % (1000 * 60)) / 1000; // Få återstående sekunder
-
-            String formattedTime = String.format("%02d h %02d m %02d s", hours, minutes, seconds);
-            // Använd HTML för att bryta texten på tre rader och minska textstorleken
-            timeUntilDeath.setText("<html><div style='text-align: center; font-size: 9px;'>Time until death:<br>" + formattedTime + "</div></html>");
-            add(timeUntilDeath, BorderLayout.CENTER);
-        }
-    }
-
-
 }

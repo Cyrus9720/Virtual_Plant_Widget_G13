@@ -93,6 +93,9 @@ public class CenterPanel extends JPanel {
         return new ImageIcon(scaledImage); // Omvandlar bilden tillbaka till ImageIcon
     }
 
+    /**
+     * Clears the center panel by resetting the plant name, plant picture, and titled border.
+     */
     public void clearCenterPanel() {
         name = "You must choose a plant";
         plantPicture = null;
