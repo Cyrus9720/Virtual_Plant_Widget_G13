@@ -102,7 +102,13 @@ public class EastPanel extends JPanel {
         timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (controller.getTimeUntilNextWatering() == 0) {
+                    Water.setEnabled(true);
+                }
                 updateTimeUntilLabel();
+                //updateAmountOfLife();
+                repaint();
+                revalidate();
             }
         });
         timer.start();
@@ -212,19 +218,23 @@ public class EastPanel extends JPanel {
         switch (nbrOfLives) {
             case 0:
                 // If there are no lives left, display an empty heart icon
-                heartsIcon = new ImageIcon("src/Images/tommaHjärtan.png");
+                heartsIcon = new ImageIcon("src/Images/tommaHjärtan.PNG");
+                System.out.println("No lives left");
                 break;
             case 1:
                 // If there is one life left, display one heart
-                heartsIcon = new ImageIcon("src/Images/ettHjärta.png");
+                heartsIcon = new ImageIcon("src/Images/ettHjärta.PNG");
+                System.out.println("One life left");
                 break;
             case 2:
                 // If there are two lives left, display two hearts
-                heartsIcon = new ImageIcon("src/Images/tvåHjärtan.png");
+                heartsIcon = new ImageIcon("src/Images/tvåHjärtan.PNG");
+                System.out.println("Two lives left");
                 break;
             case 3:
                 // If there are three lives left, display three hearts
-                heartsIcon = new ImageIcon("src/Images/treHjärtan.png");
+                heartsIcon = new ImageIcon("src/Images/treHjärtan.PNG");
+                System.out.println("Three lives left");
                 break;
             default:
                 heartsIcon = null;

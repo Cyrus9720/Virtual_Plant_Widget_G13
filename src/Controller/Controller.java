@@ -337,8 +337,8 @@ public class Controller {
         if (currentPlant.getNbrOfLives() == 0) {
             view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
             view.getMainPanel().updateButtons(getPlantImagePaths());
-            view.getEastPanel().repaint();
             view.getEastPanel().updateAmountOfLife();
+            view.getEastPanel().repaint();
         }
     }
 
@@ -405,7 +405,7 @@ public class Controller {
                 long timeUntilNextWateringSeconds = wateringInterval.minus(timeSinceLastWatered).getSeconds();
 
                 if (timeUntilNextWateringSeconds <= 0) {
-                    view.getEastPanel().enableWaterButton();
+                    //view.getEastPanel().enableWaterButton();
                     return 0; // The plant is due for watering or overdue
                 }
 
