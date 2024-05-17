@@ -77,6 +77,15 @@ public class MainFrame extends JFrame {
             }
         });
 
+        JMenuItem changeName = new JMenuItem("Change Plant Name");
+        changeName.setFont(customFont);
+        changeName.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.changePlantName();
+            }
+        });
+
         JMenuItem removePlant = new JMenuItem("Remove plant");
         removePlant.setFont(customFont);
         removePlant.addActionListener(new ActionListener() {
@@ -105,8 +114,10 @@ public class MainFrame extends JFrame {
         gameHistory.setBorder(menuItemBorder);
         newGame.setBorder(menuItemBorder);
         removePlant.setBorder(menuItemBorder);
+        changeName.setBorder(menuItemBorder);
 
         menuBar.add(gameRules);
+        menuBar.add(changeName);
         menuBar.add(gameHistory);
         menuBar.add(removePlant);
         menuBar.add(newGame);

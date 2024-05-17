@@ -146,6 +146,14 @@ public abstract class Plant {
         return lastWatered;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     /**
      * toString method
      * @return textOut

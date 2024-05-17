@@ -391,6 +391,16 @@ public class Controller {
         return imagePaths;
     }
 
+    public void changePlantName() {
+        String newName = JOptionPane.showInputDialog("Input new name: ");
+        if (newName != null && !newName.trim().isEmpty()) {
+            currentPlant.setName(newName);
+            JOptionPane.showMessageDialog(null, "Plant name changed to: " + currentPlant.getName());
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid input. Name not changed.");
+        }
+    }
+
     /**
      * Calculates the time elapsed since the game was last played.
      *
