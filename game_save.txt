@@ -1,2 +1,2 @@
-Plant art; ROSE | Plant name; My pretty rose | Plant level; 2 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/RoseArt2.JPG | Last time watered; 2024-05-16 14:27:59.359 | Timestamp; 2024-05-17 11:12:31.554
-Plant art; ROSE | Plant name; Rose10 | Plant level; 1 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/RoseArt1.JPG | Last time watered; 2024-05-16 14:27:53.837 | Timestamp; 2024-05-17 11:12:31.554
+Plant art; BLACKBERRY | Plant name; Blackberries | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/PotArt1.JPG | Last time watered; null | Timestamp; 2024-05-17 11:15:02.622
+Plant art; CACTUS | Plant name; My Pretty Cactus | Plant level; 1 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/Cactus1.JPG | Last time watered; 2024-05-17 11:15:01.667 | Timestamp; 2024-05-17 11:15:02.622
