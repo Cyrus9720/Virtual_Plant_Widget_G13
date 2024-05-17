@@ -45,8 +45,9 @@ public class Controller {
     }
 
     /**
+     * Switches the current plant to the one with the specified ID.
      *
-     * @param id
+     * @param id The ID of the plant to switch to.
      */
     public void switchPlant(String id) {
         int plantIndex = Integer.parseInt(id);
