@@ -14,8 +14,6 @@ public abstract class Plant {
     private PlantArt plantArt;
     private LocalDateTime lastWatered;
 
-
-
     /**
      * Constructor for Plant
      * @param name Name of the plant
@@ -61,10 +59,20 @@ public abstract class Plant {
         }
     }
 
-    //@TODO: Lägg till javadocs efterhand när metoderna börjar användas.
+    /**
+     * Retrieves the name of the plant.
+     *
+     * @return The name of the plant.
+     */
     public String getPlantName() {
         return name;
     }
+
+    /**
+     * Retrieves the number of lives of the plant.
+     *
+     * @return The number of lives of the plant.
+     */
     public int getNbrOfLives() {
         return nbrOfLives;
     }
@@ -136,20 +144,41 @@ public abstract class Plant {
         return plantArt;
     }
 
+    /**
+     * Sets the last time the plant was watered.
+     *
+     * @param lastWatered The LocalDateTime object representing the last time the plant was watered.
+     */
     public void setLastWatered(LocalDateTime lastWatered) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         String formattedDateTime = lastWatered.format(formatter);
-        System.out.println(formattedDateTime); // För att kontrollera utskriften
+        System.out.println(formattedDateTime); // For debugging purposes
         this.lastWatered = lastWatered;
     }
+
+    /**
+     * Retrieves the last time the plant was watered.
+     *
+     * @return The LocalDateTime object representing the last time the plant was watered.
+     */
     public LocalDateTime getLastWatered() {
         return lastWatered;
     }
 
+    /**
+     * Sets the name of the plant.
+     *
+     * @param name The name to set for the plant.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Retrieves the name of the plant.
+     *
+     * @return The name of the plant.
+     */
     public String getName() {
         return name;
     }

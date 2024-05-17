@@ -10,6 +10,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameHistoryWriter {
+    /**
+     * Writes the game history of dead plants to a file.
+     *
+     * @param deadPlants The list of dead plants to be written to the game history.
+     */
     public static void GameHistoryWriter(ArrayList<Plant> deadPlants) {
         // Use try-with-resources to automatically close BufferedWriter
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("gameHistory.txt",true))) {

@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * A utility class for loading game data from a saved file and populating a list of Plant objects.
- * @author annagranberg
+ * @author anna granberg
  */
 
 public class LoadGame {
