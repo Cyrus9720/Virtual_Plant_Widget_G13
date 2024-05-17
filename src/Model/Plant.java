@@ -69,6 +69,10 @@ public abstract class Plant {
         return nbrOfLives;
     }
 
+    public void setNbrOfLives(int nbrOfLives){
+        this.nbrOfLives = nbrOfLives;
+    }
+
     /**
      * Method for getting the number of times the plant has been watered
      * @return int Number of times the plant has been watered
@@ -135,6 +139,8 @@ public abstract class Plant {
     public PlantArt getPlantArt() {
         return plantArt;
     }
+
+
 
     public void setLastWatered(LocalDateTime lastWatered) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
