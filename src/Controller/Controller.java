@@ -532,7 +532,6 @@ public class Controller {
         String newName = JOptionPane.showInputDialog("Please enter the new plant name: ");
         if (newName != null && !newName.trim().isEmpty()) {
             currentPlant.setName(newName);
-            JOptionPane.showMessageDialog(null, "Plant name changed to: " + currentPlant.getName());
             view.getCenterPanel().updatePlantName(currentPlant.getPlantName());
         } else {
             JOptionPane.showMessageDialog(null, "Invalid input. Name not changed.");
