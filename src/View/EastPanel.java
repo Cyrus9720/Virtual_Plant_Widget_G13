@@ -108,17 +108,28 @@ public class EastPanel extends JPanel {
         timer.start();
     }
 
+    /**
+     * Refreshes the progress bar by updating its icon.
+     */
     public void refreshBar() {
         progressbarLabel.setIcon(updateWaterProgress());
     }
 
+    /**
+     * Enables the water button.
+     * @author anna granberg
+     */
     public void enableWaterButton() {
-        Water.setEnabled(true); // Aktivera vattenknappen
+        Water.setEnabled(true); // Enables the water button
         Water.repaint();
     }
 
+    /**
+     * Disables the water button.
+     * @author anna granberg
+     */
     public void disableWaterButton() {
-        Water.setEnabled(false); // Aktivera vattenknappen
+        Water.setEnabled(false); // Disables the water button
         Water.repaint();
     }
 

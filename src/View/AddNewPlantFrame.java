@@ -8,6 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AddNewPlantFrame extends JFrame {
+    /**
+     * Constructs an AddNewPlantFrame with the specified controller.
+     *
+     * @param controller The controller object to be associated with the frame.
+     */
     public AddNewPlantFrame(Controller controller) {
         setSize(new Dimension(300, 150)); // Ställer in storleken på fönstret
         setVisible(true); // Gör fönstret synligt när det skapas
@@ -16,7 +21,15 @@ public class AddNewPlantFrame extends JFrame {
         add(newPlantPanel); // Lägger till den nya panelen i fönstret
     }
 
+    /**
+     * Panel for adding new plants to the garden.
+     */
     private class NewPlantPanel extends JPanel {
+        /**
+         * Constructs a NewPlantPanel with controller.
+         *
+         * @param controller The controller object associated with the panel.
+         */
         private NewPlantPanel(Controller controller) {
             setBackground(new Color(225, 240, 218)); // bakgrundsfärgen för panelen
             setLayout(new FlowLayout()); // Ställer in layouten för panelen

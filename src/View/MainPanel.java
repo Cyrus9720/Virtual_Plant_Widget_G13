@@ -57,23 +57,46 @@ public class MainPanel extends JPanel
         JLabel plantInfoLabel = new JLabel("Plant information");
     }
 
+    /**
+     * Updates the buttons in the garden panel with new plant paths.
+     *
+     * @param newPlantPaths The list of paths for new plant images.
+     */
     public void updateButtons(ArrayList<String> newPlantPaths) {
         gardenPanel.updateButtons(newPlantPaths);
     }
 
-    //TODO: assistent added this
+    /**
+     * Refreshes the progress bar in the east panel.
+     */
     public void refreshBar() {
         eastPanel.refreshBar();
     }
 
+    /**
+     * Retrieves the center panel.
+     *
+     * @return The center panel.
+     */
     public CenterPanel getCenterPanel() {
         return centerPanel;
     }
 
+    /**
+     * Retrieves the east panel.
+     *
+     * @return The east panel.
+     */
     public EastPanel getEastPanel() {
         return eastPanel;
     }
-    public SouthPanel getSouthPanel(){
+
+    /**
+     * Retrieves the south panel.
+     *
+     * @return The south panel.
+     */
+    public SouthPanel getSouthPanel() {
         return southPanel;
     }
 }

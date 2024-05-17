@@ -9,7 +9,12 @@ import java.awt.*;
 public class SouthPanel extends JPanel {
     private Controller controller;
     private JLabel plantInformation;
-
+    
+    /**
+     * Constructs a SouthPanel with the specified controller.
+     *
+     * @param controller The controller object associated with the panel.
+     */
     public SouthPanel(Controller controller) {
         this.controller = controller;
         setPreferredSize(new Dimension(320,130));
@@ -32,7 +37,6 @@ public class SouthPanel extends JPanel {
      * A method to update plantInformation label whenever a plant is switched.
      * @author Anna Granberg
      */
-
     public void updatePlantInfo() {
         // Update plant information based on the selected plant
         switch (controller.getPlantArt()) {
@@ -80,7 +84,6 @@ public class SouthPanel extends JPanel {
      * A method to clear the southPanel of text
      * @author Anna Granberg
      */
-
     public void clearSouthPanel(){
         plantInformation.setText("Choose a plant to see plant information");
         revalidate();
