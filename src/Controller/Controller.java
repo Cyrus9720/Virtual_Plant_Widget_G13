@@ -18,7 +18,7 @@ import static jdk.jfr.internal.consumer.EventLog.stop;
 
 /**
  * The Controller class serves as the main controller for managing the interaction between the model and the view.
- * It handles actions such as switching plants, watering plants, adding new plants, and updating the game state.
+ * It handles actions such as switching plants, watering plants, adding new plants, and updating the game sstate.
  */
 
 public class Controller {
