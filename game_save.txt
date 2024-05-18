@@ -1,3 +1,3 @@
-Plant art; BLACKBERRY | Plant name; Blackberry8 | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/PotArt1.JPG | Last time watered; null | Timestamp; 2024-05-17 18:11:20.752
-Plant art; MINI_TREE | Plant name; MyMiniTree | Plant level; 3 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/MiniTree3.JPG | Last time watered; 2024-05-17 18:11:12.704 | Timestamp; 2024-05-17 18:11:20.752
-Plant art; CACTUS | Plant name; Bert | Plant level; 1 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/Cactus1.JPG | Last time watered; 2024-05-17 18:11:15.733 | Timestamp; 2024-05-17 18:11:20.752
+Plant art; MINI_TREE | Plant name; MyMiniTree | Plant level; 3 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/MiniTree3.JPG | Last time watered; 2024-05-17 18:11:12.704 | Timestamp; 2024-05-17 20:32:25.695
+Plant art; CACTUS | Plant name; Bert | Plant level; 1 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/Cactus1.JPG | Last time watered; 2024-05-17 18:11:15.733 | Timestamp; 2024-05-17 20:32:25.695
+Plant art; TOMATO_PLANT | Plant name; Fungeraren | Plant level; 1 | Times watered; 0 | Number of lives; 0 | Plant picture; src/Images/TomatoDead1.JPG | Last time watered; 2024-05-17 20:31:03.870 | Timestamp; 2024-05-17 20:32:25.695
