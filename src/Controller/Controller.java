@@ -675,7 +675,7 @@ public class Controller {
          * @author Anna Granberg
          */
         public void saveGame () {
-            SaveGame.saveGame(plantList, this);
+            SaveGame.saveGame(plantList);
         }
 
         /**
