@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import static jdk.jfr.internal.consumer.EventLog.stop;
 
 /**
  * The Controller class serves as the main controller for managing the interaction between the model and the view.
@@ -63,7 +62,7 @@ public class Controller {
             updateWaterButtonStatus();
             view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
             view.getCenterPanel().updatePlantName(currentPlant.getPlantName());
-            view.getEastPanel().updateAmountOfLife();
+            view.getEastPanel().updateLives();
             view.getSouthPanel().updatePlantInfo();
             view.getCenterPanel().getMainPanel().refreshBar();
             view.getCenterPanel().repaint();
@@ -247,7 +246,7 @@ public class Controller {
                         return;
                     }
                     if (currentPlant.getPlantPicture().toString().endsWith("PotArt1.JPG")) {
-                        deathTimer(currentPlant);
+                        deathTimer();
                         pauseDeathTimer(currentPlant);
                         System.out.println("PotArt1 triggered");
                     }
@@ -277,25 +276,26 @@ public class Controller {
     }
 
     // Modified deathTimer method to update remainingDeathTimerMilliseconds
-    public void deathTimer(Plant plant) {
-        if (plant.getPlantLevel() == 0) {
-            System.out.println("Timer started for plant: " + plant.getPlantName());
+    public void deathTimer() {
+        if (currentPlant.getPlantLevel() == 0) {
+            System.out.println("Timer started for plant: " + currentPlant.getPlantName());
             JOptionPane.showMessageDialog(null, "Congrats on your new plant! \nBut be mindful, it will need water in the coming days!");
 
             // Create a new timer for the plant
             Timer timer = new Timer(1000 * 10, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    plant.decreaseLife();
+                    currentPlant.decreaseLife();
                     checkLife();
-                    System.out.println("Plant life " + plant.getNbrOfLives() + " " + plant.getPlantName());
+                    System.out.println("Plant life " + currentPlant.getNbrOfLives() + " " + currentPlant.getPlantName());
+                    view.getEastPanel().updateLives();
 
                     // Check if the plant's number of lives is zero and stop the timer
-                    if (plant.getNbrOfLives() == 0) {
-                        Timer timer = plantTimers.get(plant);
+                    if (currentPlant.getNbrOfLives() == 0) {
+                        Timer timer = plantTimers.get(currentPlant);
                         if (timer != null) {
                             view.getMainPanel().updateButtons(getPlantImagePaths());
                             timer.stop(); // Stop the timer
-                            System.out.println("Timer stopped for plant: " + plant.getPlantName());
+                            System.out.println("Timer stopped for plant: " + currentPlant.getPlantName());
                         }
                     }
                 }
@@ -305,7 +305,7 @@ public class Controller {
             timer.start();
 
             // Store the timer for the plant in the map
-            plantTimers.put(plant, timer);
+            plantTimers.put(currentPlant, timer);
         }
     }
 

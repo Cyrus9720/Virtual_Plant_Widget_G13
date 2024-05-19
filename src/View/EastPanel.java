@@ -199,6 +199,13 @@ public class EastPanel extends JPanel {
         return new ImageIcon(scaledImage);
     }
 
+    public void updateLives() {
+        ImageIcon newLivesIcon = updateAmountOfLife();
+        threeHeartsLabel.setIcon(newLivesIcon);
+        threeHeartsLabel.repaint();
+        threeHeartsLabel.revalidate();
+    }
+
     /**
      * Updates and returns an ImageIcon representing the number of remaining lives for the user.
      * Depending on the number of lives, different images of hearts are displayed.

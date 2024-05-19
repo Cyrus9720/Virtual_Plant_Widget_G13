@@ -18,3 +18,6 @@ Plant name: MyPinkRose | Plant art: ROSE | Plant level: 0 | Plant Picture: src/I
 Plant name: Myprettyrose | Plant art: ROSE | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
 Plant name: Rose8 | Plant art: CACTUS | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
 Plant name: Blackberry8 | Plant art: BLACKBERRY | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
+Plant name: Blackberry8 | Plant art: BLACKBERRY | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
+Plant name: MyMiniTree | Plant art: MINI_TREE | Plant level: 1 | Plant Picture: src/Images/MiniTree1.JPG
+Plant name: Bert | Plant art: CACTUS | Plant level: 1 | Plant Picture: src/Images/Cactus1.JPG
