@@ -199,6 +199,13 @@ public class EastPanel extends JPanel {
         return new ImageIcon(scaledImage);
     }
 
+    /**
+     * Updates the GUI of the number of lives.
+     *
+     * This method updates the icon of the threeHeartsLabel to show
+     * the current number of lives and repaints the label.
+     * @author Anna Granberg
+     */
     public void updateLives() {
         ImageIcon newLivesIcon = updateAmountOfLife();
         threeHeartsLabel.setIcon(newLivesIcon);
