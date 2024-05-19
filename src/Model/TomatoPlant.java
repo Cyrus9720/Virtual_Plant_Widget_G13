@@ -15,6 +15,12 @@ public class TomatoPlant extends Plant{
         updateImage();
     }
 
+    @Override
+    public void setNbrOfLives(int nbrOfLives) {
+        super.setNbrOfLives(nbrOfLives);
+        updateDeathImage();
+    }
+
     private void updateImage() {
         switch (getPlantLevel()) {
             case 0:
@@ -32,6 +38,18 @@ public class TomatoPlant extends Plant{
             default:
                 // Handle any other cases or provide a default image
                 break;
+        }
+    }
+
+    private void updateDeathImage() {
+        if (getNbrOfLives() == 0 && getPlantLevel() == 1) {
+            setPlantPicture(new ImageIcon("src/Images/TomatoDead1.JPG"));
+        }
+        else if (getNbrOfLives() == 0 && getPlantLevel() == 2) {
+            setPlantPicture(new ImageIcon("src/Images/TomatoDead2.JPG"));
+        }
+        else if (getNbrOfLives() == 0 && getPlantLevel() == 3) {
+            setPlantPicture(new ImageIcon("src/Images/TomatoDead3.JPG"));
         }
     }
 }

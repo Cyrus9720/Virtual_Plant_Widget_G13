@@ -24,6 +24,15 @@ public class Blackberry extends Plant{
     public void setPlantLevel(int plantLevel) {
         super.setPlantLevel(plantLevel);
         updateImage();
+        System.out.println(getPlantPicture());
+    }
+
+    @Override
+    public void setNbrOfLives(int nbrOfLives) {
+        super.setNbrOfLives(nbrOfLives);
+        updateDeathImage();
+        System.out.println(getPlantPicture());
+        System.out.println("We here!");
     }
 
     private void updateImage() {
@@ -43,6 +52,16 @@ public class Blackberry extends Plant{
             default:
                 // Handle any other cases or provide a default image
                 break;
+        }
+    }
+
+    private void updateDeathImage() {
+        if (getNbrOfLives() == 0 && getPlantLevel() == 1) {
+            setPlantPicture(new ImageIcon("src/Images/BlackberryDead1.JPG"));
+        } else if (getNbrOfLives() == 0 && getPlantLevel() == 2) {
+            setPlantPicture(new ImageIcon("src/Images/BlackberryDead2.JPG"));
+        } else if (getNbrOfLives() == 0 && getPlantLevel() == 3) {
+            setPlantPicture(new ImageIcon("src/Images/BlackberryDead3.JPG"));
         }
     }
 }
