@@ -25,9 +25,6 @@ public class Controller {
     private ArrayList<Plant> plantList = new ArrayList<>();
     private int currentPlantIndex;
     private Plant currentPlant;
-
-    private boolean chosenPlant = false;
-    private Timer timer;
     private Map<Plant, Timer> plantTimers;
     private long remainingDeathTimerMilliseconds;
 
@@ -247,7 +244,7 @@ public class Controller {
                     }
                     if (currentPlant.getPlantPicture().toString().endsWith("PotArt1.JPG")) {
                         deathTimer();
-                        pauseDeathTimer(currentPlant);
+                        pauseDeathTimer();
                         System.out.println("PotArt1 triggered");
                     }
                     //view.getEastPanel().updateHeartLabel();
@@ -258,7 +255,7 @@ public class Controller {
                     currentPlant.setLastWatered(LocalDateTime.now());
                     view.getMainPanel().updateButtons(getPlantImagePaths());
                     updateWaterButtonStatus();
-                    pauseDeathTimer(currentPlant);
+                    pauseDeathTimer();
                     break;
                 }
                 JOptionPane.showMessageDialog(null, "Your plant is dead! \nWatering won't bring it back ):");
@@ -309,12 +306,12 @@ public class Controller {
         }
     }
 
-    public void pauseDeathTimer(Plant plant) {
-        Timer timer = plantTimers.get(plant);
+    public void pauseDeathTimer() {
+        Timer timer = plantTimers.get(currentPlant);
         if (timer != null && timer.isRunning()) {
             // Pause the timer
             timer.stop();
-            System.out.println("Timer paused for " + plant.getPlantName());
+            System.out.println("Timer paused for " + currentPlant.getPlantName());
             // Schedule a task to resume the timer after a brief delay
             new java.util.Timer().schedule(
                     new java.util.TimerTask() {
