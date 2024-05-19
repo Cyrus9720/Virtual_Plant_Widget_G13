@@ -272,6 +272,10 @@ public class Controller {
         return remainingDeathTimerMilliseconds;
     }
 
+    public void setRemainingDeathTimerMilliseconds(long remainingDeathTimerMilliseconds) {
+        this.remainingDeathTimerMilliseconds = remainingDeathTimerMilliseconds;
+    }
+
     // Modified deathTimer method to update remainingDeathTimerMilliseconds
     public void deathTimer() {
         if (currentPlant.getPlantLevel() == 0) {
@@ -279,7 +283,7 @@ public class Controller {
             JOptionPane.showMessageDialog(null, "Congrats on your new plant! \nBut be mindful, it will need water in the coming days!");
 
             // Create a new timer for the plant
-            Timer timer = new Timer(1000 * 10, new ActionListener() {
+            Timer timer = new Timer(1000 * 60 * 5, new ActionListener() { // fem minuter
                 public void actionPerformed(ActionEvent e) {
                     currentPlant.decreaseLife();
                     checkLife();
@@ -430,7 +434,7 @@ public class Controller {
                 return 0;
             }
         } else {
-            System.out.println("plantList är tom: " + currentPlant.getNbrOfLives());
+            // System.out.println("plantList är tom: " + currentPlant.getNbrOfLives());
             return 0;
         }
     }
@@ -671,7 +675,7 @@ public class Controller {
          * @author Anna Granberg
          */
         public void saveGame () {
-            SaveGame.saveGame(plantList);
+            SaveGame.saveGame(plantList, this);
         }
 
         /**

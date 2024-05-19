@@ -15,13 +15,14 @@ import java.util.ArrayList;
  */
 public class SaveGame {
     private static LocalDateTime timestamp;
+    private static Controller controller;
 
     /**
      * Saves the game data to a file, including a timestamp at the end of each line.
      *
      * @param plantList the list of plants to save
      */
-    public static void saveGame(ArrayList<Plant> plantList) {
+    public static void saveGame(ArrayList<Plant> plantList, Controller controller) {
         LocalDateTime timestamp = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
 
@@ -31,6 +32,9 @@ public class SaveGame {
 
                 // Add the formatted timestamp to the end of the line
                 data += " | Timestamp; " + timestamp.format(formatter);
+                long remainingTimeMillis = controller.getRemainingDeathTimerMilliseconds();
+                String formattedTime = getFormattedDeathTimer(remainingTimeMillis);
+                data += " | Death Timer: " + formattedTime;
 
                 writer.write(data);
                 writer.newLine();
@@ -41,6 +45,21 @@ public class SaveGame {
             System.err.println("Error saving game: " + e.getMessage());
         }
     }
+
+    /**
+     * Converts milliseconds to a formatted time string in mm:ss format.
+     *
+     * @param milliseconds the time in milliseconds
+     * @return the formatted time string
+     */
+    private static String getFormattedDeathTimer(long milliseconds) {
+        long totalSeconds = milliseconds / 1000;
+        long minutes = totalSeconds / 60;
+        long seconds = totalSeconds % 60;
+
+        return String.format("%02d:%02d", minutes, seconds);
+    }
+
     public static LocalDateTime getTimestamp() {
         return timestamp;
     }
@@ -48,4 +67,5 @@ public class SaveGame {
     private static void setTimestamp(LocalDateTime timestamp) {
         SaveGame.timestamp = timestamp;
     }
+
 }
