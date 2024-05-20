@@ -283,25 +283,25 @@ public class Controller {
 
     // Modified deathTimer method to update remainingDeathTimerMilliseconds
     public void deathTimer(Plant plant) {
-        if (currentPlant.getPlantLevel() == 0) {
-            System.out.println("Timer started for plant: " + currentPlant.getPlantName());
+        if (plant.getPlantLevel() == 0) {
+            System.out.println("Timer started for plant: " + plant.getPlantName());
             JOptionPane.showMessageDialog(null, "Congrats on your new plant! \nBut be mindful, it will need water in the coming days!");
 
             // Create a new timer for the plant
-            Timer timer = new Timer(1000 * 60 * 5, new ActionListener() { // fem minuter
+            Timer timer = new Timer(1000 * 60 * 60 * 48, new ActionListener() { // 48h
                 public void actionPerformed(ActionEvent e) {
-                    currentPlant.decreaseLife();
+                    plant.decreaseLife();
                     checkLife();
-                    System.out.println("Plant life " + currentPlant.getNbrOfLives() + " " + currentPlant.getPlantName());
+                    System.out.println("Plant life " + plant.getNbrOfLives() + " " + plant.getPlantName());
                     view.getEastPanel().updateLives();
 
                     // Check if the plant's number of lives is zero and stop the timer
-                    if (currentPlant.getNbrOfLives() == 0) {
-                        Timer timer = plantTimers.get(currentPlant);
+                    if (plant.getNbrOfLives() == 0) {
+                        Timer timer = plantTimers.get(plant);
                         if (timer != null) {
                             view.getMainPanel().updateButtons(getPlantImagePaths());
                             timer.stop(); // Stop the timer
-                            System.out.println("Timer stopped for plant: " + currentPlant.getPlantName());
+                            System.out.println("Timer stopped for plant: " + plant.getPlantName());
                         }
                     }
                 }
@@ -311,7 +311,7 @@ public class Controller {
             timer.start();
 
             // Store the timer for the plant in the map
-            plantTimers.put(currentPlant, timer);
+            plantTimers.put(plant, timer);
         }
     }
 
