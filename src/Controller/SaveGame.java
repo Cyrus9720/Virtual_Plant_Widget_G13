@@ -22,7 +22,7 @@ public class SaveGame {
      *
      * @param plantList the list of plants to save
      */
-    public static void saveGame(ArrayList<Plant> plantList) {
+    public static void saveGame(ArrayList<Plant> plantList, Controller controller) {
         LocalDateTime timestamp = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
 
@@ -32,7 +32,7 @@ public class SaveGame {
 
                 // Add the formatted timestamp to the end of the line
                 data += " | Timestamp; " + timestamp.format(formatter);
-
+                data += " | Death time; " + getFormattedDeathTimer(controller.getRemainingDeathTimerMilliseconds(plant));
 
                 writer.write(data);
                 writer.newLine();

@@ -243,7 +243,7 @@ public class Controller {
                         return;
                     }
                     if (currentPlant.getPlantPicture().toString().endsWith("PotArt1.JPG")) {
-                        deathTimer();
+                        deathTimer(currentPlant);
                         pauseDeathTimer();
                         System.out.println("PotArt1 triggered");
                     }
@@ -268,16 +268,21 @@ public class Controller {
      *
      * @author Cyrus Shaerpour
      */
-    public long getRemainingDeathTimerMilliseconds() {
-        return remainingDeathTimerMilliseconds;
+    public long getRemainingDeathTimerMilliseconds(Plant plant) {
+        Timer timer = plantTimers.get(plant);
+        if (timer != null) {
+            // Anta att du har en mekanism för att hämta återstående tid från timern
+            // Om Timer-klassen inte har denna funktion, måste du spåra start- och stoptid själv
+            return timer.getDelay(); // Detta är ett exempel, använd korrekt metod för att hämta återstående tid
+        }
+        return 0;
     }
-
     public void setRemainingDeathTimerMilliseconds(long remainingDeathTimerMilliseconds) {
         this.remainingDeathTimerMilliseconds = remainingDeathTimerMilliseconds;
     }
 
     // Modified deathTimer method to update remainingDeathTimerMilliseconds
-    public void deathTimer() {
+    public void deathTimer(Plant plant) {
         if (currentPlant.getPlantLevel() == 0) {
             System.out.println("Timer started for plant: " + currentPlant.getPlantName());
             JOptionPane.showMessageDialog(null, "Congrats on your new plant! \nBut be mindful, it will need water in the coming days!");
@@ -675,7 +680,7 @@ public class Controller {
          * @author Anna Granberg
          */
         public void saveGame () {
-            SaveGame.saveGame(plantList);
+            SaveGame.saveGame(plantList, this);
         }
 
         /**

@@ -1,1 +1,0 @@
-Plant art; BLACKBERRY | Plant name; sg | Plant level; 1 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/Blackberry1.JPG | Last time watered; 2024-05-19 14:09:02.887 | Timestamp; 2024-05-19 14:09:04.662
