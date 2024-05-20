@@ -5,15 +5,13 @@ import View.ButtonType;
 import View.GameRuleFrame;
 import View.MainFrame;
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * The Controller class serves as the main controller for managing the interaction between the model and the view.
@@ -27,6 +25,8 @@ public class Controller {
     private Plant currentPlant;
     private Map<Plant, Timer> plantTimers;
     private long remainingDeathTimerMilliseconds;
+    private Map<Plant, Long> pauseTimes = new HashMap<>();
+
 
 
     /**
@@ -44,6 +44,7 @@ public class Controller {
             firstTimePlaying();
         }
         plantTimers = new HashMap<>();
+        resumeAllTimers();
     }
 
     /**
@@ -312,6 +313,32 @@ public class Controller {
 
             // Store the timer for the plant in the map
             plantTimers.put(plant, timer);
+        }
+    }
+
+    public void resumeAllTimers() {
+        for (Map.Entry<Plant, Timer> entry : plantTimers.entrySet()) {
+            Plant plant = entry.getKey();
+            Timer timer = entry.getValue();
+            Long pauseTime = pauseTimes.get(plant);
+
+            if (timer != null && pauseTime != null) {
+                long currentTime = System.currentTimeMillis();
+                long elapsedTime = currentTime - pauseTime;
+                long delay = Math.max(1000 * 10 - elapsedTime, 0); // Kvarvarande tid
+
+                new java.util.Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        timer.start(); // Återuppta timern
+                    }
+                }, delay);
+
+                System.out.println("Timer resumed for " + plant.getPlantName() + " after delay: " + delay + "ms");
+
+                // Ta bort paus-tidpunkten
+                pauseTime.remove(plant);
+            }
         }
     }
 
