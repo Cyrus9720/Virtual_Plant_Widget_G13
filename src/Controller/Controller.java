@@ -337,8 +337,7 @@ public class Controller {
                 System.out.println("Timer resumed for " + plant.getPlantName() + " after delay: " + delay + "ms");
 
                 // Ta bort paus-tidpunkten
-                pauseTime.remove(plant);
-            }
+                pauseTimes.remove(currentPlant);            }
         }
     }
 

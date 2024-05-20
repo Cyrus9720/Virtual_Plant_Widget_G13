@@ -1,1 +1,1 @@
-Plant art; TOMATO_PLANT | Plant name; TomatoPlant0 | Plant level; 1 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/Tomatoe1.JPG | Last time watered; 2024-05-20 16:03:34.130 | Timestamp; 2024-05-20 16:04:18.447 | Death time; 00:00
+Plant art; TOMATO_PLANT | Plant name; TomatoPlant0 | Plant level; 2 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/Tomatoe2.JPG | Last time watered; 2024-05-20 16:11:47.689 | Timestamp; 2024-05-20 16:11:51.628 | Death time; 00:00

@@ -75,8 +75,8 @@ public class LoadGame {
                         break;
                     case TOMATO_PLANT:
                         plant = new TomatoPlant(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
-                        controller.setRemainingDeathTimerMilliseconds(parseDeathTime(deathTimeData));
-                        controller.deathTimer(plant);
+                        //controller.setRemainingDeathTimerMilliseconds(parseDeathTime(deathTimeData));
+                        //controller.deathTimer(plant);
                         break;
                     case BLACKBERRY:
                         plant = new Blackberry(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
