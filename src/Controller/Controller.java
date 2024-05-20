@@ -288,7 +288,7 @@ public class Controller {
             JOptionPane.showMessageDialog(null, "Congrats on your new plant! \nBut be mindful, it will need water in the coming days!");
 
             // Create a new timer for the plant
-            Timer timer = new Timer(1000 * 60 * 60 * 48, new ActionListener() { // 48h
+            Timer timer = new Timer(1000 * 10, new ActionListener() { // 10 sek
                 public void actionPerformed(ActionEvent e) {
                     plant.decreaseLife();
                     checkLife();
