@@ -26,6 +26,7 @@ public class Controller {
     private Map<Plant, Timer> plantTimers;
     private Duration remainingTime;
     private Map<Plant, Long> pauseTimes = new HashMap<>();
+    private LoadGame loadGame;
 
 
 
@@ -33,14 +34,16 @@ public class Controller {
      * Constructor for the controller class.
      */
     public Controller() {
+        loadGame = new LoadGame();
         try {
-            LoadGame.loadGame(plantList, this); // ifall spelet spelats tidigare kommer plantList hämtas här
+            loadGame.loadGame(plantList, this); // ifall spelet spelats tidigare kommer plantList hämtas här
+            updateRemainingDeathTimer(this);
         } catch (Exception e) {
             System.err.println("Error loading game data: " + e.getMessage());
         }
         view = new MainFrame(this);
 
-        if (!LoadGame.isFileNotEmpty() || GameHistoryReader.getGameHistory().isEmpty()) {
+        if (loadGame.isFileNotEmpty() || GameHistoryReader.getGameHistory().isEmpty()) {
             firstTimePlaying();
         }
         plantTimers = new HashMap<>();
@@ -357,6 +360,20 @@ public class Controller {
         }
     }
 
+    public void setRemainingTime(Duration remainingTime) {
+        this.remainingTime = remainingTime;
+    }
+
+    public void updateRemainingDeathTimer(Controller controller) {
+        for (Plant plant : plantList) {
+            if (plant.getDeathTime() != null) {
+                Duration remainingTime = Duration.between(LocalDateTime.now(), plant.getDeathTime());
+                setRemainingTime(remainingTime);
+            }
+        }
+    }
+
+
     public void pauseDeathTimer() {
         Timer timer = plantTimers.get(currentPlant);
         if (timer != null && timer.isRunning()) {
@@ -640,7 +657,7 @@ public class Controller {
          */
         public long getTimeSinceLastPlayed () {
             LocalDateTime timeWhenClosed = SaveGame.getTimestamp();
-            LocalDateTime timeWhenOpened = LoadGame.getTimestamp();
+            LocalDateTime timeWhenOpened = loadGame.getTimestamp();
 
             Duration duration = Duration.between(timeWhenClosed, timeWhenOpened);
 

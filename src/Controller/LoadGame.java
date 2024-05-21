@@ -20,12 +20,12 @@ import java.util.List;
  */
 
 public class LoadGame {
-    private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-    private static LocalDateTime timestamp;
-    private static String deathTimeData;
-    private static boolean fileNotEmpty;
-    private static MainFrame view;
-    private static Plant plant;
+    private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+    private LocalDateTime timestamp;
+    private String deathTimeData;
+    private boolean fileNotEmpty;
+    private MainFrame view;
+    private Plant plant;
 
     /**
      * Loads game data from a saved file and populates a list of Plant objects.
@@ -33,7 +33,7 @@ public class LoadGame {
      * @param plantList The list to populate with loaded Plant objects.
      * @return The list of Plant objects populated with data from the save file.
      */
-    public static List<Plant> loadGame(List<Plant> plantList, Controller controller) {
+    public List<Plant> loadGame(List<Plant> plantList, Controller controller) {
 
         view = controller.getView();
 
@@ -120,7 +120,7 @@ public class LoadGame {
      * @param timestampString The string representation of the timestamp.
      * @return The parsed LocalDateTime object.
      */
-    private static LocalDateTime parseTimestamp(String timestampString) {
+    private LocalDateTime parseTimestamp(String timestampString) {
         try {
             // Manuellt tolka tidsstämpeln
             LocalDateTime parsedDateTime = LocalDateTime.parse(timestampString, dateFormat);
@@ -132,30 +132,30 @@ public class LoadGame {
         }
     }
 
-    private static long parseDeathTime(String timeString) {
+    private long parseDeathTime(String timeString) {
         String[] parts = timeString.split(":");
         long minutes = Long.parseLong(parts[0]);
         long seconds = Long.parseLong(parts[1]);
         return (minutes * 60 + seconds) * 1000; // konvertera till millisekunder
     }
 
-    public static String getDeathTimeData() {
+    public String getDeathTimeData() {
         return deathTimeData;
     }
 
-    public static void setDeathTimeData(String deathTimeData) {
-        LoadGame.deathTimeData = deathTimeData;
+    public void setDeathTimeData(String deathTimeData) {
+        this.deathTimeData = deathTimeData;
     }
 
-    public static Plant getPlant() {
+    public Plant getPlant() {
         return plant;
     }
 
-    public static LocalDateTime getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public static boolean isFileNotEmpty() {
+    public boolean isFileNotEmpty() {
         return fileNotEmpty;
     }
 }
