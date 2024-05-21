@@ -5,6 +5,7 @@ import Model.Plant;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class SaveGame {
      *
      * @param plantList the list of plants to save
      */
-    public static void saveGame(ArrayList<Plant> plantList, Controller controller) {
+    public void saveGame(ArrayList<Plant> plantList, Controller controller) {
         LocalDateTime timestamp = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
 
@@ -32,7 +33,7 @@ public class SaveGame {
 
                 // Add the formatted timestamp to the end of the line
                 data += " | Timestamp; " + timestamp.format(formatter);
-                data += " | Death time; " + getFormattedDeathTimer(controller.getRemainingDeathTimerMilliseconds(plant));
+                data += " | Death time; " + getFormattedDeathTimer(controller.getRemainingTime());
 
                 writer.write(data);
                 writer.newLine();
@@ -47,16 +48,32 @@ public class SaveGame {
     /**
      * Converts milliseconds to a formatted time string in mm:ss format.
      *
-     * @param milliseconds the time in milliseconds
+     * @param remainingTime
      * @return the formatted time string
      */
-    private static String getFormattedDeathTimer(long milliseconds) {
-        long totalSeconds = milliseconds / 1000;
-        long minutes = totalSeconds / 60;
-        long seconds = totalSeconds % 60;
 
-        return String.format("%02d:%02d", minutes, seconds);
+    public String getFormattedDeathTimer(Duration remainingTime) {
+        if (remainingTime == null) {
+            return "00:00:00"; // or any other default value you prefer
+        }
+
+        long timeUntilDeathMillis = remainingTime.toMillis();
+
+        // Check if the time is negative and set it to 0 if it is
+        if (timeUntilDeathMillis < 0) {
+            timeUntilDeathMillis = 0;
+        }
+
+        // Convert milliseconds to hours, minutes, and seconds
+        long seconds = timeUntilDeathMillis / 1000; // Convert milliseconds to seconds
+        long hours = seconds / 3600;
+        long minutes = (seconds % 3600) / 60;
+        seconds = seconds % 60;
+
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
+
+
 
     public static LocalDateTime getTimestamp() {
         return timestamp;

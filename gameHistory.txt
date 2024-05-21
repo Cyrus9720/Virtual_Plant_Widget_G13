@@ -27,3 +27,7 @@ Plant name: Blackberry5 | Plant art: BLACKBERRY | Plant level: 2 | Plant Picture
 Plant name: TomatoPlant0 | Plant art: TOMATO_PLANT | Plant level: 4 | Plant Picture: src/Images/Tomatoe3.JPG
 Plant name: Rose2 | Plant art: ROSE | Plant level: 3 | Plant Picture: src/Images/RoseArt3.JPG
 Plant name: Blackberry5 | Plant art: BLACKBERRY | Plant level: 2 | Plant Picture: src/Images/Blackberry2.JPG
+Plant name: Rose0 | Plant art: ROSE | Plant level: 1 | Plant Picture: src/Images/RoseArt1.JPG
+Plant name: Cactus5 | Plant art: CACTUS | Plant level: 1 | Plant Picture: src/Images/Cactus1.JPG
+Plant name: Sunflower2 | Plant art: SUNFLOWER | Plant level: 1 | Plant Picture: src/Images/Sunflower1.JPG
+Plant name: Minitree7 | Plant art: MINI_TREE | Plant level: 1 | Plant Picture: src/Images/MiniTree1.JPG

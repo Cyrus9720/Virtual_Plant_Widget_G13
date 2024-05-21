@@ -24,7 +24,7 @@ public class Controller {
     private int currentPlantIndex;
     private Plant currentPlant;
     private Map<Plant, Timer> plantTimers;
-    private long remainingDeathTimerMilliseconds;
+    private Duration remainingTime;
     private Map<Plant, Long> pauseTimes = new HashMap<>();
 
 
@@ -278,10 +278,6 @@ public class Controller {
             return 0;
         }
     }
-    public void setRemainingDeathTimerMilliseconds(long remainingDeathTimerMilliseconds) {
-        this.remainingDeathTimerMilliseconds = remainingDeathTimerMilliseconds;
-    }
-
     public void deathTimer(Plant plant) {
         if (plant.getPlantLevel() == 0) {
             System.out.println("Timer started for plant: " + plant.getName());
@@ -309,10 +305,14 @@ public class Controller {
         view.getEastPanel().updateLives();
         for (Plant plant : plantTimers.keySet()) {
             if (plant.getDeathTime() != null) {
-                Duration remainingTime = Duration.between(LocalDateTime.now(), plant.getDeathTime());
+                remainingTime = Duration.between(LocalDateTime.now(), plant.getDeathTime());
                 view.getEastPanel().updateTimeUntilDeath(remainingTime);
             }
         }
+    }
+
+    public Duration getRemainingTime() {
+        return remainingTime;
     }
 
     public void plantDeathTimerActivation(Plant plant) {
@@ -729,7 +729,8 @@ public class Controller {
          * @author Anna Granberg
          */
         public void saveGame () {
-            SaveGame.saveGame(plantList, this);
+            SaveGame saveGame = new SaveGame();
+            saveGame.saveGame(plantList, this);
         }
 
         /**

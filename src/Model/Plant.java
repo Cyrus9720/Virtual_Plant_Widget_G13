@@ -49,7 +49,7 @@ public abstract class Plant {
 
     private LocalDateTime calculateDeathTime(LocalDateTime lastWatered) {
         // Example logic: set deathTime to 3 days after lastWatered
-        return lastWatered != null ? lastWatered.plusDays(3) : LocalDateTime.now().plusDays(3);
+        return lastWatered != null ? lastWatered.plusMinutes(1) : LocalDateTime.now().plusMinutes(1);
     }
 
     /**

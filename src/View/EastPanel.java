@@ -27,6 +27,7 @@ public class EastPanel extends JPanel {
     private JLabel threeHeartsLabel; // JLabel för nbrOfLives
     private JLabel timeUntilWatering; // JLabel för at visa tiden tills nästa vattning
     private JLabel timeUntilDeathLabel;
+    private JButton nightMode;
     private Timer timer; // Timer för uppdatering av tiden tills nästa vattning
 
     /**
@@ -88,7 +89,7 @@ public class EastPanel extends JPanel {
         add(threeHeartsLabel, BorderLayout.WEST);
 
         timeUntilDeathLabel = new JLabel();
-        timeUntilDeathLabel.setFont(new Font("Bebas Neue", Font.BOLD, 9));
+        timeUntilDeathLabel.setFont(new Font("Bebas Neue", Font.BOLD, 12));
         add(timeUntilDeathLabel, BorderLayout.SOUTH);
 
 
@@ -99,6 +100,17 @@ public class EastPanel extends JPanel {
                     controller.buttonPressed(ButtonType.Water);
                     progressbarLabel.setIcon(updateWaterProgress());
                 }
+            }
+        });
+
+        nightMode = new JButton("Night mode");
+        nightMode.setFont(new Font("Bebas Neue", Font.BOLD, 12));
+        add(nightMode, BorderLayout.SOUTH);
+
+        nightMode.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
 
@@ -309,15 +321,15 @@ public class EastPanel extends JPanel {
         if (controller.getPlantList() == null || controller.getCurrentPlant() == null) {
             timeUntilWatering.setText(" ");
         } else {
-            long timeUntilDeath = controller.getRemainingDeathTimerMilliseconds(controller.getCurrentPlant());
+            long timeUntilDeathMillis = remainingTime.toMillis();
 
             // Check if the time is negative and set it to 0 if it is
-            if (timeUntilDeath < 0) {
-                timeUntilDeath = 0;
+            if (timeUntilDeathMillis < 0) {
+                timeUntilDeathMillis = 0;
             }
 
             // Convert milliseconds to hours, minutes, and seconds
-            long seconds = timeUntilDeath / 1000; // Convert milliseconds to seconds
+            long seconds = timeUntilDeathMillis / 1000; // Convert milliseconds to seconds
             long hours = seconds / 3600;
             long minutes = (seconds % 3600) / 60;
             seconds = seconds % 60;
@@ -325,7 +337,7 @@ public class EastPanel extends JPanel {
             String formattedTime = String.format("%02d h %02d m %02d s", hours, minutes, seconds);
 
             // Use HTML to break the text into three lines and reduce the font size
-            timeUntilDeathLabel.setText("<html><div style='text-align: center; font-size: 9px;'>Next watering period:<br>" + formattedTime + "</div></html>");
+            timeUntilDeathLabel.setText("<html><div style='text-align: center; font-size: 9px;'>Time until life lost:<br>" + formattedTime + "</div></html>");
         }
     }
 
