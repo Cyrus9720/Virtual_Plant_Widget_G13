@@ -66,7 +66,7 @@ public class SaveGame {
 
         return formattedEndTime;
     }
-    
+
     public static LocalDateTime getTimestamp() {
         return timestamp;
     }

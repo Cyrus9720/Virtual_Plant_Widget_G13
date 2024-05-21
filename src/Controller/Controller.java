@@ -258,6 +258,7 @@ public class Controller {
                     currentPlant.setLastWatered(LocalDateTime.now());
                     view.getMainPanel().updateButtons(getPlantImagePaths());
                     updateWaterButtonStatus();
+                    updateRemainingDeathTimer();
                     pauseDeathTimer();
                     break;
                 }
@@ -363,7 +364,7 @@ public class Controller {
         this.remainingTime = remainingTime;
     }
 
-    public void updateRemainingDeathTimer(Controller controller) {
+    public void updateRemainingDeathTimer() {
         for (Plant plant : plantList) {
             if (plant.getDeathTime() != null) {
                 Duration remainingTime = Duration.between(LocalDateTime.now(), plant.getDeathTime());
@@ -371,7 +372,6 @@ public class Controller {
             }
         }
     }
-
 
     public void pauseDeathTimer() {
         Timer timer = plantTimers.get(currentPlant);
