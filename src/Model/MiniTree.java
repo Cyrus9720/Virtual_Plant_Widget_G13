@@ -1,5 +1,7 @@
 package Model;
 
+import Controller.Controller;
+
 import javax.swing.*;
 import java.time.LocalDateTime;
 
@@ -16,8 +18,8 @@ public class MiniTree extends Plant{
      * @param lastWatered
      * @author Cyrus Shaerpour
      */
-    public MiniTree(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
-        super(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+    public MiniTree(Controller controller, String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
+        super(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
     }
 
     @Override

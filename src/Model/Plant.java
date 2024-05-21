@@ -1,5 +1,7 @@
 package Model;
 
+import Controller.Controller;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.swing.*;
@@ -16,22 +18,25 @@ public abstract class Plant {
     private int timesWatered;
     private ImageIcon plantPicture;
     private int plantLevel;
-    private String plantinfo;
     private PlantArt plantArt;
     private LocalDateTime lastWatered;
     private Timer timer;
     private LocalDateTime lastUpdatedTimestamp;
+    private LocalDateTime deathTime;
     private Clip wateringSoundClip;
+    private Controller controller;
 
     /**
      * Constructor for Plant
+     * @param controller controller instansiaton
      * @param name Name of the plant
      * @param plantArt Art of the plant
      * @param plantPicture Picture of the plant
      * @param plantLevel Level of the plant
      * @author Cyrus Shaerpour
      */
-    public Plant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
+    public Plant(Controller controller, String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
+        this.controller = controller;
         this.name = name;
         this.plantArt = plantArt;
         this.nbrOfLives = nbrOfLives;
@@ -39,7 +44,12 @@ public abstract class Plant {
         this.plantPicture = plantPicture;
         this.plantLevel = plantLevel;
         this.lastWatered = lastWatered;
-        plantinfo = null;
+        this.deathTime = calculateDeathTime(lastWatered); // Initialize deathTime based on lastWatered
+    }
+
+    private LocalDateTime calculateDeathTime(LocalDateTime lastWatered) {
+        // Example logic: set deathTime to 3 days after lastWatered
+        return lastWatered != null ? lastWatered.plusDays(3) : LocalDateTime.now().plusDays(3);
     }
 
     /**
@@ -82,6 +92,26 @@ public abstract class Plant {
             nbrOfLives--; // Minska livräknaren med ett om den är större än noll
             setNbrOfLives(getNbrOfLives());
         }
+    }
+
+    public void activateDeathEvent() {
+        this.decreaseLife();
+        controller.checkLife();
+        System.out.println("Plant life " + this.getNbrOfLives() + " " + this.getPlantName());
+
+        // Check if the plant's number of lives is zero and stop the timer
+        if (this.getNbrOfLives() == 0) {
+            Timer timer = controller.getPlantTimer(this);
+            if (timer != null) {
+                timer.stop(); // Stop the timer
+                System.out.println("Timer stopped for plant: " + this.getPlantName());
+            }
+        }
+    }
+
+
+    public LocalDateTime getDeathTime() {
+        return deathTime;
     }
 
     /**
@@ -199,18 +229,6 @@ public abstract class Plant {
      */
     public LocalDateTime getLastWatered() {
         return lastWatered;
-    }
-
-    public String getPlantinfo() {
-        return plantinfo;
-    }
-
-    public void setPlantArt(PlantArt plantArt) {
-        this.plantArt = plantArt;
-    }
-
-    public void updateTimestamp(LocalDateTime timestamp) {
-        this.lastUpdatedTimestamp = timestamp;
     }
 
     /**

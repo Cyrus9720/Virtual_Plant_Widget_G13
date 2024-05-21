@@ -10,7 +10,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Duration;
-import java.time.LocalDateTime;
 
 /**
  * The EastPanel class represents the panel containing plant care controls on the east side of the user interface.
@@ -26,7 +25,8 @@ public class EastPanel extends JPanel {
     private JButton Water; // Knapp för vattning
     private JLabel progressbarLabel; // JLabel för progressbar / timesWatered
     private JLabel threeHeartsLabel; // JLabel för nbrOfLives
-    private JLabel timeUntil; // JLabel för at visa tiden tills nästa vattning
+    private JLabel timeUntilWatering; // JLabel för at visa tiden tills nästa vattning
+    private JLabel timeUntilDeathLabel;
     private Timer timer; // Timer för uppdatering av tiden tills nästa vattning
 
     /**
@@ -76,10 +76,10 @@ public class EastPanel extends JPanel {
         Image scaledImage = originalImage.getScaledInstance(100, 75, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
 
-        timeUntil = new JLabel();
-        timeUntil.setFont(new Font("Bebas Neue", Font.BOLD, 9));
-        updateTimeUntilLabel();
-        add(timeUntil, BorderLayout.NORTH);
+        timeUntilWatering = new JLabel();
+        timeUntilWatering.setFont(new Font("Bebas Neue", Font.BOLD, 9));
+        updateTimeUntilLabelWatering();
+        add(timeUntilWatering, BorderLayout.NORTH);
 
         progressbarLabel.setIcon(scaledIcon);
         add(progressbarLabel, BorderLayout.SOUTH);
@@ -87,13 +87,17 @@ public class EastPanel extends JPanel {
         threeHeartsLabel = new JLabel(updateAmountOfLife());
         add(threeHeartsLabel, BorderLayout.WEST);
 
+        timeUntilDeathLabel = new JLabel();
+        timeUntilDeathLabel.setFont(new Font("Bebas Neue", Font.BOLD, 9));
+        add(timeUntilDeathLabel, BorderLayout.SOUTH);
+
+
         // ActionListener för vattenknappen
         Water.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == Water) {
                     controller.buttonPressed(ButtonType.Water);
                     progressbarLabel.setIcon(updateWaterProgress());
-                    // System.out.println("Water button clicked");
                 }
             }
         });
@@ -105,13 +109,22 @@ public class EastPanel extends JPanel {
                 if (controller.getTimeUntilNextWatering() == 0) {
                     Water.setEnabled(true);
                 }
-                updateTimeUntilLabel();
-                //updateAmountOfLife();
+                updateTimeUntilLabelWatering();
                 repaint();
                 revalidate();
             }
         });
         timer.start();
+
+
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(controller.getRemainingDeathTimerMilliseconds(controller.getCurrentPlant()) > 0){
+
+                };
+            }
+        });
     }
 
     /**
@@ -272,9 +285,9 @@ public class EastPanel extends JPanel {
      * @return void
      * @author Anna Granberg
      */
-    private void updateTimeUntilLabel() {
+    private void updateTimeUntilLabelWatering() {
         if (controller.getPlantList() == null) {
-            timeUntil.setText(" ");
+            timeUntilWatering.setText(" ");
         } else {
             long timeUntilNextWatering = controller.getTimeUntilNextWatering();
             // Kontrollera om tiden är negativ
@@ -288,7 +301,32 @@ public class EastPanel extends JPanel {
 
             String formattedTime = String.format("%02d h %02d m %02d s", hours, minutes, seconds);
             // Använd HTML för att bryta texten på tre rader och minska textstorleken
-            timeUntil.setText("<html><div style='text-align: center; font-size: 9px;'>Next watering period:<br>" + formattedTime + "</div></html>");
+            timeUntilWatering.setText("<html><div style='text-align: center; font-size: 9px;'>Next watering period:<br>" + formattedTime + "</div></html>");
         }
     }
+
+    public void updateTimeUntilDeath(Duration remainingTime) {
+        if (controller.getPlantList() == null || controller.getCurrentPlant() == null) {
+            timeUntilWatering.setText(" ");
+        } else {
+            long timeUntilDeath = controller.getRemainingDeathTimerMilliseconds(controller.getCurrentPlant());
+
+            // Check if the time is negative and set it to 0 if it is
+            if (timeUntilDeath < 0) {
+                timeUntilDeath = 0;
+            }
+
+            // Convert milliseconds to hours, minutes, and seconds
+            long seconds = timeUntilDeath / 1000; // Convert milliseconds to seconds
+            long hours = seconds / 3600;
+            long minutes = (seconds % 3600) / 60;
+            seconds = seconds % 60;
+
+            String formattedTime = String.format("%02d h %02d m %02d s", hours, minutes, seconds);
+
+            // Use HTML to break the text into three lines and reduce the font size
+            timeUntilDeathLabel.setText("<html><div style='text-align: center; font-size: 9px;'>Next watering period:<br>" + formattedTime + "</div></html>");
+        }
+    }
+
 }

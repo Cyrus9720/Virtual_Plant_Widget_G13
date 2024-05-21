@@ -92,7 +92,7 @@ public class Controller {
         }
 
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        Rose newRose = new Rose(newName, PlantArt.ROSE, 3, 0, plantImage, 0, null);
+        Rose newRose = new Rose(this, newName, PlantArt.ROSE, 3, 0, plantImage, 0, null);
         plantList.add(newRose);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
@@ -119,7 +119,7 @@ public class Controller {
         }
 
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        Sunflower newSunflower = new Sunflower(newName, PlantArt.SUNFLOWER, 3, 0, plantImage, 0, null);
+        Sunflower newSunflower = new Sunflower(this, newName, PlantArt.SUNFLOWER, 3, 0, plantImage, 0, null);
         plantList.add(newSunflower);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
@@ -145,7 +145,7 @@ public class Controller {
             newName = "TomatoPlant" + random.nextInt(11);
         }
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        TomatoPlant newTomatoPlant = new TomatoPlant(newName, PlantArt.TOMATO_PLANT, 3, 0, plantImage, 0, null);
+        TomatoPlant newTomatoPlant = new TomatoPlant(this,newName, PlantArt.TOMATO_PLANT, 3, 0, plantImage, 0, null);
         plantList.add(newTomatoPlant);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
@@ -171,7 +171,7 @@ public class Controller {
             newName = "Blackberry" + random.nextInt(11);
         }
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        Blackberry newBlackberry = new Blackberry(newName, PlantArt.BLACKBERRY, 3, 0, plantImage, 0, null);
+        Blackberry newBlackberry = new Blackberry(this,newName, PlantArt.BLACKBERRY, 3, 0, plantImage, 0, null);
         plantList.add(newBlackberry);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
@@ -198,7 +198,7 @@ public class Controller {
         }
 
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        MiniTree newMiniTree = new MiniTree(newName, PlantArt.MINI_TREE, 3, 0, plantImage, 0, null);
+        MiniTree newMiniTree = new MiniTree(this, newName, PlantArt.MINI_TREE, 3, 0, plantImage, 0, null);
         plantList.add(newMiniTree);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
@@ -224,7 +224,7 @@ public class Controller {
             newName = "Cactus" + random.nextInt(11);
         }
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        Cactus newCactus = new Cactus(newName, PlantArt.CACTUS, 3, 0, plantImage, 0, null);
+        Cactus newCactus = new Cactus(this, newName, PlantArt.CACTUS, 3, 0, plantImage, 0, null);
         plantList.add(newCactus);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
@@ -271,39 +271,28 @@ public class Controller {
      */
     public long getRemainingDeathTimerMilliseconds(Plant plant) {
         Timer timer = plantTimers.get(plant);
-        if (timer != null) {
-            // Anta att du har en mekanism för att hämta återstående tid från timern
-            // Om Timer-klassen inte har denna funktion, måste du spåra start- och stoptid själv
-            return timer.getDelay(); // Detta är ett exempel, använd korrekt metod för att hämta återstående tid
+        if (timer != null && plant.getDeathTime() != null) {
+            Duration remainingDuration = Duration.between(LocalDateTime.now(), plant.getDeathTime());
+            return remainingDuration.toMillis();
+        }else {
+            return 0;
         }
-        return 0;
     }
     public void setRemainingDeathTimerMilliseconds(long remainingDeathTimerMilliseconds) {
         this.remainingDeathTimerMilliseconds = remainingDeathTimerMilliseconds;
     }
 
-    // Modified deathTimer method to update remainingDeathTimerMilliseconds
     public void deathTimer(Plant plant) {
         if (plant.getPlantLevel() == 0) {
-            System.out.println("Timer started for plant: " + plant.getPlantName());
+            System.out.println("Timer started for plant: " + plant.getName());
             JOptionPane.showMessageDialog(null, "Congrats on your new plant! \nBut be mindful, it will need water in the coming days!");
 
             // Create a new timer for the plant
-            Timer timer = new Timer(1000 * 10, new ActionListener() { // 10 sek
+            Timer timer = new Timer(1000, new ActionListener() { // 1 sec
                 public void actionPerformed(ActionEvent e) {
-                    plant.decreaseLife();
-                    checkLife();
-                    System.out.println("Plant life " + plant.getNbrOfLives() + " " + plant.getPlantName());
-                    view.getEastPanel().updateLives();
-
-                    // Check if the plant's number of lives is zero and stop the timer
-                    if (plant.getNbrOfLives() == 0) {
-                        Timer timer = plantTimers.get(plant);
-                        if (timer != null) {
-                            view.getMainPanel().updateButtons(getPlantImagePaths());
-                            timer.stop(); // Stop the timer
-                            System.out.println("Timer stopped for plant: " + plant.getPlantName());
-                        }
+                    updateEastPanel();
+                    if (plant.getDeathTime() != null && plant.getDeathTime().isBefore(LocalDateTime.now())) {
+                        plantDeathTimerActivation(plant);
                     }
                 }
             });
@@ -316,6 +305,33 @@ public class Controller {
         }
     }
 
+    public void updateEastPanel() {
+        view.getEastPanel().updateLives();
+        for (Plant plant : plantTimers.keySet()) {
+            if (plant.getDeathTime() != null) {
+                Duration remainingTime = Duration.between(LocalDateTime.now(), plant.getDeathTime());
+                view.getEastPanel().updateTimeUntilDeath(remainingTime);
+            }
+        }
+    }
+
+    public void plantDeathTimerActivation(Plant plant) {
+        plant.decreaseLife();
+        checkLife();
+        System.out.println("Plant life " + plant.getNbrOfLives() + " " + plant.getPlantName());
+        view.getEastPanel().updateLives();
+
+        // Check if the plant's number of lives is zero and stop the timer
+        if (plant.getNbrOfLives() == 0) {
+            Timer timer = plantTimers.get(plant);
+            if (timer != null) {
+                timer.stop(); // Stop the timer
+                plantTimers.remove(plant); // Remove the timer from the map
+                view.getMainPanel().updateButtons(getPlantImagePaths());
+                System.out.println("Timer stopped for plant: " + plant.getPlantName());
+            }
+        }
+    }
     public void resumeAllTimers() {
         for (Map.Entry<Plant, Timer> entry : plantTimers.entrySet()) {
             Plant plant = entry.getKey();
@@ -527,7 +543,11 @@ public class Controller {
             }
         }
 
-        /**
+        public Plant getCurrentPlant() {
+        return currentPlant;
+        }
+
+    /**
          * Retrieves the plant name of the first plant in the plant list.
          *
          * @return The plant name of the first plant, or 0 if the plant list is empty or the first plant is null.
@@ -578,6 +598,9 @@ public class Controller {
             }
         }
 
+        public Timer getPlantTimer(Plant plant) {
+            return plantTimers.get(plant);
+        }
 
         /**
          * Retrieves the paths of images associated with each plant in the plant list.

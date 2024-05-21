@@ -1,11 +1,13 @@
 package Model;
 
+import Controller.Controller;
+
 import javax.swing.*;
 import java.time.LocalDateTime;
 
 public class Sunflower extends Plant{
-    public Sunflower(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered ) {
-        super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered);
+    public Sunflower(Controller controller, String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered ) {
+        super(controller, name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered);
     }
 
     @Override

@@ -64,34 +64,28 @@ public class LoadGame {
                 // Skapa "nya" plantor beroende på plantArt
                 switch (plantArt) {
                     case ROSE:
-                        plant = new Rose(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
-                        controller.setRemainingDeathTimerMilliseconds(parseDeathTime(deathTimeData));
-                        controller.deathTimer(plant);
+                        plant = new Rose(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+
                         break;
                     case SUNFLOWER:
-                        plant = new Sunflower(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
-                        controller.setRemainingDeathTimerMilliseconds(parseDeathTime(deathTimeData));
-                        controller.deathTimer(plant);
+                        plant = new Sunflower(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+
                         break;
                     case TOMATO_PLANT:
-                        plant = new TomatoPlant(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
-                        //controller.setRemainingDeathTimerMilliseconds(parseDeathTime(deathTimeData));
-                        //controller.deathTimer(plant);
+                        plant = new TomatoPlant(controller,name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+
                         break;
                     case BLACKBERRY:
-                        plant = new Blackberry(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
-                        controller.setRemainingDeathTimerMilliseconds(parseDeathTime(deathTimeData));
-                        controller.deathTimer(plant);
+                        plant = new Blackberry(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+
                         break;
                     case CACTUS:
-                        plant = new Cactus(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
-                        controller.setRemainingDeathTimerMilliseconds(parseDeathTime(deathTimeData));
-                        controller.deathTimer(plant);
+                        plant = new Cactus(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+
                         break;
                     case MINI_TREE:
-                        plant = new MiniTree(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
-                        controller.setRemainingDeathTimerMilliseconds(parseDeathTime(deathTimeData));
-                        controller.deathTimer(plant);
+                        plant = new MiniTree(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+
                         break;
                     default:
                         System.err.println("Unknown plant type: " + plantType);
