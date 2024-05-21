@@ -54,27 +54,19 @@ public class SaveGame {
 
     public String getFormattedDeathTimer(Duration remainingTime) {
         if (remainingTime == null) {
-            return "00:00:00"; // or any other default value you prefer
+            return "0000-00-00 00:00:00.000"; // or any other default value you prefer
         }
 
-        long timeUntilDeathMillis = remainingTime.toMillis();
+        // Calculate the end time based on the remaining time from the current time
+        LocalDateTime endTime = LocalDateTime.now().plus(remainingTime);
 
-        // Check if the time is negative and set it to 0 if it is
-        if (timeUntilDeathMillis < 0) {
-            timeUntilDeathMillis = 0;
-        }
+        // Format the end time using the specified DateTimeFormatter
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        String formattedEndTime = endTime.format(formatter);
 
-        // Convert milliseconds to hours, minutes, and seconds
-        long seconds = timeUntilDeathMillis / 1000; // Convert milliseconds to seconds
-        long hours = seconds / 3600;
-        long minutes = (seconds % 3600) / 60;
-        seconds = seconds % 60;
-
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        return formattedEndTime;
     }
-
-
-
+    
     public static LocalDateTime getTimestamp() {
         return timestamp;
     }

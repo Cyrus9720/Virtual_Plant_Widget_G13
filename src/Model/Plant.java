@@ -47,9 +47,20 @@ public abstract class Plant {
         this.deathTime = calculateDeathTime(lastWatered); // Initialize deathTime based on lastWatered
     }
 
+    /**
+     * Calculates the death time for a plant based on the last time it was watered.
+     * If the last watered time is not null, the death time is set to one minute after the last watered time.
+     * If the last watered time is null, the death time is set to one minute after the current time.
+     *
+     * @param lastWatered The last time the plant was watered.
+     * @return The calculated death time for the plant.
+     */
     private LocalDateTime calculateDeathTime(LocalDateTime lastWatered) {
-        // Example logic: set deathTime to 3 days after lastWatered
-        return lastWatered != null ? lastWatered.plusMinutes(1) : LocalDateTime.now().plusMinutes(1);
+        return lastWatered != null ? lastWatered.plusSeconds(10) : LocalDateTime.now().plusMinutes(1);
+    }
+
+    public void setDeathTime(LocalDateTime deathTime) {
+        this.deathTime = deathTime;
     }
 
     /**

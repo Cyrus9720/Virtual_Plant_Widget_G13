@@ -22,7 +22,7 @@ import java.util.List;
 public class LoadGame {
     private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
     private LocalDateTime timestamp;
-    private String deathTimeData;
+    private LocalDateTime deathTimeData;
     private boolean fileNotEmpty;
     private MainFrame view;
     private Plant plant;
@@ -59,33 +59,33 @@ public class LoadGame {
                 ImageIcon plantPicture = new ImageIcon(plantData[5].trim().split(";")[1].trim());
                 LocalDateTime lastWatered = parseTimestamp(plantData[6].trim().split(";")[1].trim());
                 LocalDateTime lastPlayed = parseTimestamp(plantData[7].trim().split(";")[1].trim());
-                deathTimeData = plantData[8].trim().split("; ")[1];
+                deathTimeData = parseTimestamp(plantData[8].trim().split("; ")[1]);
 
                 // Skapa "nya" plantor beroende på plantArt
                 switch (plantArt) {
                     case ROSE:
                         plant = new Rose(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
-
+                        plant.setDeathTime(deathTimeData);
                         break;
                     case SUNFLOWER:
                         plant = new Sunflower(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
-
+                        plant.setDeathTime(deathTimeData);
                         break;
                     case TOMATO_PLANT:
                         plant = new TomatoPlant(controller,name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
-
+                        plant.setDeathTime(deathTimeData);
                         break;
                     case BLACKBERRY:
                         plant = new Blackberry(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
-
+                        plant.setDeathTime(deathTimeData);
                         break;
                     case CACTUS:
                         plant = new Cactus(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
-
+                        plant.setDeathTime(deathTimeData);
                         break;
                     case MINI_TREE:
                         plant = new MiniTree(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
-
+                        plant.setDeathTime(deathTimeData);
                         break;
                     default:
                         System.err.println("Unknown plant type: " + plantType);
@@ -130,21 +130,6 @@ public class LoadGame {
             System.err.println("Error parsing timestamp from save file: " + e.getMessage());
             return null;
         }
-    }
-
-    private long parseDeathTime(String timeString) {
-        String[] parts = timeString.split(":");
-        long minutes = Long.parseLong(parts[0]);
-        long seconds = Long.parseLong(parts[1]);
-        return (minutes * 60 + seconds) * 1000; // konvertera till millisekunder
-    }
-
-    public String getDeathTimeData() {
-        return deathTimeData;
-    }
-
-    public void setDeathTimeData(String deathTimeData) {
-        this.deathTimeData = deathTimeData;
     }
 
     public Plant getPlant() {

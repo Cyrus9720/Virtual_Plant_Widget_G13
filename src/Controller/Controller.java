@@ -37,7 +37,6 @@ public class Controller {
         loadGame = new LoadGame();
         try {
             loadGame.loadGame(plantList, this); // ifall spelet spelats tidigare kommer plantList hämtas här
-            updateRemainingDeathTimer(this);
         } catch (Exception e) {
             System.err.println("Error loading game data: " + e.getMessage());
         }
