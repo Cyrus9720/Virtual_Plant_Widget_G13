@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Duration;
+import java.time.LocalDateTime;
 
 /**
  * The EastPanel class represents the panel containing plant care controls on the east side of the user interface.
@@ -28,7 +29,8 @@ public class EastPanel extends JPanel {
     private JLabel timeUntilWatering; // JLabel för at visa tiden tills nästa vattning
     private JLabel timeUntilDeathLabel;
     private JButton nightMode;
-    private Timer timer; // Timer för uppdatering av tiden tills nästa vattning
+    private Timer waterTimer; // Timer för uppdatering av tiden tills nästa vattning
+    private Timer deathTimer; // timer för uppdatering av tiden tills plantan förlorar ett liv
 
     /**
      * Constructs a new EastPanel with the specified controller, width, and height.
@@ -115,7 +117,7 @@ public class EastPanel extends JPanel {
         });
 
         // Create a timer to update the time until next watering every second
-        timer = new Timer(1000, new ActionListener() {
+        waterTimer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (controller.getTimeUntilNextWatering() == 0) {
@@ -126,17 +128,7 @@ public class EastPanel extends JPanel {
                 revalidate();
             }
         });
-        timer.start();
-
-
-        timer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(controller.getRemainingDeathTimerMilliseconds(controller.getCurrentPlant()) > 0){
-
-                };
-            }
-        });
+        waterTimer.start();
     }
 
     /**
@@ -304,8 +296,8 @@ public class EastPanel extends JPanel {
             long timeUntilNextWatering = controller.getTimeUntilNextWatering();
             // Kontrollera om tiden är negativ
             if (timeUntilNextWatering < 0) {
-                // todo: lägg till mainFrame.timeToWater()
                 timeUntilNextWatering = 0; // Sätt tiden till 0 om den är negativ
+                startDeathTimer();
             }
             long hours = timeUntilNextWatering / 3600; // Konvertera sekunder till timmar
             long minutes = (timeUntilNextWatering % 3600) / 60; // Få återstående minuter
@@ -315,6 +307,22 @@ public class EastPanel extends JPanel {
             // Använd HTML för att bryta texten på tre rader och minska textstorleken
             timeUntilWatering.setText("<html><div style='text-align: center; font-size: 9px;'>Next watering period:<br>" + formattedTime + "</div></html>");
         }
+    }
+
+    public void startDeathTimer() {
+        deathTimer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LocalDateTime currentTime = LocalDateTime.now();
+                LocalDateTime deathTime = controller.getTimeUntilDeath();
+
+                Duration remainingTime = Duration.between(currentTime, deathTime);
+                updateTimeUntilDeath(remainingTime);
+                System.out.println("death timer started");
+            }
+        });
+        deathTimer.start();
+
     }
 
     public void updateTimeUntilDeath(Duration remainingTime) {

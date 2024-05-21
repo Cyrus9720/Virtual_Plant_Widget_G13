@@ -1,2 +1,1 @@
-Plant art; SUNFLOWER | Plant name; Sunflower0 | Plant level; 2 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/Sunflower2.JPG | Last time watered; 2024-05-21 14:52:02.319 | Timestamp; 2024-05-21 14:52:23.916 | Death time; 2024-05-21 14:51:12.835
-Plant art; MINI_TREE | Plant name; Minitree8 | Plant level; 1 | Times watered; 0 | Number of lives; 0 | Plant picture; src/Images/MiniTreeDead1.JPG | Last time watered; 2024-05-21 14:49:50.148 | Timestamp; 2024-05-21 14:52:23.916 | Death time; 2024-05-21 14:51:12.835
+Plant art; CACTUS | Plant name; Cactus0 | Plant level; 1 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/Cactus1.JPG | Last time watered; 2024-05-21 15:19:35.048 | Timestamp; 2024-05-21 15:19:38.165

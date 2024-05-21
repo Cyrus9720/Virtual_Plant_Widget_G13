@@ -33,7 +33,7 @@ public class SaveGame {
 
                 // Add the formatted timestamp to the end of the line
                 data += " | Timestamp; " + timestamp.format(formatter);
-                data += " | Death time; " + getFormattedDeathTimer(controller.getRemainingTime());
+                // data += " | Death time; " + getFormattedDeathTimer(controller.getRemainingTime());
 
                 writer.write(data);
                 writer.newLine();

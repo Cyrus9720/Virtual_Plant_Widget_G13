@@ -5,10 +5,7 @@ import View.ButtonType;
 import View.GameRuleFrame;
 import View.MainFrame;
 import javax.swing.*;
-import javax.swing.Timer;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -23,12 +20,7 @@ public class Controller {
     private ArrayList<Plant> plantList = new ArrayList<>();
     private int currentPlantIndex;
     private Plant currentPlant;
-    private Map<Plant, Timer> plantTimers;
-    private Duration remainingTime;
-    private Map<Plant, Long> pauseTimes = new HashMap<>();
     private LoadGame loadGame;
-
-
 
     /**
      * Constructor for the controller class.
@@ -45,8 +37,6 @@ public class Controller {
         if (loadGame.isFileNotEmpty() || GameHistoryReader.getGameHistory().isEmpty()) {
             firstTimePlaying();
         }
-        plantTimers = new HashMap<>();
-        resumeAllTimers();
     }
 
     /**
@@ -246,8 +236,6 @@ public class Controller {
                         return;
                     }
                     if (currentPlant.getPlantPicture().toString().endsWith("PotArt1.JPG")) {
-                        deathTimer(currentPlant);
-                        pauseDeathTimer();
                         System.out.println("PotArt1 triggered");
                     }
                     //view.getEastPanel().updateHeartLabel();
@@ -258,8 +246,6 @@ public class Controller {
                     currentPlant.setLastWatered(LocalDateTime.now());
                     view.getMainPanel().updateButtons(getPlantImagePaths());
                     updateWaterButtonStatus();
-                    updateRemainingDeathTimer();
-                    pauseDeathTimer();
                     break;
                 }
                 JOptionPane.showMessageDialog(null, "Your plant is dead! \nWatering won't bring it back ):");
@@ -267,137 +253,13 @@ public class Controller {
         }
     }
 
-    /**
-     * Starts the timer for the plant's life. Stops when life reaches 0.
-     *
-     * @author Cyrus Shaerpour
-     */
-    public long getRemainingDeathTimerMilliseconds(Plant plant) {
-        Timer timer = plantTimers.get(plant);
-        if (timer != null && plant.getDeathTime() != null) {
-            Duration remainingDuration = Duration.between(LocalDateTime.now(), plant.getDeathTime());
-            return remainingDuration.toMillis();
-        }else {
-            return 0;
-        }
-    }
-    public void deathTimer(Plant plant) {
-        if (plant.getPlantLevel() == 0) {
-            System.out.println("Timer started for plant: " + plant.getName());
-            JOptionPane.showMessageDialog(null, "Congrats on your new plant! \nBut be mindful, it will need water in the coming days!");
-
-            // Create a new timer for the plant
-            Timer timer = new Timer(1000, new ActionListener() { // 1 sec
-                public void actionPerformed(ActionEvent e) {
-                    updateEastPanel();
-                    if (plant.getDeathTime() != null && plant.getDeathTime().isBefore(LocalDateTime.now())) {
-                        plantDeathTimerActivation(plant);
-                    }
-                }
-            });
-
-            // Start the timer
-            timer.start();
-
-            // Store the timer for the plant in the map
-            plantTimers.put(plant, timer);
-        }
-    }
-
-    public void updateEastPanel() {
-        view.getEastPanel().updateLives();
-        for (Plant plant : plantTimers.keySet()) {
-            if (plant.getDeathTime() != null) {
-                remainingTime = Duration.between(LocalDateTime.now(), plant.getDeathTime());
-                view.getEastPanel().updateTimeUntilDeath(remainingTime);
-            }
-        }
-    }
-
-    public Duration getRemainingTime() {
-        return remainingTime;
-    }
-
-    public void plantDeathTimerActivation(Plant plant) {
-        plant.decreaseLife();
-        checkLife();
-        System.out.println("Plant life " + plant.getNbrOfLives() + " " + plant.getPlantName());
-        view.getEastPanel().updateLives();
-
-        // Check if the plant's number of lives is zero and stop the timer
-        if (plant.getNbrOfLives() == 0) {
-            Timer timer = plantTimers.get(plant);
-            if (timer != null) {
-                timer.stop(); // Stop the timer
-                plantTimers.remove(plant); // Remove the timer from the map
-                view.getMainPanel().updateButtons(getPlantImagePaths());
-                System.out.println("Timer stopped for plant: " + plant.getPlantName());
-            }
-        }
-    }
-    public void resumeAllTimers() {
-        for (Map.Entry<Plant, Timer> entry : plantTimers.entrySet()) {
-            Plant plant = entry.getKey();
-            Timer timer = entry.getValue();
-            Long pauseTime = pauseTimes.get(plant);
-
-            if (timer != null && pauseTime != null) {
-                long currentTime = System.currentTimeMillis();
-                long elapsedTime = currentTime - pauseTime;
-                long delay = Math.max(1000 * 10 - elapsedTime, 0); // Kvarvarande tid
-
-                new java.util.Timer().schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        timer.start(); // Återuppta timern
-                    }
-                }, delay);
-
-                System.out.println("Timer resumed for " + plant.getPlantName() + " after delay: " + delay + "ms");
-
-                // Ta bort paus-tidpunkten
-                pauseTimes.remove(currentPlant);            }
-        }
-    }
-
-    public void setRemainingTime(Duration remainingTime) {
-        this.remainingTime = remainingTime;
-    }
-
-    public void updateRemainingDeathTimer() {
-        for (Plant plant : plantList) {
-            if (plant.getDeathTime() != null) {
-                Duration remainingTime = Duration.between(LocalDateTime.now(), plant.getDeathTime());
-                setRemainingTime(remainingTime);
-            }
-        }
-    }
-
-    public void pauseDeathTimer() {
-        Timer timer = plantTimers.get(currentPlant);
-        if (timer != null && timer.isRunning()) {
-            // Pause the timer
-            timer.stop();
-            System.out.println("Timer paused for " + currentPlant.getPlantName());
-            // Schedule a task to resume the timer after a brief delay
-            new java.util.Timer().schedule(
-                    new java.util.TimerTask() {
-                        @Override
-                        public void run() {
-                            timer.start(); // Resume the timer
-                        }
-                    },
-                    1000 * 10 // Delay in milliseconds (e.g., 10 seconds)
-            );
-        }
-    }
 
     /**
      * Checks the life of the plant and updates the image if the plant has no lives left.
      *
      * @author Cyrus Shaerpour
      */
-    public void checkLife() {
+    public void updateLife() {
         if (currentPlant.getNbrOfLives() == 0) {
             view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
             view.getMainPanel().updateButtons(getPlantImagePaths());
@@ -421,31 +283,40 @@ public class Controller {
     }
 
     /**
-     * Checks if the plants need to be watered based on a certain timestamp (24h).
+     * Checks if the plants need to be watered based on a certain timestamp.
      *
      * @return boolean
      * @auhor annagranberg
      */
     private boolean checkWateringStatus() {
+        // Kontrollera om indexet för den aktuella plantan är inom gränserna för plantList
         if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
-            currentPlant = plantList.get(currentPlantIndex);
+            // Hämta tid nu
             LocalDateTime currentDateTime = LocalDateTime.now();
+            // Hämta tidpunkt för den senaste vattningen av plantan
             LocalDateTime lastWatered = currentPlant.getLastWatered();
 
+            // Kontrollera om det finns en tidpunkt för den senaste vattningen
             if (lastWatered != null) {
+                // Beräkna tiden sedan den senaste vattningen
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
+                // Definiera vattningens intervalltid (1 minut)
+                Duration wateringInterval = Duration.ofMinutes(1);
 
-                Duration wateringInterval = Duration.ofMillis(10 * 1000);
-
+                // Jämför tiden sedan den senaste vattningen med vattningens intervalltid
                 if (timeSinceLastWatered.compareTo(wateringInterval) >= 0) {
+                    // Om tiden sedan den senaste vattningen är större än eller lika med vattningens intervalltid,
+                    // indikerar det att det är dags att vattna plantan
                     System.out.println("Current plant needs to be watered");
-                    return true; // Return true if the current plant needs watering
+                    return true;
                 }
             } else {
-                return true; // om något är null
+                // Om någon av tidpunkterna är null, antas det att det är dags att vattna plantan
+                return true;
             }
         }
-        return false; // Return false if the current plant does not need watering
+        // Om indexet för den aktuella plantan är ogiltigt eller plantList är tom, returnera false
+        return false;
     }
 
     /**
@@ -502,103 +373,105 @@ public class Controller {
         }
     }
 
-        /**
-         * Retrieves the number of times watered of the first plant in the plant list.
-         *
-         * @return The number of times watered of the first plant, or 0 if the plant list is empty or the first plant is null.
-         */
-        public int getTimesWatered () {
-            if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
-                if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
-                    currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
-                    if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
-                        System.out.println("times watered: " + currentPlant.getTimesWatered());
-                        return currentPlant.getTimesWatered();
-                    } else {
-                        // Hantera fallet när den aktuella växten är null
-                        System.err.println("Current plant is null");
-                        return 0;
-                    }
+    /**
+     * Retrieves the number of times watered of the first plant in the plant list.
+     *
+     * @return The number of times watered of the first plant, or 0 if the plant list is empty or the first plant is null.
+     */
+    public int getTimesWatered () {
+        if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
+            if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
+                currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
+                if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
+                    System.out.println("times watered: " + currentPlant.getTimesWatered());
+                    return currentPlant.getTimesWatered();
                 } else {
-                    // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
-                    System.err.println("Invalid current plant index in getTimesWatered");
+                    // Hantera fallet när den aktuella växten är null
+                    System.err.println("Current plant is null");
                     return 0;
                 }
             } else {
-                // Hantera fallet när plantList är tom
-                System.err.println("Plant list is empty");
+                // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
+                System.err.println("Invalid current plant index in getTimesWatered");
                 return 0;
             }
+        } else {
+            // Hantera fallet när plantList är tom
+            System.err.println("Plant list is empty");
+            return 0;
         }
+    }
 
-        /**
-         * Retrieves the plant level of the first plant in the plant list.
-         *
-         * @return The plant level of the first plant, or 0 if the plant list is empty or the first plant is null.
-         */
-        public int getPlantLevel () {
-            if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
-                if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
-                    currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
-                    if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
-                        return currentPlant.getPlantLevel();
-                    } else {
-                        // Hantera fallet när den aktuella växten är null
-                        System.err.println("Current plant is null");
-                        return 0;
-                    }
-                } else {
-                    // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
-                    System.err.println("Invalid current plant index in getPlantLevel");
-                    return 0;
-                }
-            } else {
-                // Hantera fallet när plantList är tom
-                System.err.println("Plant list is empty");
-                return 0;
-            }
-        }
-
-        public Plant getCurrentPlant() {
-        return currentPlant;
-        }
+    public LocalDateTime getTimeUntilDeath(){
+        return currentPlant.getDeathTime();
+    }
 
     /**
-         * Retrieves the plant name of the first plant in the plant list.
-         *
-         * @return The plant name of the first plant, or 0 if the plant list is empty or the first plant is null.
-         */
-        public String getPlantName () {
-            if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
-                if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
-                    currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
-                    if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
-                        return currentPlant.getPlantName();
-                    } else {
-                        // Hantera fallet när den aktuella växten är null
-                        System.err.println("Current plant is null");
-                        return null;
-                    }
+     * Retrieves the plant level of the first plant in the plant list.
+     *
+     * @return The plant level of the first plant, or 0 if the plant list is empty or the first plant is null.
+     */
+    public int getPlantLevel () {
+        if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
+            if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
+                currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
+                if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
+                    return currentPlant.getPlantLevel();
                 } else {
-                    // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
-                    System.err.println("Invalid current plant index in getPlantName");
+                    // Hantera fallet när den aktuella växten är null
+                    System.err.println("Current plant is null");
+                    return 0;
+                }
+            } else {
+                // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
+                System.err.println("Invalid current plant index in getPlantLevel");
+                return 0;
+            }
+        } else {
+            // Hantera fallet när plantList är tom
+            System.err.println("Plant list is empty");
+            return 0;
+        }
+    }
+    public Plant getCurrentPlant() {
+        return currentPlant;
+    }
+
+    /**
+     * Retrieves the plant name of the first plant in the plant list.
+     *
+     * @return The plant name of the first plant, or 0 if the plant list is empty or the first plant is null.
+     */
+    public String getPlantName () {
+        if (!plantList.isEmpty()) { // Kontrollera om plantList inte är tom
+            if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) { // Kontrollera om currentPlantIndex är inom rätt intervall
+                currentPlant = plantList.get(currentPlantIndex); // Hämta den aktuella växten från plantList
+                if (currentPlant != null) { // Kontrollera om den aktuella växten inte är null
+                    return currentPlant.getPlantName();
+                } else {
+                    // Hantera fallet när den aktuella växten är null
+                    System.err.println("Current plant is null");
                     return null;
                 }
             } else {
-                // Hantera fallet när plantList är tom
-                System.err.println("Plant list is empty");
+                // Hantera fallet när currentPlantIndex är utanför räckvidden för plantList
+                System.err.println("Invalid current plant index in getPlantName");
                 return null;
             }
+        } else {
+            // Hantera fallet när plantList är tom
+            System.err.println("Plant list is empty");
+            return null;
         }
-
-        /**
-         * Retrieves the plant art of the first plant in the plant list.
-         *
-         * @return The plant art of the first plant, or 0 if the plant list is empty or the first plant is null.
-         */
-        public PlantArt getPlantArt () {
-            if (!plantList.isEmpty() && currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
-                currentPlant = plantList.get(currentPlantIndex);
+    }
+    /**
+     * Retrieves the plant art of the first plant in the plant list.
+     *
+     * @return The plant art of the first plant, or 0 if the plant list is empty or the first plant is null.
+     */
+    public PlantArt getPlantArt () {
+        if (!plantList.isEmpty() && currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
+            currentPlant = plantList.get(currentPlantIndex);
                 if (currentPlant != null) {
                     // Return the plant art of the current plant
                     return currentPlant.getPlantArt();
@@ -607,16 +480,12 @@ public class Controller {
                     System.err.println("Current plant is null");
                     return null;
                 }
-            } else {
-                // Handle the case when plantList is empty or currentPlantIndex is out of range
-                System.err.println("No plant available at the current index in getPlantArt");
-                return null;
-            }
+        } else {
+            // Handle the case when plantList is empty or currentPlantIndex is out of range
+            System.err.println("No plant available at the current index in getPlantArt");
+            return null;
         }
-
-        public Timer getPlantTimer(Plant plant) {
-            return plantTimers.get(plant);
-        }
+    }
 
         /**
          * Retrieves the paths of images associated with each plant in the plant list.
@@ -773,5 +642,4 @@ public class Controller {
         public ArrayList<Plant> getPlantList () {
             return plantList;
         }
-    }
-
+}

@@ -5,8 +5,6 @@ import Controller.Controller;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -105,9 +103,9 @@ public abstract class Plant {
         }
     }
 
-    public void activateDeathEvent() {
+   /* public void activateDeathEvent() {
         this.decreaseLife();
-        controller.checkLife();
+        controller.updateLife();
         System.out.println("Plant life " + this.getNbrOfLives() + " " + this.getPlantName());
 
         // Check if the plant's number of lives is zero and stop the timer
@@ -118,7 +116,7 @@ public abstract class Plant {
                 System.out.println("Timer stopped for plant: " + this.getPlantName());
             }
         }
-    }
+    }*/
 
 
     public LocalDateTime getDeathTime() {
