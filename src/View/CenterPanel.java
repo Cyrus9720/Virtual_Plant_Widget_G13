@@ -33,7 +33,7 @@ public class CenterPanel extends JPanel {
 
         this.mainPanel = mainPanel; // Sätter huvudpanelen
 
-        plantPicture = new ImageIcon("src/Images/deafult.png"); // Laddar standardbilden för växten
+        plantPicture = new ImageIcon("src/Images/Background.JPG"); // Laddar standardbilden för växten
 
         String plantName = controller.getPlantName(); // Hämtar växtnamnet från controller
         titledBorder = BorderFactory.createTitledBorder("You must choose a plant"); // Skapar en border runt panelen med ett standardmeddelande
