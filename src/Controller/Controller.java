@@ -27,8 +27,7 @@ public class Controller {
     private Duration remainingTime;
     private Map<Plant, Long> pauseTimes = new HashMap<>();
     private LoadGame loadGame;
-
-
+    private boolean isChosen = false;
 
     /**
      * Constructor for the controller class.
@@ -57,8 +56,10 @@ public class Controller {
     public void switchPlant(String id) {
         int plantIndex = Integer.parseInt(id);
         if (plantIndex >= 0 && plantIndex < plantList.size()) {
+            setIsChosen(true);
             currentPlantIndex = plantIndex;
             currentPlant = plantList.get(plantIndex); // Uppdatera currentPlant när switchPlant kallas
+            currentPlant.startNewTimer();
             updateWaterButtonStatus();
             view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
             view.getCenterPanel().updatePlantName(currentPlant.getPlantName());
@@ -70,6 +71,14 @@ public class Controller {
         } else {
             System.err.println("Invalid plant index: " + id);
         }
+    }
+
+    public boolean getIsChosen(){
+        return true;
+    }
+
+    public void setIsChosen(boolean isChosen){
+        this.isChosen = isChosen;
     }
 
     /**
@@ -253,6 +262,7 @@ public class Controller {
                     //view.getEastPanel().updateHeartLabel();
                     currentPlant = plantList.get(currentPlantIndex);
                     currentPlant.waterPlant();
+                    currentPlant.startNewTimer();
                     ImageIcon updatedImage = currentPlant.getPlantPicture();
                     view.getCenterPanel().updatePlantImage(updatedImage);
                     currentPlant.setLastWatered(LocalDateTime.now());

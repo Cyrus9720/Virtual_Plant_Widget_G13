@@ -31,3 +31,7 @@ Plant name: Rose0 | Plant art: ROSE | Plant level: 1 | Plant Picture: src/Images
 Plant name: Cactus5 | Plant art: CACTUS | Plant level: 1 | Plant Picture: src/Images/Cactus1.JPG
 Plant name: Sunflower2 | Plant art: SUNFLOWER | Plant level: 1 | Plant Picture: src/Images/Sunflower1.JPG
 Plant name: Minitree7 | Plant art: MINI_TREE | Plant level: 1 | Plant Picture: src/Images/MiniTree1.JPG
+Plant name: Sunflower0 | Plant art: SUNFLOWER | Plant level: 2 | Plant Picture: src/Images/Sunflower2.JPG
+Plant name: Minitree8 | Plant art: MINI_TREE | Plant level: 1 | Plant Picture: src/Images/MiniTreeDead1.JPG
+Plant name: Blackberry2 | Plant art: BLACKBERRY | Plant level: 2 | Plant Picture: src/Images/BlackberryDead2.JPG
+Plant name: Rose8 | Plant art: ROSE | Plant level: 2 | Plant Picture: src/Images/RoseDead2.JPG

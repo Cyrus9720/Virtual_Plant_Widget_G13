@@ -120,6 +120,24 @@ public abstract class Plant {
         }
     }
 
+    public void startNewTimer() {
+        LocalDateTime now = LocalDateTime.now();
+        if (deathTime != null && now.isAfter(deathTime)) {
+            decreaseLife();
+            if (nbrOfLives > 0) {
+                // Ställ in en ny dödstid om 30 minuter som exempel
+                deathTime = now.plusMinutes(30);
+                setDeathTime(deathTime);
+                System.out.println("New death time set: " + deathTime);
+            } else {
+                System.out.println("Plant has no more lives.");
+            }
+        } else if (deathTime == null) {
+            System.out.println("Death time is not set.");
+        }
+    }
+
+
 
     public LocalDateTime getDeathTime() {
         return deathTime;
