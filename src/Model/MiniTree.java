@@ -18,8 +18,11 @@ public class MiniTree extends Plant{
      * @param lastWatered
      * @author Cyrus Shaerpour
      */
+
+    private Controller controller;
     public MiniTree(Controller controller, String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
         super(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+        this.controller = controller;
     }
 
     @Override
@@ -38,21 +41,43 @@ public class MiniTree extends Plant{
     }
 
     private void updateImage() {
-        switch (getPlantLevel()) {
-            case 0:
-                setPlantPicture(new ImageIcon("src/Images/PotArt1.JPG"));
-                break;
-            case 1:
-                setPlantPicture(new ImageIcon("src/Images/MiniTree1.JPG"));
-                break;
-            case 2:
-                setPlantPicture(new ImageIcon("src/Images/MiniTree2.JPG"));
-                break;
-            case 3:
-                setPlantPicture(new ImageIcon("src/Images/MiniTree3.JPG"));
-                break;
-            default:
-                break;
+        if (controller.night) {
+            switch (getPlantLevel()) {
+                case 0:
+                    setPlantPicture(new ImageIcon("src/Images/NightEmpty.JPG"));
+                    break;
+                case 1:
+                    setPlantPicture(new ImageIcon("src/Images/Night_Tree1.JPG"));
+                    break;
+                case 2:
+                    setPlantPicture(new ImageIcon("src/Images/Night_Tree2.JPG"));
+                    break;
+                case 3:
+                    setPlantPicture(new ImageIcon("src/Images/Night_Tree3.JPG"));
+                    System.out.println("Night");
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            switch (getPlantLevel()) {
+                case 0:
+                    setPlantPicture(new ImageIcon("src/Images/PotArt1.JPG"));
+                    System.out.println("Day1");
+                    break;
+                case 1:
+                    setPlantPicture(new ImageIcon("src/Images/MiniTree1.JPG"));
+                    break;
+                case 2:
+                    setPlantPicture(new ImageIcon("src/Images/MiniTree2.JPG"));
+                    break;
+                case 3:
+                    setPlantPicture(new ImageIcon("src/Images/MiniTree3.JPG"));
+                    System.out.println("Day");
+                    break;
+                default:
+                    break;
+            }
         }
     }
     private void updateDeathImage() {

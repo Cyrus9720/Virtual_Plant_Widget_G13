@@ -278,9 +278,17 @@ public class Controller {
                 //JOptionPane.showMessageDialog(null, "Your plant is dead! \nWatering won't bring it back ):");
             case NightMode:
                 System.out.println("Night mode activated");
-                    view.getEastPanel().nightMode();
-                    view.getEastPanel().nightColors();
-
+                    if (night == false) {
+                        view.getEastPanel().moonButton();
+                        view.getEastPanel().nightColors();
+                        view.getCenterPanel().centerNight();
+                        night = true;
+                    } else {
+                        view.getEastPanel().sunButton();
+                        view.getEastPanel().dayColors();
+                        view.getCenterPanel().centerDay();
+                        night = false;
+                    }
                     break;
         }
     }

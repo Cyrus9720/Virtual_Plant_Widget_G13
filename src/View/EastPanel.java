@@ -12,6 +12,8 @@ import java.awt.event.ActionListener;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+import static View.ButtonType.NightMode;
+
 /**
  * The EastPanel class represents the panel containing plant care controls on the east side of the user interface.
  * This panel includes buttons for performing various plant care actions, such as watering.
@@ -106,18 +108,28 @@ public class EastPanel extends JPanel {
             }
         });
 
-        nightMode = new JButton("Night mode");
-        nightMode.setFont(new Font("Bebas Neue", Font.BOLD, 12));
-        add(nightMode, BorderLayout.SOUTH);
+        ImageIcon nightButton = new ImageIcon("src/Images/NightTime.PNG"); // Bild för vattenknapp
+        Image originalNightButtonImage = nightButton.getImage();
+        Image scaledNightButtonImage = originalNightButtonImage.getScaledInstance(60, 50, Image.SCALE_SMOOTH);
+        ImageIcon scaledNightIcon = new ImageIcon(scaledNightButtonImage);
+
+        nightMode = new JButton(scaledNightIcon);
+        nightMode.setBorderPainted(true);
+        nightMode.setContentAreaFilled(true);
+        nightMode.setBackground(new Color(225, 240, 218));
+        pnlButtons.add(nightMode, BorderLayout.SOUTH);
 
         nightMode.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
-
+                if (e.getSource() == nightMode) {
+                    controller.buttonPressed(ButtonType.NightMode);
+                    // System.out.println("Water button clicked");
+                }
             }
         });
 
-        // Create a timer to update the time until next watering every second
+
+    // Create a timer to update the time until next watering every second
         timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -344,24 +356,20 @@ public class EastPanel extends JPanel {
         }
     }
 
-    public void nightMode() {
-        if (!controller.night) {
-            controller.night = true;
-            ImageIcon moonIcon = new ImageIcon("src/Images/NightTime_Moon.PNG");
-            Image moonImage = moonIcon.getImage();
-            Image scaledMoonImage = moonImage.getScaledInstance(60, 50, Image.SCALE_SMOOTH);
-            nightMode.setIcon(new ImageIcon(scaledMoonImage));
-        } else {
-            controller.night = false;
+    public void moonButton() {
+        ImageIcon moonIcon = new ImageIcon("src/Images/NightTime_Moon.PNG");
+        Image moonImage = moonIcon.getImage();
+        Image scaledMoonImage = moonImage.getScaledInstance(60, 50, Image.SCALE_SMOOTH);
+        nightMode.setIcon(new ImageIcon(scaledMoonImage));
+    }
+         public void sunButton() {
             ImageIcon sunIcon = new ImageIcon("src/Images/NightTime_Sun.PNG");
             Image sunImage = sunIcon.getImage();
             Image scaledSunImage = sunImage.getScaledInstance(60, 50, Image.SCALE_SMOOTH);
             nightMode.setIcon(new ImageIcon(scaledSunImage));
         }
-    }
 
     public void nightColors() {
-        if (!controller.night) {
             setBackground(new Color(47, 49, 73));
             progressbarLabel.setBackground(new Color(47, 49, 73));
             threeHeartsLabel.setBackground(new Color(47, 49, 73));
@@ -372,7 +380,9 @@ public class EastPanel extends JPanel {
             titledBorder.setTitleColor(Color.WHITE);
             timeUntilWatering.setForeground(Color.WHITE);
             timeUntilDeathLabel.setForeground(Color.WHITE);
-        } else {
+        }
+
+        public void dayColors() {
             setBackground(new Color(225, 240, 218));
             progressbarLabel.setBackground(new Color(225, 240, 218));
             threeHeartsLabel.setBackground(new Color(225, 240, 218));
@@ -385,4 +395,16 @@ public class EastPanel extends JPanel {
             timeUntilDeathLabel.setForeground(Color.BLACK);
         }
     }
-}
+
+/*
+nightMode = new JButton("Night mode");
+        nightMode.setFont(new Font("Bebas Neue", Font.BOLD, 12));
+add(nightMode, BorderLayout.SOUTH);
+
+        nightMode.addActionListener(new ActionListener() {
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == NightMode) {
+            controller.buttonPressed(NightMode);
+        }
+    }
+});*/
