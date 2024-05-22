@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Duration;
+import java.time.LocalDateTime;
 
 /**
  * The EastPanel class represents the panel containing plant care controls on the east side of the user interface.
@@ -133,7 +134,7 @@ public class EastPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(controller.getRemainingDeathTimerMilliseconds(controller.getCurrentPlant()) > 0){
-
+                    updateTimeUntilDeath(controller.getRemainingDeathTimerMilliseconds(controller.getCurrentPlant()));
                 };
             }
         });
@@ -317,28 +318,27 @@ public class EastPanel extends JPanel {
         }
     }
 
-    public void updateTimeUntilDeath(Duration remainingTime) {
+    public void updateTimeUntilDeath(Long remainingTime) {
         if (controller.getPlantList() == null || controller.getCurrentPlant() == null) {
-            timeUntilWatering.setText(" ");
+            timeUntilDeathLabel.setText("Time until death: ");
         } else {
-            long timeUntilDeathMillis = remainingTime.toMillis();
-
             // Check if the time is negative and set it to 0 if it is
-            if (timeUntilDeathMillis < 0) {
-                timeUntilDeathMillis = 0;
+            if (remainingTime < 0) {
+                remainingTime = Long.valueOf(0);
             }
 
             // Convert milliseconds to hours, minutes, and seconds
-            long seconds = timeUntilDeathMillis / 1000; // Convert milliseconds to seconds
+            long seconds = remainingTime / 1000; // Convert milliseconds to seconds
             long hours = seconds / 3600;
             long minutes = (seconds % 3600) / 60;
             seconds = seconds % 60;
 
             String formattedTime = String.format("%02d h %02d m %02d s", hours, minutes, seconds);
 
-            // Use HTML to break the text into three lines and reduce the font size
-            timeUntilDeathLabel.setText("<html><div style='text-align: center; font-size: 9px;'>Time until life lost:<br>" + formattedTime + "</div></html>");
+            // Update the label on the Event Dispatch Thread
+            SwingUtilities.invokeLater(() -> {
+                timeUntilDeathLabel.setText("<html><div style='text-align: center; font-size: 9px;'>Time until life lost:<br>" + formattedTime + "</div></html>");
+            });
         }
     }
-
 }

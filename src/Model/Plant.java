@@ -70,7 +70,7 @@ public abstract class Plant {
      * @author Cyrus Shaerpour
      */
     public void waterPlant() {
-        if (nbrOfLives >0) {
+        if (nbrOfLives > 0) {
             setTimesWatered(getTimesWatered() + 1);
             if (plantLevel <=3) {
                 if (getTimesWatered() == plantLevel + 1) {
@@ -92,7 +92,7 @@ public abstract class Plant {
                     wateringSoundClip.start();
                 }
             }
-        } else {
+        } else if(nbrOfLives == 0){
             JOptionPane.showMessageDialog(null, "Your plant is dead! \nWatering won't bring it back ):");
         }
     }

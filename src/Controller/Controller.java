@@ -22,7 +22,7 @@ public class Controller {
     private MainFrame view;
     private ArrayList<Plant> plantList = new ArrayList<>();
     private int currentPlantIndex;
-    private Plant currentPlant;
+    private Plant currentPlant = null;
     private Map<Plant, Timer> plantTimers;
     private Duration remainingTime;
     private Map<Plant, Long> pauseTimes = new HashMap<>();
@@ -74,7 +74,7 @@ public class Controller {
     }
 
     public boolean getIsChosen(){
-        return true;
+        return isChosen;
     }
 
     public void setIsChosen(boolean isChosen){
@@ -249,7 +249,7 @@ public class Controller {
     public void buttonPressed(ButtonType button) {
         switch (button) {
             case Water:
-                if (currentPlant.getNbrOfLives() > 0) {
+                if (isChosen) {
                     if (plantList.isEmpty()) {
                         JOptionPane.showMessageDialog(null, "Please select a plant to water.", "No Plant Selected", JOptionPane.INFORMATION_MESSAGE);
                         return;
@@ -259,7 +259,6 @@ public class Controller {
                         pauseDeathTimer();
                         System.out.println("PotArt1 triggered");
                     }
-                    //view.getEastPanel().updateHeartLabel();
                     currentPlant = plantList.get(currentPlantIndex);
                     currentPlant.waterPlant();
                     currentPlant.startNewTimer();
@@ -271,9 +270,11 @@ public class Controller {
                     updateRemainingDeathTimer();
                     pauseDeathTimer();
                     break;
+                }else{
+                    JOptionPane.showMessageDialog(null, "You must choose a plant before you can water it! ");
                 }
-                JOptionPane.showMessageDialog(null, "Your plant is dead! \nWatering won't bring it back ):");
-                return;
+                //JOptionPane.showMessageDialog(null, "Your plant is dead! \nWatering won't bring it back ):");
+
         }
     }
 
@@ -313,13 +314,12 @@ public class Controller {
             plantTimers.put(plant, timer);
         }
     }
-
     public void updateEastPanel() {
         view.getEastPanel().updateLives();
         for (Plant plant : plantTimers.keySet()) {
             if (plant.getDeathTime() != null) {
-                remainingTime = Duration.between(LocalDateTime.now(), plant.getDeathTime());
-                view.getEastPanel().updateTimeUntilDeath(remainingTime);
+                Long remainingDeathTime = getRemainingDeathTimerMilliseconds(currentPlant);
+                view.getEastPanel().updateTimeUntilDeath(remainingDeathTime);
             }
         }
     }
