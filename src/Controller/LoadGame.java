@@ -77,7 +77,7 @@ public class LoadGame {
                         plant = new Cactus(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
                         break;
                     case MINI_TREE:
-                        plant = new MiniTree(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        plant = new MiniTree(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, false);
                         break;
                     default:
                         System.err.println("Unknown plant type: " + plantType);

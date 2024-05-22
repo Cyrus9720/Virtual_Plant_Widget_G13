@@ -1,3 +1,5 @@
-Plant art; MINI_TREE | Plant name; Treee | Plant level; 3 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/MiniTree3.JPG | Last time watered; 2024-05-19 13:44:39.270 | Timestamp; 2024-05-21 08:32:18.186
-Plant art; CACTUS | Plant name; kurt | Plant level; 2 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/Cactus2.JPG | Last time watered; 2024-05-19 13:45:06.459 | Timestamp; 2024-05-21 08:32:18.186
-Plant art; ROSE | Plant name; Rosa | Plant level; 1 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/RoseArt1.JPG | Last time watered; 2024-05-19 13:45:03.435 | Timestamp; 2024-05-21 08:32:18.186
+Plant art; MINI_TREE | Plant name; Treee | Plant level; 3 | Times watered; 3 | Number of lives; 3 | Plant picture; src/Images/MiniTree3.JPG | Last time watered; 2024-05-22 12:22:54.960 | Timestamp; 2024-05-22 12:56:01.191
+Plant art; CACTUS | Plant name; kurt | Plant level; 2 | Times watered; 2 | Number of lives; 3 | Plant picture; src/Images/Cactus2.JPG | Last time watered; 2024-05-21 17:48:32.259 | Timestamp; 2024-05-22 12:56:01.191
+Plant art; ROSE | Plant name; Rosa | Plant level; 2 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/RoseArt2.JPG | Last time watered; 2024-05-21 17:47:35.028 | Timestamp; 2024-05-22 12:56:01.191
+Plant art; MINI_TREE | Plant name; Minitree4 | Plant level; 1 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/Night_Tree1.JPG | Last time watered; 2024-05-22 12:51:48.846 | Timestamp; 2024-05-22 12:56:01.191
+Plant art; MINI_TREE | Plant name; Minitree10 | Plant level; 2 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/MiniTree2.JPG | Last time watered; 2024-05-22 12:55:54.857 | Timestamp; 2024-05-22 12:56:01.191

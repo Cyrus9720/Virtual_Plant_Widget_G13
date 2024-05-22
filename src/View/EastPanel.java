@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.TimerTask;
 
 /**
  * The EastPanel class represents the panel containing plant care controls on the east side of the user interface.
@@ -24,10 +25,15 @@ public class EastPanel extends JPanel {
     private Controller controller; // Referens till controller
     private int width, height; // Storlek på panelen
     private JButton Water; // Knapp för vattning
+    private JButton Night; // Knapp för Night Mode
     private JLabel progressbarLabel; // JLabel för progressbar / timesWatered
     private JLabel threeHeartsLabel; // JLabel för nbrOfLives
     private JLabel timeUntil; // JLabel för at visa tiden tills nästa vattning
     private Timer timer; // Timer för uppdatering av tiden tills nästa vattning
+    private JLabel timerLabel;
+    private JPanel pnlButtons;
+    private TitledBorder titledBorder;
+    public boolean night = false;
 
     /**
      * Constructs a new EastPanel with the specified controller, width, and height.
@@ -46,12 +52,12 @@ public class EastPanel extends JPanel {
         setBackground(new Color(225, 240, 218));
         setPreferredSize(new Dimension(150, 300));
 
-        TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant care");  // skapa en border runt panel
+        titledBorder = BorderFactory.createTitledBorder("Plant care");  // skapa en border runt panel
         Font myFont = new Font("Bebas Neue", Font.BOLD, 12);  // font för hela spelet
         titledBorder.setTitleFont(myFont);
         setBorder(titledBorder);
 
-        JPanel pnlButtons = new JPanel(); // skapa knappar
+        pnlButtons = new JPanel(); // skapa knappar
         pnlButtons.setBackground(new Color(225, 240, 218)); // bakgrundsfärg
 
         ImageIcon waterButton = new ImageIcon("src/Images/Watercan.png"); // Bild för vattenknapp
@@ -59,11 +65,15 @@ public class EastPanel extends JPanel {
         Image scaledWaterButtonImage = originalWaterButtonImage.getScaledInstance(60, 50, Image.SCALE_SMOOTH);
         ImageIcon scaledWaterIcon = new ImageIcon(scaledWaterButtonImage);
 
+
+
         Water = new JButton(scaledWaterIcon);
         Water.setBorderPainted(true);
         Water.setContentAreaFilled(true);
         Water.setBackground(new Color(225, 240, 218));
         pnlButtons.add(Water, BorderLayout.NORTH);
+
+
 
         Border border = this.getBorder();
         Border margin = BorderFactory.createEmptyBorder(6, 6, 6, 6);
@@ -98,6 +108,8 @@ public class EastPanel extends JPanel {
             }
         });
 
+
+
         // Create a timer to update the time until next watering every second
         timer = new Timer(1000, new ActionListener() {
             @Override
@@ -112,6 +124,26 @@ public class EastPanel extends JPanel {
             }
         });
         timer.start();
+
+        ImageIcon nightButton = new ImageIcon("src/Images/NightTime.PNG"); // Bild för vattenknapp
+        Image originalNightButtonImage = nightButton.getImage();
+        Image scaledNightButtonImage = originalNightButtonImage.getScaledInstance(60, 50, Image.SCALE_SMOOTH);
+        ImageIcon scaledNightIcon = new ImageIcon(scaledNightButtonImage);
+
+        Night = new JButton(scaledNightIcon);
+        Night.setBorderPainted(true);
+        Night.setContentAreaFilled(true);
+        Night.setBackground(new Color(225, 240, 218));
+        pnlButtons.add(Night, BorderLayout.SOUTH);
+
+        Night.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == Night) {
+                    controller.buttonPressed(ButtonType.Night);
+                    // System.out.println("Water button clicked");
+                }
+            }
+        });
     }
 
     /**
@@ -291,4 +323,53 @@ public class EastPanel extends JPanel {
             timeUntil.setText("<html><div style='text-align: center; font-size: 9px;'>Next watering period:<br>" + formattedTime + "</div></html>");
         }
     }
+    public void PlantDetailsPanel() {
+        // Initialize your panel and other components
+        timerLabel = new JLabel("Time remaining: ");
+        add(timerLabel); // Add the label to your panel
+    }
+
+    // Method to update the timer label
+    public void updateTimerLabel(String time) {
+        timerLabel.setText("Time remaining: " + time);
+    }
+
+    public void nightMode() {
+        if (night == false) {
+            night = true;
+            ImageIcon moonIcon = new ImageIcon("src/Images/NightTime_Moon.PNG");
+            Image moonImage = moonIcon.getImage();
+            Image scaledMoonImage = moonImage.getScaledInstance(60, 50, Image.SCALE_SMOOTH);
+            Night.setIcon(new ImageIcon(scaledMoonImage));
+        } else {
+            night = false;
+            ImageIcon sunIcon = new ImageIcon("src/Images/NightTime_Sun.PNG");
+            Image sunImage = sunIcon.getImage();
+            Image scaledSunImage = sunImage.getScaledInstance(60, 50, Image.SCALE_SMOOTH);
+            Night.setIcon(new ImageIcon(scaledSunImage));
+        }
+    }
+
+    public void nightColors() {
+        if (night == true) {
+            setBackground(new Color(47, 49, 73));
+            progressbarLabel.setBackground(new Color(47, 49, 73));
+            threeHeartsLabel.setBackground(new Color(47, 49, 73));
+            timeUntil.setBackground(new Color(47, 49, 73));
+            pnlButtons.setBackground(new Color(47, 49, 73)); // bakgrundsfärg
+            Night.setBackground(new Color(47, 49, 73));
+            titledBorder.setTitleColor(Color.WHITE);
+            timeUntil.setForeground(Color.WHITE);
+        } else {
+            setBackground(new Color(225, 240, 218));
+            progressbarLabel.setBackground(new Color(225, 240, 218));
+            threeHeartsLabel.setBackground(new Color(225, 240, 218));
+            timeUntil.setBackground(new Color(225, 240, 218));
+            pnlButtons.setBackground(new Color(225, 240, 218));
+            Night.setBackground(new Color(225, 240, 218));
+            titledBorder.setTitleColor(Color.BLACK);
+            timeUntil.setForeground(Color.BLACK);
+        }
+    }
+
 }

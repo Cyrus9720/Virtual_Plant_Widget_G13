@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class Rose extends Plant {
 
     public Rose(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
-        super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered);
+        super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered, false);
     }
 
     @Override
@@ -19,8 +19,8 @@ public class Rose extends Plant {
     }
 
     @Override
-    public void setNbrOfLives(int nbrOfLives) {
-        super.setNbrOfLives(nbrOfLives);
+    public void setNbrOfLives(int nbrOfLives, boolean night) {
+        super.setNbrOfLives(nbrOfLives, night);
         updateDeathImage();
         System.out.println(getPlantPicture());
         System.out.println("We here!");

@@ -3,8 +3,6 @@ package Model;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -19,6 +17,7 @@ public abstract class Plant {
     private String plantinfo;
     private PlantArt plantArt;
     private LocalDateTime lastWatered;
+    private static boolean night;
     private Timer timer;
     private LocalDateTime lastUpdatedTimestamp;
     private Clip wateringSoundClip;
@@ -31,7 +30,7 @@ public abstract class Plant {
      * @param plantLevel Level of the plant
      * @author Cyrus Shaerpour
      */
-    public Plant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
+    public Plant(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered, boolean night) {
         this.name = name;
         this.plantArt = plantArt;
         this.nbrOfLives = nbrOfLives;
@@ -40,6 +39,7 @@ public abstract class Plant {
         this.plantLevel = plantLevel;
         this.lastWatered = lastWatered;
         plantinfo = null;
+        this.night = night;
     }
 
     /**
@@ -80,7 +80,7 @@ public abstract class Plant {
     public void decreaseLife() {
         if (nbrOfLives > 0) {
             nbrOfLives--; // Minska livräknaren med ett om den är större än noll
-            setNbrOfLives(getNbrOfLives());
+            setNbrOfLives(getNbrOfLives(), night);
         }
     }
 
@@ -109,8 +109,9 @@ public abstract class Plant {
         return nbrOfLives;
     }
 
-    public void setNbrOfLives(int nbrOfLives) {
+    public void setNbrOfLives(int nbrOfLives, boolean night) {
         this.nbrOfLives = nbrOfLives;
+        this.night = night;
     }
 
     /**
@@ -245,5 +246,19 @@ public abstract class Plant {
             // System.err.println("Could not format date");
         }
         return String.format("Plant art; %s | Plant name; %s | Plant level; %d | Times watered; %d | Number of lives; %d | Plant picture; %s | Last time watered; %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture, formattedLastWatered);
+    }
+
+    public static boolean getNight() {
+        return night;
+    }
+
+    public static void setNight() {
+        System.out.println("Night");
+        night = true;
+        System.out.println("night after");
+    }
+
+    public static void setDay() {
+        night = false;
     }
 }

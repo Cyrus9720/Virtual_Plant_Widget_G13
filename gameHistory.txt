@@ -23,3 +23,4 @@ Plant name: MyMiniTree | Plant art: MINI_TREE | Plant level: 1 | Plant Picture: 
 Plant name: Bert | Plant art: CACTUS | Plant level: 1 | Plant Picture: src/Images/Cactus1.JPG
 Plant name: Berra | Plant art: BLACKBERRY | Plant level: 2 | Plant Picture: src/Images/BlackberryDead2.JPG
 Plant name: Sunny | Plant art: SUNFLOWER | Plant level: 2 | Plant Picture: src/Images/SunflowerDead2.JPG
+Plant name: Minitree4 | Plant art: MINI_TREE | Plant level: 4 | Plant Picture: src/Images/Night_Tree3.JPG

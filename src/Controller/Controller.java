@@ -26,6 +26,7 @@ public class Controller {
     private int currentPlantIndex;
     private Plant currentPlant;
     private Map<Plant, Timer> plantTimers;
+    private boolean night = false;
     private long remainingDeathTimerMilliseconds;
 
 
@@ -197,7 +198,7 @@ public class Controller {
         }
 
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        MiniTree newMiniTree = new MiniTree(newName, PlantArt.MINI_TREE, 3, 0, plantImage, 0, null);
+        MiniTree newMiniTree = new MiniTree(newName, PlantArt.MINI_TREE, 3, 0, plantImage, 0, null, false);
         plantList.add(newMiniTree);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
@@ -248,6 +249,7 @@ public class Controller {
                         System.out.println("PotArt1 triggered");
                     }
                     //view.getEastPanel().updateHeartLabel();
+                    Plant.getNight();
                     currentPlant = plantList.get(currentPlantIndex);
                     currentPlant.waterPlant();
                     ImageIcon updatedImage = currentPlant.getPlantPicture();
@@ -260,6 +262,27 @@ public class Controller {
                 }
                 JOptionPane.showMessageDialog(null, "Your plant is dead! \nWatering won't bring it back ):");
                 return;
+
+                case Night:
+                    view.getEastPanel().nightMode();
+                    view.getEastPanel().nightColors();
+                    System.out.println("Night button pressed");
+
+                    if (night == false) {
+                        night = true;
+                        Plant.setNight();
+                        ImageIcon updatedImage = currentPlant.getPlantPicture();
+                        view.getCenterPanel().updatePlantImage(updatedImage);
+                        view.getCenterPanel().centerNight();
+                    } else {
+                        night = false;
+                        Plant.setDay();
+                        ImageIcon updatedImage = currentPlant.getPlantPicture();
+                        view.getCenterPanel().updatePlantImage(updatedImage);
+                        view.getCenterPanel().centerDay();
+
+                    }
+                    break;
         }
     }
 
@@ -277,6 +300,8 @@ public class Controller {
         if (currentPlant.getPlantLevel() == 0) {
             System.out.println("Timer started for plant: " + currentPlant.getPlantName());
             JOptionPane.showMessageDialog(null, "Congrats on your new plant! \nBut be mindful, it will need water in the coming days!");
+            view.getEastPanel().PlantDetailsPanel();
+            view.getEastPanel().updateTimerLabel(String.valueOf(remainingDeathTimerMilliseconds));
 
             // Create a new timer for the plant
             Timer timer = new Timer(1000 * 10, new ActionListener() {
@@ -396,7 +421,7 @@ public class Controller {
 
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-                Duration wateringInterval = Duration.ofSeconds(10); // 10 seconds
+                Duration wateringInterval = Duration.ofSeconds(1); // 10 seconds
 
                 // Calculate the time left until the next watering in seconds
                 long timeUntilNextWateringSeconds = wateringInterval.minus(timeSinceLastWatered).getSeconds();

@@ -10,5 +10,6 @@ package View;
  * @author annagranberg
  */
 public enum ButtonType {
-    Water;
+    Water,
+    Night,
 }

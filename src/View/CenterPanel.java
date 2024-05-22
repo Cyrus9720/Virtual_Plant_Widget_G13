@@ -104,4 +104,14 @@ public class CenterPanel extends JPanel {
         revalidate();
         repaint();
     }
+
+    public void centerNight() {
+        setBackground(new Color(47, 49, 73));
+        titledBorder.setTitleColor(Color.WHITE);
+    }
+
+    public void centerDay() {
+        setBackground(new Color(225, 240, 218));
+        titledBorder.setTitleColor(Color.BLACK);
+    }
 }
