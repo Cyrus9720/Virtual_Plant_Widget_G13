@@ -282,11 +282,17 @@ public class Controller {
                         view.getEastPanel().moonButton();
                         view.getEastPanel().nightColors();
                         view.getCenterPanel().centerNight();
+                        view.getGardenPanel().nightGarden();
+                        view.getMainPanel().nightMain();
+                        view.getSouthPanel().nightSouth();
                         night = true;
                     } else {
                         view.getEastPanel().sunButton();
                         view.getEastPanel().dayColors();
                         view.getCenterPanel().centerDay();
+                        view.getGardenPanel().dayGarden();
+                        view.getMainPanel().dayMain();
+                        view.getSouthPanel().daySouth();
                         night = false;
                     }
                     break;

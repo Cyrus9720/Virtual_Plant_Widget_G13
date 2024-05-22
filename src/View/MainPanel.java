@@ -100,4 +100,16 @@ public class MainPanel extends JPanel
     public SouthPanel getSouthPanel() {
         return southPanel;
     }
+
+    public GardenPanel getGardenPanel() {
+        return gardenPanel;
+    }
+
+    public void nightMain() {
+        setBackground(new Color(13, 12, 29));
+    }
+
+    public void dayMain() {
+        setBackground(new Color(225, 240, 218));
+    }
 }

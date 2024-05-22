@@ -156,4 +156,8 @@ public class MainFrame extends JFrame {
     public MainPanel getMainPanel(){
         return mainPanel;
     }
+
+    public GardenPanel getGardenPanel(){
+        return mainPanel.getGardenPanel();
+    }
 }

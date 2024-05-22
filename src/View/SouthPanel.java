@@ -9,6 +9,7 @@ import java.awt.*;
 public class SouthPanel extends JPanel {
     private Controller controller;
     private JLabel plantInformation;
+    private TitledBorder titledBorder;
     
     /**
      * Constructs a SouthPanel with the specified controller.
@@ -19,7 +20,7 @@ public class SouthPanel extends JPanel {
         this.controller = controller;
         setPreferredSize(new Dimension(320,130));
 
-        TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant information");
+        titledBorder = BorderFactory.createTitledBorder("Plant information");
         Font myFont = new Font("Bebas Neue", Font.BOLD, 12);
         titledBorder.setTitleFont(myFont);
         setBorder(titledBorder);
@@ -88,5 +89,17 @@ public class SouthPanel extends JPanel {
         plantInformation.setText("Choose a plant to see plant information");
         revalidate();
         repaint();
+    }
+
+    public void nightSouth() {
+        setBackground(new Color(47, 49, 73));
+        plantInformation.setForeground(Color.WHITE);
+        titledBorder.setTitleColor(Color.WHITE);
+    }
+
+    public void daySouth() {
+        setBackground(new Color(225, 240, 218));
+        plantInformation.setForeground(Color.BLACK);
+        titledBorder.setTitleColor(Color.BLACK);
     }
 }
