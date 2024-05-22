@@ -30,6 +30,8 @@ public class EastPanel extends JPanel {
     private JLabel timeUntilDeathLabel;
     private JButton nightMode;
     private Timer timer; // Timer för uppdatering av tiden tills nästa vattning
+    private TitledBorder titledBorder; // Border för panelen
+    private JPanel pnlButtons; // Panel för knappar
 
     /**
      * Constructs a new EastPanel with the specified controller, width, and height.
@@ -48,12 +50,12 @@ public class EastPanel extends JPanel {
         setBackground(new Color(225, 240, 218));
         setPreferredSize(new Dimension(150, 300));
 
-        TitledBorder titledBorder = BorderFactory.createTitledBorder("Plant care");  // skapa en border runt panel
+        titledBorder = BorderFactory.createTitledBorder("Plant care");  // skapa en border runt panel
         Font myFont = new Font("Bebas Neue", Font.BOLD, 12);  // font för hela spelet
         titledBorder.setTitleFont(myFont);
         setBorder(titledBorder);
 
-        JPanel pnlButtons = new JPanel(); // skapa knappar
+        pnlButtons = new JPanel(); // skapa knappar
         pnlButtons.setBackground(new Color(225, 240, 218)); // bakgrundsfärg
 
         ImageIcon waterButton = new ImageIcon("src/Images/Watercan.png"); // Bild för vattenknapp
@@ -89,7 +91,7 @@ public class EastPanel extends JPanel {
         threeHeartsLabel = new JLabel(updateAmountOfLife());
         add(threeHeartsLabel, BorderLayout.WEST);
 
-        timeUntilDeathLabel = new JLabel();
+        timeUntilDeathLabel = new JLabel("Time until death: ");
         timeUntilDeathLabel.setFont(new Font("Bebas Neue", Font.BOLD, 12));
         add(timeUntilDeathLabel, BorderLayout.SOUTH);
 
@@ -339,6 +341,48 @@ public class EastPanel extends JPanel {
             SwingUtilities.invokeLater(() -> {
                 timeUntilDeathLabel.setText("<html><div style='text-align: center; font-size: 9px;'>Time until life lost:<br>" + formattedTime + "</div></html>");
             });
+        }
+    }
+
+    public void nightMode() {
+        if (!controller.night) {
+            controller.night = true;
+            ImageIcon moonIcon = new ImageIcon("src/Images/NightTime_Moon.PNG");
+            Image moonImage = moonIcon.getImage();
+            Image scaledMoonImage = moonImage.getScaledInstance(60, 50, Image.SCALE_SMOOTH);
+            nightMode.setIcon(new ImageIcon(scaledMoonImage));
+        } else {
+            controller.night = false;
+            ImageIcon sunIcon = new ImageIcon("src/Images/NightTime_Sun.PNG");
+            Image sunImage = sunIcon.getImage();
+            Image scaledSunImage = sunImage.getScaledInstance(60, 50, Image.SCALE_SMOOTH);
+            nightMode.setIcon(new ImageIcon(scaledSunImage));
+        }
+    }
+
+    public void nightColors() {
+        if (!controller.night) {
+            setBackground(new Color(47, 49, 73));
+            progressbarLabel.setBackground(new Color(47, 49, 73));
+            threeHeartsLabel.setBackground(new Color(47, 49, 73));
+            timeUntilWatering.setBackground(new Color(47, 49, 73));
+            timeUntilDeathLabel.setBackground(new Color(47, 49, 73));
+            pnlButtons.setBackground(new Color(47, 49, 73)); // bakgrundsfärg
+            nightMode.setBackground(new Color(47, 49, 73));
+            titledBorder.setTitleColor(Color.WHITE);
+            timeUntilWatering.setForeground(Color.WHITE);
+            timeUntilDeathLabel.setForeground(Color.WHITE);
+        } else {
+            setBackground(new Color(225, 240, 218));
+            progressbarLabel.setBackground(new Color(225, 240, 218));
+            threeHeartsLabel.setBackground(new Color(225, 240, 218));
+            timeUntilWatering.setBackground(new Color(225, 240, 218));
+            timeUntilDeathLabel.setBackground(new Color(225, 240, 218));
+            pnlButtons.setBackground(new Color(225, 240, 218));
+            nightMode.setBackground(new Color(225, 240, 218));
+            titledBorder.setTitleColor(Color.BLACK);
+            timeUntilWatering.setForeground(Color.BLACK);
+            timeUntilDeathLabel.setForeground(Color.BLACK);
         }
     }
 }

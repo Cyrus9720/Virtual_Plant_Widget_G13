@@ -28,6 +28,7 @@ public class Controller {
     private Map<Plant, Long> pauseTimes = new HashMap<>();
     private LoadGame loadGame;
     private boolean isChosen = false;
+    public boolean night = false;
 
     /**
      * Constructor for the controller class.
@@ -272,9 +273,15 @@ public class Controller {
                     break;
                 }else{
                     JOptionPane.showMessageDialog(null, "You must choose a plant before you can water it! ");
+                    return;
                 }
                 //JOptionPane.showMessageDialog(null, "Your plant is dead! \nWatering won't bring it back ):");
+            case NightMode:
+                System.out.println("Night mode activated");
+                    view.getEastPanel().nightMode();
+                    view.getEastPanel().nightColors();
 
+                    break;
         }
     }
 
