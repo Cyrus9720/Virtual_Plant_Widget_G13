@@ -22,21 +22,19 @@ public class Controller {
     private ArrayList<Plant> plantList = new ArrayList<>();
     private int currentPlantIndex;
     private Plant currentPlant = null;
-   //  private Map<Plant, Timer> plantTimers;
     private Duration remainingTime;
     private Map<Plant, Long> pauseTimes = new HashMap<>();
     private LoadGame loadGame;
     private boolean isChosen = false;
     private long remainingDeathTimerMilliseconds;
     private Timer lossLifeTimer;
-    LoseLifeTimerTask loseLifeTimerTask;
-
+    private LoseLifeTimerTask loseLifeTimerTask;
     /**
      * Constructor for the controller class.
      */
     public Controller() {
+        LoseLifeTimerTask loseLifeTimerTask = new LoseLifeTimerTask(this, lossLifeTimer);
         loadGame = new LoadGame();
-        loseLifeTimerTask = new LoseLifeTimerTask(this, lossLifeTimer);
 
         try {
             loadGame.loadGame(plantList, this); // ifall spelet spelats tidigare kommer plantList hämtas här
@@ -313,116 +311,10 @@ public class Controller {
         }
     }
 
-  /*  public void deathTimer(Plant plant) {
-        if (plant.getPlantLevel() == 0) {
-            System.out.println("Timer started for plant: " + plant.getName());
-            JOptionPane.showMessageDialog(null, "Congrats on your new plant! \nBut be mindful, it will need water in the coming days!");
-
-            // Create a new timer for the plant
-            Timer timer = new Timer(1000, new ActionListener() { // 1 sec
-                public void actionPerformed(ActionEvent e) {
-                    updateEastPanel();
-                    if (plant.getDeathTime() != null && plant.getDeathTime().isBefore(LocalDateTime.now())) {
-                        plantDeathTimerActivation(plant);
-                    }
-                }
-            });
-
-            // Start the timer
-            timer.start();
-
-            // Store the timer for the plant in the map
-            plantTimers.put(plant, timer);
-        }
-    }*/
-
-   /* public void updateEastPanel() {
-        view.getEastPanel().updateLives();
-        for (Plant plant : plantTimers.keySet()) {
-            if (plant.getDeathTime() != null) {
-                Long remainingDeathTime = getRemainingDeathTimerMilliseconds(currentPlant);
-                view.getEastPanel().updateTimeUntilDeath(remainingDeathTime);
-            }
-        }
-    }*/
-
-    public Duration getRemainingTime() {
-        return remainingTime;
-    }
-
-  /*  public void plantDeathTimerActivation(Plant plant) {
-        plant.decreaseLife();
-        checkLife();
-        System.out.println("Plant life " + plant.getNbrOfLives() + " " + plant.getPlantName());
-        view.getEastPanel().updateLives();
-
-        // Check if the plant's number of lives is zero and stop the timer
-        if (plant.getNbrOfLives() == 0) {
-            Timer timer = plantTimers.get(plant);
-            if (timer != null) {
-                timer.stop(); // Stop the timer
-                plantTimers.remove(plant); // Remove the timer from the map
-                view.getMainPanel().updateButtons(getPlantImagePaths());
-                System.out.println("Timer stopped for plant: " + plant.getPlantName());
-            }
-        }
-    }
-  /*  public void resumeAllTimers() {
-        for (Map.Entry<Plant, Timer> entry : plantTimers.entrySet()) {
-            Plant plant = entry.getKey();
-            Timer timer = entry.getValue();
-            Long pauseTime = pauseTimes.get(plant);
-
-            if (timer != null && pauseTime != null) {
-                long currentTime = System.currentTimeMillis();
-                long elapsedTime = currentTime - pauseTime;
-                long delay = Math.max(1000 * 10 - elapsedTime, 0); // Kvarvarande tid
-
-                new java.util.Timer().schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        timer.start(); // Återuppta timern
-                    }
-                }, delay);
-
-                System.out.println("Timer resumed for " + plant.getPlantName() + " after delay: " + delay + "ms");
-
-                // Ta bort paus-tidpunkten
-                pauseTimes.remove(currentPlant);            }
-        }
-    }*/
-
     public void setRemainingTime(Duration remainingTime) {
         this.remainingTime = remainingTime;
     }
 
-   /* public void updateRemainingDeathTimer() {
-        for (Plant plant : plantList) {
-            if (plant.getDeathTime() != null) {
-                Duration remainingTime = Duration.between(LocalDateTime.now(), plant.getDeathTime());
-                setRemainingTime(remainingTime);
-            }
-        }
-    }
-
-    public void pauseDeathTimer() {
-        Timer timer = plantTimers.get(currentPlant);
-        if (timer != null && timer.isRunning()) {
-            // Pause the timer
-            timer.stop();
-            System.out.println("Timer paused for " + currentPlant.getPlantName());
-            // Schedule a task to resume the timer after a brief delay
-            new java.util.Timer().schedule(
-                    new java.util.TimerTask() {
-                        @Override
-                        public void run() {
-                            timer.start(); // Resume the timer
-                        }
-                    },
-                    1000 * 10 // Delay in milliseconds (e.g., 10 seconds)
-            );
-        }
-    }*/
 
     /**
      * Checks the life of the plant and updates the image if the plant has no lives left.
@@ -467,7 +359,7 @@ public class Controller {
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
 
-                Duration wateringInterval = Duration.ofMillis(3 * 1000); // 3 sekunder
+                Duration wateringInterval = Duration.ofMillis(60*1000*60); // 1 timme
 
                 if (timeSinceLastWatered.compareTo(wateringInterval) >= 0) {
                     System.out.println("Current plant needs to be watered");
@@ -808,11 +700,11 @@ public class Controller {
     }
 
     public void startLoseLifeTimer() {
+        lossLifeTimer = new Timer();
+
         if (lossLifeTimer != null) {
             return; // Om tidern redan är igång, gör ingenting och återvänd
         }
-
-        lossLifeTimer = new Timer();
 
         // Assuming getCurrentPlant() is a method in the Controller class to get the current plant
         Plant currentPlant = getCurrentPlant();
@@ -822,13 +714,14 @@ public class Controller {
             long delayBetweenTicks = currentPlant.getWateringInterval().toMillis();
 
             lossLifeTimer.schedule(loseLifeTimerTask, initialDelay, delayBetweenTicks);
-            
+
         } else {
             // Hantera fallet när det inte finns någon aktuell växt
             System.out.println("Error: No current plant to start lose life timer.");
         }
     }
-    public Duration getTimeRemaining(){
+
+    public Duration getRemainingTime() {
         return loseLifeTimerTask.getTimeSinceLastWatered();
     }
 }

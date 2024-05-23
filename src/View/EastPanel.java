@@ -137,7 +137,7 @@ public class EastPanel extends JPanel {
         Timer timeUpdateTimer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updateDeathTimer(controller.getTimeRemaining()); // Uppdatera tiden i JLabel varje sekund
+                //updateDeathTimer(controller.getTimeRemaining()); // Uppdatera tiden i JLabel varje sekund
             }
         });
 
@@ -178,7 +178,8 @@ public class EastPanel extends JPanel {
         deathTimer = new Timer((int) timeUntilNextDeath, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                System.err.println("Death timer aktiverad från eastpanel");
+                updateDeathTimer(controller.getRemainingTime());
             }
         });
         deathTimer.start();

@@ -21,13 +21,14 @@ public class LoseLifeTimerTask extends TimerTask {
     @Override
     public void run() {
         Plant currentPlant = controller.getCurrentPlant();
+
         if (currentPlant.getLastWatered() != null) { // Kontrollera om lastWatered är null
             // Kontrollera om växten behöver vattnas
             timeSinceLastWatered = Duration.between(currentPlant.getLastWatered(), LocalDateTime.now());
+            System.out.println(timeSinceLastWatered.toHours());
             setTimeSinceLastWatered(timeSinceLastWatered);
             if (timeSinceLastWatered.compareTo(currentPlant.getWateringInterval()) >= 0) {
                 currentPlant.decreaseLife(); // Minska växten med ett liv
-                System.out.println("tid sen senast vattnad" + timeSinceLastWatered);
             }
         } else {
             // Hantera fallet när lastWatered är null

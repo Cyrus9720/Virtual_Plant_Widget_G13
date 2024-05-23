@@ -1,2 +1,2 @@
-Plant art; CACTUS | Plant name; Cactus7 | Plant level; 2 | Times watered; 2 | Number of lives; 1 | Plant picture; src/Images/Cactus2.JPG | Last time watered; 2024-05-23 16:57:35.927 | Timestamp; 2024-05-23 16:57:37.338 | Death time; 0000-00-00 00:00:00.000
-Plant art; BLACKBERRY | Plant name; Blackberry2 | Plant level; 1 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/Blackberry1.JPG | Last time watered; 2024-05-23 16:57:34.440 | Timestamp; 2024-05-23 16:57:37.338 | Death time; 0000-00-00 00:00:00.000
+Plant art; MINI_TREE | Plant name; Minitree2 | Plant level; 3 | Times watered; 2 | Number of lives; 3 | Plant picture; src/Images/MiniTree3.JPG | Last time watered; 2024-05-23 17:16:31.721 | Timestamp; 2024-05-23 17:17:34.771
+Plant art; MINI_TREE | Plant name; Minitree2 | Plant level; 2 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/MiniTree2.JPG | Last time watered; 2024-05-23 17:17:24.993 | Timestamp; 2024-05-23 17:17:34.771

@@ -44,7 +44,8 @@ public abstract class Plant {
         this.plantLevel = plantLevel;
         this.lastWatered = lastWatered;
         this.deathTime = calculateDeathTime(lastWatered); // Initialize deathTime based on lastWatered
-        wateringInterval = Duration.ofMinutes(1); // två minuter som test
+        wateringInterval = Duration.ofHours(1); // en timme som test
+        System.out.println(wateringInterval.toMillis() + "från plant konstruktor");
     }
 
     /**
