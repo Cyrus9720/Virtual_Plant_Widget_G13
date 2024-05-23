@@ -5,11 +5,12 @@ import View.ButtonType;
 import View.GameRuleFrame;
 import View.MainFrame;
 import javax.swing.*;
-import javax.swing.Timer;
+
 import java.awt.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.Timer;
 
 /**
  * The Controller class serves as the main controller for managing the interaction between the model and the view.
@@ -21,18 +22,22 @@ public class Controller {
     private ArrayList<Plant> plantList = new ArrayList<>();
     private int currentPlantIndex;
     private Plant currentPlant = null;
-    private Map<Plant, Timer> plantTimers;
+   //  private Map<Plant, Timer> plantTimers;
     private Duration remainingTime;
     private Map<Plant, Long> pauseTimes = new HashMap<>();
     private LoadGame loadGame;
     private boolean isChosen = false;
     private long remainingDeathTimerMilliseconds;
+    private Timer lossLifeTimer;
+    LoseLifeTimerTask loseLifeTimerTask;
 
     /**
      * Constructor for the controller class.
      */
     public Controller() {
         loadGame = new LoadGame();
+        loseLifeTimerTask = new LoseLifeTimerTask(this, lossLifeTimer);
+
         try {
             loadGame.loadGame(plantList, this); // ifall spelet spelats tidigare kommer plantList hämtas här
         } catch (Exception e) {
@@ -43,8 +48,6 @@ public class Controller {
         if (loadGame.isFileNotEmpty() || GameHistoryReader.getGameHistory().isEmpty()) {
             firstTimePlaying();
         }
-        plantTimers = new HashMap<>();
-        // resumeAllTimers();
     }
 
     /**
@@ -280,8 +283,7 @@ public class Controller {
      * @author Cyrus Shaerpour
      */
     public long getRemainingDeathTimerMilliseconds() {
-        Timer timer = plantTimers.get(currentPlant);
-        if (timer != null && currentPlant.getDeathTime() != null) {
+        if (lossLifeTimer != null && currentPlant.getDeathTime() != null) {
             Duration remainingDuration = Duration.between(LocalDateTime.now(), currentPlant.getDeathTime());
             return remainingDuration.toMillis();
         }else {
@@ -641,9 +643,9 @@ public class Controller {
             }
         }
 
-        public Timer getPlantTimer(Plant plant) {
+       /* public Timer getPlantTimer(Plant plant) {
             return plantTimers.get(plant);
-        }
+        }*/
 
         /**
          * Retrieves the paths of images associated with each plant in the plant list.
@@ -800,5 +802,34 @@ public class Controller {
         public ArrayList<Plant> getPlantList () {
             return plantList;
         }
+
+    public Timer getLossLifeTimer() {
+        return lossLifeTimer;
     }
+
+    public void startLoseLifeTimer() {
+        if (lossLifeTimer != null) {
+            return; // Om tidern redan är igång, gör ingenting och återvänd
+        }
+
+        lossLifeTimer = new Timer();
+
+        // Assuming getCurrentPlant() is a method in the Controller class to get the current plant
+        Plant currentPlant = getCurrentPlant();
+
+        if (currentPlant != null) {
+            long initialDelay = getTimeUntilNextWatering();
+            long delayBetweenTicks = currentPlant.getWateringInterval().toMillis();
+
+            lossLifeTimer.schedule(loseLifeTimerTask, initialDelay, delayBetweenTicks);
+            
+        } else {
+            // Hantera fallet när det inte finns någon aktuell växt
+            System.out.println("Error: No current plant to start lose life timer.");
+        }
+    }
+    public Duration getTimeRemaining(){
+        return loseLifeTimerTask.getTimeSinceLastWatered();
+    }
+}
 

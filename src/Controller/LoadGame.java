@@ -122,9 +122,14 @@ public class LoadGame {
      */
     private LocalDateTime parseTimestamp(String timestampString) {
         try {
-            // Manuellt tolka tidsstämpeln
-            LocalDateTime parsedDateTime = LocalDateTime.parse(timestampString, dateFormat);
-            return parsedDateTime;
+            if ("0000-00-00 00:00:00.000".equals(timestampString)) {
+                return null;
+            } else {
+                // Manuellt tolka tidsstämpeln
+                DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+                LocalDateTime parsedDateTime = LocalDateTime.parse(timestampString, dateFormat);
+                return parsedDateTime;
+            }
         } catch (DateTimeParseException e) {
             // Om tolkningen misslyckas, skriv ut felmeddelande och returnera null
             System.err.println("Error parsing timestamp from save file: " + e.getMessage());

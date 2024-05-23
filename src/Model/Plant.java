@@ -5,12 +5,11 @@ import Controller.Controller;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import java.util.Timer;
 import javax.sound.sampled.Clip;
 
 public abstract class Plant {
@@ -24,6 +23,7 @@ public abstract class Plant {
     private LocalDateTime deathTime;
     private Clip wateringSoundClip;
     private Controller controller;
+    private Duration wateringInterval;
 
     /**
      * Constructor for Plant
@@ -44,6 +44,7 @@ public abstract class Plant {
         this.plantLevel = plantLevel;
         this.lastWatered = lastWatered;
         this.deathTime = calculateDeathTime(lastWatered); // Initialize deathTime based on lastWatered
+        wateringInterval = Duration.ofMinutes(1); // två minuter som test
     }
 
     /**
@@ -56,6 +57,14 @@ public abstract class Plant {
      */
     public LocalDateTime calculateDeathTime(LocalDateTime lastWatered) {
         return lastWatered != null ? lastWatered : LocalDateTime.now().plusMinutes(10);
+    }
+
+    public void setWateringInterval(Duration interval) {
+        this.wateringInterval = interval;
+    }
+
+    public Duration getWateringInterval() {
+        return wateringInterval;
     }
 
     public void setDeathTime(LocalDateTime deathTime) {
@@ -123,9 +132,9 @@ public abstract class Plant {
 
         // Check if the plant's number of lives is zero and stop the timer
         if (this.getNbrOfLives() == 0) {
-            Timer timer = controller.getPlantTimer(this);
+            Timer timer = controller.getLossLifeTimer();
             if (timer != null) {
-                timer.stop(); // Stop the timer
+                timer.cancel(); // Stop the timer
                 System.out.println("Timer stopped for plant: " + this.getPlantName());
             }
         }
