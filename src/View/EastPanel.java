@@ -9,8 +9,6 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.Duration;
-import java.time.LocalDateTime;
 
 /**
  * The EastPanel class represents the panel containing plant care controls on the east side of the user interface.
@@ -29,7 +27,8 @@ public class EastPanel extends JPanel {
     private JLabel timeUntilWatering; // JLabel för at visa tiden tills nästa vattning
     private JLabel timeUntilDeathLabel;
     private JButton nightMode;
-    private Timer timer; // Timer för uppdatering av tiden tills nästa vattning
+    private Timer waterTimer; // Timer för uppdatering av tiden tills nästa vattning
+    private Timer deathTimer;
 
     /**
      * Constructs a new EastPanel with the specified controller, width, and height.
@@ -116,7 +115,7 @@ public class EastPanel extends JPanel {
         });
 
         // Create a timer to update the time until next watering every second
-        timer = new Timer(1000, new ActionListener() {
+        waterTimer = new Timer(1000, new ActionListener() { // delay 1000 för att timern ska uppdateras varje sekund
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (controller.getTimeUntilNextWatering() == 0) {
@@ -127,18 +126,48 @@ public class EastPanel extends JPanel {
                 revalidate();
             }
         });
-        timer.start();
+        waterTimer.start();
 
 
-        timer = new Timer(1000, new ActionListener() {
+        deathTimer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(controller.getRemainingDeathTimerMilliseconds(controller.getCurrentPlant()) > 0){
-                    updateTimeUntilDeath(controller.getRemainingDeathTimerMilliseconds(controller.getCurrentPlant()));
-                };
+                long remainingTimeMillis = controller.getRemainingDeathTimerMilliseconds();
+                updateTimeUntilDeath(remainingTimeMillis);
+                // Om tiden har gått, ta bort ett liv från plantan
+                if (remainingTimeMillis == 0) {
+                    controller.removeLifeFromPlant();
+                    // Uppdatera GUI för att återspegla förändringen i antalet liv
+                    updateLives();
+                    // Återställ timer för att räkna ner från 48h igen
+                    // updateAndResetDeathTimer();
+                }
+                // Uppdatera GUI för att visa tiden kvar tills nästa liv tas bort
+                repaint();
+                revalidate();
             }
         });
+        deathTimer.start();
     }
+
+    // Metod för att uppdatera och nollställa deathtimer när plantan vattnas
+    public void updateAndResetDeathTimer() {
+        // Stoppa den befintliga deathtimer, om den är aktiv
+        deathTimer.stop();
+
+        // Uppdatera deathtimer med den nya tiden
+        long timeUntilNextDeath = controller.getRemainingDeathTimerMilliseconds();
+
+        // Starta om deathtimer med den nya tiden
+        deathTimer = new Timer((int) timeUntilNextDeath, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        deathTimer.start();
+    }
+
 
     /**
      * Refreshes the progress bar by updating its icon.
@@ -259,7 +288,7 @@ public class EastPanel extends JPanel {
             case 0:
                 // If there are no lives left, display an empty heart icon
                 heartsIcon = new ImageIcon("src/Images/tommaHjärtan.PNG");
-                System.out.println("No lives left");
+                //System.out.println("No lives left");
                 break;
             case 1:
                 // If there is one life left, display one heart
@@ -317,6 +346,7 @@ public class EastPanel extends JPanel {
             timeUntilWatering.setText("<html><div style='text-align: center; font-size: 9px;'>Next watering period:<br>" + formattedTime + "</div></html>");
         }
     }
+
 
     public void updateTimeUntilDeath(Long remainingTime) {
         if (controller.getPlantList() == null || controller.getCurrentPlant() == null) {

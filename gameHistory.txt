@@ -35,3 +35,4 @@ Plant name: Sunflower0 | Plant art: SUNFLOWER | Plant level: 2 | Plant Picture: 
 Plant name: Minitree8 | Plant art: MINI_TREE | Plant level: 1 | Plant Picture: src/Images/MiniTreeDead1.JPG
 Plant name: Blackberry2 | Plant art: BLACKBERRY | Plant level: 2 | Plant Picture: src/Images/BlackberryDead2.JPG
 Plant name: Rose8 | Plant art: ROSE | Plant level: 2 | Plant Picture: src/Images/RoseDead2.JPG
+Plant name: Rose4 | Plant art: ROSE | Plant level: 3 | Plant Picture: src/Images/RoseArt3.JPG

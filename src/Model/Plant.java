@@ -7,6 +7,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -20,8 +21,6 @@ public abstract class Plant {
     private int plantLevel;
     private PlantArt plantArt;
     private LocalDateTime lastWatered;
-    private Timer timer;
-    private LocalDateTime lastUpdatedTimestamp;
     private LocalDateTime deathTime;
     private Clip wateringSoundClip;
     private Controller controller;
@@ -55,12 +54,24 @@ public abstract class Plant {
      * @param lastWatered The last time the plant was watered.
      * @return The calculated death time for the plant.
      */
-    private LocalDateTime calculateDeathTime(LocalDateTime lastWatered) {
-        return lastWatered != null ? lastWatered.plusSeconds(10) : LocalDateTime.now().plusMinutes(1);
+    public LocalDateTime calculateDeathTime(LocalDateTime lastWatered) {
+        return lastWatered != null ? lastWatered : LocalDateTime.now().plusMinutes(10);
     }
 
     public void setDeathTime(LocalDateTime deathTime) {
         this.deathTime = deathTime;
+    }
+
+    public void setNextDeathTime() {
+        // Anta att du vill att nästa död ska inträffa om 48 timmar
+        int hoursUntilDeath = 48; // 48 timmar
+        long millisecondsUntilDeath = hoursUntilDeath * 60 * 60 * 1000; // Konvertera till millisekunder
+
+        // Anropa set-metoden för att ställa in den återstående tiden tills nästa död
+        controller.setRemainingDeathTimerMilliseconds(millisecondsUntilDeath);
+    }
+    public LocalDateTime getDeathTime() {
+        return deathTime;
     }
 
     /**
@@ -137,10 +148,30 @@ public abstract class Plant {
         }
     }
 
+    public void deathMethod() {
+        LocalDateTime timeRightNow = LocalDateTime.now();
+        LocalDateTime deathTime = calculateDeathTime(lastWatered); // Calculate the death time based on the last watering time
+        lastWatered = getLastWatered(); // Update the last watered time
 
+        // Calculate the remaining duration until death
+        Duration remainingDuration = Duration.between(timeRightNow, deathTime);
 
-    public LocalDateTime getDeathTime() {
-        return deathTime;
+        // Calculate remaining days, hours, minutes, and seconds
+        long remainingDays = remainingDuration.toDays();
+        remainingDuration = remainingDuration.minusDays(remainingDays);
+        long remainingHours = remainingDuration.toHours();
+        remainingDuration = remainingDuration.minusHours(remainingHours);
+        long remainingMinutes = remainingDuration.toMinutes();
+        remainingDuration = remainingDuration.minusMinutes(remainingMinutes);
+        long remainingSeconds = remainingDuration.getSeconds();
+
+        // Construct a new LocalDateTime with the remaining time
+        LocalDateTime remainingTime = timeRightNow.plusDays(remainingDays)
+                .plusHours(remainingHours)
+                .plusMinutes(remainingMinutes)
+                .plusSeconds(remainingSeconds);
+
+        setDeathTime(remainingTime);
     }
 
     /**

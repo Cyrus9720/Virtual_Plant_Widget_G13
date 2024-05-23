@@ -34,7 +34,6 @@ public class Blackberry extends Plant{
         super.setNbrOfLives(nbrOfLives);
         updateDeathImage();
         System.out.println(getPlantPicture());
-        System.out.println("We here!");
     }
 
     private void updateImage() {
