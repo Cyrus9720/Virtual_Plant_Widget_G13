@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * The EastPanel class represents the panel containing plant care controls on the east side of the user interface.
@@ -91,7 +90,7 @@ public class EastPanel extends JPanel {
         threeHeartsLabel = new JLabel(updateAmountOfLife());
         add(threeHeartsLabel, BorderLayout.WEST);
 
-        timeUntilDeathLabel = new JLabel();
+        timeUntilDeathLabel = new JLabel("tid här ;(");
         timeUntilDeathLabel.setFont(new Font("Bebas Neue", Font.BOLD, 12));
         add(timeUntilDeathLabel, BorderLayout.SOUTH);
 
@@ -134,28 +133,26 @@ public class EastPanel extends JPanel {
         });
         waterTimer.start();
 
-        Timer timeUpdateTimer = new Timer(1000, new ActionListener() {
+        deathTimer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LocalDateTime lastWateredTime = controller.getTimeSinceLastWatered();
-                LocalDateTime currentTime = LocalDateTime.now();
-                Duration timeSinceLastWatered = Duration.between(lastWateredTime, currentTime);
-                long remainingTimeMillis = controller.getRemainingDeathTimerMilliseconds();
-
-                // Beräkna den återstående tiden för timern att räkna ner från
-                long initialDelay = Math.max(remainingTimeMillis - timeSinceLastWatered.toMillis(), 0);
-
                 // Skapa en ny timern för att räkna ner från den beräknade initialDelay
                 Timer deathTimer = new Timer(1000, new ActionListener() {
+
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        // Uppdatera tiden varje sekund
-                        updateDeathTimer(timeSinceLastWatered);
+                        LocalDateTime timeUntil = controller.getTimeSinceLastWatered();
+                        LocalDateTime timeNow = LocalDateTime.now();
+
+                        Duration duration = Duration.between(timeNow, timeUntil);
+
+                        // Update the time every second
+                        updateDeathTimer(controller.getTimeUntilLoseLife());
                     }
                 });
 
                 // Starta den nya timern med den beräknade initialDelay
-                deathTimer.setInitialDelay((int) initialDelay);
+                // deathTimer.setInitialDelay((int) initialDelay);
                 deathTimer.start();
             }
         });
@@ -350,6 +347,7 @@ public class EastPanel extends JPanel {
     public void updateDeathTimer(Duration timeUntilLoseLife) {
         if (timeUntilLoseLife == null || timeUntilLoseLife.isZero() || timeUntilLoseLife.isNegative()) {
             timeUntilDeathLabel.setText(" ");
+            System.err.println("TimeUntilLoseLife is null // EastPanel");
             // Stop the timer if the duration has reached zero
             deathTimer.stop();
         } else {

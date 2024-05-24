@@ -703,6 +703,7 @@ public class Controller {
     public void startLoseLifeTimer() {
         // Check if the timer is already running
         if (lossLifeTimer != null) {
+            //System.err.println("Lose life timer is not null!");
             return; // Timer is already running, so do nothing and return
         }
 
@@ -734,13 +735,13 @@ public class Controller {
 
     public Duration getTimeUntilLoseLife() {
         // Return the time remaining until the plant loses a life
-        // Example implementation
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime nextLifeLoss = currentPlant.getLastWatered(); // calculate the time when the next life loss will happen
         return Duration.between(now, nextLifeLoss);
     }
 
     public LocalDateTime getTimeSinceLastWatered() {
+        System.err.println("Från getTimeSinceLastWatered: " +  currentPlant.getLastWatered());
         return currentPlant.getLastWatered();
     }
 }
