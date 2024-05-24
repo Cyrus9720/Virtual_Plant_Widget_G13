@@ -319,7 +319,7 @@ public class EastPanel extends JPanel {
      */
     private void updateTimeUntilLabelWatering() {
         if (controller.getPlantList() == null) {
-            timeUntilWatering.setText(" ");
+            timeUntilWatering.setText("plantlist is null // eastpanel");
         } else {
             long timeUntilNextWatering = controller.getTimeUntilNextWatering();
             // Kontrollera om tiden är negativ
@@ -346,7 +346,8 @@ public class EastPanel extends JPanel {
      */
     public void updateDeathTimer(Duration timeUntilLoseLife) {
         if (timeUntilLoseLife == null || timeUntilLoseLife.isZero() || timeUntilLoseLife.isNegative()) {
-            timeUntilDeathLabel.setText(" ");
+            timeUntilDeathLabel.setText("<html><div style='text-align: center; font-size: 9px;'>Time until life loss:<br>" + "00:00:00" + "</div></html>");
+            controller.getCurrentPlant().decreaseLife();
             System.err.println("TimeUntilLoseLife is null // EastPanel");
             // Stop the timer if the duration has reached zero
             deathTimer.stop();
