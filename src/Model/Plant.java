@@ -46,7 +46,7 @@ public abstract class Plant {
      * Method for watering the plant and increasing the plant level
      * If the plant is not fully grown, increase the plant level
      * @return void
-     * @author Cyrus Shaerpour
+     * @author Cyrus Shaerpour och Roa Jamhour
      */
     public void waterPlant() {
         if (nbrOfLives >0) {
