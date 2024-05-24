@@ -43,7 +43,7 @@ public class Controller {
         }
         view = new MainFrame(this);
 
-        if (loadGame.isFileNotEmpty() || GameHistoryReader.getGameHistory().isEmpty()) {
+        if (loadGame.isFileNotEmpty() && !GameHistoryReader.getGameHistory().isEmpty()) {
             firstTimePlaying();
         }
     }
@@ -257,7 +257,6 @@ public class Controller {
                     currentPlant = plantList.get(currentPlantIndex);
                     currentPlant.waterPlant();
                     currentPlant.startNewTimer();
-                    currentPlant.setNextDeathTime();
                     ImageIcon updatedImage = currentPlant.getPlantPicture();
                     view.getCenterPanel().updatePlantImage(updatedImage);
                     currentPlant.setLastWatered(LocalDateTime.now());
@@ -293,14 +292,14 @@ public class Controller {
         this.remainingDeathTimerMilliseconds = remainingDeathTimerMilliseconds;
     }
 
-    public void deathMethod(){
+    /*public void deathMethod(){
         if (currentPlant.getPlantLevel() == 0) {
             System.out.println("Timer started for plant: " + currentPlant.getName());
             JOptionPane.showMessageDialog(null, "Congrats on your new plant! \nBut be mindful, it will need water in the coming days!");
             LocalDateTime timeLeft = currentPlant.calculateDeathTime(currentPlant.getLastWatered());
             System.out.println(timeLeft);
         }
-    }
+    }*/
 
     public void removeLifeFromPlant() {
         if (currentPlant != null) {
@@ -359,7 +358,7 @@ public class Controller {
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
 
-                Duration wateringInterval = Duration.ofMillis(60*1000*60); // 1 timme
+                Duration wateringInterval = Duration.ofMillis(10*1000); // 10 sek
 
                 if (timeSinceLastWatered.compareTo(wateringInterval) >= 0) {
                     System.out.println("Current plant needs to be watered");
@@ -387,7 +386,7 @@ public class Controller {
 
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-                Duration wateringInterval = Duration.ofSeconds(3); // 3 seconds
+                Duration wateringInterval = Duration.ofMillis(1000*10); // 3 seconds
 
                 // Calculate the time left until the next watering in seconds
                 long timeUntilNextWateringSeconds = wateringInterval.minus(timeSinceLastWatered).getSeconds();

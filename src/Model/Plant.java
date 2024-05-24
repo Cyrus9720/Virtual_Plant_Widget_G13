@@ -43,8 +43,7 @@ public abstract class Plant {
         this.plantPicture = plantPicture;
         this.plantLevel = plantLevel;
         this.lastWatered = lastWatered;
-        this.deathTime = calculateDeathTime(lastWatered); // Initialize deathTime based on lastWatered
-        wateringInterval = Duration.ofHours(1); // en timme som test
+        wateringInterval = Duration.ofSeconds(10); // tio sek som test
         System.out.println(wateringInterval.toMillis() + "från plant konstruktor");
     }
 
@@ -53,12 +52,12 @@ public abstract class Plant {
      * If the last watered time is not null, the death time is set to one minute after the last watered time.
      * If the last watered time is null, the death time is set to one minute after the current time.
      *
-     * @param lastWatered The last time the plant was watered.
+     *
      * @return The calculated death time for the plant.
      */
-    public LocalDateTime calculateDeathTime(LocalDateTime lastWatered) {
+    /*public LocalDateTime calculateDeathTime(LocalDateTime lastWatered) {
         return lastWatered != null ? lastWatered : LocalDateTime.now().plusMinutes(10);
-    }
+    }*/
 
     public void setWateringInterval(Duration interval) {
         this.wateringInterval = interval;
@@ -158,7 +157,7 @@ public abstract class Plant {
         }
     }
 
-    public void deathMethod() {
+   /* public void deathMethod() {
         LocalDateTime timeRightNow = LocalDateTime.now();
         LocalDateTime deathTime = calculateDeathTime(lastWatered); // Calculate the death time based on the last watering time
         lastWatered = getLastWatered(); // Update the last watered time
@@ -182,7 +181,7 @@ public abstract class Plant {
                 .plusSeconds(remainingSeconds);
 
         setDeathTime(remainingTime);
-    }
+    }*/
 
     /**
      * Retrieves the name of the plant.
