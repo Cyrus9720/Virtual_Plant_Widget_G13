@@ -1,0 +1,3 @@
+Plant name: Minitree2 | Plant art: MINI_TREE | Plant level: 4 | Plant Picture: src/Images/MiniTree3.JPG
+Plant name: Minitree2 | Plant art: MINI_TREE | Plant level: 3 | Plant Picture: src/Images/MiniTree3.JPG
+Plant name: TomatoPlant7 | Plant art: TOMATO_PLANT | Plant level: 2 | Plant Picture: src/Images/Tomatoe2.JPG

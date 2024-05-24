@@ -137,54 +137,30 @@ public class EastPanel extends JPanel {
         Timer timeUpdateTimer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //updateDeathTimer(controller.getTimeRemaining()); // Uppdatera tiden i JLabel varje sekund
-            }
-        });
-
-        // Starta timern för att börja uppdatera tiden
-        timeUpdateTimer.start();
-
-       /* deathTimer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+                LocalDateTime lastWateredTime = controller.getTimeSinceLastWatered();
+                LocalDateTime currentTime = LocalDateTime.now();
+                Duration timeSinceLastWatered = Duration.between(lastWateredTime, currentTime);
                 long remainingTimeMillis = controller.getRemainingDeathTimerMilliseconds();
-                updateTimeUntilDeath(remainingTimeMillis);
-                // Om tiden har gått, ta bort ett liv från plantan
-                if (remainingTimeMillis == 0) {
-                    controller.removeLifeFromPlant();
-                    // Uppdatera GUI för att återspegla förändringen i antalet liv
-                    updateLives();
-                    // Återställ timer för att räkna ner från 48h igen
-                    // updateAndResetDeathTimer();
-                }
-                // Uppdatera GUI för att visa tiden kvar tills nästa liv tas bort
-                repaint();
-                revalidate();
+
+                // Beräkna den återstående tiden för timern att räkna ner från
+                long initialDelay = Math.max(remainingTimeMillis - timeSinceLastWatered.toMillis(), 0);
+
+                // Skapa en ny timern för att räkna ner från den beräknade initialDelay
+                Timer deathTimer = new Timer(1000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        // Uppdatera tiden varje sekund
+                        updateDeathTimer(timeSinceLastWatered);
+                    }
+                });
+
+                // Starta den nya timern med den beräknade initialDelay
+                deathTimer.setInitialDelay((int) initialDelay);
+                deathTimer.start();
             }
         });
 
-        deathTimer.start();*/
     }
-
-    // Metod för att uppdatera och nollställa deathtimer när plantan vattnas
-    public void updateAndResetDeathTimer() {
-        // Stoppa den befintliga deathtimer, om den är aktiv
-        deathTimer.stop();
-
-        // Uppdatera deathtimer med den nya tiden
-        long timeUntilNextDeath = controller.getRemainingDeathTimerMilliseconds();
-
-        // Starta om deathtimer med den nya tiden
-        deathTimer = new Timer((int) timeUntilNextDeath, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.err.println("Death timer aktiverad från eastpanel");
-                updateDeathTimer(controller.getRemainingTime());
-            }
-        });
-        deathTimer.start();
-    }
-
 
     /**
      * Refreshes the progress bar by updating its icon.
@@ -364,17 +340,52 @@ public class EastPanel extends JPanel {
         }
     }
 
-
+    /**
+     * Updates the time until the plant loses a life.
+     * This method is called every second by the timer to keep the display up-to-date.
+     *
+     * @param timeUntilLoseLife The duration until the plant loses a life.
+     * @author Anna Granberg
+     */
     public void updateDeathTimer(Duration timeUntilLoseLife) {
-        // Formatera tiden som du vill visa i JLabel
-        long hours = timeUntilLoseLife.toHours();
-        long minutes = timeUntilLoseLife.toMinutesPart();
-        long seconds = timeUntilLoseLife.toSecondsPart();
+        if (timeUntilLoseLife == null || timeUntilLoseLife.isZero() || timeUntilLoseLife.isNegative()) {
+            timeUntilDeathLabel.setText(" ");
+            // Stop the timer if the duration has reached zero
+            deathTimer.stop();
+        } else {
+            // Format the time as you want to display in JLabel
+            long hours = timeUntilLoseLife.toHours();
+            long minutes = timeUntilLoseLife.toMinutesPart();
+            long seconds = timeUntilLoseLife.toSecondsPart();
 
-        String formattedTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+            String formattedTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
 
-        // Uppdatera JLabel med den formaterade tiden
-        timeUntilDeathLabel.setText("<html><div style='text-align: center; font-size: 9px;'>Time until life loss:<br>" + formattedTime + "</div></html>");
+            // Update JLabel with the formatted time
+            timeUntilDeathLabel.setText("<html><div style='text-align: center; font-size: 9px;'>Time until life loss:<br>" + formattedTime + "</div></html>");
+            repaint();
+            revalidate();
+        }
+    }
+
+    // Metod för att uppdatera och nollställa deathtimer när plantan vattnas
+    public void updateAndResetDeathTimer() {
+        // Stoppa den befintliga deathtimer, om den är aktiv
+        if (deathTimer != null) {
+            deathTimer.stop();
+        }
+
+        // Uppdatera deathtimer med den nya tiden
+        long timeUntilNextDeath = controller.getRemainingDeathTimerMilliseconds();
+
+        // Starta om deathtimer med den nya tiden
+        deathTimer = new Timer((int) timeUntilNextDeath, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.err.println("Death timer aktiverad från eastpanel");
+                updateDeathTimer(controller.getRemainingTime());
+            }
+        });
+        deathTimer.start();
     }
 
 }

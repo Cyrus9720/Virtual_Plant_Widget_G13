@@ -1,2 +1,1 @@
-Plant art; MINI_TREE | Plant name; Minitree2 | Plant level; 4 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/MiniTree3.JPG | Last time watered; 2024-05-23 17:39:26.168 | Timestamp; 2024-05-24 07:58:00.296
-Plant art; MINI_TREE | Plant name; Minitree2 | Plant level; 3 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/MiniTree3.JPG | Last time watered; 2024-05-23 17:40:23.923 | Timestamp; 2024-05-24 07:58:00.296
+Plant art; TOMATO_PLANT | Plant name; TomatoPlant2 | Plant level; 2 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/Tomatoe2.JPG | Last time watered; 2024-05-24 08:54:24.725 | Timestamp; 2024-05-24 08:54:27.595

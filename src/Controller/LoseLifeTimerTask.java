@@ -21,27 +21,29 @@ public class LoseLifeTimerTask extends TimerTask {
     @Override
     public void run() {
         Plant currentPlant = controller.getCurrentPlant();
-
-        if (currentPlant.getLastWatered() != null) { // Kontrollera om lastWatered är null
-            // Kontrollera om växten behöver vattnas
-            timeSinceLastWatered = Duration.between(currentPlant.getLastWatered(), LocalDateTime.now());
-            System.out.println(timeSinceLastWatered.toHours());
-            setTimeSinceLastWatered(timeSinceLastWatered);
-            if (timeSinceLastWatered.compareTo(currentPlant.getWateringInterval()) >= 0) {
-                currentPlant.decreaseLife(); // Minska växten med ett liv
+        if(!controller.checkWateringStatus()){
+            if (currentPlant.getLastWatered() != null) { // Kontrollera om lastWatered är null
+                // Kontrollera om växten behöver vattnas
+                timeSinceLastWatered = Duration.between(currentPlant.getLastWatered(), LocalDateTime.now());
+                System.out.println(timeSinceLastWatered.toHours());
+                setTimeSinceLastWatered(timeSinceLastWatered);
+                if (timeSinceLastWatered.compareTo(currentPlant.getWateringInterval()) <= 0) {
+                    currentPlant.decreaseLife(); // Minska växten med ett liv
+                }
+            } else {
+                // Hantera fallet när lastWatered är null
+                System.out.println("Last watered time is null");
             }
-        } else {
-            // Hantera fallet när lastWatered är null
-            System.out.println("Last watered time is null");
+
+            // Avbryt den tidigare schemalagda uppgiften
+            timer.cancel();
+            timer.purge();
+
+            // Schemalägg nästa kontroll
+            timer.schedule(new LoseLifeTimerTask(controller, timer), currentPlant.getWateringInterval().toMillis());
+            controller.getView().getEastPanel().updateDeathTimer(timeSinceLastWatered);
+
         }
-
-        // Avbryt den tidigare schemalagda uppgiften
-        timer.cancel();
-        timer.purge();
-
-        // Schemalägg nästa kontroll
-        timer.schedule(new LoseLifeTimerTask(controller, timer), currentPlant.getWateringInterval().toMillis());
-        controller.getView().getEastPanel().updateDeathTimer(timeSinceLastWatered);
     }
 
     public Duration getTimeSinceLastWatered() {

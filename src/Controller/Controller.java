@@ -33,7 +33,6 @@ public class Controller {
      * Constructor for the controller class.
      */
     public Controller() {
-        LoseLifeTimerTask loseLifeTimerTask = new LoseLifeTimerTask(this, lossLifeTimer);
         loadGame = new LoadGame();
 
         try {
@@ -42,6 +41,8 @@ public class Controller {
             System.err.println("Error loading game data: " + e.getMessage());
         }
         view = new MainFrame(this);
+        this.lossLifeTimer = new Timer();
+        this.loseLifeTimerTask = new LoseLifeTimerTask(this,this.lossLifeTimer);
 
         if (loadGame.isFileNotEmpty() && !GameHistoryReader.getGameHistory().isEmpty()) {
             firstTimePlaying();
@@ -66,6 +67,7 @@ public class Controller {
             view.getEastPanel().updateLives();
             view.getSouthPanel().updatePlantInfo();
             view.getCenterPanel().getMainPanel().refreshBar();
+            view.getEastPanel().updateDeathTimer(getRemainingTime());
             view.getCenterPanel().repaint();
             view.getEastPanel().repaint();
         } else {
@@ -349,7 +351,7 @@ public class Controller {
      * @return boolean
      * @auhor annagranberg
      */
-    private boolean checkWateringStatus() {
+    public boolean checkWateringStatus() {
         if (currentPlantIndex >= 0 && currentPlantIndex < plantList.size()) {
             currentPlant = plantList.get(currentPlantIndex);
             LocalDateTime currentDateTime = LocalDateTime.now();
@@ -699,29 +701,47 @@ public class Controller {
     }
 
     public void startLoseLifeTimer() {
-        lossLifeTimer = new Timer();
-
+        // Check if the timer is already running
         if (lossLifeTimer != null) {
-            return; // Om tidern redan är igång, gör ingenting och återvänd
+            return; // Timer is already running, so do nothing and return
         }
 
-        // Assuming getCurrentPlant() is a method in the Controller class to get the current plant
+        // Initialize the timer
+        lossLifeTimer = new Timer();
+
+        // Get the current plant
         Plant currentPlant = getCurrentPlant();
 
         if (currentPlant != null) {
             long initialDelay = getTimeUntilNextWatering();
             long delayBetweenTicks = currentPlant.getWateringInterval().toMillis();
 
+            // Initialize the loseLifeTimerTask with the timer
+            loseLifeTimerTask = new LoseLifeTimerTask(this, lossLifeTimer);
+
+            // Schedule the timer task
             lossLifeTimer.schedule(loseLifeTimerTask, initialDelay, delayBetweenTicks);
 
         } else {
-            // Hantera fallet när det inte finns någon aktuell växt
+            // Handle the case when there is no current plant
             System.out.println("Error: No current plant to start lose life timer.");
         }
     }
 
     public Duration getRemainingTime() {
         return loseLifeTimerTask.getTimeSinceLastWatered();
+    }
+
+    public Duration getTimeUntilLoseLife() {
+        // Return the time remaining until the plant loses a life
+        // Example implementation
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime nextLifeLoss = currentPlant.getLastWatered(); // calculate the time when the next life loss will happen
+        return Duration.between(now, nextLifeLoss);
+    }
+
+    public LocalDateTime getTimeSinceLastWatered() {
+        return currentPlant.getLastWatered();
     }
 }
 
