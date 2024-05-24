@@ -122,9 +122,6 @@ public class EastPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (controller.getTimeUntilNextWatering() == 0) {
                     Water.setEnabled(true);
-                    if(controller.getCurrentPlant() != null){
-                        controller.startLoseLifeTimer();
-                    }
                 }
                 updateTimeUntilLabelWatering();
                 repaint();
@@ -136,23 +133,10 @@ public class EastPanel extends JPanel {
         deathTimer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Skapa en ny timern för att räkna ner från den beräknade initialDelay
-                Timer deathTimer = new Timer(1000, new ActionListener() {
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        LocalDateTime timeUntil = controller.getTimeSinceLastWatered();
-                        LocalDateTime timeNow = LocalDateTime.now();
-
-                        Duration duration = Duration.between(timeNow, timeUntil);
-
-                        // Update the time every second
-                        updateDeathTimer(controller.getTimeUntilLoseLife());
-                    }
-                });
-
-                // Starta den nya timern med den beräknade initialDelay
-                // deathTimer.setInitialDelay((int) initialDelay);
+                if(controller.getRemainingTime() == null){
+                    controller.getCurrentPlant().decreaseLife();
+                }
+                updateDeathTimer(controller.getRemainingTime());
                 deathTimer.start();
             }
         });
@@ -324,7 +308,6 @@ public class EastPanel extends JPanel {
             long timeUntilNextWatering = controller.getTimeUntilNextWatering();
             // Kontrollera om tiden är negativ
             if (timeUntilNextWatering < 0) {
-                // todo: lägg till mainFrame.timeToWater()
                 timeUntilNextWatering = 0; // Sätt tiden till 0 om den är negativ
             }
             long hours = timeUntilNextWatering / 3600; // Konvertera sekunder till timmar
@@ -347,8 +330,7 @@ public class EastPanel extends JPanel {
     public void updateDeathTimer(Duration timeUntilLoseLife) {
         if (timeUntilLoseLife == null || timeUntilLoseLife.isZero() || timeUntilLoseLife.isNegative()) {
             timeUntilDeathLabel.setText("<html><div style='text-align: center; font-size: 9px;'>Time until life loss:<br>" + "00:00:00" + "</div></html>");
-            controller.getCurrentPlant().decreaseLife();
-            System.err.println("TimeUntilLoseLife is null // EastPanel");
+            System.err.println("TimeUntilLoseLife is null or zero or negative // EastPanel");
             // Stop the timer if the duration has reached zero
             deathTimer.stop();
         } else {
@@ -361,9 +343,11 @@ public class EastPanel extends JPanel {
 
             // Update JLabel with the formatted time
             timeUntilDeathLabel.setText("<html><div style='text-align: center; font-size: 9px;'>Time until life loss:<br>" + formattedTime + "</div></html>");
-            repaint();
-            revalidate();
         }
+
+        // Update the GUI
+        timeUntilDeathLabel.repaint();
+        timeUntilDeathLabel.revalidate();
     }
 
     // Metod för att uppdatera och nollställa deathtimer när plantan vattnas
@@ -380,7 +364,6 @@ public class EastPanel extends JPanel {
         deathTimer = new Timer((int) timeUntilNextDeath, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.err.println("Death timer aktiverad från eastpanel");
                 updateDeathTimer(controller.getRemainingTime());
             }
         });

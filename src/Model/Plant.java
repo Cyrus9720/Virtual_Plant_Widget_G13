@@ -20,7 +20,7 @@ public abstract class Plant {
     private int plantLevel;
     private PlantArt plantArt;
     private LocalDateTime lastWatered;
-    private LocalDateTime deathTime;
+    private LocalDateTime nextDeathTime;
     private Clip wateringSoundClip;
     private Controller controller;
     private Duration wateringInterval;
@@ -43,8 +43,6 @@ public abstract class Plant {
         this.plantPicture = plantPicture;
         this.plantLevel = plantLevel;
         this.lastWatered = lastWatered;
-        wateringInterval = Duration.ofSeconds(10); // tio sek som test
-        System.out.println(wateringInterval.toMillis() + "från plant konstruktor");
     }
 
     /**
@@ -60,6 +58,7 @@ public abstract class Plant {
     }*/
 
     public void setWateringInterval(Duration interval) {
+
         this.wateringInterval = interval;
     }
 
@@ -67,20 +66,19 @@ public abstract class Plant {
         return wateringInterval;
     }
 
-    public void setDeathTime(LocalDateTime deathTime) {
-        this.deathTime = deathTime;
-    }
 
     public void setNextDeathTime() {
         // Anta att du vill att nästa död ska inträffa om 48 timmar
-        int hoursUntilDeath = 48; // 48 timmar
-        long millisecondsUntilDeath = hoursUntilDeath * 60 * 60 * 1000; // Konvertera till millisekunder
+        int hoursUntilDeath = 10; // 48 timmar
+
+        // Skapa en Duration som representerar 48 timmar
+        Duration durationUntilDeath = Duration.ofSeconds(hoursUntilDeath);
 
         // Anropa set-metoden för att ställa in den återstående tiden tills nästa död
-        controller.setRemainingDeathTimerMilliseconds(millisecondsUntilDeath);
+        controller.setRemainingTime(durationUntilDeath);
     }
-    public LocalDateTime getDeathTime() {
-        return deathTime;
+    public LocalDateTime getNextDeathTime() {
+        return nextDeathTime;
     }
 
     /**
@@ -132,7 +130,7 @@ public abstract class Plant {
 
         // Check if the plant's number of lives is zero and stop the timer
         if (this.getNbrOfLives() == 0) {
-            Timer timer = controller.getLossLifeTimer();
+            Timer timer = controller.getLoseLifeTimer();
             if (timer != null) {
                 timer.cancel(); // Stop the timer
                 System.out.println("Timer stopped for plant: " + this.getPlantName());
@@ -142,17 +140,17 @@ public abstract class Plant {
 
     public void startNewTimer() {
         LocalDateTime now = LocalDateTime.now();
-        if (deathTime != null && now.isAfter(deathTime)) {
+        if (nextDeathTime != null && now.isAfter(nextDeathTime)) {
             decreaseLife();
             if (nbrOfLives > 0) {
                 // Ställ in en ny dödstid om 30 minuter som exempel
-                deathTime = now.plusMinutes(30);
-                setDeathTime(deathTime);
-                System.out.println("New death time set: " + deathTime);
+                nextDeathTime = now.plusMinutes(30);
+                setNextDeathTime();
+                System.out.println("New death time set: " + nextDeathTime);
             } else {
                 System.out.println("Plant has no more lives.");
             }
-        } else if (deathTime == null) {
+        } else if (nextDeathTime == null) {
             System.out.println("Death time is not set.");
         }
     }
@@ -287,7 +285,7 @@ public abstract class Plant {
     public void setLastWatered(LocalDateTime lastWatered) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         String formattedDateTime = lastWatered.format(formatter);
-        System.out.println(formattedDateTime); // For debugging purposes
+        System.out.println("last watered: " + formattedDateTime + "//Plant"); // For debugging purposes
         this.lastWatered = lastWatered;
     }
 

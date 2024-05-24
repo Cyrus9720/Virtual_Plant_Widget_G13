@@ -16,7 +16,6 @@ import java.util.Timer;
  * The Controller class serves as the main controller for managing the interaction between the model and the view.
  * It handles actions such as switching plants, watering plants, adding new plants, and updating the game sstate.
  */
-
 public class Controller {
     private MainFrame view;
     private ArrayList<Plant> plantList = new ArrayList<>();
@@ -27,7 +26,7 @@ public class Controller {
     private LoadGame loadGame;
     private boolean isChosen = false;
     private long remainingDeathTimerMilliseconds;
-    private Timer lossLifeTimer;
+    private Timer loseLifeTimer;
     private LoseLifeTimerTask loseLifeTimerTask;
     /**
      * Constructor for the controller class.
@@ -41,8 +40,8 @@ public class Controller {
             System.err.println("Error loading game data: " + e.getMessage());
         }
         view = new MainFrame(this);
-        this.lossLifeTimer = new Timer();
-        this.loseLifeTimerTask = new LoseLifeTimerTask(this,this.lossLifeTimer);
+        this.loseLifeTimer = new Timer();
+        this.loseLifeTimerTask = new LoseLifeTimerTask(this,this.loseLifeTimer);
 
         if (loadGame.isFileNotEmpty() && !GameHistoryReader.getGameHistory().isEmpty()) {
             firstTimePlaying();
@@ -62,6 +61,7 @@ public class Controller {
             currentPlant = plantList.get(plantIndex); // Uppdatera currentPlant när switchPlant kallas
             // currentPlant.startNewTimer();
             updateWaterButtonStatus();
+            deathMethod();
             view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
             view.getCenterPanel().updatePlantName(currentPlant.getPlantName());
             view.getEastPanel().updateLives();
@@ -258,12 +258,14 @@ public class Controller {
                     }
                     currentPlant = plantList.get(currentPlantIndex);
                     currentPlant.waterPlant();
-                    currentPlant.startNewTimer();
+                    // currentPlant.startNewTimer();
                     ImageIcon updatedImage = currentPlant.getPlantPicture();
                     view.getCenterPanel().updatePlantImage(updatedImage);
                     currentPlant.setLastWatered(LocalDateTime.now());
                     view.getMainPanel().updateButtons(getPlantImagePaths());
+                    view.getEastPanel().updateAndResetDeathTimer();
                     updateWaterButtonStatus();
+                    deathMethod();
 
                     break;
                 }else{
@@ -282,8 +284,8 @@ public class Controller {
      * @author Cyrus Shaerpour
      */
     public long getRemainingDeathTimerMilliseconds() {
-        if (lossLifeTimer != null && currentPlant.getDeathTime() != null) {
-            Duration remainingDuration = Duration.between(LocalDateTime.now(), currentPlant.getDeathTime());
+        if (loseLifeTimer != null && currentPlant.getNextDeathTime() != null) {
+            Duration remainingDuration = Duration.between(LocalDateTime.now(), currentPlant.getNextDeathTime());
             return remainingDuration.toMillis();
         }else {
             return 0;
@@ -294,14 +296,13 @@ public class Controller {
         this.remainingDeathTimerMilliseconds = remainingDeathTimerMilliseconds;
     }
 
-    /*public void deathMethod(){
-        if (currentPlant.getPlantLevel() == 0) {
-            System.out.println("Timer started for plant: " + currentPlant.getName());
-            JOptionPane.showMessageDialog(null, "Congrats on your new plant! \nBut be mindful, it will need water in the coming days!");
-            LocalDateTime timeLeft = currentPlant.calculateDeathTime(currentPlant.getLastWatered());
-            System.out.println(timeLeft);
+    public void deathMethod(){
+        if(loseLifeTimer.equals(0)){
+            currentPlant.activateDeathEvent();
+        }else{
+            view.getEastPanel().updateDeathTimer(getRemainingTime());
         }
-    }*/
+    }
 
     public void removeLifeFromPlant() {
         if (currentPlant != null) {
@@ -314,6 +315,10 @@ public class Controller {
 
     public void setRemainingTime(Duration remainingTime) {
         this.remainingTime = remainingTime;
+    }
+
+    public Duration getRemainingTime(){
+        return remainingTime;
     }
 
 
@@ -696,53 +701,13 @@ public class Controller {
             return plantList;
         }
 
-    public Timer getLossLifeTimer() {
-        return lossLifeTimer;
-    }
-
-    public void startLoseLifeTimer() {
-        // Check if the timer is already running
-        if (lossLifeTimer != null) {
-            //System.err.println("Lose life timer is not null!");
-            return; // Timer is already running, so do nothing and return
+        public Timer getLoseLifeTimer() {
+            return loseLifeTimer;
         }
 
-        // Initialize the timer
-        lossLifeTimer = new Timer();
-
-        // Get the current plant
-        Plant currentPlant = getCurrentPlant();
-
-        if (currentPlant != null) {
-            long initialDelay = getTimeUntilNextWatering();
-            long delayBetweenTicks = currentPlant.getWateringInterval().toMillis();
-
-            // Initialize the loseLifeTimerTask with the timer
-            loseLifeTimerTask = new LoseLifeTimerTask(this, lossLifeTimer);
-
-            // Schedule the timer task
-            lossLifeTimer.schedule(loseLifeTimerTask, initialDelay, delayBetweenTicks);
-
-        } else {
-            // Handle the case when there is no current plant
-            System.out.println("Error: No current plant to start lose life timer.");
+        public LocalDateTime getTimeSinceLastWatered() {
+            System.err.println("Från getTimeSinceLastWatered: " +  currentPlant.getLastWatered());
+            return currentPlant.getLastWatered();
         }
-    }
-
-    public Duration getRemainingTime() {
-        return loseLifeTimerTask.getTimeSinceLastWatered();
-    }
-
-    public Duration getTimeUntilLoseLife() {
-        // Return the time remaining until the plant loses a life
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime nextLifeLoss = currentPlant.getLastWatered(); // calculate the time when the next life loss will happen
-        return Duration.between(now, nextLifeLoss);
-    }
-
-    public LocalDateTime getTimeSinceLastWatered() {
-        System.err.println("Från getTimeSinceLastWatered: " +  currentPlant.getLastWatered());
-        return currentPlant.getLastWatered();
-    }
 }
 
