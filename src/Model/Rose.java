@@ -15,14 +15,12 @@ public class Rose extends Plant {
     public void setPlantLevel(int plantLevel) {
         super.setPlantLevel(plantLevel);
         updateImage();
-        System.out.println(getPlantPicture());
     }
 
     @Override
     public void setNbrOfLives(int nbrOfLives) {
         super.setNbrOfLives(nbrOfLives);
         updateDeathImage();
-        System.out.println(getPlantPicture());
     }
 
     private void updateImage() {

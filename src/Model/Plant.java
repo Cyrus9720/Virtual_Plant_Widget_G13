@@ -98,6 +98,11 @@ public abstract class Plant {
     }
 
 
+    /**
+     * Method for decreasing the number of lives of the plant
+     * @author Cyrus Shaerpour
+     * @return void
+     */
     public void decreaseLife() {
         if (nbrOfLives > 0) {
             nbrOfLives--; // Minska livräknaren med ett om den är större än noll

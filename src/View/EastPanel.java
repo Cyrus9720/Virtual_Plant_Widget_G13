@@ -356,18 +356,32 @@ public class EastPanel extends JPanel {
         }
     }
 
+    /**
+     * Changes the icon of the night mode button to a moon.
+     * @author Cyrus Shaerpour
+     */
     public void moonButton() {
         ImageIcon moonIcon = new ImageIcon("src/Images/NightTime_Moon.PNG");
         Image moonImage = moonIcon.getImage();
         Image scaledMoonImage = moonImage.getScaledInstance(60, 50, Image.SCALE_SMOOTH);
         nightMode.setIcon(new ImageIcon(scaledMoonImage));
     }
+
+    /**
+     * Changes the icon of the night mode button to a sun.
+     * @author Cyrus Shaerpour
+     */
          public void sunButton() {
             ImageIcon sunIcon = new ImageIcon("src/Images/NightTime_Sun.PNG");
             Image sunImage = sunIcon.getImage();
             Image scaledSunImage = sunImage.getScaledInstance(60, 50, Image.SCALE_SMOOTH);
             nightMode.setIcon(new ImageIcon(scaledSunImage));
         }
+
+    /**
+     * Changes the colors of the panel to night mode.
+     * @author Cyrus Shaerpour
+     */
 
     public void nightColors() {
             setBackground(new Color(47, 49, 73));
@@ -382,6 +396,10 @@ public class EastPanel extends JPanel {
             timeUntilDeathLabel.setForeground(Color.WHITE);
         }
 
+    /**
+     * Changes the colors of the panel to day mode.
+     * @author Cyrus Shaerpour
+     */
         public void dayColors() {
             setBackground(new Color(225, 240, 218));
             progressbarLabel.setBackground(new Color(225, 240, 218));
