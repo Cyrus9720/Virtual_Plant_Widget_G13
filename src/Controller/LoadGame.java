@@ -45,7 +45,7 @@ public class LoadGame {
             while ((line = reader.readLine()) != null) {
                 fileNotEmpty = true;
                 String[] plantData = line.split("\\|"); // Split
-                if (plantData.length != 8) { // Check if the data format is valid
+                if (plantData.length != 9) { // Check if the data format is valid
                     System.err.println("Invalid data format in save file: " + line);
                     continue;
                 }
@@ -65,27 +65,21 @@ public class LoadGame {
                 switch (plantArt) {
                     case ROSE:
                         plant = new Rose(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
-                        plant.setNextDeathTime();
                         break;
                     case SUNFLOWER:
                         plant = new Sunflower(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
-                        plant.setNextDeathTime();
                         break;
                     case TOMATO_PLANT:
                         plant = new TomatoPlant(controller,name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
-                        plant.setNextDeathTime();
                         break;
                     case BLACKBERRY:
                         plant = new Blackberry(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
-                        plant.setNextDeathTime();
                         break;
                     case CACTUS:
                         plant = new Cactus(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
-                        plant.setNextDeathTime();
                         break;
                     case MINI_TREE:
                         plant = new MiniTree(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
-                        plant.setNextDeathTime();
                         break;
                     default:
                         System.err.println("Unknown plant type: " + plantType);
