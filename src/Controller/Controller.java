@@ -398,7 +398,6 @@ public class Controller {
         for (Plant plant : plantList) {
             if (plant.getDeathTime() != null) {
                 Duration remainingTime = Duration.between(LocalDateTime.now(), plant.getDeathTime());
-                System.err.println("Remaining time from updateRemainingDeathTimer: " + remainingTime.toString());
                 setRemainingTime(remainingTime);
             }
         }

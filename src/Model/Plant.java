@@ -51,7 +51,7 @@ public abstract class Plant {
      * @param lastWatered The last time the plant was watered.
      * @return The calculated death time for the plant.
      */
-    private LocalDateTime calculateDeathTime(LocalDateTime lastWatered) {
+    public LocalDateTime calculateDeathTime(LocalDateTime lastWatered) {
         return lastWatered != null ? lastWatered.plusSeconds(10) : LocalDateTime.now().plusMinutes(60);
     }
 
@@ -118,12 +118,14 @@ public abstract class Plant {
                 // Ställ in en ny dödstid om 30 minuter som exempel
                 deathTime = now.plusMinutes(30);
                 setDeathTime(deathTime);
-                System.out.println("New death time set: " + deathTime);
-            } else {
-                System.out.println("Plant has no more lives.");
+                System.out.println("New death time set: " + deathTime + " // plant");
+            } else if (deathTime != null) {
+                deathTime = now.plusMinutes(30);
+                setDeathTime(deathTime);
+                System.out.println("New death time is set to " + deathTime + " // plant");
+            } else if (deathTime == null) {
+                System.out.println("Death time is not set. // plant");
             }
-        } else if (deathTime == null) {
-            System.out.println("Death time is not set.");
         }
     }
 
