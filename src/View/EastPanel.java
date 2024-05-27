@@ -9,10 +9,6 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.Duration;
-import java.time.LocalDateTime;
-
-import static View.ButtonType.NightMode;
 
 /**
  * The EastPanel class represents the panel containing plant care controls on the east side of the user interface.
@@ -31,7 +27,8 @@ public class EastPanel extends JPanel {
     private JLabel timeUntilWatering; // JLabel för at visa tiden tills nästa vattning
     private JLabel timeUntilDeathLabel;
     private JButton nightMode;
-    private Timer timer; // Timer för uppdatering av tiden tills nästa vattning
+    private Timer waterTimer; // Timer för uppdatering av tiden tills nästa vattning
+    private Timer deathTimer;
     private TitledBorder titledBorder; // Border för panelen
     private JPanel pnlButtons; // Panel för knappar
 
@@ -129,7 +126,7 @@ public class EastPanel extends JPanel {
 
 
     // Create a timer to update the time until next watering every second
-        timer = new Timer(1000, new ActionListener() {
+        waterTimer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (controller.getTimeUntilNextWatering() == 0) {
@@ -140,19 +137,33 @@ public class EastPanel extends JPanel {
                 revalidate();
             }
         });
-        timer.start();
+        waterTimer.start();
 
 
-        timer = new Timer(1000, new ActionListener() {
+        // Create a timer to update the time until next watering and time until death every second
+        deathTimer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(controller.getRemainingDeathTimerMilliseconds(controller.getCurrentPlant()) > 0){
-                    Long remainingTime = controller.getRemainingDeathTimerMilliseconds(controller.getCurrentPlant());
-                    updateTimeUntilDeath(remainingTime);
-                    System.err.println("Remaining time from EastPanel: " + remainingTime);
-                };
+                // Update watering time
+                if (controller.getTimeUntilNextWatering() == 0) {
+                    Water.setEnabled(true);
+                }
+                updateTimeUntilLabelWatering();
+
+                // Update death time
+                if (controller.getPlantList() != null && controller.getCurrentPlant() != null) {
+                    long remainingTime = controller.getRemainingDeathTimerMilliseconds(controller.getCurrentPlant());
+                    if (remainingTime > 0) {
+                        updateTimeUntilDeath(remainingTime);
+                    }
+                }
+
+                repaint();
+                revalidate();
             }
         });
+        deathTimer.start();
+
     }
 
     /**
