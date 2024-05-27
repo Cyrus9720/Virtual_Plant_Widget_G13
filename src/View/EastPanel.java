@@ -93,7 +93,7 @@ public class EastPanel extends JPanel {
         threeHeartsLabel = new JLabel(updateAmountOfLife());
         add(threeHeartsLabel, BorderLayout.WEST);
 
-        timeUntilDeathLabel = new JLabel("Time until death: ");
+        timeUntilDeathLabel = new JLabel();
         timeUntilDeathLabel.setFont(new Font("Bebas Neue", Font.BOLD, 12));
         add(timeUntilDeathLabel, BorderLayout.SOUTH);
 
@@ -115,7 +115,7 @@ public class EastPanel extends JPanel {
 
         nightMode = new JButton(scaledNightIcon);
         nightMode.setBorderPainted(false);
-        nightMode.setContentAreaFilled(false);
+        nightMode.setContentAreaFilled(true);
         nightMode.setBackground(new Color(225, 240, 218));
         add(nightMode);
 
@@ -123,7 +123,6 @@ public class EastPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == nightMode) {
                     controller.buttonPressed(ButtonType.NightMode);
-                    // System.out.println("Water button clicked");
                 }
             }
         });
@@ -148,7 +147,9 @@ public class EastPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(controller.getRemainingDeathTimerMilliseconds(controller.getCurrentPlant()) > 0){
-                    updateTimeUntilDeath(controller.getRemainingDeathTimerMilliseconds(controller.getCurrentPlant()));
+                    Long remainingTime = controller.getRemainingDeathTimerMilliseconds(controller.getCurrentPlant());
+                    updateTimeUntilDeath(remainingTime);
+                    System.err.println("Remaining time from EastPanel: " + remainingTime);
                 };
             }
         });
@@ -334,7 +335,7 @@ public class EastPanel extends JPanel {
 
     public void updateTimeUntilDeath(Long remainingTime) {
         if (controller.getPlantList() == null || controller.getCurrentPlant() == null) {
-            timeUntilDeathLabel.setText("Time until death: ");
+            timeUntilDeathLabel.setText(" ");
         } else {
             // Check if the time is negative and set it to 0 if it is
             if (remainingTime < 0) {
@@ -414,15 +415,4 @@ public class EastPanel extends JPanel {
         }
     }
 
-/*
-nightMode = new JButton("Night mode");
-        nightMode.setFont(new Font("Bebas Neue", Font.BOLD, 12));
-add(nightMode, BorderLayout.SOUTH);
 
-        nightMode.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == NightMode) {
-            controller.buttonPressed(NightMode);
-        }
-    }
-});*/

@@ -16,7 +16,6 @@ import java.util.ArrayList;
  */
 public class SaveGame {
     private static LocalDateTime timestamp;
-    private static Controller controller;
 
     /**
      * Saves the game data to a file, including a timestamp at the end of each line.
@@ -32,7 +31,7 @@ public class SaveGame {
                 String data = plant.toString(); // returns the plant's attributes as a String
 
                 // Add the formatted timestamp to the end of the line
-                data += " | Timestamp; " + timestamp.format(formatter);
+                data += " | Closed game; " + timestamp.format(formatter);
                 data += " | Death time; " + getFormattedDeathTimer(controller.getRemainingTime());
 
                 writer.write(data);
@@ -54,17 +53,17 @@ public class SaveGame {
 
     public String getFormattedDeathTimer(Duration remainingTime) {
         if (remainingTime == null) {
-            return "0000-00-00 00:00:00.000"; // or any other default value you prefer
+            return "2024-01-01 00:00:00.000"; // or any other default value you prefer
+        } else{
+            // Calculate the end time based on the remaining time from the current time
+            LocalDateTime endTime = LocalDateTime.now().plus(remainingTime);
+
+            // Format the end time using the specified DateTimeFormatter
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+            String formattedEndTime = endTime.format(formatter);
+
+            return formattedEndTime;
         }
-
-        // Calculate the end time based on the remaining time from the current time
-        LocalDateTime endTime = LocalDateTime.now().plus(remainingTime);
-
-        // Format the end time using the specified DateTimeFormatter
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-        String formattedEndTime = endTime.format(formatter);
-
-        return formattedEndTime;
     }
 
     public static LocalDateTime getTimestamp() {

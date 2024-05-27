@@ -5,8 +5,6 @@ import Controller.Controller;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -20,8 +18,6 @@ public abstract class Plant {
     private int plantLevel;
     private PlantArt plantArt;
     private LocalDateTime lastWatered;
-    private Timer timer;
-    private LocalDateTime lastUpdatedTimestamp;
     private LocalDateTime deathTime;
     private Clip wateringSoundClip;
     private Controller controller;
@@ -56,11 +52,15 @@ public abstract class Plant {
      * @return The calculated death time for the plant.
      */
     private LocalDateTime calculateDeathTime(LocalDateTime lastWatered) {
-        return lastWatered != null ? lastWatered.plusSeconds(10) : LocalDateTime.now().plusMinutes(1);
+        return lastWatered != null ? lastWatered.plusSeconds(10) : LocalDateTime.now().plusMinutes(60);
     }
 
     public void setDeathTime(LocalDateTime deathTime) {
         this.deathTime = deathTime;
+    }
+
+    public LocalDateTime getDeathTime() {
+        return deathTime;
     }
 
     /**
@@ -110,21 +110,6 @@ public abstract class Plant {
         }
     }
 
-    public void activateDeathEvent() {
-        this.decreaseLife();
-        controller.checkLife();
-        System.out.println("Plant life " + this.getNbrOfLives() + " " + this.getPlantName());
-
-        // Check if the plant's number of lives is zero and stop the timer
-        if (this.getNbrOfLives() == 0) {
-            Timer timer = controller.getPlantTimer(this);
-            if (timer != null) {
-                timer.stop(); // Stop the timer
-                System.out.println("Timer stopped for plant: " + this.getPlantName());
-            }
-        }
-    }
-
     public void startNewTimer() {
         LocalDateTime now = LocalDateTime.now();
         if (deathTime != null && now.isAfter(deathTime)) {
@@ -142,12 +127,6 @@ public abstract class Plant {
         }
     }
 
-
-
-    public LocalDateTime getDeathTime() {
-        return deathTime;
-    }
-
     /**
      * Retrieves the name of the plant.
      *
@@ -156,12 +135,6 @@ public abstract class Plant {
     public String getPlantName() {
         return name;
     }
-
-
-    public void setPlantName(String name) {
-        this.name = name;
-    }
-
 
     /**
      * Retrieves the number of lives of the plant.
