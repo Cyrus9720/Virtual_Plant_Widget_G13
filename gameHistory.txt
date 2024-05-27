@@ -56,3 +56,4 @@ Plant name: TomatoPlant9 | Plant art: TOMATO_PLANT | Plant level: 0 | Plant Pict
 Plant name: Rose8 | Plant art: ROSE | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
 Plant name: TomatoPlant9 | Plant art: TOMATO_PLANT | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
 Plant name: Rose8 | Plant art: ROSE | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
+Plant name: Blackberry8 | Plant art: BLACKBERRY | Plant level: 1 | Plant Picture: src/Images/BlackberryDead1.JPG

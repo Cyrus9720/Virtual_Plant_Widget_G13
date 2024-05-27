@@ -114,10 +114,10 @@ public class EastPanel extends JPanel {
         ImageIcon scaledNightIcon = new ImageIcon(scaledNightButtonImage);
 
         nightMode = new JButton(scaledNightIcon);
-        nightMode.setBorderPainted(true);
-        nightMode.setContentAreaFilled(true);
+        nightMode.setBorderPainted(false);
+        nightMode.setContentAreaFilled(false);
         nightMode.setBackground(new Color(225, 240, 218));
-        pnlButtons.add(nightMode, BorderLayout.SOUTH);
+        add(nightMode);
 
         nightMode.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

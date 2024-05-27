@@ -1,1 +1,1 @@
-Plant art; BLACKBERRY | Plant name; Blackberry8 | Plant level; 1 | Times watered; 0 | Number of lives; 0 | Plant picture; src/Images/BlackberryDead1.JPG | Last time watered; 2024-05-24 09:35:55.196 | Timestamp; 2024-05-24 09:47:37.749 | Death time; 2024-05-24 09:48:23.823
+Plant art; MINI_TREE | Plant name; Minitree9 | Plant level; 2 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/MiniTree2.JPG | Last time watered; 2024-05-27 15:33:59.898 | Timestamp; 2024-05-27 15:34:01.550 | Death time; 0000-00-00 00:00:00.000
