@@ -31,6 +31,7 @@ public class EastPanel extends JPanel {
     private Timer deathTimer;
     private TitledBorder titledBorder; // Border för panelen
     private JPanel pnlButtons; // Panel för knappar
+    private Border border;
 
     /**
      * Constructs a new EastPanel with the specified controller, width, and height.
@@ -68,9 +69,9 @@ public class EastPanel extends JPanel {
         Water.setBackground(new Color(225, 240, 218));
         pnlButtons.add(Water, BorderLayout.NORTH);
 
-        Border border = this.getBorder();
-        Border margin = BorderFactory.createEmptyBorder(6, 6, 6, 6);
-        setBorder(new CompoundBorder(border, margin));
+        border = BorderFactory.createLineBorder(Color.BLACK);
+        titledBorder = BorderFactory.createTitledBorder(border, "Handle your plant", TitledBorder.CENTER, TitledBorder.TOP, myFont, Color.BLACK);
+        setBorder(titledBorder);
 
         add(pnlButtons);
         progressbarLabel = new JLabel();
@@ -114,7 +115,7 @@ public class EastPanel extends JPanel {
         nightMode.setBorderPainted(false);
         nightMode.setContentAreaFilled(true);
         nightMode.setBackground(new Color(225, 240, 218));
-        add(nightMode);
+        add(nightMode, BorderLayout.SOUTH);
 
         nightMode.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
