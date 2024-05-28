@@ -20,9 +20,7 @@ import java.util.List;
  */
 
 public class LoadGame {
-    private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
     private LocalDateTime timestamp;
-    private LocalDateTime deathTimeData;
     private boolean fileNotEmpty;
     private MainFrame view;
     private Plant plant;
@@ -59,9 +57,9 @@ public class LoadGame {
                 ImageIcon plantPicture = new ImageIcon(plantData[5].trim().split(";")[1].trim());
                 LocalDateTime lastWatered = parseTimestamp(plantData[6].trim().split(";")[1].trim());
                 LocalDateTime lastPlayed = parseTimestamp(plantData[7].trim().split(";")[1].trim());
-                deathTimeData = parseTimestamp(plantData[8].trim().split("; ")[1]);
+                LocalDateTime deathTimeData = parseTimestamp(plantData[8].trim().split("; ")[1]);
 
-                // Skapa "nya" plantor beroende på plantArt
+                // Create new plants based on the plantArt
                 switch (plantArt) {
                     case ROSE:
                         plant = new Rose(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
@@ -92,18 +90,9 @@ public class LoadGame {
                         continue;
                 }
 
-                // Lägg till den "nya" plantan i listan
+                // Add the new plant to the list
                 plantList.add(plant);
-                //controller.setRemainingDeathTimerMilliseconds(parseDeathTime(deathTimeData));
 
-                // clearSaveFile();
-            }
-
-            if (fileNotEmpty) {  // ifall fil är tom
-                // view.welcomeBackMessage(); todo: få detta att fungera?
-                // SaveGame.writeGamePlayedNotice();
-            } else{
-                // controller.firstTimePlaying();
             }
             System.out.println("Game loaded successfully.");
         } catch (IOException e) {
@@ -111,7 +100,7 @@ public class LoadGame {
         } catch (IllegalArgumentException e) {
             System.err.println("Error parsing data from save file: " + e.getMessage());
         }
-        return plantList; // Returnera listan av Plant objekt
+        return plantList; // Return the list of Plant objects
     }
 
     /**
@@ -122,24 +111,44 @@ public class LoadGame {
      */
     private LocalDateTime parseTimestamp(String timestampString) {
         try {
-            // Manuellt tolka tidsstämpeln
-            LocalDateTime parsedDateTime = LocalDateTime.parse(timestampString, dateFormat);
-            return parsedDateTime;
+            if ("0000-00-00 00:00:00.000".equals(timestampString)) {
+                return null;
+            } else {
+                // Manually parse the timestamp
+                DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+                LocalDateTime parsedDateTime = LocalDateTime.parse(timestampString, dateFormat);
+                return parsedDateTime;
+            }
         } catch (DateTimeParseException e) {
-            // Om tolkningen misslyckas, skriv ut felmeddelande och returnera null
+            // If parsing fails, print error message and return null
             System.err.println("Error parsing timestamp from save file: " + e.getMessage());
             return null;
         }
     }
 
+    /**
+     * Gets the last loaded plant.
+     *
+     * @return The last loaded plant object.
+     */
     public Plant getPlant() {
         return plant;
     }
 
+    /**
+     * Gets the timestamp of the last save.
+     *
+     * @return The timestamp of the last save.
+     */
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
+    /**
+     * Checks if the save file was not empty.
+     *
+     * @return true if the save file was not empty, false otherwise.
+     */
     public boolean isFileNotEmpty() {
         return fileNotEmpty;
     }

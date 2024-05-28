@@ -5,8 +5,6 @@ import Controller.Controller;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -20,8 +18,6 @@ public abstract class Plant {
     private int plantLevel;
     private PlantArt plantArt;
     private LocalDateTime lastWatered;
-    private Timer timer;
-    private LocalDateTime lastUpdatedTimestamp;
     private LocalDateTime deathTime;
     private Clip wateringSoundClip;
     private Controller controller;
@@ -55,12 +51,16 @@ public abstract class Plant {
      * @param lastWatered The last time the plant was watered.
      * @return The calculated death time for the plant.
      */
-    private LocalDateTime calculateDeathTime(LocalDateTime lastWatered) {
-        return lastWatered != null ? lastWatered.plusSeconds(10) : LocalDateTime.now().plusMinutes(1);
+    public LocalDateTime calculateDeathTime(LocalDateTime lastWatered) {
+        return lastWatered != null ? lastWatered.plusSeconds(10) : LocalDateTime.now().plusHours(5);
     }
 
     public void setDeathTime(LocalDateTime deathTime) {
         this.deathTime = deathTime;
+    }
+
+    public LocalDateTime getDeathTime() {
+        return deathTime;
     }
 
     /**
@@ -110,21 +110,6 @@ public abstract class Plant {
         }
     }
 
-    public void activateDeathEvent() {
-        this.decreaseLife();
-        controller.checkLife();
-        System.out.println("Plant life " + this.getNbrOfLives() + " " + this.getPlantName());
-
-        // Check if the plant's number of lives is zero and stop the timer
-        if (this.getNbrOfLives() == 0) {
-            Timer timer = controller.getPlantTimer(this);
-            if (timer != null) {
-                timer.stop(); // Stop the timer
-                System.out.println("Timer stopped for plant: " + this.getPlantName());
-            }
-        }
-    }
-
     public void startNewTimer() {
         LocalDateTime now = LocalDateTime.now();
         if (deathTime != null && now.isAfter(deathTime)) {
@@ -133,19 +118,15 @@ public abstract class Plant {
                 // Ställ in en ny dödstid om 30 minuter som exempel
                 deathTime = now.plusMinutes(30);
                 setDeathTime(deathTime);
-                System.out.println("New death time set: " + deathTime);
-            } else {
-                System.out.println("Plant has no more lives.");
+                System.out.println("New death time set: " + deathTime + " // plant");
+            } else if (deathTime != null) {
+                deathTime = now.plusMinutes(30);
+                setDeathTime(deathTime);
+                System.out.println("New death time is set to " + deathTime + " // plant");
+            } else if (deathTime == null) {
+                System.out.println("Death time is not set. // plant");
             }
-        } else if (deathTime == null) {
-            System.out.println("Death time is not set.");
         }
-    }
-
-
-
-    public LocalDateTime getDeathTime() {
-        return deathTime;
     }
 
     /**
@@ -156,12 +137,6 @@ public abstract class Plant {
     public String getPlantName() {
         return name;
     }
-
-
-    public void setPlantName(String name) {
-        this.name = name;
-    }
-
 
     /**
      * Retrieves the number of lives of the plant.

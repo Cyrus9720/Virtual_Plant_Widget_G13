@@ -9,10 +9,6 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.Duration;
-import java.time.LocalDateTime;
-
-import static View.ButtonType.NightMode;
 
 /**
  * The EastPanel class represents the panel containing plant care controls on the east side of the user interface.
@@ -31,9 +27,11 @@ public class EastPanel extends JPanel {
     private JLabel timeUntilWatering; // JLabel för at visa tiden tills nästa vattning
     private JLabel timeUntilDeathLabel;
     private JButton nightMode;
-    private Timer timer; // Timer för uppdatering av tiden tills nästa vattning
+    private Timer waterTimer; // Timer för uppdatering av tiden tills nästa vattning
+    private Timer deathTimer;
     private TitledBorder titledBorder; // Border för panelen
     private JPanel pnlButtons; // Panel för knappar
+    private Border border;
 
     /**
      * Constructs a new EastPanel with the specified controller, width, and height.
@@ -71,9 +69,9 @@ public class EastPanel extends JPanel {
         Water.setBackground(new Color(225, 240, 218));
         pnlButtons.add(Water, BorderLayout.NORTH);
 
-        Border border = this.getBorder();
-        Border margin = BorderFactory.createEmptyBorder(6, 6, 6, 6);
-        setBorder(new CompoundBorder(border, margin));
+        border = BorderFactory.createLineBorder(Color.BLACK);
+        titledBorder = BorderFactory.createTitledBorder(border, "Handle your plant", TitledBorder.CENTER, TitledBorder.TOP, myFont, Color.BLACK);
+        setBorder(titledBorder);
 
         add(pnlButtons);
         progressbarLabel = new JLabel();
@@ -93,7 +91,7 @@ public class EastPanel extends JPanel {
         threeHeartsLabel = new JLabel(updateAmountOfLife());
         add(threeHeartsLabel, BorderLayout.WEST);
 
-        timeUntilDeathLabel = new JLabel("Time until death: ");
+        timeUntilDeathLabel = new JLabel();
         timeUntilDeathLabel.setFont(new Font("Bebas Neue", Font.BOLD, 12));
         add(timeUntilDeathLabel, BorderLayout.SOUTH);
 
@@ -114,23 +112,22 @@ public class EastPanel extends JPanel {
         ImageIcon scaledNightIcon = new ImageIcon(scaledNightButtonImage);
 
         nightMode = new JButton(scaledNightIcon);
-        nightMode.setBorderPainted(true);
+        nightMode.setBorderPainted(false);
         nightMode.setContentAreaFilled(true);
         nightMode.setBackground(new Color(225, 240, 218));
-        pnlButtons.add(nightMode, BorderLayout.SOUTH);
+        add(nightMode, BorderLayout.SOUTH);
 
         nightMode.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == nightMode) {
                     controller.buttonPressed(ButtonType.NightMode);
-                    // System.out.println("Water button clicked");
                 }
             }
         });
 
 
     // Create a timer to update the time until next watering every second
-        timer = new Timer(1000, new ActionListener() {
+        waterTimer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (controller.getTimeUntilNextWatering() == 0) {
@@ -141,17 +138,33 @@ public class EastPanel extends JPanel {
                 revalidate();
             }
         });
-        timer.start();
+        waterTimer.start();
 
 
-        timer = new Timer(1000, new ActionListener() {
+        // Create a timer to update the time until next watering and time until death every second
+        deathTimer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(controller.getRemainingDeathTimerMilliseconds(controller.getCurrentPlant()) > 0){
-                    updateTimeUntilDeath(controller.getRemainingDeathTimerMilliseconds(controller.getCurrentPlant()));
-                };
+                // Update watering time
+                if (controller.getTimeUntilNextWatering() == 0) {
+                    Water.setEnabled(true);
+                }
+                updateTimeUntilLabelWatering();
+
+                // Update death time
+                if (controller.getPlantList() != null && controller.getCurrentPlant() != null) {
+                    long remainingTime = controller.getRemainingDeathTimerMilliseconds(controller.getCurrentPlant());
+                    if (remainingTime > 0) {
+                        updateTimeUntilDeath(remainingTime);
+                    }
+                }
+
+                repaint();
+                revalidate();
             }
         });
+        deathTimer.start();
+
     }
 
     /**
@@ -334,7 +347,7 @@ public class EastPanel extends JPanel {
 
     public void updateTimeUntilDeath(Long remainingTime) {
         if (controller.getPlantList() == null || controller.getCurrentPlant() == null) {
-            timeUntilDeathLabel.setText("Time until death: ");
+            timeUntilDeathLabel.setText(" ");
         } else {
             // Check if the time is negative and set it to 0 if it is
             if (remainingTime < 0) {
@@ -414,15 +427,4 @@ public class EastPanel extends JPanel {
         }
     }
 
-/*
-nightMode = new JButton("Night mode");
-        nightMode.setFont(new Font("Bebas Neue", Font.BOLD, 12));
-add(nightMode, BorderLayout.SOUTH);
 
-        nightMode.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == NightMode) {
-            controller.buttonPressed(NightMode);
-        }
-    }
-});*/

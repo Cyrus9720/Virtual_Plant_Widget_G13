@@ -3,6 +3,7 @@ package View;
 import Controller.Controller;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
@@ -10,6 +11,7 @@ public class SouthPanel extends JPanel {
     private Controller controller;
     private JLabel plantInformation;
     private TitledBorder titledBorder;
+    private Border border;
     
     /**
      * Constructs a SouthPanel with the specified controller.
@@ -20,10 +22,11 @@ public class SouthPanel extends JPanel {
         this.controller = controller;
         setPreferredSize(new Dimension(320,130));
 
-        titledBorder = BorderFactory.createTitledBorder("Plant information");
-        Font myFont = new Font("Bebas Neue", Font.BOLD, 12);
-        titledBorder.setTitleFont(myFont);
+        Font myFont = new Font("Bebas Neue", Font.BOLD, 12);  // font för hela spelet
+        border = BorderFactory.createLineBorder(Color.BLACK);
+        titledBorder = BorderFactory.createTitledBorder(border, "Plant information", TitledBorder.CENTER, TitledBorder.TOP, myFont, Color.BLACK);
         setBorder(titledBorder);
+
 
         setBackground(new Color(225, 240, 218));
         setLayout(new BorderLayout());

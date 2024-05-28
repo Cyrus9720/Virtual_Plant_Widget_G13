@@ -42,9 +42,10 @@ public class Controller {
         }
         view = new MainFrame(this);
 
-        if (loadGame.isFileNotEmpty() || GameHistoryReader.getGameHistory().isEmpty()) {
+        if (!loadGame.isFileNotEmpty()) {
             firstTimePlaying();
         }
+
         plantTimers = new HashMap<>();
         resumeAllTimers();
     }
@@ -465,7 +466,7 @@ public class Controller {
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
 
-                Duration wateringInterval = Duration.ofMillis(10 * 1000);
+                Duration wateringInterval = Duration.ofHours(2);
 
                 if (timeSinceLastWatered.compareTo(wateringInterval) >= 0) {
                     System.out.println("Current plant needs to be watered");
@@ -493,7 +494,7 @@ public class Controller {
 
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-                Duration wateringInterval = Duration.ofSeconds(10); // 10 seconds
+                Duration wateringInterval = Duration.ofHours(2); // 10 seconds
 
                 // Calculate the time left until the next watering in seconds
                 long timeUntilNextWateringSeconds = wateringInterval.minus(timeSinceLastWatered).getSeconds();

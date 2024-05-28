@@ -14,7 +14,7 @@ public class AddNewPlantFrame extends JFrame {
      * @param controller The controller object to be associated with the frame.
      */
     public AddNewPlantFrame(Controller controller) {
-        setSize(new Dimension(300, 150)); // Ställer in storleken på fönstret
+        setSize(new Dimension(300, 300)); // Ställer in storleken på fönstret
         setVisible(true); // Gör fönstret synligt när det skapas
 
         NewPlantPanel newPlantPanel = new NewPlantPanel(controller); // Skapar en ny panel för att lägga till växter
@@ -30,6 +30,9 @@ public class AddNewPlantFrame extends JFrame {
          *
          * @param controller The controller object associated with the panel.
          */
+
+        private int height = 120;
+        private int widht = 50;
         private NewPlantPanel(Controller controller) {
             setBackground(new Color(225, 240, 218)); // bakgrundsfärgen för panelen
             setLayout(new FlowLayout()); // Ställer in layouten för panelen
@@ -41,6 +44,7 @@ public class AddNewPlantFrame extends JFrame {
             // Knapp för solros
             JButton sunflowerButton = new JButton("Sunflower");
             sunflowerButton.setFont(customFont); // anpassat typsnittet på knappen
+            sunflowerButton.setPreferredSize(new Dimension(height, widht));
             sunflowerButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -50,6 +54,7 @@ public class AddNewPlantFrame extends JFrame {
             });
             // Knapp för ros
             JButton roseButton = new JButton("Rose");
+            roseButton.setPreferredSize(new Dimension(height, widht));
             roseButton.setFont(customFont); // Tillämpar det anpassade typsnittet på knappen
             roseButton.addActionListener(new ActionListener() {
                 @Override
@@ -61,6 +66,7 @@ public class AddNewPlantFrame extends JFrame {
 
             // Knapp för tomatplanta
             JButton tomatoButton = new JButton("Tomato Plant");
+            tomatoButton.setPreferredSize(new Dimension(height, widht));
             tomatoButton.setFont(customFont); // anpassat typsnittet på knappen
             tomatoButton.addActionListener(new ActionListener() {
                 @Override
@@ -72,6 +78,7 @@ public class AddNewPlantFrame extends JFrame {
 
             JButton blackberryButton = new JButton("Blackberry");
             blackberryButton.setFont(customFont);
+            blackberryButton.setPreferredSize(new Dimension(height, widht));
             blackberryButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -82,6 +89,7 @@ public class AddNewPlantFrame extends JFrame {
 
             JButton miniTreeButton = new JButton("Mini Tree");
             miniTreeButton.setFont(customFont);
+            miniTreeButton.setPreferredSize(new Dimension(height, widht));
             miniTreeButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -92,6 +100,7 @@ public class AddNewPlantFrame extends JFrame {
 
             JButton cactusButton = new JButton("Cactus");
             cactusButton.setFont(customFont);
+            cactusButton.setPreferredSize(new Dimension(height, widht));
             cactusButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
