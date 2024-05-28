@@ -1,1 +1,1 @@
-Plant art; BLACKBERRY | Plant name; Blackberry8 | Plant level; 1 | Times watered; 0 | Number of lives; 0 | Plant picture; src/Images/BlackberryDead1.JPG | Last time watered; 2024-05-24 09:35:55.196 | Timestamp; 2024-05-24 09:47:37.749 | Death time; 2024-05-24 09:48:23.823
+Plant art; BLACKBERRY | Plant name; Blackberry8 | Plant level; 1 | Times watered; 0 | Number of lives; 0 | Plant picture; src/Images/BlackberryDead1.JPG | Last time watered; 2024-05-24 09:35:55.196 | Timestamp; 2024-05-27 18:37:46.178 | Death time; 0000-00-00 00:00:00.000
