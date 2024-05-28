@@ -26,7 +26,8 @@ public class Sunflower extends Plant {
     }
 
 
-    private void updateImage() {
+    @Override
+    public void updateImage() {
         if (controller.night) {
             switch (getPlantLevel()) {
                 case 0:
@@ -66,7 +67,9 @@ public class Sunflower extends Plant {
         }
     }
 
-        private void updateDeathImage () {
+
+        @Override
+        public void updateDeathImage () {
             if (controller.night) {
                 if (getNbrOfLives() == 0 && getPlantLevel() == 1) {
                     setPlantPicture(new ImageIcon("src/Images/Night_Sun_Dead1.JPG"));

@@ -90,21 +90,8 @@ public class Controller {
      * @author annagranberg
      */
     public void addNewRose() {
-        int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
-        String newName;
-        if (response == JOptionPane.YES_OPTION) {
-            newName = JOptionPane.showInputDialog("Please enter the new plant name:");
-            if (newName == null || newName.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Invalid input. You will get a random name instead, but it can be changed later :)");
-                Random random = new Random();
-                newName = "Rose" + random.nextInt(11);
-            }
-        } else {
-            Random random = new Random();
-            newName = "Rose" + random.nextInt(11);
-        }
-
-        ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
+        String newName = promptForPlantName("Rose");
+        ImageIcon plantImage = new ImageIcon(night ? "src/Images/Night_Empty.JPG" : "src/Images/PotArt1.JPG");
         Rose newRose = new Rose(this, newName, PlantArt.ROSE, 3, 0, plantImage, 0, null);
         plantList.add(newRose);
         view.getMainPanel().updateButtons(getPlantImagePaths());
@@ -112,26 +99,11 @@ public class Controller {
 
     /**
      * Adds a new sunflower plant to the list of plants.
-     * Generates a random name for the plant if plant name is null
-     *
-     * @author annagranberg
+     * Generates a random name for the plant if plant name is null.
      */
     public void addNewSunflower() {
-        int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
-        String newName;
-        if (response == JOptionPane.YES_OPTION) {
-            newName = JOptionPane.showInputDialog("Please enter the new plant name:");
-            if (newName == null || newName.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Invalid input. You will get a random name instead, but it can be changed later :)");
-                Random random = new Random();
-                newName = "Sunflower" + random.nextInt(11);
-            }
-        } else {
-            Random random = new Random();
-            newName = "Sunflower" + random.nextInt(11);
-        }
-
-        ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
+        String newName = promptForPlantName("Sunflower");
+        ImageIcon plantImage = new ImageIcon(night ? "src/Images/Night_Empty.JPG" : "src/Images/PotArt1.JPG");
         Sunflower newSunflower = new Sunflower(this, newName, PlantArt.SUNFLOWER, 3, 0, plantImage, 0, null);
         plantList.add(newSunflower);
         view.getMainPanel().updateButtons(getPlantImagePaths());
@@ -139,78 +111,35 @@ public class Controller {
 
     /**
      * Adds a new tomato plant to the list of plants.
-     * Generates a random name for the plant if plant name is null
-     *
-     * @author annagranberg
+     * Generates a random name for the plant if plant name is null.
      */
     public void addNewTomatoPlant() {
-        int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
-        String newName;
-        if (response == JOptionPane.YES_OPTION) {
-            newName = JOptionPane.showInputDialog("Please enter the new plant name:");
-            if (newName == null || newName.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Invalid input. You will get a random name instead, but it can be changed later :)");
-                Random random = new Random();
-                newName = "TomatoPlant" + random.nextInt(11);
-            }
-        } else {
-            Random random = new Random();
-            newName = "TomatoPlant" + random.nextInt(11);
-        }
-        ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        TomatoPlant newTomatoPlant = new TomatoPlant(this,newName, PlantArt.TOMATO_PLANT, 3, 0, plantImage, 0, null);
+        String newName = promptForPlantName("TomatoPlant");
+        ImageIcon plantImage = new ImageIcon(night ? "src/Images/Night_Empty.JPG" : "src/Images/PotArt1.JPG");
+        TomatoPlant newTomatoPlant = new TomatoPlant(this, newName, PlantArt.TOMATO_PLANT, 3, 0, plantImage, 0, null);
         plantList.add(newTomatoPlant);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
 
     /**
      * Adds a new blackberry plant to the list of plants.
-     * Generates a random name for the plant if plant name is null
-     *
-     * @author annagranberg
+     * Generates a random name for the plant if plant name is null.
      */
     public void addNewBlackberry() {
-        int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
-        String newName;
-        if (response == JOptionPane.YES_OPTION) {
-            newName = JOptionPane.showInputDialog("Please enter the new plant name:");
-            if (newName == null || newName.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Invalid input. You will get a random name instead, but it can be changed later :)");
-                Random random = new Random();
-                newName = "Blackberry" + random.nextInt(11);
-            }
-        } else {
-            Random random = new Random();
-            newName = "Blackberry" + random.nextInt(11);
-        }
-        ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        Blackberry newBlackberry = new Blackberry(this,newName, PlantArt.BLACKBERRY, 3, 0, plantImage, 0, null);
+        String newName = promptForPlantName("Blackberry");
+        ImageIcon plantImage = new ImageIcon(night ? "src/Images/Night_Empty.JPG" : "src/Images/PotArt1.JPG");
+        Blackberry newBlackberry = new Blackberry(this, newName, PlantArt.BLACKBERRY, 3, 0, plantImage, 0, null);
         plantList.add(newBlackberry);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
 
     /**
      * Adds a new mini tree plant to the list of plants.
-     * Generates a random name for the plant if plant name is null
-     *
-     * @author annagranberg
+     * Generates a random name for the plant if plant name is null.
      */
     public void addNewMiniTree() {
-        int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
-        String newName;
-        if (response == JOptionPane.YES_OPTION) {
-            newName = JOptionPane.showInputDialog("Please enter the new plant name:");
-            if (newName == null || newName.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Invalid input. You will get a random name instead, but it can be changed later :)");
-                Random random = new Random();
-                newName = "Minitree" + random.nextInt(11);
-            }
-        } else {
-            Random random = new Random();
-            newName = "Minitree" + random.nextInt(11);
-        }
-
-        ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
+        String newName = promptForPlantName("MiniTree");
+        ImageIcon plantImage = new ImageIcon(night ? "src/Images/Night_Empty.JPG" : "src/Images/PotArt1.JPG");
         MiniTree newMiniTree = new MiniTree(this, newName, PlantArt.MINI_TREE, 3, 0, plantImage, 0, null);
         plantList.add(newMiniTree);
         view.getMainPanel().updateButtons(getPlantImagePaths());
@@ -218,11 +147,24 @@ public class Controller {
 
     /**
      * Adds a new cactus plant to the list of plants.
-     * Generates a random name for the plant if plant name is null
-     *
-     * @author annagranberg
+     * Generates a random name for the plant if plant name is null.
      */
     public void addNewCactus() {
+        String newName = promptForPlantName("Cactus");
+        ImageIcon plantImage = new ImageIcon(night ? "src/Images/Night_Empty.JPG" : "src/Images/PotArt1.JPG");
+        Cactus newCactus = new Cactus(this, newName, PlantArt.CACTUS, 3, 0, plantImage, 0, null);
+        plantList.add(newCactus);
+        view.getMainPanel().updateButtons(getPlantImagePaths());
+    }
+
+    /**
+     * Prompts the user to enter a plant name. If the user chooses not to enter a name,
+     * or enters an invalid name, a random name is generated.
+     *
+     * @param plantType The type of plant (e.g., "Rose", "Sunflower").
+     * @return The entered or randomly generated plant name.
+     */
+    private String promptForPlantName(String plantType) {
         int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
         String newName;
         if (response == JOptionPane.YES_OPTION) {
@@ -230,17 +172,15 @@ public class Controller {
             if (newName == null || newName.trim().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Invalid input. You will get a random name instead, but it can be changed later :)");
                 Random random = new Random();
-                newName = "Cactus" + random.nextInt(11);
+                newName = plantType + random.nextInt(11);
             }
         } else {
             Random random = new Random();
-            newName = "Cactus" + random.nextInt(11);
+            newName = plantType + random.nextInt(11);
         }
-        ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        Cactus newCactus = new Cactus(this, newName, PlantArt.CACTUS, 3, 0, plantImage, 0, null);
-        plantList.add(newCactus);
-        view.getMainPanel().updateButtons(getPlantImagePaths());
+        return newName;
     }
+
 
     /**
      * Handles button presses in the application.
@@ -256,11 +196,12 @@ public class Controller {
                         JOptionPane.showMessageDialog(null, "Please select a plant to water.", "No Plant Selected", JOptionPane.INFORMATION_MESSAGE);
                         return;
                     }
-                    if (currentPlant.getPlantPicture().toString().endsWith("PotArt1.JPG")) {
+                    if (currentPlant.getPlantPicture().toString().endsWith("PotArt1.JPG") || currentPlant.getPlantPicture().toString().endsWith("Night_Empty.JPG")) {
                         deathTimer(currentPlant);
                         pauseDeathTimer();
                         System.out.println("PotArt1 triggered");
                     }
+
                     currentPlant = plantList.get(currentPlantIndex);
                     currentPlant.waterPlant();
                     currentPlant.startNewTimer();
@@ -285,7 +226,27 @@ public class Controller {
                         view.getGardenPanel().nightGarden();
                         view.getMainPanel().nightMain();
                         view.getSouthPanel().nightSouth();
+
                         night = true;
+
+                        for (Plant p : plantList) {
+                            p.updateImage();
+                            p.updateDeathImage();
+                        }
+                            currentPlant = plantList.get(currentPlantIndex);
+                        ImageIcon updatedImage = currentPlant.getPlantPicture();
+                        view.getCenterPanel().updatePlantImage(updatedImage);
+                        view.getMainPanel().updateButtons(getPlantImagePaths());
+                        view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
+                        view.getGardenPanel().updateButtons(getPlantImagePaths());
+
+
+                        currentPlant.updateImage();
+                        currentPlant.updateDeathImage();
+                        view.getCenterPanel().repaint();
+
+                        night = true;
+
                     } else {
                         view.getEastPanel().sunButton();
                         view.getEastPanel().dayColors();
@@ -293,6 +254,25 @@ public class Controller {
                         view.getGardenPanel().dayGarden();
                         view.getMainPanel().dayMain();
                         view.getSouthPanel().daySouth();
+
+                        night = false;
+
+                        for (Plant p : plantList) {
+                            p.updateImage();
+                            p.updateDeathImage();
+                        }
+
+                        currentPlant = plantList.get(currentPlantIndex);
+                        ImageIcon updatedImage = currentPlant.getPlantPicture();
+                        view.getCenterPanel().updatePlantImage(updatedImage);
+                        view.getMainPanel().updateButtons(getPlantImagePaths());
+                        view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
+                        view.getGardenPanel().updateButtons(getPlantImagePaths());
+
+                        currentPlant.updateImage();
+                        currentPlant.updateDeathImage();
+                        view.getCenterPanel().repaint();
+
                         night = false;
                     }
                     break;
@@ -494,7 +474,7 @@ public class Controller {
 
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-                Duration wateringInterval = Duration.ofHours(2); // 10 seconds
+                Duration wateringInterval = Duration.ofSeconds(5); // 10 seconds
 
                 // Calculate the time left until the next watering in seconds
                 long timeUntilNextWateringSeconds = wateringInterval.minus(timeSinceLastWatered).getSeconds();

@@ -18,8 +18,11 @@ public class Blackberry extends Plant{
      * @param lastWatered
      * @author Cyrus Shaerpour
      */
+
+    private Controller controller;
     public Blackberry(Controller controller, String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
         super(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+        this.controller = controller;
     }
 
     @Override
@@ -36,27 +39,58 @@ public class Blackberry extends Plant{
         System.out.println(getPlantPicture());
     }
 
-    private void updateImage() {
-        switch (getPlantLevel()) {
-            case 0:
-                setPlantPicture(new ImageIcon("src/Images/PotArt1.JPG"));
-                break;
-            case 1:
-                setPlantPicture(new ImageIcon("src/Images/Blackberry1.JPG"));
-                break;
-            case 2:
-                setPlantPicture(new ImageIcon("src/Images/Blackberry2.JPG"));
-                break;
-            case 3:
-                setPlantPicture(new ImageIcon("src/Images/Blackberry3.JPG"));
-                break;
-            default:
-                // Handle any other cases or provide a default image
-                break;
+    @Override
+    public void updateImage() {
+        if (controller.night) {
+            switch (getPlantLevel()) {
+                case 0:
+                    setPlantPicture(new ImageIcon("src/Images/Night_Empty.JPG"));
+                    break;
+                case 1:
+                    setPlantPicture(new ImageIcon("src/Images/Night_BB1.JPG"));
+                    break;
+                case 2:
+                    setPlantPicture(new ImageIcon("src/Images/Night_BB2.JPG"));
+                    break;
+                case 3:
+                    setPlantPicture(new ImageIcon("src/Images/Night_BB3.JPG"));
+                    break;
+                default:
+                    // Handle any other cases or provide a default image
+                    break;
+            }
+        } else {
+            switch (getPlantLevel()) {
+                case 0:
+                    setPlantPicture(new ImageIcon("src/Images/PotArt1.JPG"));
+                    break;
+                case 1:
+                    setPlantPicture(new ImageIcon("src/Images/Blackberry1.JPG"));
+                    break;
+                case 2:
+                    setPlantPicture(new ImageIcon("src/Images/Blackberry2.JPG"));
+                    break;
+                case 3:
+                    setPlantPicture(new ImageIcon("src/Images/Blackberry3.JPG"));
+                    break;
+                default:
+                    // Handle any other cases or provide a default image
+                    break;
+            }
         }
     }
 
-    private void updateDeathImage() {
+    @Override
+    public void updateDeathImage() {
+        if (controller.night) {
+            if (getNbrOfLives() == 0 && getPlantLevel() == 1) {
+                setPlantPicture(new ImageIcon("src/Images/Night_BB_Dead1.JPG"));
+            } else if (getNbrOfLives() == 0 && getPlantLevel() == 2) {
+                setPlantPicture(new ImageIcon("src/Images/Night_BB_Dead2.JPG"));
+            } else if (getNbrOfLives() == 0 && getPlantLevel() == 3) {
+                setPlantPicture(new ImageIcon("src/Images/Night_BBD_ead3.JPG"));
+            }
+        } else
         if (getNbrOfLives() == 0 && getPlantLevel() == 1) {
             setPlantPicture(new ImageIcon("src/Images/BlackberryDead1.JPG"));
         } else if (getNbrOfLives() == 0 && getPlantLevel() == 2) {

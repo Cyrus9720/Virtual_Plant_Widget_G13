@@ -52,7 +52,7 @@ public abstract class Plant {
      * @return The calculated death time for the plant.
      */
     public LocalDateTime calculateDeathTime(LocalDateTime lastWatered) {
-        return lastWatered != null ? lastWatered.plusSeconds(10) : LocalDateTime.now().plusHours(5);
+        return lastWatered != null ? lastWatered.plusSeconds(10) : LocalDateTime.now().plusSeconds(5);
     }
 
     public void setDeathTime(LocalDateTime deathTime) {
@@ -116,11 +116,11 @@ public abstract class Plant {
             decreaseLife();
             if (nbrOfLives > 0) {
                 // Ställ in en ny dödstid om 30 minuter som exempel
-                deathTime = now.plusMinutes(30);
+                deathTime = now.plusSeconds(5);
                 setDeathTime(deathTime);
                 System.out.println("New death time set: " + deathTime + " // plant");
             } else if (deathTime != null) {
-                deathTime = now.plusMinutes(30);
+                deathTime = now.plusSeconds(5);
                 setDeathTime(deathTime);
                 System.out.println("New death time is set to " + deathTime + " // plant");
             } else if (deathTime == null) {
@@ -258,6 +258,13 @@ public abstract class Plant {
         return name;
     }
 
+    public void updateImage() {
+        System.out.println("hehehehej");
+        System.out.println(plantPicture);
+    }
+
+    public void updateDeathImage() {
+    }
 
     /**
      * toString method

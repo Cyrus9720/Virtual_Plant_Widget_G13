@@ -1,2 +1,5 @@
 Plant name: Minitree3 | Plant art: MINI_TREE | Plant level: 3 | Plant Picture: src/Images/MiniTree3.JPG
 Plant name: Minitree5 | Plant art: MINI_TREE | Plant level: 1 | Plant Picture: src/Images/MiniTree1.JPG
+Plant name: TomatoPlant2 | Plant art: TOMATO_PLANT | Plant level: 1 | Plant Picture: src/Images/Tomatoe1.JPG
+Plant name: Sunflower0 | Plant art: SUNFLOWER | Plant level: 1 | Plant Picture: src/Images/Night_Sun1.JPG
+Plant name: Blackberry5 | Plant art: BLACKBERRY | Plant level: 0 | Plant Picture: src/Images/Night_Empty.JPG
