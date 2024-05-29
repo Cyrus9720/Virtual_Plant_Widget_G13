@@ -31,3 +31,10 @@ Plant name: Rose0 | Plant art: ROSE | Plant level: 1 | Plant Picture: src/Images
 Plant name: Cactus5 | Plant art: CACTUS | Plant level: 1 | Plant Picture: src/Images/Cactus1.JPG
 Plant name: Sunflower2 | Plant art: SUNFLOWER | Plant level: 1 | Plant Picture: src/Images/Sunflower1.JPG
 Plant name: Minitree7 | Plant art: MINI_TREE | Plant level: 1 | Plant Picture: src/Images/MiniTree1.JPG
+Plant name: TomatoPlant1 | Plant art: TOMATO_PLANT | Plant level: 2 | Plant Picture: src/Images/Tomatoe2.JPG
+Plant name: Sunny | Plant art: SUNFLOWER | Plant level: 3 | Plant Picture: src/Images/Sunflower3.JPG
+Plant name: Rose6 | Plant art: ROSE | Plant level: 3 | Plant Picture: src/Images/RoseArt3.JPG
+Plant name: Sunflower6 | Plant art: SUNFLOWER | Plant level: 2 | Plant Picture: src/Images/Sunflower2.JPG
+Plant name: Minitree5 | Plant art: MINI_TREE | Plant level: 2 | Plant Picture: src/Images/MiniTree2.JPG
+Plant name: sunny | Plant art: SUNFLOWER | Plant level: 3 | Plant Picture: src/Images/Sunflower3.JPG
+Plant name: rose | Plant art: ROSE | Plant level: 2 | Plant Picture: src/Images/RoseArt2.JPG

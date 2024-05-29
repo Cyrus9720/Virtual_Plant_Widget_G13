@@ -1,1 +1,3 @@
-Plant art; CACTUS | Plant name; Cactus0 | Plant level; 1 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/Cactus1.JPG | Last time watered; 2024-05-21 15:19:35.048 | Timestamp; 2024-05-21 15:19:38.165
+Plant art; CACTUS | Plant name; Filip | Plant level; 4 | Times watered; 2 | Number of lives; 3 | Plant picture; src/Images/Cactus3.JPG | Last time watered; 2024-05-29 12:49:18.097 | Timestamp; 2024-05-29 13:15:26.410
+Plant art; SUNFLOWER | Plant name; Sunney | Plant level; 2 | Times watered; 2 | Number of lives; 3 | Plant picture; src/Images/Sunflower2.JPG | Last time watered; 2024-05-29 12:42:03.922 | Timestamp; 2024-05-29 13:15:26.410
+Plant art; ROSE | Plant name; rose | Plant level; 2 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/RoseArt2.JPG | Last time watered; 2024-05-29 12:42:48.159 | Timestamp; 2024-05-29 13:15:26.410
