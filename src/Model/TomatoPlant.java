@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 
 public class TomatoPlant extends Plant{
 
-    public TomatoPlant(Controller controller, String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered ) {
-        super(controller, name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered);
+    public TomatoPlant(Controller controller, String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered, LocalDateTime deathTime ) {
+        super(controller, name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered, deathTime);
     }
 
     @Override

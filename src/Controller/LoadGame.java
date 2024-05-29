@@ -62,27 +62,27 @@ public class LoadGame {
                 // Create new plants based on the plantArt
                 switch (plantArt) {
                     case ROSE:
-                        plant = new Rose(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        plant = new Rose(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
                         //plant.setDeathTime(plant.calculateDeathTime(lastWatered));
                         break;
                     case SUNFLOWER:
-                        plant = new Sunflower(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        plant = new Sunflower(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
                         //plant.setDeathTime(plant.calculateDeathTime(lastWatered));
                         break;
                     case TOMATO_PLANT:
-                        plant = new TomatoPlant(controller,name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        plant = new TomatoPlant(controller,name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
                         //plant.setDeathTime(plant.calculateDeathTime(lastWatered));
                         break;
                     case BLACKBERRY:
-                        plant = new Blackberry(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        plant = new Blackberry(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
                         //plant.setDeathTime(plant.calculateDeathTime(lastWatered));
                         break;
                     case CACTUS:
-                        plant = new Cactus(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        plant = new Cactus(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
                         //plant.setDeathTime(plant.calculateDeathTime(lastWatered));
                         break;
                     case MINI_TREE:
-                        plant = new MiniTree(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        plant = new MiniTree(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
                         //plant.setDeathTime(plant.calculateDeathTime(lastWatered));
                         break;
                     default:

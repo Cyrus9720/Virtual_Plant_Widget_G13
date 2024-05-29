@@ -24,6 +24,7 @@ public class SaveGame {
      */
     public void saveGame(ArrayList<Plant> plantList, Controller controller) {
         LocalDateTime timestamp = LocalDateTime.now();
+        LocalDateTime timeUntilDeath = controller.getTimeUntilDeath();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("game_save.txt"))) {
@@ -32,7 +33,7 @@ public class SaveGame {
 
                 // Add the formatted timestamp to the end of the line
                 data += " | Closed game; " + timestamp.format(formatter);
-                data += " | Death time; " + getFormattedDeathTimer(controller.getRemainingTime());
+                data += " | Death time; " + timeUntilDeath.format(formatter);
 
                 writer.write(data);
                 writer.newLine();
@@ -53,7 +54,7 @@ public class SaveGame {
 
     public String getFormattedDeathTimer(Duration remainingTime) {
         if (remainingTime == null) {
-            return "2024-01-01 00:00:00.000"; // or any other default value you prefer
+            return null; // or any other default value you prefer
         } else{
             // Calculate the end time based on the remaining time from the current time
             LocalDateTime endTime = LocalDateTime.now().plus(remainingTime);

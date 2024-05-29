@@ -9,6 +9,8 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 /**
  * The EastPanel class represents the panel containing plant care controls on the east side of the user interface.
@@ -145,22 +147,8 @@ public class EastPanel extends JPanel {
         deathTimer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Update watering time
-                if (controller.getTimeUntilNextWatering() == 0) {
-                    Water.setEnabled(true);
-                }
-                updateTimeUntilLabelWatering();
-
-                // Update death time
-                if (controller.getPlantList() != null && controller.getCurrentPlant() != null) {
-                    long remainingTime = controller.getRemainingDeathTimerMilliseconds(controller.getCurrentPlant());
-                    if (remainingTime > 0) {
-                        updateTimeUntilDeath(remainingTime);
-                    }
-                }
-
-                repaint();
-                revalidate();
+                LocalDateTime timeUntilDeath = controller.getTimeUntilDeath();
+                updateTimeUntilDeath(timeUntilDeath);
             }
         });
         deathTimer.start();
@@ -345,27 +333,29 @@ public class EastPanel extends JPanel {
         }
     }
 
-    public void updateTimeUntilDeath(Long remainingTime) {
+    public void updateTimeUntilDeath(LocalDateTime timeUntilDeath) {
         if (controller.getPlantList() == null || controller.getCurrentPlant() == null) {
             timeUntilDeathLabel.setText(" ");
         } else {
+            // Calculate the difference between the current time and the given timeUntilDeath
+            LocalDateTime now = LocalDateTime.now();
+            long timeDifferenceMillis = ChronoUnit.MILLIS.between(now, timeUntilDeath);
+
             // Check if the time is negative and set it to 0 if it is
-            if (remainingTime < 0) {
-                remainingTime = Long.valueOf(0);
+            if (timeDifferenceMillis < 0) {
+                timeDifferenceMillis = 0;
             }
 
             // Convert milliseconds to hours, minutes, and seconds
-            long seconds = remainingTime / 1000; // Convert milliseconds to seconds
+            long seconds = timeDifferenceMillis / 1000; // Convert milliseconds to seconds
             long hours = seconds / 3600;
             long minutes = (seconds % 3600) / 60;
             seconds = seconds % 60;
 
             String formattedTime = String.format("%02d h %02d m %02d s", hours, minutes, seconds);
 
-            // Update the label on the Event Dispatch Thread
-            SwingUtilities.invokeLater(() -> {
-                timeUntilDeathLabel.setText("<html><div style='text-align: center; font-size: 9px;'>Time until life lost:<br>" + formattedTime + "</div></html>");
-            });
+            timeUntilDeathLabel.setText("<html><div style='text-align: center; font-size: 9px;'>Time until life lost:<br>" + formattedTime + "</div></html>");
+
         }
     }
 
