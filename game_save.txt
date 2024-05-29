@@ -1,0 +1,1 @@
+Plant art; BLACKBERRY | Plant name; Blackberries | Plant level; 1 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/Blackberry1.JPG | Last time watered; 2024-05-29 13:27:30.478 | Closed game; 2024-05-29 13:37:38.563 | Death time; 2024-01-01 00:00:00.000

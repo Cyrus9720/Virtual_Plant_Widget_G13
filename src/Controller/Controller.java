@@ -466,7 +466,7 @@ public class Controller {
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
 
-                Duration wateringInterval = Duration.ofHours(2);
+                Duration wateringInterval = Duration.ofSeconds(5);
 
                 if (timeSinceLastWatered.compareTo(wateringInterval) >= 0) {
                     System.out.println("Current plant needs to be watered");
@@ -494,7 +494,7 @@ public class Controller {
 
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
-                Duration wateringInterval = Duration.ofHours(2); // 10 seconds
+                Duration wateringInterval = Duration.ofSeconds(5); // 10 seconds
 
                 // Calculate the time left until the next watering in seconds
                 long timeUntilNextWateringSeconds = wateringInterval.minus(timeSinceLastWatered).getSeconds();
@@ -670,12 +670,16 @@ public class Controller {
          * @author Anna Granberg
          */
         public void changePlantName () {
-            String newName = JOptionPane.showInputDialog("Please enter the new plant name: ");
-            if (newName != null && !newName.trim().isEmpty()) {
-                currentPlant.setName(newName);
-                view.getCenterPanel().updatePlantName(currentPlant.getPlantName());
-            } else {
-                JOptionPane.showMessageDialog(null, "Invalid input. Name not changed.");
+            if(isChosen){
+                String newName = JOptionPane.showInputDialog("Please enter the new plant name: ");
+                if (newName != null && !newName.trim().isEmpty()) {
+                    currentPlant.setName(newName);
+                    view.getCenterPanel().updatePlantName(currentPlant.getPlantName());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid input. Name not changed.");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "You must choose a plant to change the name!");
             }
         }
 
@@ -738,36 +742,40 @@ public class Controller {
                 javax.swing.UIManager.put("OptionPane.background", new Color(225, 240, 218));
                 javax.swing.UIManager.put("Panel.background", new Color(225, 240, 218));
 
-                // Visa bekräftelsedialogrutan
-                int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this plant?", "Confirmation", JOptionPane.YES_NO_OPTION);
-
-                // Loopa genom listan för att hitta rätt växt genom växtnamn
-                if (confirm == JOptionPane.YES_OPTION) {
+                if(isChosen){
+                    // Visa bekräftelsedialogrutan
+                    int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this plant?", "Confirmation", JOptionPane.YES_NO_OPTION);
                     boolean found = false;
-                    ArrayList<Plant> deadPlants = new ArrayList<>();
-                    for (int i = 0; i < plantList.size(); i++) {
-                        currentPlant = plantList.get(i);
-                        if (currentPlant.getPlantName().equals(plantName)) {
-                            // ta bort plantan från listan
-                            plantList.remove(i);
-                            System.out.println("Växten med namnet \"" + plantName + "\" har tagits bort från listan.");
-                            found = true;
-                            view.getCenterPanel().clearCenterPanel();
-                            view.getSouthPanel().clearSouthPanel();
-                            view.getMainPanel().updateButtons(getPlantImagePaths());
-                            deadPlants.add(currentPlant);
-                            GameHistoryWriter.GameHistoryWriter(deadPlants);
-                            break;
+                    // Loopa genom listan för att hitta rätt växt genom växtnamn
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        ArrayList<Plant> deadPlants = new ArrayList<>();
+                        for (int i = 0; i < plantList.size(); i++) {
+                            currentPlant = plantList.get(i);
+                            if (currentPlant.getPlantName().equals(plantName)) {
+                                // ta bort plantan från listan
+                                plantList.remove(i);
+                                System.out.println("Växten med namnet \"" + plantName + "\" har tagits bort från listan.");
+                                found = true;
+                                view.getCenterPanel().clearCenterPanel();
+                                view.getSouthPanel().clearSouthPanel();
+                                view.getMainPanel().updateButtons(getPlantImagePaths());
+                                deadPlants.add(currentPlant);
+                                GameHistoryWriter.GameHistoryWriter(deadPlants);
+                                setIsChosen(false);
+                                break;
+                            }
                         }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "You have no plants to remove", ":(", JOptionPane.INFORMATION_MESSAGE);
                     }
 
-                    //ifall namnet inte kan hittas
                     if (!found) {
                         System.err.println("Det finns ingen växt med namnet \"" + plantName + "\" i listan.");
                     }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "You must choose a plant to remove it.");
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "You have no plants to remove", ":(", JOptionPane.INFORMATION_MESSAGE);
             }
         }
 

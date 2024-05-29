@@ -40,7 +40,7 @@ public abstract class Plant {
         this.plantPicture = plantPicture;
         this.plantLevel = plantLevel;
         this.lastWatered = lastWatered;
-        this.deathTime = calculateDeathTime(lastWatered); // Initialize deathTime based on lastWatered
+       // this.deathTime = calculateDeathTime(lastWatered); // Initialize deathTime based on lastWatered
     }
 
     /**
