@@ -81,8 +81,10 @@ public class GardenPanel extends JPanel {
         // Set initial foreground color based on the current mode
         if (controller.night) {
             addPlantButton.setForeground(Color.WHITE);
+            addPlantButton.setBackground(new Color(13, 12, 29));
         } else {
             addPlantButton.setForeground(Color.BLACK);
+            addPlantButton.setBackground(new Color(153, 188, 133));
         }
 
         addPlantButton.addActionListener(new ActionListener() {
@@ -107,6 +109,7 @@ public class GardenPanel extends JPanel {
         border = BorderFactory.createLineBorder(Color.WHITE);
         titledBorder.setTitleColor(Color.WHITE);
         // Iterate through the list and update each button's color
+        System.out.println(plantButtons.size());
         for (JButton button : plantButtons) {
             button.setForeground(Color.WHITE);
         }
@@ -118,6 +121,7 @@ public class GardenPanel extends JPanel {
         border = BorderFactory.createLineBorder(Color.BLACK);
         titledBorder.setTitleColor(Color.BLACK);
         // Iterate through the list and update each button's color
+
         for (JButton button : plantButtons) {
             button.setForeground(Color.BLACK);
         }

@@ -23,6 +23,7 @@ public class MainPanel extends JPanel
     private EastPanel eastPanel;
     private SouthPanel southPanel;
     private GardenPanel gardenPanel;
+    private GameRuleFrame gameRuleFrame;
     /**
      * Constructs a new MainPanel with the specified controller, width, and height.
      *
@@ -53,6 +54,8 @@ public class MainPanel extends JPanel
         gardenPanel = new GardenPanel(controller.getPlantImagePaths(), controller);
         add(gardenPanel, BorderLayout.WEST);
         setVisible(true);
+
+        //gameRuleFrame = new GameRuleFrame();
 
         JLabel plantInfoLabel = new JLabel("Plant information");
     }
@@ -105,6 +108,10 @@ public class MainPanel extends JPanel
         return gardenPanel;
     }
 
+    public GameRuleFrame getGameRuleFrame() {
+        return gameRuleFrame;
+    }
+
     /**
      * Sets the background color of the main panel to a night theme.
      * @author Cyrus Shaerpour
@@ -118,6 +125,6 @@ public class MainPanel extends JPanel
      * @author Cyrus Shaerpour
      */
     public void dayMain() {
-        setBackground(new Color(225, 240, 218));
+        setBackground(new Color(153, 188, 133));
     }
 }

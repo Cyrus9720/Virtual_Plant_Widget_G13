@@ -160,4 +160,8 @@ public class MainFrame extends JFrame {
     public GardenPanel getGardenPanel(){
         return mainPanel.getGardenPanel();
     }
+
+    public GameRuleFrame getGameRuleFrame() {
+        return mainPanel.getGameRuleFrame();
+    }
 }

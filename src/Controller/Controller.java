@@ -226,6 +226,7 @@ public class Controller {
                         view.getGardenPanel().nightGarden();
                         view.getMainPanel().nightMain();
                         view.getSouthPanel().nightSouth();
+                        //view.getGameRuleFrame().nightRules();
 
                         night = true;
 
@@ -254,6 +255,7 @@ public class Controller {
                         view.getGardenPanel().dayGarden();
                         view.getMainPanel().dayMain();
                         view.getSouthPanel().daySouth();
+                        //view.getGameRuleFrame().dayRules();
 
                         night = false;
 

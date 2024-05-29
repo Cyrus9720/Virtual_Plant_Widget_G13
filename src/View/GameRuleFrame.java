@@ -82,4 +82,12 @@ public class GameRuleFrame extends JFrame {
         // Bring the frame to the front
         toFront();
     }
+
+    public void nightRules() {
+        getContentPane().setBackground(new Color(47, 49, 73));
+    }
+
+    public void dayRules() {
+        getContentPane().setBackground(new Color(225, 240, 218));
+    }
 }
