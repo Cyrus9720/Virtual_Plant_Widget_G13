@@ -52,7 +52,11 @@ public abstract class Plant {
      * @return The calculated death time for the plant.
      */
     public LocalDateTime calculateDeathTime(LocalDateTime lastWatered) {
-        return lastWatered != null ? lastWatered.plusSeconds(10) : LocalDateTime.now().plusHours(5);
+        if(getDeathTime().isAfter(LocalDateTime.now())) {
+            return lastWatered != null ? lastWatered.plusSeconds(1) : LocalDateTime.now().plusMinutes(5);
+        }else {
+            return getDeathTime();
+        }
     }
 
     public void setDeathTime(LocalDateTime deathTime) {
