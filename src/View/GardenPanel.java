@@ -102,6 +102,11 @@ public class GardenPanel extends JPanel {
         add(addPlantButton);
     }
 
+    /**
+     * Sets the garden panel to night mode.
+     * Changes the background color and the add plant button color.
+     * @author Cyrus Shaerpour
+     */
 
     public void nightGarden() {
         setBackground(new Color(47, 49, 73));
@@ -115,6 +120,11 @@ public class GardenPanel extends JPanel {
         }
     }
 
+    /**
+     * Sets the garden panel to day mode.
+     * Changes the background color and the add plant button color.
+     * @author Cyrus Shaerpour
+     */
     public void dayGarden() {
         setBackground(new Color(225, 240, 218));
         addPlantButton.setBackground(new Color(153, 188, 133));

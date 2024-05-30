@@ -49,6 +49,7 @@ public class Controller {
      * Switches the current plant to the one with the specified ID.
      *
      * @param id The ID of the plant to switch to.
+     * @author Cyrus Shaerpour
      */
     public void switchPlant(String id) {
         int plantIndex = Integer.parseInt(id);
@@ -82,7 +83,7 @@ public class Controller {
      * Adds a new rose plant to the list of plants.
      * Generates a random name for the plant if plant name is null
      *
-     * @author annagranberg
+     * @author annagranberg & Cyrus Shaerpour
      */
     public void addNewRose() {
         String newName = promptForPlantName("Rose");
@@ -96,6 +97,7 @@ public class Controller {
     /**
      * Adds a new sunflower plant to the list of plants.
      * Generates a random name for the plant if plant name is null.
+     * @auhor annagranberg & Cyrus Shaerpour
      */
     public void addNewSunflower() {
         String newName = promptForPlantName("Sunflower");
@@ -109,6 +111,7 @@ public class Controller {
     /**
      * Adds a new tomato plant to the list of plants.
      * Generates a random name for the plant if plant name is null.
+     * @auhor annagranberg & Cyrus Shaerpour
      */
     public void addNewTomatoPlant() {
         String newName = promptForPlantName("TomatoPlant");
@@ -122,6 +125,7 @@ public class Controller {
     /**
      * Adds a new blackberry plant to the list of plants.
      * Generates a random name for the plant if plant name is null.
+     * @auhor annagranberg & Cyrus Shaerpour
      */
     public void addNewBlackberry() {
         String newName = promptForPlantName("Blackberry");
@@ -135,6 +139,7 @@ public class Controller {
     /**
      * Adds a new mini tree plant to the list of plants.
      * Generates a random name for the plant if plant name is null.
+     * @auhor annagranberg & Cyrus Shaerpour
      */
     public void addNewMiniTree() {
         String newName = promptForPlantName("MiniTree");
@@ -148,6 +153,7 @@ public class Controller {
     /**
      * Adds a new cactus plant to the list of plants.
      * Generates a random name for the plant if plant name is null.
+     * @auhor annagranberg & Cyrus Shaerpour
      */
     public void addNewCactus() {
         String newName = promptForPlantName("Cactus");
@@ -164,6 +170,7 @@ public class Controller {
      *
      * @param plantType The type of plant (e.g., "Rose", "Sunflower").
      * @return The entered or randomly generated plant name.
+     * @auhor annagranberg & Cyrus Shaerpour
      */
     private String promptForPlantName(String plantType) {
         int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
@@ -185,8 +192,9 @@ public class Controller {
 
     /**
      * Handles button presses in the application.
-     *
+     * Waters the plant and handles calls to change the gui to night mode.
      * @param button The type of button pressed.
+     *
      * @author Cyrus och Roa
      */
     public void buttonPressed(ButtonType button) {
@@ -380,6 +388,7 @@ public class Controller {
      * Retrieves the number of lives of the first plant in the plant list.
      *
      * @return The number of lives of the first plant, or 0 if the plant list is empty or the first plant is null.
+     * @author Cyrus Shaerpour
      */
     public int getNbrOfLives() {
 

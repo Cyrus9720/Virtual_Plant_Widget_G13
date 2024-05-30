@@ -104,9 +104,21 @@ public class MainPanel extends JPanel
         return southPanel;
     }
 
+    /**
+     * Retrieves the garden panel.
+     * @return The garden panel.
+     * @author Cyrus Shaerpour
+     */
+
     public GardenPanel getGardenPanel() {
         return gardenPanel;
     }
+
+    /**
+     * Retrieves the game rule frame.
+     * @return The game rule frame.
+     * @author Cyrus Shaerpour
+     */
 
     public GameRuleFrame getGameRuleFrame() {
         return gameRuleFrame;

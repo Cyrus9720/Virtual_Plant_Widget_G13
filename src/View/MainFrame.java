@@ -143,24 +143,50 @@ public class MainFrame extends JFrame {
         GameRuleFrame gameRuleFrame = new GameRuleFrame();
     }
 
-
+    /**
+     * Retrieves the center panel.
+     * @return The center panel.
+     * @author Cyrus Shaerpour
+     */
     public CenterPanel getCenterPanel() {
         return mainPanel.getCenterPanel();
     }
     public EastPanel getEastPanel() {
         return mainPanel.getEastPanel();
     }
+
+    /**
+     * Retrieves the south panel.
+     * @return The south panel.
+     * @author Cyrus Shaerpour
+     */
     public SouthPanel getSouthPanel(){
         return mainPanel.getSouthPanel();
     }
+
+    /**
+     * Retrieves the main panel.
+     * @return The main panel.
+     * @author Cyrus Shaerpour
+     */
     public MainPanel getMainPanel(){
         return mainPanel;
     }
 
+    /**
+     * Retrieves the garden panel.
+     * @return The garden panel.
+     * @author Cyrus Shaerpour
+     */
     public GardenPanel getGardenPanel(){
         return mainPanel.getGardenPanel();
     }
 
+    /**
+     * Retrieves the game rule frame.
+     * @return The game rule frame.
+     * @return Cyrus Shaerpour
+     */
     public GameRuleFrame getGameRuleFrame() {
         return mainPanel.getGameRuleFrame();
     }

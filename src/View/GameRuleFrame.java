@@ -83,9 +83,20 @@ public class GameRuleFrame extends JFrame {
         toFront();
     }
 
+    /**
+     * Sets the rules frame to night mode.
+     * Changes the background color of the frame to a darker color.
+     * @author Cyrus Shaerpour
+     */
     public void nightRules() {
         getContentPane().setBackground(new Color(47, 49, 73));
     }
+
+    /**
+     * Sets the rules frame to day mode.
+     * Changes the background color of the frame to a lighter color.
+     * @author Cyrus Shaerpour
+     */
 
     public void dayRules() {
         getContentPane().setBackground(new Color(225, 240, 218));

@@ -6,26 +6,35 @@ import javax.swing.*;
 import java.time.LocalDateTime;
 
 public class Blackberry extends Plant{
-    /**
-     * Constructor for Plant
-     *
-     * @param name         Name of the plant
-     * @param plantArt     Art of the plant
-     * @param nbrOfLives
-     * @param timesWatered
-     * @param plantPicture Picture of the plant
-     * @param plantLevel   Level of the plant
-     * @param lastWatered
-     * @author Cyrus Shaerpour
-     */
+
 
     private Controller controller;
+
+    /**
+     * Constructor for Blackberry
+     * @param controller
+     * @param name
+     * @param plantArt
+     * @param nbrOfLives
+     * @param timesWatered
+     * @param plantPicture
+     * @param plantLevel
+     * @param lastWatered
+     * @param deathTime
+     * @return void
+     * @author Cyrus Shaerpour
+     */
     public Blackberry(Controller controller, String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered, LocalDateTime deathTime) {
         super(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTime);
         this.controller = controller;
 
     }
 
+    /**
+     * Setting the plant level
+     * @param plantLevel Level of the plant
+     * @author Cyrus Shaerpour
+     */
     @Override
     public void setPlantLevel(int plantLevel) {
         super.setPlantLevel(plantLevel);
@@ -33,6 +42,11 @@ public class Blackberry extends Plant{
         System.out.println(getPlantPicture());
     }
 
+    /**
+     * Setting the number of lives
+     * @param nbrOfLives Number of lives
+     * @author Cyrus Shaerpour
+     */
     @Override
     public void setNbrOfLives(int nbrOfLives) {
         super.setNbrOfLives(nbrOfLives);
@@ -40,6 +54,11 @@ public class Blackberry extends Plant{
         System.out.println(getPlantPicture());
     }
 
+    /**
+     * Update the image of the plant
+     * @return void
+     * @author Cyrus Shaerpour
+     */
     @Override
     public void updateImage() {
         if (controller.night) {
@@ -81,6 +100,11 @@ public class Blackberry extends Plant{
         }
     }
 
+    /**
+     * Update the image of the plant when it dies
+     * @return void
+     * @author Cyrus Shaerpour
+     */
     @Override
     public void updateDeathImage() {
         if (controller.night) {

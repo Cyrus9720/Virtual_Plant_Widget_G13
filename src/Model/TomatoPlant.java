@@ -9,23 +9,52 @@ public class TomatoPlant extends Plant{
 
     private Controller controller;
 
+    /**
+     * Constructor for TomatoPlant
+     * @param controller
+     * @param name
+     * @param plantArt
+     * @param nbrOfLives
+     * @param timesWatered
+     * @param plantPicture
+     * @param plantLevel
+     * @param lastWatered
+     * @param deathTime
+     * @return void
+     * @author Cyrus Shaerpour
+     */
     public TomatoPlant(Controller controller, String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered, LocalDateTime deathTime) {
         super(controller, name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered, deathTime);
         this.controller = controller;
     }
 
+    /**
+     * Setting the plant level
+     * @param plantLevel Level of the plant
+     * @author Cyrus Shaerpour
+     */
     @Override
     public void setPlantLevel(int plantLevel) {
         super.setPlantLevel(plantLevel);
         updateImage();
     }
 
+    /**
+     * Setting the number of lives
+     * @param nbrOfLives Number of lives
+     * author Cyrus Shaerpour
+     */
     @Override
     public void setNbrOfLives(int nbrOfLives) {
         super.setNbrOfLives(nbrOfLives);
         updateDeathImage();
     }
 
+    /**
+     * Update the image of the plant
+     * @return void
+     * @author Cyrus Shaerpour
+     */
     @Override
     public void updateImage() {
         if (controller.night) {
@@ -68,6 +97,11 @@ public class TomatoPlant extends Plant{
     }
 
 
+    /**
+     * Update the image of the plant when it dies
+     * @return void
+     * @author Cyrus Shaerpour
+     */
     @Override
     public void updateDeathImage () {
         if (controller.night) {
