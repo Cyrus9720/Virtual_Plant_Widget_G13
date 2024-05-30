@@ -1,0 +1,2 @@
+Plant art; ROSE | Plant name; adwd | Plant level; 1 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/Night_Rose1.JPG | Last time watered; 2024-05-30 10:32:40.464 | Closed game; 2024-05-30 10:33:02.019 | Death time; 2024-05-30 11:32:45.174
+Plant art; CACTUS | Plant name; Cactus5 | Plant level; 1 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/Night_Cactus1.JPG | Last time watered; 2024-05-30 10:32:52.081 | Closed game; 2024-05-30 10:33:02.019 | Death time; 2024-05-30 11:32:45.174

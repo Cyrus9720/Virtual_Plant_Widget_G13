@@ -24,11 +24,12 @@ public abstract class Plant {
 
     /**
      * Constructor for Plant
-     * @param controller controller instansiaton
-     * @param name Name of the plant
-     * @param plantArt Art of the plant
+     *
+     * @param controller   controller instansiaton
+     * @param name         Name of the plant
+     * @param plantArt     Art of the plant
      * @param plantPicture Picture of the plant
-     * @param plantLevel Level of the plant
+     * @param plantLevel   Level of the plant
      * @author Cyrus Shaerpour
      */
     public Plant(Controller controller, String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered, LocalDateTime deathTime) {
@@ -46,13 +47,14 @@ public abstract class Plant {
     /**
      * Method for watering the plant and increasing the plant level
      * If the plant is not fully grown, increase the plant level
+     *
      * @return void
      * @author Cyrus Shaerpour
      */
     public void waterPlant() {
         if (nbrOfLives > 0) {
             setTimesWatered(getTimesWatered() + 1);
-            if (plantLevel <=3) {
+            if (plantLevel <= 3) {
                 if (getTimesWatered() == plantLevel + 1) {
                     setPlantLevel(getPlantLevel() + 1);
                     setTimesWatered(0);
@@ -60,7 +62,8 @@ public abstract class Plant {
                     if (plantLevel == 3) {
                         System.out.println("Plant is fully grown");
                     }
-                }try {
+                }
+                try {
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResourceAsStream("/sounds/watering.wav")));
                     wateringSoundClip = AudioSystem.getClip();
                     wateringSoundClip.open(audioInputStream);
@@ -72,7 +75,7 @@ public abstract class Plant {
                     wateringSoundClip.start();
                 }
             }
-        } else if(nbrOfLives == 0){
+        } else if (nbrOfLives == 0) {
             JOptionPane.showMessageDialog(null, "Your plant is dead! \nWatering won't bring it back ):");
         }
     }
@@ -80,8 +83,9 @@ public abstract class Plant {
 
     /**
      * Method for decreasing the number of lives of the plant
-     * @author Cyrus Shaerpour
+     *
      * @return void
+     * @author Cyrus Shaerpour
      */
     public void decreaseLife() {
         if (nbrOfLives > 0) {
@@ -134,6 +138,7 @@ public abstract class Plant {
 
     /**
      * Method for getting the number of times the plant has been watered
+     *
      * @return int Number of times the plant has been watered
      * @author Cyrus Shaerpour
      */
@@ -143,6 +148,7 @@ public abstract class Plant {
 
     /**
      * Method for setting the number of times the plant has been watered
+     *
      * @param timesWatered Number of times the plant has been watered
      * @return void
      * @author Cyrus Shaerpour
@@ -153,6 +159,7 @@ public abstract class Plant {
 
     /**
      * Method for getting the picture of the plant
+     *
      * @return ImageIcon Picture of the plant
      * @author Cyrus Shaerpour
      */
@@ -162,6 +169,7 @@ public abstract class Plant {
 
     /**
      * Method for setting the picture of the plant
+     *
      * @param plantPicture Picture of the plant
      * @return void
      * @author Cyrus Shaerpour
@@ -172,6 +180,7 @@ public abstract class Plant {
 
     /**
      * Method for getting the level of the plant
+     *
      * @return int Level of the plant
      * @author Cyrus Shaerpour
      */
@@ -182,6 +191,7 @@ public abstract class Plant {
 
     /**
      * Method for setting the level of the plant
+     *
      * @param plantLevel Level of the plant
      * @return void
      * @author Cyrus Shaerpour
@@ -192,6 +202,7 @@ public abstract class Plant {
 
     /**
      * Method for getting the plantArt of the plant
+     *
      * @return plantArt
      * @author Anna Granberg
      */
@@ -246,8 +257,19 @@ public abstract class Plant {
         return deathTime;
     }
 
+    public abstract void updateImage();
+
+    {
+    }
+
+    public abstract void updateDeathImage();
+
+    {
+    }
+
     /**
      * toString method
+     *
      * @return textOut
      * @author Anna Granberg
      */
@@ -256,9 +278,10 @@ public abstract class Plant {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
             formattedLastWatered = lastWatered.format(formatter);
-        }catch (Exception e){
+        } catch (Exception e) {
             // System.err.println("Could not format date");
         }
         return String.format("Plant art; %s | Plant name; %s | Plant level; %d | Times watered; %d | Number of lives; %d | Plant picture; %s | Last time watered; %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture, formattedLastWatered);
     }
 }
+

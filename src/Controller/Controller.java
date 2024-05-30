@@ -87,6 +87,7 @@ public class Controller {
     public void addNewRose() {
         String newName = promptForPlantName("Rose");
         ImageIcon plantImage = new ImageIcon(night ? "src/Images/Night_Empty.JPG" : "src/Images/PotArt1.JPG");
+        LocalDateTime deathTime = LocalDateTime.now().plusHours(1);
         Rose newRose = new Rose(this, newName, PlantArt.ROSE, 3, 0, plantImage, 0, null, deathTime);
         plantList.add(newRose);
         view.getMainPanel().updateButtons(getPlantImagePaths());
@@ -99,6 +100,7 @@ public class Controller {
     public void addNewSunflower() {
         String newName = promptForPlantName("Sunflower");
         ImageIcon plantImage = new ImageIcon(night ? "src/Images/Night_Empty.JPG" : "src/Images/PotArt1.JPG");
+        LocalDateTime deathTime = LocalDateTime.now().plusHours(1);
         Sunflower newSunflower = new Sunflower(this, newName, PlantArt.SUNFLOWER, 3, 0, plantImage, 0, null, deathTime);
         plantList.add(newSunflower);
         view.getMainPanel().updateButtons(getPlantImagePaths());
@@ -111,6 +113,7 @@ public class Controller {
     public void addNewTomatoPlant() {
         String newName = promptForPlantName("TomatoPlant");
         ImageIcon plantImage = new ImageIcon(night ? "src/Images/Night_Empty.JPG" : "src/Images/PotArt1.JPG");
+        LocalDateTime deathTime = LocalDateTime.now().plusHours(1);
         TomatoPlant newTomatoPlant = new TomatoPlant(this, newName, PlantArt.TOMATO_PLANT, 3, 0, plantImage, 0, null, deathTime);
         plantList.add(newTomatoPlant);
         view.getMainPanel().updateButtons(getPlantImagePaths());
@@ -123,6 +126,7 @@ public class Controller {
     public void addNewBlackberry() {
         String newName = promptForPlantName("Blackberry");
         ImageIcon plantImage = new ImageIcon(night ? "src/Images/Night_Empty.JPG" : "src/Images/PotArt1.JPG");
+        LocalDateTime deathTime = LocalDateTime.now().plusHours(1);
         Blackberry newBlackberry = new Blackberry(this, newName, PlantArt.BLACKBERRY, 3, 0, plantImage, 0, null, deathTime);
         plantList.add(newBlackberry);
         view.getMainPanel().updateButtons(getPlantImagePaths());
@@ -135,6 +139,7 @@ public class Controller {
     public void addNewMiniTree() {
         String newName = promptForPlantName("MiniTree");
         ImageIcon plantImage = new ImageIcon(night ? "src/Images/Night_Empty.JPG" : "src/Images/PotArt1.JPG");
+        LocalDateTime deathTime = LocalDateTime.now().plusHours(1);
         MiniTree newMiniTree = new MiniTree(this, newName, PlantArt.MINI_TREE, 3, 0, plantImage, 0, null, deathTime);
         plantList.add(newMiniTree);
         view.getMainPanel().updateButtons(getPlantImagePaths());
@@ -147,6 +152,7 @@ public class Controller {
     public void addNewCactus() {
         String newName = promptForPlantName("Cactus");
         ImageIcon plantImage = new ImageIcon(night ? "src/Images/Night_Empty.JPG" : "src/Images/PotArt1.JPG");
+        LocalDateTime deathTime = LocalDateTime.now().plusHours(1);
         Cactus newCactus = new Cactus(this, newName, PlantArt.CACTUS, 3, 0, plantImage, 0, null, deathTime);
         plantList.add(newCactus);
         view.getMainPanel().updateButtons(getPlantImagePaths());
@@ -173,8 +179,6 @@ public class Controller {
             Random random = new Random();
             newName = plantType + random.nextInt(11);
         }
-
-        LocalDateTime deathTime = LocalDateTime.now().plusHours(1);
         return newName;
     }
 
