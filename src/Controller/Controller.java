@@ -26,7 +26,7 @@ public class Controller {
     public boolean night = false;
 
     /**
-     * Constructor for the controller class.
+     * Constructor for the controller classs.
      */
     public Controller() {
         loadGame = new LoadGame();
