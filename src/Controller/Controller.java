@@ -223,7 +223,7 @@ public class Controller {
                 }
                 //JOptionPane.showMessageDialog(null, "Your plant is dead! \nWatering won't bring it back ):");
             case NightMode:
-                    if (!night) {
+                    if (!isNight()) {
                         view.getEastPanel().moonButton();
                         view.getEastPanel().nightColors();
                         view.getCenterPanel().centerNight();
@@ -683,5 +683,13 @@ public class Controller {
         public ArrayList<Plant> getPlantList () {
             return plantList;
         }
+
+    public void setNight(boolean night) {
+        this.night = night;
     }
+
+    public boolean isNight() {
+        return night;
+    }
+}
 

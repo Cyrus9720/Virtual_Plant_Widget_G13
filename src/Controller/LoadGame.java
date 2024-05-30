@@ -93,7 +93,7 @@ public class LoadGame {
 
                 // Add the new plant to the list
                 plantList.add(plant);
-
+                controller.setNight(nightMode);
             }
             System.out.println("Game loaded successfully.");
         } catch (IOException e) {
