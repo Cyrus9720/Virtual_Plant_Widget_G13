@@ -97,7 +97,7 @@ public class Controller {
 
         LocalDateTime deathTime = LocalDateTime.now().plusSeconds(30);
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        Rose newRose = new Rose(this, newName, PlantArt.ROSE, 3, 0, plantImage, 0, null, null);
+        Rose newRose = new Rose(this, newName, PlantArt.ROSE, 3, 0, plantImage, 0, null, deathTime);
         plantList.add(newRose);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
@@ -258,7 +258,7 @@ public class Controller {
                     currentPlant.setLastWatered(LocalDateTime.now());
 
                     currentPlant.waterPlant();
-                    setNewDeathTime();
+                    currentPlant.setNewDeathTime();
                     ImageIcon updatedImage = currentPlant.getPlantPicture();
                     view.getCenterPanel().updatePlantImage(updatedImage);
                     view.getMainPanel().updateButtons(getPlantImagePaths());
@@ -475,37 +475,7 @@ public class Controller {
         }
 
 
-    public void setNewDeathTime() {
-        LocalDateTime deathTime = null;
-
-        if(getTimeUntilNextWatering() == 0){
-            LocalDateTime now = LocalDateTime.now();
-            if (currentPlant.getDeathTime() != null && now.isAfter(currentPlant.getDeathTime())) {
-                currentPlant.decreaseLife();
-                deathTime = now.plusSeconds(10);
-                currentPlant.setDeathTime(deathTime);
-
-                if (currentPlant.getNbrOfLives() > 0) {
-                    // Ställ in en ny dödstid om 1h som exempel
-                    deathTime = now.plusSeconds(10);
-                    currentPlant.setDeathTime(deathTime);
-                    updateEastPanel();
-                    System.out.println("New death time set: " + deathTime + " // plant");
-                } else if (deathTime != null) {
-                    deathTime = now.plusSeconds(10);
-                    currentPlant.setDeathTime(deathTime);
-                    updateEastPanel();
-                    System.out.println("New death time is set to " + deathTime + " // plant");
-                } else if (deathTime == null) {
-                    System.err.println("Death time is not set. // plant");
-                }
-            }
-        }else{
-            deathTime = currentPlant.getDeathTime();
-        }
-    }
-
-    /**
+       /**
          * Retrieves the plant name of the first plant in the plant list.
          *
          * @return The plant name of the first plant, or 0 if the plant list is empty or the first plant is null.
@@ -556,10 +526,6 @@ public class Controller {
             }
         }
 
-     /*   public Timer getPlantTimer(Plant plant) {
-            return plantTimers.get(plant);
-        }*/
-
         /**
          * Retrieves the paths of images associated with each plant in the plant list.
          *
@@ -582,6 +548,8 @@ public class Controller {
          */
         public void changePlantName () {
             if(isChosen){
+                javax.swing.UIManager.put("OptionPane.background", new Color(225, 240, 218));
+                javax.swing.UIManager.put("Panel.background", new Color(225, 240, 218));
                 String newName = JOptionPane.showInputDialog("Please enter the new plant name: ");
                 if (newName != null && !newName.trim().isEmpty()) {
                     currentPlant.setName(newName);
@@ -592,23 +560,6 @@ public class Controller {
             }else{
                 JOptionPane.showMessageDialog(null, "You must choose a plant to change the name!");
             }
-        }
-
-        /**
-         * Calculates the time elapsed since the game was last played.
-         *
-         * @return The time elapsed since the game was last played, in seconds.
-         * @author Anna Granberg
-         */
-        public long getTimeSinceLastPlayed () {
-            LocalDateTime timeWhenClosed = SaveGame.getTimestamp();
-            LocalDateTime timeWhenOpened = loadGame.getTimestamp();
-
-            Duration duration = Duration.between(timeWhenClosed, timeWhenOpened);
-
-            long timeSinceLastPlayedSeconds = duration.getSeconds();
-
-            return timeSinceLastPlayedSeconds;
         }
 
         /**

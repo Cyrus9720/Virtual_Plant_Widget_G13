@@ -1,1 +1,1 @@
-Plant art; SUNFLOWER | Plant name; Sunflower0 | Plant level; 1 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/Sunflower1.JPG | Last time watered; 2024-05-30 10:50:57.897 | Closed game; 2024-05-30 10:51:05.024 | Death time; 2024-05-30 11:50:47.580
+Plant art; SUNFLOWER | Plant name; Sunflower7 | Plant level; 2 | Times watered; 1 | Number of lives; 3 | Plant picture; src/Images/Sunflower2.JPG | Last time watered; 2024-05-30 11:22:39.910 | Closed game; 2024-05-30 11:26:11.727 | Death time; 2024-05-30 12:18:06.744

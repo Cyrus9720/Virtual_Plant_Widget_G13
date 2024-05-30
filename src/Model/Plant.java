@@ -119,7 +119,6 @@ public abstract class Plant {
         }
     }
 
-
     /**
      * Retrieves the name of the plant.
      *
