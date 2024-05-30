@@ -34,6 +34,7 @@ public class SaveGame {
                 // Add the formatted timestamp to the end of the line
                 data += " | Closed game; " + timestamp.format(formatter);
                 data += " | Death time; " + timeUntilDeath.format(formatter);
+                data += " | Boolean night; " + controller.night;
 
                 writer.write(data);
                 writer.newLine();
