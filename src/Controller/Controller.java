@@ -197,7 +197,7 @@ public class Controller {
      *
      * @author Cyrus och Roa
      */
-    public void buttonPressed(ButtonType button) {
+    public void buttonPresssd(ButtonType button) {
         switch (button) {
             case Water:
                 if (isChosen) {
