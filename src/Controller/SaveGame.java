@@ -43,6 +43,7 @@ public class SaveGame {
                     System.out.println("Death time is not set because it's not time for a new death.");
                 }
                 data += " | Death time; " + formattedTime;
+                data += " | Boolean night; " + controller.night;
 
                 writer.write(data);
                 writer.newLine();

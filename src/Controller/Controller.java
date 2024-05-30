@@ -673,5 +673,9 @@ public class Controller {
         public ArrayList<Plant> getPlantList () {
             return plantList;
         }
+
+    public void setNight(boolean night) {
+        this.night = night;
     }
+}
 

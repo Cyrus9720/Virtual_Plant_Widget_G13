@@ -43,7 +43,7 @@ public class LoadGame {
             while ((line = reader.readLine()) != null) {
                 fileNotEmpty = true;
                 String[] plantData = line.split("\\|"); // Split
-                if (plantData.length != 9) { // Check if the data format is valid
+                if (plantData.length != 10) { // Check if the data format is valid
                     System.err.println("Invalid data format in save file: " + line);
                     continue;
                 }
@@ -58,6 +58,7 @@ public class LoadGame {
                 LocalDateTime lastWatered = parseTimestamp(plantData[6].trim().split(";")[1].trim());
                 LocalDateTime lastPlayed = parseTimestamp(plantData[7].trim().split(";")[1].trim());
                 LocalDateTime deathTimeData = parseTimestamp(plantData[8].trim().split("; ")[1]);
+                Boolean nightMode = Boolean.parseBoolean(plantData[9].trim().split(";")[1].trim());
 
 
                 // Create new plants based on the plantArt
@@ -92,6 +93,7 @@ public class LoadGame {
 
                 // Add the new plant to the list
                 plantList.add(plant);
+                controller.setNight(nightMode);
 
             }
             System.out.println("Game loaded successfully.");
