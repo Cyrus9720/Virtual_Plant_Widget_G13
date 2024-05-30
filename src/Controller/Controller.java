@@ -246,7 +246,7 @@ public class Controller {
                             p.updateImage();
                             p.updateDeathImage();
                         }
-                            currentPlant = plantList.get(currentPlantIndex);
+                        currentPlant = plantList.get(currentPlantIndex);
                         ImageIcon updatedImage = currentPlant.getPlantPicture();
                         view.getCenterPanel().updatePlantImage(updatedImage);
                         view.getMainPanel().updateButtons(getPlantImagePaths());
