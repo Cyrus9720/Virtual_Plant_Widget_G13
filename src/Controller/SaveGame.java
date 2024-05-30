@@ -30,10 +30,19 @@ public class SaveGame {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("game_save.txt"))) {
             for (Plant plant : plantList) {
                 String data = plant.toString(); // returns the plant's attributes as a String
+                String formattedTime = null;
 
                 // Add the formatted timestamp to the end of the line
                 data += " | Closed game; " + timestamp.format(formatter);
-                data += " | Death time; " + timeUntilDeath.format(formatter);
+
+                if (timeUntilDeath != null) {
+                    formattedTime = timeUntilDeath.format(formatter);
+                    // Proceed with saving the game using the formattedTime
+                } else {
+                    // Handle the case when deathTime is null
+                    System.out.println("Death time is not set because it's not time for a new death.");
+                }
+                data += " | Death time; " + formattedTime;
 
                 writer.write(data);
                 writer.newLine();

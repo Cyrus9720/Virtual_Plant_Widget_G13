@@ -59,15 +59,15 @@ public class LoadGame {
                 LocalDateTime lastPlayed = parseTimestamp(plantData[7].trim().split(";")[1].trim());
                 LocalDateTime deathTimeData = parseTimestamp(plantData[8].trim().split("; ")[1]);
 
+
                 // Create new plants based on the plantArt
                 switch (plantArt) {
                     case ROSE:
                         plant = new Rose(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
-                        //plant.setDeathTime(plant.calculateDeathTime(lastWatered));
+                        plant.setDeathTime(deathTimeData);
                         break;
                     case SUNFLOWER:
                         plant = new Sunflower(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
-                        //plant.setDeathTime(plant.calculateDeathTime(lastWatered));
                         break;
                     case TOMATO_PLANT:
                         plant = new TomatoPlant(controller,name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
