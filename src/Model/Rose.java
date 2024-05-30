@@ -9,8 +9,8 @@ public class Rose extends Plant {
 
     private Controller controller;
 
-    public Rose(Controller controller, String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
-        super(controller, name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered);
+    public Rose(Controller controller, String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered, deathTime) {
+        super(controller, name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered, deathTime);
         this.controller = controller;
     }
 

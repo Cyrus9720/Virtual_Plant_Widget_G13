@@ -1,7 +1,12 @@
 Plant name: Minitree3 | Plant art: MINI_TREE | Plant level: 3 | Plant Picture: src/Images/MiniTree3.JPG
 Plant name: Minitree5 | Plant art: MINI_TREE | Plant level: 1 | Plant Picture: src/Images/MiniTree1.JPG
-Plant name: TomatoPlant2 | Plant art: TOMATO_PLANT | Plant level: 1 | Plant Picture: src/Images/Tomatoe1.JPG
-Plant name: Sunflower0 | Plant art: SUNFLOWER | Plant level: 1 | Plant Picture: src/Images/Night_Sun1.JPG
-Plant name: Blackberry5 | Plant art: BLACKBERRY | Plant level: 0 | Plant Picture: src/Images/Night_Empty.JPG
-Plant name: sgsdg | Plant art: BLACKBERRY | Plant level: 1 | Plant Picture: src/Images/BlackberryDead1.JPG
-Plant name: ihlihj | Plant art: ROSE | Plant level: 1 | Plant Picture: src/Images/RoseDead1.JPG
+Plant name: Anna | Plant art: SUNFLOWER | Plant level: 2 | Plant Picture: src/Images/Sunflower2.JPG
+Plant name: Sunflower3 | Plant art: SUNFLOWER | Plant level: 1 | Plant Picture: src/Images/Sunflower1.JPG
+Plant name: Sunflower0 | Plant art: SUNFLOWER | Plant level: 1 | Plant Picture: src/Images/Sunflower1.JPG
+Plant name: TomatoPlant0 | Plant art: TOMATO_PLANT | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
+Plant name: Minitree10 | Plant art: MINI_TREE | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
+Plant name: Blackberries | Plant art: BLACKBERRY | Plant level: 3 | Plant Picture: src/Images/BlackberryDead3.JPG
+Plant name: TomatoPlant9 | Plant art: TOMATO_PLANT | Plant level: 2 | Plant Picture: src/Images/Tomatoe2.JPG
+Plant name: Sunflower1 | Plant art: SUNFLOWER | Plant level: 2 | Plant Picture: src/Images/SunflowerDead2.JPG
+Plant name: Rose3 | Plant art: ROSE | Plant level: 1 | Plant Picture: src/Images/RoseDead1.JPG
+Plant name: Sunflower7 | Plant art: SUNFLOWER | Plant level: 1 | Plant Picture: src/Images/Sunflower1.JPG

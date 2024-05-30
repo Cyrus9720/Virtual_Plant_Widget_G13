@@ -31,7 +31,7 @@ public abstract class Plant {
      * @param plantLevel Level of the plant
      * @author Cyrus Shaerpour
      */
-    public Plant(Controller controller, String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
+    public Plant(Controller controller, String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered, LocalDateTime deathTime) {
         this.controller = controller;
         this.name = name;
         this.plantArt = plantArt;
@@ -40,27 +40,7 @@ public abstract class Plant {
         this.plantPicture = plantPicture;
         this.plantLevel = plantLevel;
         this.lastWatered = lastWatered;
-        this.deathTime = calculateDeathTime(lastWatered); // Initialize deathTime based on lastWatered
-    }
-
-    /**
-     * Calculates the death time for a plant based on the last time it was watered.
-     * If the last watered time is not null, the death time is set to one minute after the last watered time.
-     * If the last watered time is null, the death time is set to one minute after the current time.
-     *
-     * @param lastWatered The last time the plant was watered.
-     * @return The calculated death time for the plant.
-     */
-    public LocalDateTime calculateDeathTime(LocalDateTime lastWatered) {
-        return lastWatered != null ? lastWatered.plusSeconds(10) : LocalDateTime.now().plusSeconds(5);
-    }
-
-    public void setDeathTime(LocalDateTime deathTime) {
         this.deathTime = deathTime;
-    }
-
-    public LocalDateTime getDeathTime() {
-        return deathTime;
     }
 
     /**
@@ -110,21 +90,21 @@ public abstract class Plant {
         }
     }
 
-    public void startNewTimer() {
+    public void setNewDeathTime() {
         LocalDateTime now = LocalDateTime.now();
         if (deathTime != null && now.isAfter(deathTime)) {
             decreaseLife();
             if (nbrOfLives > 0) {
-                // Ställ in en ny dödstid om 30 minuter som exempel
-                deathTime = now.plusSeconds(5);
+                // Ställ in en ny dödstid om 1h som exempel
+                deathTime = now.plusSeconds(10);
                 setDeathTime(deathTime);
                 System.out.println("New death time set: " + deathTime + " // plant");
             } else if (deathTime != null) {
-                deathTime = now.plusSeconds(5);
+                deathTime = now.plusSeconds(10);
                 setDeathTime(deathTime);
                 System.out.println("New death time is set to " + deathTime + " // plant");
             } else if (deathTime == null) {
-                System.out.println("Death time is not set. // plant");
+                System.err.println("Death time is not set. // plant");
             }
         }
     }
@@ -258,12 +238,12 @@ public abstract class Plant {
         return name;
     }
 
-    public void updateImage() {
-        System.out.println("hehehehej");
-        System.out.println(plantPicture);
+    public void setDeathTime(LocalDateTime deathTime) {
+        this.deathTime = deathTime;
     }
 
-    public void updateDeathImage() {
+    public LocalDateTime getDeathTime() {
+        return deathTime;
     }
 
     /**
