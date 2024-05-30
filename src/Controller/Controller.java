@@ -619,8 +619,14 @@ public class Controller {
         public void removePlant (String plantName){
             if (plantList != null) {
                 // Anpassa färgen på dialogrutan
+                if (night) {
+                    javax.swing.UIManager.put("OptionPane.background", new Color(47, 49, 73));
+                    javax.swing.UIManager.put("Panel.background", new Color(47, 49, 73));
+
+                } else {
                 javax.swing.UIManager.put("OptionPane.background", new Color(225, 240, 218));
                 javax.swing.UIManager.put("Panel.background", new Color(225, 240, 218));
+            }
 
                 if(isChosen || currentPlant == null){
                     // Visa bekräftelsedialogrutan
