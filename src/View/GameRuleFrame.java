@@ -3,6 +3,7 @@ package View;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import Controller.Controller;
 
 /**
  * GameRuleFrame represents a window displaying the game rules for the game.
@@ -13,6 +14,7 @@ import java.awt.*;
 public class GameRuleFrame extends JFrame {
 
     private JLabel gameRulesLabel; // JLabel för att visa spelreglerna
+    private Controller controller;
 
     // Storlek för frame size
     private static final int FRAME_WIDTH = 500;
@@ -22,7 +24,8 @@ public class GameRuleFrame extends JFrame {
     /**
      * Constructs a GameRuleFrame to display the game rules.
      */
-    public GameRuleFrame() {
+    public GameRuleFrame(Controller controller) {
+        this.controller = controller;
         gameRulesLabel = new JLabel();
         String welcome = "<html> Welcome to Virtual Plant Widgets!\n" +
                 "You've just gained access to your very own virtual garden where you can plant and nurture your own plants. <br/>"
@@ -43,6 +46,11 @@ public class GameRuleFrame extends JFrame {
         gameRulesLabel.setText(welcome + rules); // lägger till spelreglerna på JLabel
         gameRulesLabel.setFont(customFont); // anpassat typsnitt på JLabel
         gameRulesLabel.setSize(new Dimension(450, 200)); // Ställer storlek på JLabel
+        if (controller.night) {
+            gameRulesLabel.setForeground(new Color(225, 240, 218)); // Ställer textfärg för JLabel
+        } else {
+            gameRulesLabel.setForeground(new Color(47, 49, 73)); // Ställer textfärg för JLabel
+        }
         gameRulesLabel.setBackground(new Color(153, 188, 133)); // Ställer bakgrundsfärg för JLabel
 
         // Skapar olika borders för JLabel
@@ -55,7 +63,11 @@ public class GameRuleFrame extends JFrame {
         add(gameRulesLabel, BorderLayout.CENTER); // Lägger till JLabel för spelreglerna i mitten av fönstret
 
         setTitle("Game Rules"); // Sätter titeln på fönstret
-        getContentPane().setBackground(new Color(225, 240, 218)); // Ställer bakgrundsfärg för fönstret
+        if (controller.night) {
+            getContentPane().setBackground(new Color(47, 49, 73)); // Ställer bakgrundsfärg för fönstret
+        } else {
+            getContentPane().setBackground(new Color(225, 240, 218)); // Ställer bakgrundsfärg för fönstret
+        }
         setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT)); // Sätter storlek på fönstret
         setResizable(false); // Gör fönstret icke-omstoringsbart
         setVisible(true); // Gör fönstret synligt när det skapas
@@ -81,24 +93,5 @@ public class GameRuleFrame extends JFrame {
 
         // Bring the frame to the front
         toFront();
-    }
-
-    /**
-     * Sets the rules frame to night mode.
-     * Changes the background color of the frame to a darker color.
-     * @author Cyrus Shaerpour
-     */
-    public void nightRules() {
-        getContentPane().setBackground(new Color(47, 49, 73));
-    }
-
-    /**
-     * Sets the rules frame to day mode.
-     * Changes the background color of the frame to a lighter color.
-     * @author Cyrus Shaerpour
-     */
-
-    public void dayRules() {
-        getContentPane().setBackground(new Color(225, 240, 218));
     }
 }

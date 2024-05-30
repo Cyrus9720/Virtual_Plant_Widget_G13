@@ -197,7 +197,7 @@ public class Controller {
      *
      * @author Cyrus och Roa
      */
-    public void buttonPresssd(ButtonType button) {
+    public void buttonPressed(ButtonType button) {
         switch (button) {
             case Water:
                 if (isChosen) {
@@ -230,7 +230,6 @@ public class Controller {
                         view.getGardenPanel().nightGarden();
                         view.getMainPanel().nightMain();
                         view.getSouthPanel().nightSouth();
-                        //view.getGameRuleFrame().nightRules();
 
                         night = true;
 
@@ -259,7 +258,6 @@ public class Controller {
                         view.getGardenPanel().dayGarden();
                         view.getMainPanel().dayMain();
                         view.getSouthPanel().daySouth();
-                        //view.getGameRuleFrame().dayRules();
 
                         night = false;
 
@@ -665,7 +663,7 @@ public class Controller {
          * Initializes the game rule frame for the first time playing.
          */
         public void firstTimePlaying () {
-            GameRuleFrame gameRuleFrame = new GameRuleFrame();
+            GameRuleFrame gameRuleFrame = new GameRuleFrame(this);
         }
 
         /**

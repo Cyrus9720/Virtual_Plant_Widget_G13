@@ -140,7 +140,7 @@ public class MainFrame extends JFrame {
      * @author annagranberg
      */
     public void showRulesDialog() {
-        GameRuleFrame gameRuleFrame = new GameRuleFrame();
+        GameRuleFrame gameRuleFrame = new GameRuleFrame(controller);
     }
 
     /**

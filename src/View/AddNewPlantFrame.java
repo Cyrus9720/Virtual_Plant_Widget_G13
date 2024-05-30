@@ -34,7 +34,12 @@ public class AddNewPlantFrame extends JFrame {
         private int height = 120;
         private int widht = 50;
         private NewPlantPanel(Controller controller) {
-            setBackground(new Color(225, 240, 218)); // bakgrundsfärgen för panelen
+            if (controller.night) {
+                setBackground(new Color(47, 49, 73)); // bakgrundsfärgen för panelen
+            } else {
+                setBackground(new Color(225, 240, 218)); // bakgrundsfärgen för panelen
+            }
+            //setBackground(new Color(225, 240, 218)); // bakgrundsfärgen för panelen
             setLayout(new FlowLayout()); // Ställer in layouten för panelen
 
             JLabel infoLabel = new JLabel("Choose a plant to add to the garden!"); // Skapar en label för att visa instruktioner
