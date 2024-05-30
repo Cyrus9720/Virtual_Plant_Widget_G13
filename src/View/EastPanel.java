@@ -388,6 +388,8 @@ public class EastPanel extends JPanel {
 
     public void nightColors() {
             setBackground(new Color(47, 49, 73));
+            pnlButtons.setBackground(new Color(47, 49, 73)); // bakgrundsfärg
+            Water.setBackground(new Color(47, 49, 73));
             progressbarLabel.setBackground(new Color(47, 49, 73));
             threeHeartsLabel.setBackground(new Color(47, 49, 73));
             timeUntilWatering.setBackground(new Color(47, 49, 73));
@@ -405,6 +407,8 @@ public class EastPanel extends JPanel {
      */
         public void dayColors() {
             setBackground(new Color(225, 240, 218));
+            pnlButtons.setBackground(new Color(225, 240, 218)); // bakgrundsfärg
+            Water.setBackground(new Color(225, 240, 218));
             progressbarLabel.setBackground(new Color(225, 240, 218));
             threeHeartsLabel.setBackground(new Color(225, 240, 218));
             timeUntilWatering.setBackground(new Color(225, 240, 218));
