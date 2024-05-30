@@ -52,15 +52,15 @@ public abstract class Plant {
     public void waterPlant() {
         if (nbrOfLives > 0) {
             setTimesWatered(getTimesWatered() + 1);
-            if (plantLevel <=3) {
+            if (plantLevel <= 3) {
                 if (getTimesWatered() == plantLevel + 1) {
                     setPlantLevel(getPlantLevel() + 1);
                     setTimesWatered(0);
-                    //System.out.println("Plant level " + plantLevel);
                     if (plantLevel == 3) {
                         System.out.println("Plant is fully grown");
                     }
-                }try {
+                }
+                try {
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResourceAsStream("/sounds/watering.wav")));
                     wateringSoundClip = AudioSystem.getClip();
                     wateringSoundClip.open(audioInputStream);
@@ -72,10 +72,15 @@ public abstract class Plant {
                     wateringSoundClip.start();
                 }
             }
-        } else if(nbrOfLives == 0){
+
+            // Reset the death timer after watering
+            setNewDeathTime();
+
+        } else if (nbrOfLives == 0) {
             JOptionPane.showMessageDialog(null, "Your plant is dead! \nWatering won't bring it back ):");
         }
     }
+
 
 
     /**
@@ -91,23 +96,29 @@ public abstract class Plant {
     }
 
     public void setNewDeathTime() {
-        LocalDateTime now = LocalDateTime.now();
-        if (deathTime != null && now.isAfter(deathTime)) {
-            decreaseLife();
-            if (nbrOfLives > 0) {
-                // Ställ in en ny dödstid om 1h som exempel
-                deathTime = now.plusSeconds(10);
+        if (controller.getTimeUntilNextWatering() == 0) {
+            LocalDateTime now = LocalDateTime.now();
+            if (now.isAfter(deathTime)) {
+                decreaseLife();
+                deathTime = now.plusHours(10);
                 setDeathTime(deathTime);
-                System.out.println("New death time set: " + deathTime + " // plant");
-            } else if (deathTime != null) {
-                deathTime = now.plusSeconds(10);
-                setDeathTime(deathTime);
-                System.out.println("New death time is set to " + deathTime + " // plant");
-            } else if (deathTime == null) {
-                System.err.println("Death time is not set. // plant");
+
+                if (nbrOfLives > 0) {
+                    // Set a new death time
+                    deathTime = now.plusHours(10);
+                    setDeathTime(deathTime);
+                    controller.updateEastPanel();
+                    System.out.println("New death time set: " + deathTime + " // plant");
+                } else {
+                    deathTime = now.plusHours(10);
+                    setDeathTime(deathTime);
+                    controller.updateEastPanel();
+                    System.out.println("New death time is set to " + deathTime + " // plant");
+                }
             }
         }
     }
+
 
     /**
      * Retrieves the name of the plant.

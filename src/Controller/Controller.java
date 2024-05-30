@@ -20,7 +20,6 @@ public class Controller {
     private ArrayList<Plant> plantList = new ArrayList<>();
     private int currentPlantIndex;
     private Plant currentPlant = null;
-    private Duration remainingTime;
     private LoadGame loadGame;
     private boolean isChosen = false;
     public boolean night = false;
@@ -40,9 +39,6 @@ public class Controller {
         if (!loadGame.isFileNotEmpty()) {
             firstTimePlaying();
         }
-
-        //plantTimers = new HashMap<>();
-       // resumeAllTimers();
     }
 
     /**
@@ -56,7 +52,7 @@ public class Controller {
             setIsChosen(true);
             currentPlantIndex = plantIndex;
             currentPlant = plantList.get(plantIndex); // Uppdatera currentPlant när switchPlant kallas
-            currentPlant.setNewDeathTime();
+
             updateWaterButtonStatus();
             view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
             view.getCenterPanel().updatePlantName(currentPlant.getPlantName());
@@ -99,9 +95,9 @@ public class Controller {
             newName = "Rose" + random.nextInt(11);
         }
 
-        LocalDateTime deathTime = LocalDateTime.now().plusSeconds(10);
+        LocalDateTime deathTime = LocalDateTime.now().plusSeconds(30);
         ImageIcon plantImage = new ImageIcon("src/Images/PotArt1.JPG");
-        Rose newRose = new Rose(this, newName, PlantArt.ROSE, 3, 0, plantImage, 0, null, deathTime);
+        Rose newRose = new Rose(this, newName, PlantArt.ROSE, 3, 0, plantImage, 0, null, null);
         plantList.add(newRose);
         view.getMainPanel().updateButtons(getPlantImagePaths());
     }
@@ -262,7 +258,7 @@ public class Controller {
                     currentPlant.setLastWatered(LocalDateTime.now());
 
                     currentPlant.waterPlant();
-                    currentPlant.setNewDeathTime(); // sätter en ny tid för plantan o dö
+                    setNewDeathTime();
                     ImageIcon updatedImage = currentPlant.getPlantPicture();
                     view.getCenterPanel().updatePlantImage(updatedImage);
                     view.getMainPanel().updateButtons(getPlantImagePaths());
@@ -304,7 +300,7 @@ public class Controller {
         }
     }
     public void updateEastPanel() {
-
+        view.getEastPanel().updateTimeUntilDeath(currentPlant.getDeathTime());
     }
 
     /**
@@ -477,6 +473,37 @@ public class Controller {
         public Plant getCurrentPlant() {
         return currentPlant;
         }
+
+
+    public void setNewDeathTime() {
+        LocalDateTime deathTime = null;
+
+        if(getTimeUntilNextWatering() == 0){
+            LocalDateTime now = LocalDateTime.now();
+            if (currentPlant.getDeathTime() != null && now.isAfter(currentPlant.getDeathTime())) {
+                currentPlant.decreaseLife();
+                deathTime = now.plusSeconds(10);
+                currentPlant.setDeathTime(deathTime);
+
+                if (currentPlant.getNbrOfLives() > 0) {
+                    // Ställ in en ny dödstid om 1h som exempel
+                    deathTime = now.plusSeconds(10);
+                    currentPlant.setDeathTime(deathTime);
+                    updateEastPanel();
+                    System.out.println("New death time set: " + deathTime + " // plant");
+                } else if (deathTime != null) {
+                    deathTime = now.plusSeconds(10);
+                    currentPlant.setDeathTime(deathTime);
+                    updateEastPanel();
+                    System.out.println("New death time is set to " + deathTime + " // plant");
+                } else if (deathTime == null) {
+                    System.err.println("Death time is not set. // plant");
+                }
+            }
+        }else{
+            deathTime = currentPlant.getDeathTime();
+        }
+    }
 
     /**
          * Retrieves the plant name of the first plant in the plant list.

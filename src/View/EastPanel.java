@@ -168,6 +168,7 @@ public class EastPanel extends JPanel {
      */
     public void enableWaterButton() {
         Water.setEnabled(true); // Enables the water button
+        controller.getCurrentPlant().setNewDeathTime(); // sätter en ny tid för plantan o dö
         Water.repaint();
     }
 
@@ -334,30 +335,32 @@ public class EastPanel extends JPanel {
     }
 
     public void updateTimeUntilDeath(LocalDateTime timeUntilDeath) {
-        if (controller.getPlantList() == null || controller.getCurrentPlant() == null) {
+        if (controller.getPlantList() == null || controller.getCurrentPlant() == null || timeUntilDeath == null) {
             timeUntilDeathLabel.setText(" ");
         } else {
-            // Calculate the difference between the current time and the given timeUntilDeath
-            LocalDateTime now = LocalDateTime.now();
-            long timeDifferenceMillis = ChronoUnit.MILLIS.between(now, timeUntilDeath);
+            if (controller.getTimeUntilNextWatering() == 0) {
+                // Calculate the difference between the current time and the given timeUntilDeath
+                LocalDateTime now = LocalDateTime.now();
+                long timeDifferenceMillis = ChronoUnit.MILLIS.between(now, timeUntilDeath);
 
-            // Check if the time is negative and set it to 0 if it is
-            if (timeDifferenceMillis < 0) {
-                timeDifferenceMillis = 0;
+                // Check if the time is negative and set it to 0 if it is
+                if (timeDifferenceMillis < 0) {
+                    timeDifferenceMillis = 0;
+                }
+
+                // Convert milliseconds to hours, minutes, and seconds
+                long seconds = timeDifferenceMillis / 1000; // Convert milliseconds to seconds
+                long hours = seconds / 3600;
+                long minutes = (seconds % 3600) / 60;
+                seconds = seconds % 60;
+
+                String formattedTime = String.format("%02d h %02d m %02d s", hours, minutes, seconds);
+
+                timeUntilDeathLabel.setText("<html><div style='text-align: center; font-size: 9px;'>Time until life lost:<br>" + formattedTime + "</div></html>");
             }
-
-            // Convert milliseconds to hours, minutes, and seconds
-            long seconds = timeDifferenceMillis / 1000; // Convert milliseconds to seconds
-            long hours = seconds / 3600;
-            long minutes = (seconds % 3600) / 60;
-            seconds = seconds % 60;
-
-            String formattedTime = String.format("%02d h %02d m %02d s", hours, minutes, seconds);
-
-            timeUntilDeathLabel.setText("<html><div style='text-align: center; font-size: 9px;'>Time until life lost:<br>" + formattedTime + "</div></html>");
-
         }
     }
+
 
     /**
      * Changes the icon of the night mode button to a moon.
