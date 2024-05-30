@@ -87,7 +87,7 @@ public class Controller {
     public void addNewRose() {
         String newName = promptForPlantName("Rose");
         ImageIcon plantImage = new ImageIcon(night ? "src/Images/Night_Empty.JPG" : "src/Images/PotArt1.JPG");
-        LocalDateTime deathTime = LocalDateTime.now().plusHours(1);
+        LocalDateTime deathTime = LocalDateTime.now().plusSeconds(10);
         Rose newRose = new Rose(this, newName, PlantArt.ROSE, 3, 0, plantImage, 0, null, deathTime);
         plantList.add(newRose);
         view.getMainPanel().updateButtons(getPlantImagePaths());
@@ -100,7 +100,7 @@ public class Controller {
     public void addNewSunflower() {
         String newName = promptForPlantName("Sunflower");
         ImageIcon plantImage = new ImageIcon(night ? "src/Images/Night_Empty.JPG" : "src/Images/PotArt1.JPG");
-        LocalDateTime deathTime = LocalDateTime.now().plusHours(1);
+        LocalDateTime deathTime = LocalDateTime.now().plusSeconds(10);
         Sunflower newSunflower = new Sunflower(this, newName, PlantArt.SUNFLOWER, 3, 0, plantImage, 0, null, deathTime);
         plantList.add(newSunflower);
         view.getMainPanel().updateButtons(getPlantImagePaths());

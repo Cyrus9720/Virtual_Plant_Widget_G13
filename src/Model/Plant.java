@@ -257,15 +257,11 @@ public abstract class Plant {
         return deathTime;
     }
 
-    public abstract void updateImage();
-
-    {
+    public abstract void updateImage();{
     }
 
-    public abstract void updateDeathImage();
-
-    {
-    }
+    public abstract void updateDeathImage(); {
+}
 
     /**
      * toString method
@@ -283,5 +279,5 @@ public abstract class Plant {
         }
         return String.format("Plant art; %s | Plant name; %s | Plant level; %d | Times watered; %d | Number of lives; %d | Plant picture; %s | Last time watered; %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture, formattedLastWatered);
     }
-}
+    }
 
