@@ -36,6 +36,7 @@ public class Controller {
             System.err.println("Error loading game data: " + e.getMessage());
         }
         view = new MainFrame(this);
+        buttonPressed(ButtonType.NightMode);
 
         if (!loadGame.isFileNotEmpty()) {
             firstTimePlaying();

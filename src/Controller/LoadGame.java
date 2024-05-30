@@ -58,7 +58,7 @@ public class LoadGame {
                 LocalDateTime lastWatered = parseTimestamp(plantData[6].trim().split(";")[1].trim());
                 LocalDateTime lastPlayed = parseTimestamp(plantData[7].trim().split(";")[1].trim());
                 LocalDateTime deathTimeData = parseTimestamp(plantData[8].trim().split("; ")[1]);
-                Boolean nightMode = Boolean.valueOf(plantData[9].trim().split(";")[1]);
+                Boolean nightMode = Boolean.parseBoolean(plantData[9].trim().split(";")[1].trim());
 
                 // Create new plants based on the plantArt
                 switch (plantArt) {
