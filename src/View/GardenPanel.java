@@ -78,6 +78,9 @@ public class GardenPanel extends JPanel {
         addPlantButton.setBackground(new Color(153, 188, 133));
         addPlantButton.setSize(150, 30);
         addPlantButton.setFont(customFont);
+        addPlantButton.setFocusPainted(false);
+        addPlantButton.setContentAreaFilled(false);
+        addPlantButton.setBorderPainted(false);
 
         // Set initial foreground color based on the current mode
         if (controller.night) {
@@ -87,6 +90,7 @@ public class GardenPanel extends JPanel {
             addPlantButton.setForeground(Color.BLACK);
             addPlantButton.setBackground(new Color(153, 188, 133));
         }
+
 
         addPlantButton.addActionListener(new ActionListener() {
             @Override
