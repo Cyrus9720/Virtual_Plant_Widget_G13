@@ -361,6 +361,25 @@ public class EastPanel extends JPanel {
     }
 
 
+    public void resetDeathTimer() {
+        // Stoppa den befintliga deathTimer, om den är aktiv
+        if (deathTimer != null) {
+            deathTimer.stop();
+        }
+
+        // Skapa en ny deathTimer
+        deathTimer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LocalDateTime deathTime = controller.getTimeUntilDeath();
+                updateTimeUntilDeath(deathTime);
+            }
+        });
+
+        // Starta den nya deathTimer
+        deathTimer.start();
+    }
+
     /**
      * Changes the icon of the night mode button to a moon.
      * @author Cyrus Shaerpour

@@ -96,34 +96,40 @@ public abstract class Plant {
     }
 
     public void setNewDeathTime() {
-        lastWatered = getLastWatered();
+        if (lastWatered == null || deathTime == null) {
+            return; // Nullkontroll för lastWatered och deathTime
+        }
+
         LocalDateTime now = LocalDateTime.now();
         System.out.println("Current time: " + now);
         System.out.println("Last watered time: " + lastWatered);
         System.out.println("Current death time: " + deathTime);
 
-        if (now.isAfter(lastWatered)) {
-            System.out.println("Current time is after last watered time.");
-            if (now.isAfter(deathTime)) {
-                System.out.println("Current time is after death time.");
-                decreaseLife();
+        // Kontrollera om det är dags att uppdatera dödstiden
+        if (now.isAfter(deathTime)) {
+            System.out.println("Current time is after last watered time and death time.");
 
-                // Sätt en ny dödstid
-                deathTime = now.plusSeconds(10);
-                setDeathTime(deathTime);
-                System.out.println("New death time set to: " + deathTime);
+            // Minska antalet liv
+            decreaseLife();
 
-                controller.updateEastPanel();
-                System.out.println("Panel updated.");
+            // Sätt en ny dödstid
+            deathTime = now.plusMinutes(1);
+            setDeathTime(deathTime);
 
-                System.out.println("New death time set: " + deathTime + " // plant");
-            } else {
-                System.out.println("Current time is NOT after death time. Death time not updated.");
-            }
+            // Uppdatera panelen och återställ dödstimern
+            controller.updateEastPanel();
+            controller.resetDeathTimer();
+
+            System.out.println("Life lost and new death time set: " + deathTime + " // plant");
         } else {
-            System.out.println("Current time is NOT after last watered time.");
+            // When watering before death time, a new death time is set. 
+            deathTime = now.plusMinutes(1);
+            setDeathTime(deathTime);
+            System.out.println("New death time set: " + deathTime + " // plant");
+
         }
     }
+
 
 
     /**

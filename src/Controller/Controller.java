@@ -299,6 +299,10 @@ public class Controller {
         view.getEastPanel().updateTimeUntilDeath(currentPlant.getDeathTime());
     }
 
+    public void resetDeathTimer(){
+        view.getEastPanel().resetDeathTimer();
+    }
+
     /**
      * Checks the life of the plant and updates the image if the plant has no lives left.
      *
