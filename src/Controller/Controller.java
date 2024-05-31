@@ -460,7 +460,6 @@ public class Controller {
         return currentPlant;
         }
 
-
        /**
          * Retrieves the plant name of the first plant in the plant list.
          *
