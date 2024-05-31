@@ -35,18 +35,13 @@ public class Controller {
             System.err.println("Error loading game data: " + e.getMessage());
         }
         view = new MainFrame(this);
-        if(night){
-            night = false;
-            buttonPressed(ButtonType.NightMode);
-        }
-        else {
-            night = true;
-            buttonPressed(ButtonType.NightMode);
-        }
-
 
         if (!loadGame.isFileNotEmpty()) {
             firstTimePlaying();
+        }
+        else {
+            night = (night) ? false : true; //Gör en check och rättar till night variable så respektive mode syns vid start up
+            buttonPressed(ButtonType.NightMode); //Bytar till rätt day/night mode
         }
     }
 
