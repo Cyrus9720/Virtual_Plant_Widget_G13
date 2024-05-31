@@ -41,7 +41,7 @@ public class MainFrame extends JFrame {
      * @author annagranberg
      */
     public void setUpFrame() {
-        setTitle("Virtual Plant Widget");
+        setTitle("Virtual Plants");
         setPreferredSize(new Dimension(width, height));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
@@ -142,8 +142,6 @@ public class MainFrame extends JFrame {
     public void showRulesDialog() {
         GameRuleFrame gameRuleFrame = new GameRuleFrame();
     }
-
-
     public CenterPanel getCenterPanel() {
         return mainPanel.getCenterPanel();
     }
@@ -155,5 +153,8 @@ public class MainFrame extends JFrame {
     }
     public MainPanel getMainPanel(){
         return mainPanel;
+    }
+    public GardenPanel getGardenPanel(){
+        return mainPanel.getGardenPanel();
     }
 }

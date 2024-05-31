@@ -1,5 +1,7 @@
 package Model;
 
+import Controller.Controller;
+
 import javax.swing.*;
 import java.time.LocalDateTime;
 
@@ -16,8 +18,8 @@ public class Blackberry extends Plant{
      * @param lastWatered
      * @author Cyrus Shaerpour
      */
-    public Blackberry(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
-        super(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+    public Blackberry(Controller controller, String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered, LocalDateTime deathTime) {
+        super(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTime);
     }
 
     @Override
@@ -32,7 +34,6 @@ public class Blackberry extends Plant{
         super.setNbrOfLives(nbrOfLives);
         updateDeathImage();
         System.out.println(getPlantPicture());
-        System.out.println("We here!");
     }
 
     private void updateImage() {

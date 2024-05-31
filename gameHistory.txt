@@ -1,25 +1,16 @@
-Plant name: Cactus7 | Plant art: CACTUS | Plant level: 1 | Plant Picture: src/Images/Cactus1.JPG
-Plant name: Mini Tree9 | Plant art: MINI_TREE | Plant level: 1 | Plant Picture: src/Images/MiniTree1.JPG
-Plant name: Sunflower4 | Plant art: SUNFLOWER | Plant level: 2 | Plant Picture: src/Images/Sunflower2.JPG
-Plant name: Blackberry1 | Plant art: BLACKBERRY | Plant level: 2 | Plant Picture: src/Images/Blackberry2.JPG
-Plant name: Blackberry0 | Plant art: BLACKBERRY | Plant level: 1 | Plant Picture: src/Images/Blackberry1.JPG
-Plant name: Mini Tree2 | Plant art: MINI_TREE | Plant level: 1 | Plant Picture: src/Images/MiniTree1.JPG
-Plant name: TomatoPlant4 | Plant art: TOMATO_PLANT | Plant level: 1 | Plant Picture: src/Images/Tomatoe1.JPG
-Plant name: Rose6 | Plant art: ROSE | Plant level: 1 | Plant Picture: src/Images/RoseArt1.JPG
+Plant name: Minitree3 | Plant art: MINI_TREE | Plant level: 3 | Plant Picture: src/Images/MiniTree3.JPG
+Plant name: Minitree5 | Plant art: MINI_TREE | Plant level: 1 | Plant Picture: src/Images/MiniTree1.JPG
+Plant name: Anna | Plant art: SUNFLOWER | Plant level: 2 | Plant Picture: src/Images/Sunflower2.JPG
+Plant name: Sunflower3 | Plant art: SUNFLOWER | Plant level: 1 | Plant Picture: src/Images/Sunflower1.JPG
 Plant name: Sunflower0 | Plant art: SUNFLOWER | Plant level: 1 | Plant Picture: src/Images/Sunflower1.JPG
-Plant name: Cactus1 | Plant art: CACTUS | Plant level: 1 | Plant Picture: src/Images/Cactus1.JPG
-Plant name: MYPrettyRose | Plant art: BLACKBERRY | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
-Plant name: My Pretty Cactus | Plant art: CACTUS | Plant level: 1 | Plant Picture: src/Images/Cactus1.JPG
-Plant name: Sunflower9 | Plant art: SUNFLOWER | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
-Plant name: MYPrettyRose | Plant art: ROSE | Plant level: 1 | Plant Picture: src/Images/RoseArt1.JPG
-Plant name: Cactus2 | Plant art: CACTUS | Plant level: 1 | Plant Picture: src/Images/Cactus1.JPG
-Plant name: Sunflower6 | Plant art: SUNFLOWER | Plant level: 1 | Plant Picture: src/Images/Sunflower1.JPG
-Plant name: MyPinkRose | Plant art: ROSE | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
-Plant name: Myprettyrose | Plant art: ROSE | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
-Plant name: Rose8 | Plant art: CACTUS | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
-Plant name: Blackberry8 | Plant art: BLACKBERRY | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
-Plant name: Blackberry8 | Plant art: BLACKBERRY | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
-Plant name: MyMiniTree | Plant art: MINI_TREE | Plant level: 1 | Plant Picture: src/Images/MiniTree1.JPG
-Plant name: Bert | Plant art: CACTUS | Plant level: 1 | Plant Picture: src/Images/Cactus1.JPG
-Plant name: Berra | Plant art: BLACKBERRY | Plant level: 2 | Plant Picture: src/Images/BlackberryDead2.JPG
-Plant name: Sunny | Plant art: SUNFLOWER | Plant level: 2 | Plant Picture: src/Images/SunflowerDead2.JPG
+Plant name: TomatoPlant0 | Plant art: TOMATO_PLANT | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
+Plant name: Minitree10 | Plant art: MINI_TREE | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
+Plant name: Blackberries | Plant art: BLACKBERRY | Plant level: 3 | Plant Picture: src/Images/BlackberryDead3.JPG
+Plant name: TomatoPlant9 | Plant art: TOMATO_PLANT | Plant level: 2 | Plant Picture: src/Images/Tomatoe2.JPG
+Plant name: Sunflower1 | Plant art: SUNFLOWER | Plant level: 2 | Plant Picture: src/Images/SunflowerDead2.JPG
+Plant name: Rose3 | Plant art: ROSE | Plant level: 1 | Plant Picture: src/Images/RoseDead1.JPG
+Plant name: Sunflower7 | Plant art: SUNFLOWER | Plant level: 1 | Plant Picture: src/Images/Sunflower1.JPG
+Plant name: Sunflower1 | Plant art: SUNFLOWER | Plant level: 1 | Plant Picture: src/Images/Sunflower1.JPG
+Plant name: TomatoPlant0 | Plant art: TOMATO_PLANT | Plant level: 2 | Plant Picture: src/Images/Tomatoe2.JPG
+Plant name: Blackberry8 | Plant art: BLACKBERRY | Plant level: 1 | Plant Picture: src/Images/Blackberry1.JPG
+Plant name: Minitree2 | Plant art: MINI_TREE | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG

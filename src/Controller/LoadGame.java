@@ -16,15 +16,14 @@ import java.util.List;
 
 /**
  * A utility class for loading game data from a saved file and populating a list of Plant objects.
- * @author anna granberg
+ * @author annagranberg
  */
 
 public class LoadGame {
-    private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-    private static LocalDateTime timestamp;
-    private static boolean fileNotEmpty;
-    private static MainFrame view;
-    private static Plant plant;
+    private LocalDateTime timestamp;
+    private boolean fileNotEmpty;
+    private MainFrame view;
+    private Plant plant;
 
     /**
      * Loads game data from a saved file and populates a list of Plant objects.
@@ -32,7 +31,7 @@ public class LoadGame {
      * @param plantList The list to populate with loaded Plant objects.
      * @return The list of Plant objects populated with data from the save file.
      */
-    public static List<Plant> loadGame(List<Plant> plantList, Controller controller) {
+    public List<Plant> loadGame(List<Plant> plantList, Controller controller) {
 
         view = controller.getView();
 
@@ -44,7 +43,7 @@ public class LoadGame {
             while ((line = reader.readLine()) != null) {
                 fileNotEmpty = true;
                 String[] plantData = line.split("\\|"); // Split
-                if (plantData.length != 8) { // Check if the data format is valid
+                if (plantData.length != 10) { // Check if the data format is valid
                     System.err.println("Invalid data format in save file: " + line);
                     continue;
                 }
@@ -58,42 +57,44 @@ public class LoadGame {
                 ImageIcon plantPicture = new ImageIcon(plantData[5].trim().split(";")[1].trim());
                 LocalDateTime lastWatered = parseTimestamp(plantData[6].trim().split(";")[1].trim());
                 LocalDateTime lastPlayed = parseTimestamp(plantData[7].trim().split(";")[1].trim());
+                LocalDateTime deathTimeData = parseTimestamp(plantData[8].trim().split("; ")[1]);
+                Boolean nightMode = Boolean.parseBoolean(plantData[9].trim().split(";")[1].trim());
 
-                // Skapa "nya" plantor beroende på plantArt
+
+                // Create new plants based on the plantArt
                 switch (plantArt) {
                     case ROSE:
-                        plant = new Rose(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        plant = new Rose(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
+                        plant.setDeathTime(deathTimeData);
                         break;
                     case SUNFLOWER:
-                        plant = new Sunflower(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        plant = new Sunflower(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
                         break;
                     case TOMATO_PLANT:
-                        plant = new TomatoPlant(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        plant = new TomatoPlant(controller,name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
+                        //plant.setDeathTime(plant.calculateDeathTime(lastWatered));
                         break;
                     case BLACKBERRY:
-                        plant = new Blackberry(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        plant = new Blackberry(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
+                        //plant.setDeathTime(plant.calculateDeathTime(lastWatered));
                         break;
                     case CACTUS:
-                        plant = new Cactus(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        plant = new Cactus(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
+                        //plant.setDeathTime(plant.calculateDeathTime(lastWatered));
                         break;
                     case MINI_TREE:
-                        plant = new MiniTree(name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered);
+                        plant = new MiniTree(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
+                        //plant.setDeathTime(plant.calculateDeathTime(lastWatered));
                         break;
                     default:
                         System.err.println("Unknown plant type: " + plantType);
                         continue;
                 }
 
-                // Lägg till den "nya" plantan i listan
+                // Add the new plant to the list
                 plantList.add(plant);
-                // clearSaveFile();
-            }
+                controller.setNight(nightMode);
 
-            if (fileNotEmpty) {  // ifall fil är tom
-                // view.welcomeBackMessage(); todo: få detta att fungera?
-                // SaveGame.writeGamePlayedNotice();
-            } else{
-               // controller.firstTimePlaying();
             }
             System.out.println("Game loaded successfully.");
         } catch (IOException e) {
@@ -101,7 +102,7 @@ public class LoadGame {
         } catch (IllegalArgumentException e) {
             System.err.println("Error parsing data from save file: " + e.getMessage());
         }
-        return plantList; // Returnera listan av Plant objekt
+        return plantList; // Return the list of Plant objects
     }
 
     /**
@@ -110,27 +111,47 @@ public class LoadGame {
      * @param timestampString The string representation of the timestamp.
      * @return The parsed LocalDateTime object.
      */
-    private static LocalDateTime parseTimestamp(String timestampString) {
+    private LocalDateTime parseTimestamp(String timestampString) {
         try {
-            // Manuellt tolka tidsstämpeln
-            LocalDateTime parsedDateTime = LocalDateTime.parse(timestampString, dateFormat);
-            return parsedDateTime;
+            if ("0000-00-00 00:00:00.000".equals(timestampString)) {
+                return null;
+            } else {
+                // Manually parse the timestamp
+                DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+                LocalDateTime parsedDateTime = LocalDateTime.parse(timestampString, dateFormat);
+                return parsedDateTime;
+            }
         } catch (DateTimeParseException e) {
-            // Om tolkningen misslyckas, skriv ut felmeddelande och returnera null
+            // If parsing fails, print error message and return null
             System.err.println("Error parsing timestamp from save file: " + e.getMessage());
             return null;
         }
     }
 
-    public static Plant getPlant() {
+    /**
+     * Gets the last loaded plant.
+     *
+     * @return The last loaded plant object.
+     */
+    public Plant getPlant() {
         return plant;
     }
 
-    public static LocalDateTime getTimestamp() {
+    /**
+     * Gets the timestamp of the last save.
+     *
+     * @return The timestamp of the last save.
+     */
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public static boolean isFileNotEmpty() {
+    /**
+     * Checks if the save file was not empty.
+     *
+     * @return true if the save file was not empty, false otherwise.
+     */
+    public boolean isFileNotEmpty() {
         return fileNotEmpty;
     }
 }

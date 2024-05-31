@@ -76,7 +76,7 @@ public class MainPanel extends JPanel
 
     /**
      * Retrieves the center panel.
-     *
+     * @author Cyrus Shaerpour
      * @return The center panel.
      */
     public CenterPanel getCenterPanel() {
@@ -85,7 +85,7 @@ public class MainPanel extends JPanel
 
     /**
      * Retrieves the east panel.
-     *
+     * @author Cyrus Shaerpour
      * @return The east panel.
      */
     public EastPanel getEastPanel() {
@@ -94,10 +94,30 @@ public class MainPanel extends JPanel
 
     /**
      * Retrieves the south panel.
-     *
+     * @author Cyrus Shaerpour
      * @return The south panel.
      */
     public SouthPanel getSouthPanel() {
         return southPanel;
+    }
+
+    public GardenPanel getGardenPanel() {
+        return gardenPanel;
+    }
+
+    /**
+     * Sets the background color of the main panel to a night theme.
+     * @author Cyrus Shaerpour
+     */
+    public void nightMain() {
+        setBackground(new Color(13, 12, 29));
+    }
+
+    /**
+     * Sets the background color of the main panel to a day theme.
+     * @author Cyrus Shaerpour
+     */
+    public void dayMain() {
+        setBackground(new Color(225, 240, 218));
     }
 }

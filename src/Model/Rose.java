@@ -7,23 +7,20 @@ import java.time.LocalDateTime;
 
 public class Rose extends Plant {
 
-    public Rose(String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered) {
-        super(name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered);
+    public Rose(Controller controller, String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered, LocalDateTime deathTime) {
+        super(controller, name, plantArt, nbrOfLives,timesWatered, plantPicture, plantLevel, lastWatered, deathTime);
     }
 
     @Override
     public void setPlantLevel(int plantLevel) {
         super.setPlantLevel(plantLevel);
         updateImage();
-        System.out.println(getPlantPicture());
     }
 
     @Override
     public void setNbrOfLives(int nbrOfLives) {
         super.setNbrOfLives(nbrOfLives);
         updateDeathImage();
-        System.out.println(getPlantPicture());
-        System.out.println("We here!");
     }
 
     private void updateImage() {

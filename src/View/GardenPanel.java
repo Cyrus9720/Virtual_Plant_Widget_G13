@@ -1,6 +1,7 @@
 package View;
 
 import Controller.Controller;
+import View.AddNewPlantFrame;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -8,108 +9,117 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Anna Granberg
- */
 public class GardenPanel extends JPanel {
-    private List<String> plantPaths; // Lista med image paths
-    private Font customFont = new Font("Bebas Neue", Font.BOLD, 12); // Anpassat typsnitt
-    private Controller controller; // Referens till Controller
+    private List<String> plantPaths;
+    private Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
+    private Controller controller;
+    private JButton addPlantButton;
+    private Border border;
+    private List<JButton> plantButtons; // Store plant buttons in a list
+    private TitledBorder titledBorder;
 
-    /**
-     * Constructor for GardenPanel.
-     *
-     * @param plantPaths List of plant paths
-     */
     public GardenPanel(List<String> plantPaths, Controller controller) {
         this.plantPaths = plantPaths;
         this.controller = controller;
+        plantButtons = new ArrayList<>(); // Initialize the list
 
-        setPreferredSize(new Dimension(175,500)); // sätt storlek
-        setBackground(new Color(225, 240, 218)); // Ställ in bakgrundsfärg
-        setLayout(new GridLayout(4,2)); // sätt layout
-
+        setPreferredSize(new Dimension(175, 500));
+        setBackground(new Color(225, 240, 218));
+        setLayout(new GridLayout(4, 2));
 
         generateButtons();
         addAddPlantButton();
 
-        Border border = BorderFactory.createLineBorder(Color.BLACK); // Gränsfärg
-        TitledBorder titledBorder = BorderFactory.createTitledBorder(border, "Garden", TitledBorder.CENTER, TitledBorder.TOP, customFont, Color.BLACK);
+        border = BorderFactory.createLineBorder(Color.BLACK);
+        titledBorder = BorderFactory.createTitledBorder(border, "Garden", TitledBorder.CENTER, TitledBorder.TOP, customFont, Color.BLACK);
         setBorder(titledBorder);
     }
 
-    /**
-     * Method to generate buttons with plant images.
-     */
     public void generateButtons() {
-        // Loopa igenom plantPaths-listan för att skapa knappar för varje växt
         for (int i = 0; i < plantPaths.size(); i++) {
-            // Skapa en ImageIcon från bildsökvägen och skala den till önskad storlek
             ImageIcon icon = new ImageIcon(plantPaths.get(i));
             Image iconImage = icon.getImage();
             Image scaledIconImage = iconImage.getScaledInstance(50, 75, Image.SCALE_SMOOTH);
             ImageIcon scaledIcon = new ImageIcon(scaledIconImage);
 
-            // Skapa en knapp med växtens index som text och ikonen som ikon
             JButton plantButton = new JButton(String.valueOf(i));
-            plantButton.setFont(customFont); // Använd anpassat typsnitt för knappen
-            plantButton.setIcon(scaledIcon); // Sätt ikon på knappen
-            plantButton.setFocusPainted(false); // Avaktivera fokusmålning på knappen
-            plantButton.setBorderPainted(false); // Avaktivera kantmålning på knappen
+            plantButton.setFont(customFont);
+            plantButton.setIcon(scaledIcon);
+            plantButton.setFocusPainted(false);
+            plantButton.setBorderPainted(false);
 
-            // Lägg till en action listener för knappen
             plantButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // Vid knapptryck, växla till den valda växten och stäng trädgårdsfönstret
                     controller.switchPlant(e.getActionCommand());
-                    //GardenView.this.dispose(); // Stäng aktuellt fönster
                 }
             });
 
-            add(plantButton); // Lägg till panelen med knapp och etikett
+            plantButtons.add(plantButton); // Add each button to the list
+            add(plantButton);
         }
     }
-    /**
-     * Method to update buttons based on new plants.
-     *
-     * @param newPlantPaths List of new plant paths
-     */
+
     public void updateButtons(List<String> newPlantPaths) {
-        removeAll(); // Ta bort befintliga knappar
-        plantPaths = newPlantPaths; // Uppdatera listan med nya växter
-        generateButtons(); // Generera nya knappar baserat på de nya växterna
+        removeAll();
+        plantPaths = newPlantPaths;
+        generateButtons();
         addAddPlantButton();
-        revalidate(); // Uppdatera layout
-        repaint(); // Repaint om panelen
+        revalidate();
+        repaint();
     }
 
-    /**
-     * Method to add the "Add Plant" button.
-     *
-     */
     private void addAddPlantButton() {
-        JButton addPlantButton = new JButton("Add new plant");
+        addPlantButton = new JButton("Add new plant");
         addPlantButton.setBackground(new Color(153, 188, 133));
-        //addPlantButton.setPreferredSize(new Dimension(150, 30));
-        addPlantButton.setSize(150,30);
-        //addPlantButton.setMaximumSize(new Dimension(75, Integer.MAX_VALUE));
+        addPlantButton.setSize(150, 30);
         addPlantButton.setFont(customFont);
+
+        // Set initial foreground color based on the current mode
+        if (controller.night) {
+            addPlantButton.setForeground(Color.WHITE);
+        } else {
+            addPlantButton.setForeground(Color.BLACK);
+        }
+
         addPlantButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (controller.getPlantList().size() <= 6) { // kontroll så att man inte har fler än 6 växter
+                if (controller.getPlantList().size() <= 6) {
                     AddNewPlantFrame addNewPlantFrame = new AddNewPlantFrame(controller);
-                }else {
+                } else {
                     JOptionPane.showMessageDialog(GardenPanel.this,
                             "You can only have 6 plants in your garden. Please remove a plant to continue",
                             "You have too many plants :(", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
-        add(addPlantButton);
+        add(addPlantButton, BorderLayout.SOUTH);
+    }
+
+
+    public void nightGarden() {
+        setBackground(new Color(47, 49, 73));
+        addPlantButton.setBackground(new Color(156, 166, 0));
+        border = BorderFactory.createLineBorder(Color.WHITE);
+        titledBorder.setTitleColor(Color.WHITE);
+        // Iterate through the list and update each button's color
+        for (JButton button : plantButtons) {
+            button.setForeground(Color.WHITE);
+        }
+    }
+
+    public void dayGarden() {
+        setBackground(new Color(225, 240, 218));
+        addPlantButton.setBackground(new Color(153, 188, 133));
+        border = BorderFactory.createLineBorder(Color.BLACK);
+        titledBorder.setTitleColor(Color.BLACK);
+        // Iterate through the list and update each button's color
+        for (JButton button : plantButtons) {
+            button.setForeground(Color.BLACK);
+        }
     }
 }
