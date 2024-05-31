@@ -116,7 +116,7 @@ public abstract class Plant {
             System.out.println("New death time set: " + deathTime + " // plant");
 
         }
-        controller.checkLife();
+        controller.getView().getEastPanel().updateLives();
     }
 
     public void setDeathTimeSwitch(){
@@ -145,7 +145,7 @@ public abstract class Plant {
 
             // Reset death timer
             controller.resetDeathTimer();
-            controller.checkLife();
+            controller.getView().getEastPanel().updateLives();
 
             System.out.println("Life lost and new death time set: " + deathTime + " // plant");
         }
@@ -160,8 +160,7 @@ public abstract class Plant {
     public void decreaseLife() {
         if (nbrOfLives > 0) {
             nbrOfLives--; // Minska livräknaren med ett om den är större än noll
-            setNbrOfLives(getNbrOfLives());
-            controller.getView().getEastPanel().updateLives();
+            setNbrOfLives(nbrOfLives);
         }
     }
 

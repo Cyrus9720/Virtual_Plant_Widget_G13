@@ -16,3 +16,7 @@ Plant name: Blackberry8 | Plant art: BLACKBERRY | Plant level: 1 | Plant Picture
 Plant name: Minitree2 | Plant art: MINI_TREE | Plant level: 0 | Plant Picture: src/Images/PotArt1.JPG
 Plant name: Sunflower6 | Plant art: SUNFLOWER | Plant level: 1 | Plant Picture: src/Images/Sunflower1.JPG
 Plant name: Minitree2 | Plant art: MINI_TREE | Plant level: 2 | Plant Picture: src/Images/MiniTree2.JPG
+Plant name: Sunflower4 | Plant art: SUNFLOWER | Plant level: 2 | Plant Picture: src/Images/SunflowerDead2.JPG
+Plant name: TomatoPlant8 | Plant art: TOMATO_PLANT | Plant level: 2 | Plant Picture: src/Images/TomatoDead2.JPG
+Plant name: Sunflower2 | Plant art: SUNFLOWER | Plant level: 1 | Plant Picture: src/Images/SunflowerDead1.JPG
+Plant name: Sunflower2 | Plant art: SUNFLOWER | Plant level: 1 | Plant Picture: src/Images/SunflowerDead1.JPG

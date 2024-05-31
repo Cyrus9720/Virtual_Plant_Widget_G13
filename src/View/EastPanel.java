@@ -91,7 +91,7 @@ public class EastPanel extends JPanel {
         progressbarLabel.setIcon(scaledIcon);
         add(progressbarLabel, BorderLayout.SOUTH);
 
-        threeHeartsLabel = new JLabel(updateAmountOfLife());
+        threeHeartsLabel = new JLabel(updateAmountOfLife(controller.getNbrOfLives()));
         add(threeHeartsLabel, BorderLayout.WEST);
 
         timeUntilDeathLabel = new JLabel();
@@ -151,6 +151,7 @@ public class EastPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 LocalDateTime deathTime = controller.getTimeUntilDeath();
                 updateTimeUntilDeath(deathTime);
+                updateLives();
             }
         });
         deathTimer.start();
@@ -249,7 +250,7 @@ public class EastPanel extends JPanel {
      * @author Anna Granberg
      */
     public void updateLives() {
-        ImageIcon newLivesIcon = updateAmountOfLife();
+        ImageIcon newLivesIcon = updateAmountOfLife(controller.getNbrOfLives());
         threeHeartsLabel.setIcon(newLivesIcon);
         threeHeartsLabel.repaint();
         threeHeartsLabel.revalidate();
@@ -262,14 +263,14 @@ public class EastPanel extends JPanel {
      * @return ImageIcon representing the number of remaining lives, or null if the plant list is null or the number of lives is negative.
      * @author Anna Granberg
      */
-    public ImageIcon updateAmountOfLife() {
+    public ImageIcon updateAmountOfLife(int nbrOfLives) {
         ImageIcon heartsIcon = null;
         if (controller.getPlantList() == null || controller.getNbrOfLives() < 0) {
             // Handle the case when the plant list is null or the number of lives is negative
             return null;
         }
 
-        int nbrOfLives = controller.getNbrOfLives();
+        // int nbrOfLives = controller.getNbrOfLives();
 
         switch (nbrOfLives) {
             case 0:
@@ -376,6 +377,7 @@ public class EastPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 LocalDateTime deathTime = controller.getTimeUntilDeath();
                 updateTimeUntilDeath(deathTime);
+                updateLives();
             }
         });
 

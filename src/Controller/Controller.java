@@ -78,7 +78,7 @@ public class Controller {
         view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
         view.getMainPanel().updateButtons(getPlantImagePaths());
         view.getEastPanel().updateLives();
-        view.getEastPanel().updateAmountOfLife();
+        view.getEastPanel().updateAmountOfLife(currentPlant.getNbrOfLives());
         view.getCenterPanel().repaint();
         view.getEastPanel().repaint();
     }
