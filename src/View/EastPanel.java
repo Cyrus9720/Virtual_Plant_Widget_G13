@@ -364,8 +364,6 @@ public class EastPanel extends JPanel {
         revalidate();
     }
 
-
-
     public void resetDeathTimer() {
         // Stoppa den befintliga deathTimer, om den är aktiv
         if (deathTimer != null) {

@@ -81,20 +81,6 @@ public abstract class Plant {
         }
     }
 
-
-
-    /**
-     * Method for decreasing the number of lives of the plant
-     * @author Cyrus Shaerpour
-     * @return void
-     */
-    public void decreaseLife() {
-        if (nbrOfLives > 0) {
-            nbrOfLives--; // Minska livräknaren med ett om den är större än noll
-            setNbrOfLives(getNbrOfLives());
-        }
-    }
-
     public void setNewDeathTime() {
         if (lastWatered == null || deathTime == null) {
             return; // Nullkontroll för lastWatered och deathTime
@@ -105,8 +91,10 @@ public abstract class Plant {
         System.out.println("Last watered time: " + lastWatered);
         System.out.println("Current death time: " + deathTime);
 
-        // Kontrollera om det är dags att uppdatera dödstiden
-        if (now.isAfter(deathTime)) {
+        if(getNbrOfLives() == 0){
+            deathTime = now.minusNanos(1);
+            return;
+        } else if (now.isAfter(deathTime)) {        // Kontrollera om det är dags att uppdatera dödstiden
             System.out.println("Current time is after last watered time and death time.");
 
             // Minska antalet liv
@@ -128,9 +116,53 @@ public abstract class Plant {
             System.out.println("New death time set: " + deathTime + " // plant");
 
         }
+        controller.checkLife();
     }
 
+    public void setDeathTimeSwitch(){
+        if (lastWatered == null || deathTime == null) {
+            return; // Nullkontroll för lastWatered och deathTime
+        }
 
+
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println("Current time: " + now);
+        System.out.println("Last watered time: " + lastWatered);
+        System.out.println("Current death time: " + deathTime);
+
+        if(getNbrOfLives() == 0){
+            deathTime = now.minusNanos(1);
+            return;
+        } else if (now.isAfter(deathTime)) {
+            System.out.println("Current time is after last watered time and death time.");
+
+            // Minska antalet liv
+            decreaseLife();
+
+            // Sätt en ny dödstid
+            deathTime = now.plusMinutes(1);
+            setDeathTime(deathTime);
+
+            // Reset death timer
+            controller.resetDeathTimer();
+            controller.checkLife();
+
+            System.out.println("Life lost and new death time set: " + deathTime + " // plant");
+        }
+
+    }
+
+    /**
+     * Method for decreasing the number of lives of the plant
+     * @author Cyrus Shaerpour
+     * @return void
+     */
+    public void decreaseLife() {
+        if (nbrOfLives > 0) {
+            nbrOfLives--; // Minska livräknaren med ett om den är större än noll
+            setNbrOfLives(getNbrOfLives());
+        }
+    }
 
     /**
      * Retrieves the name of the plant.
