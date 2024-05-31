@@ -64,11 +64,10 @@ public class LoadGame {
                 switch (plantArt) {
                     case ROSE:
                         plant = new Rose(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
-                        //plant.setDeathTime(plant.calculateDeathTime(lastWatered));
+                        plant.setDeathTime(deathTimeData);
                         break;
                     case SUNFLOWER:
                         plant = new Sunflower(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
-                        //plant.setDeathTime(plant.calculateDeathTime(lastWatered));
                         break;
                     case TOMATO_PLANT:
                         plant = new TomatoPlant(controller,name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
@@ -94,6 +93,7 @@ public class LoadGame {
                 // Add the new plant to the list
                 plantList.add(plant);
                 controller.setNight(nightMode);
+
             }
             System.out.println("Game loaded successfully.");
         } catch (IOException e) {

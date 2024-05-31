@@ -99,7 +99,7 @@ public class GardenPanel extends JPanel {
                 }
             }
         });
-        add(addPlantButton);
+        add(addPlantButton, BorderLayout.SOUTH);
     }
 
     /**

@@ -20,7 +20,6 @@ public class Controller {
     private ArrayList<Plant> plantList = new ArrayList<>();
     private int currentPlantIndex;
     private Plant currentPlant = null;
-    private Duration remainingTime;
     private LoadGame loadGame;
     private boolean isChosen = false;
     public boolean night = false;
@@ -49,9 +48,6 @@ public class Controller {
         if (!loadGame.isFileNotEmpty()) {
             firstTimePlaying();
         }
-
-        //plantTimers = new HashMap<>();
-       // resumeAllTimers();
     }
 
     /**
@@ -66,7 +62,7 @@ public class Controller {
             setIsChosen(true);
             currentPlantIndex = plantIndex;
             currentPlant = plantList.get(plantIndex); // Uppdatera currentPlant när switchPlant kallas
-            currentPlant.setNewDeathTime();
+
             updateWaterButtonStatus();
             view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
             view.getCenterPanel().updatePlantName(currentPlant.getPlantName());
@@ -78,10 +74,6 @@ public class Controller {
         } else {
             System.err.println("Invalid plant index: " + id);
         }
-    }
-
-    public boolean getIsChosen(){
-        return isChosen;
     }
 
     public void setIsChosen(boolean isChosen){
@@ -219,7 +211,7 @@ public class Controller {
                     currentPlant.setLastWatered(LocalDateTime.now());
 
                     currentPlant.waterPlant();
-                    currentPlant.setNewDeathTime(); // sätter en ny tid för plantan o dö
+                    currentPlant.setNewDeathTime();
                     ImageIcon updatedImage = currentPlant.getPlantPicture();
                     view.getCenterPanel().updatePlantImage(updatedImage);
                     view.getMainPanel().updateButtons(getPlantImagePaths());
@@ -300,21 +292,11 @@ public class Controller {
         }
     }
     public void updateEastPanel() {
-
+        view.getEastPanel().updateTimeUntilDeath(currentPlant.getDeathTime());
     }
 
-    /**
-     * Checks the life of the plant and updates the image if the plant has no lives left.
-     *
-     * @author Cyrus Shaerpour
-     */
-    public void checkLife() {
-        if (currentPlant.getNbrOfLives() == 0) {
-            view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
-            view.getMainPanel().updateButtons(getPlantImagePaths());
-            view.getEastPanel().updateAmountOfLife();
-            view.getEastPanel().repaint();
-        }
+    public void resetDeathTimer(){
+        view.getEastPanel().resetDeathTimer();
     }
 
     /**
@@ -475,7 +457,8 @@ public class Controller {
         return currentPlant;
         }
 
-    /**
+
+       /**
          * Retrieves the plant name of the first plant in the plant list.
          *
          * @return The plant name of the first plant, or 0 if the plant list is empty or the first plant is null.
@@ -526,10 +509,6 @@ public class Controller {
             }
         }
 
-     /*   public Timer getPlantTimer(Plant plant) {
-            return plantTimers.get(plant);
-        }*/
-
         /**
          * Retrieves the paths of images associated with each plant in the plant list.
          *
@@ -552,6 +531,8 @@ public class Controller {
          */
         public void changePlantName () {
             if(isChosen){
+                javax.swing.UIManager.put("OptionPane.background", new Color(225, 240, 218));
+                javax.swing.UIManager.put("Panel.background", new Color(225, 240, 218));
                 String newName = JOptionPane.showInputDialog("Please enter the new plant name: ");
                 if (newName != null && !newName.trim().isEmpty()) {
                     currentPlant.setName(newName);
@@ -562,23 +543,6 @@ public class Controller {
             }else{
                 JOptionPane.showMessageDialog(null, "You must choose a plant to change the name!");
             }
-        }
-
-        /**
-         * Calculates the time elapsed since the game was last played.
-         *
-         * @return The time elapsed since the game was last played, in seconds.
-         * @author Anna Granberg
-         */
-        public long getTimeSinceLastPlayed () {
-            LocalDateTime timeWhenClosed = SaveGame.getTimestamp();
-            LocalDateTime timeWhenOpened = loadGame.getTimestamp();
-
-            Duration duration = Duration.between(timeWhenClosed, timeWhenOpened);
-
-            long timeSinceLastPlayedSeconds = duration.getSeconds();
-
-            return timeSinceLastPlayedSeconds;
         }
 
         /**

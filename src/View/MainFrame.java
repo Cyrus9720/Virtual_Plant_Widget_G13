@@ -41,7 +41,7 @@ public class MainFrame extends JFrame {
      * @author annagranberg
      */
     public void setUpFrame() {
-        setTitle("Virtual Plant Widget");
+        setTitle("Virtual Plants");
         setPreferredSize(new Dimension(width, height));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
@@ -147,6 +147,7 @@ public class MainFrame extends JFrame {
      * @return The center panel.
      * @author Cyrus Shaerpour
      */
+
     public CenterPanel getCenterPanel() {
         return mainPanel.getCenterPanel();
     }

@@ -33,12 +33,13 @@ public class GameRuleFrame extends JFrame {
         // Text för spelreglerna
         String rules = "<html><h2 style='margin-bottom: 5px;'>How to Play:</h2>" +
                 "<ul>" +
-                "<li>Add plants to your garden through the 'Garden' menu.</li>" +
-                "<li>Enter your garden to water your plants regularly.</li>" +
-                "<li>Observe your plants as they progress from seeds to maturity.</li>" +
-                "<li>Monitor your plant's health using the hearts on the right side. Missing watering reduces a life.</li>" +
+                "<li>Add plants to your garden through the 'Garden' on your left.</li>" +
+                "<li>Observe your plants as they progress from pot to a big plant.</li>" +
+                "<li>Monitor your plant's health using the hearts on the right side. " +
+                "<li>Missing watering reduces a life.</li>" +
                 "<li>Track water progress displayed above the hearts.</li>" +
-                "<li>To remove a plant, simply delete it from your garden.</li>" +
+                "<li>To delete a plant, simply press remove plant in the menu.</li>" +
+                "<li>You can see your removed plants in Game History!  </li>" +
                 "</ul>" +
                 "<p>Have fun and enjoy your virtual garden!</p>";
 

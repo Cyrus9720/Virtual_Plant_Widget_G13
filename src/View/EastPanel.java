@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.TimerTask;
 
 /**
  * The EastPanel class represents the panel containing plant care controls on the east side of the user interface.
@@ -94,6 +95,7 @@ public class EastPanel extends JPanel {
         add(threeHeartsLabel, BorderLayout.WEST);
 
         timeUntilDeathLabel = new JLabel();
+        timeUntilDeathLabel.setText("");
         timeUntilDeathLabel.setFont(new Font("Bebas Neue", Font.BOLD, 12));
         add(timeUntilDeathLabel, BorderLayout.SOUTH);
 
@@ -144,15 +146,14 @@ public class EastPanel extends JPanel {
 
 
         // Create a timer to update the time until next watering and time until death every second
-        deathTimer = new Timer(1000, new ActionListener() {
+       Timer deathTimer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LocalDateTime timeUntilDeath = controller.getTimeUntilDeath();
-                updateTimeUntilDeath(timeUntilDeath);
+                LocalDateTime deathTime = controller.getTimeUntilDeath();
+                updateTimeUntilDeath(deathTime);
             }
         });
         deathTimer.start();
-
     }
 
     /**
@@ -168,6 +169,7 @@ public class EastPanel extends JPanel {
      */
     public void enableWaterButton() {
         Water.setEnabled(true); // Enables the water button
+        controller.getCurrentPlant().setNewDeathTime(); // sätter en ny tid för plantan o dö
         Water.repaint();
     }
 
@@ -320,7 +322,6 @@ public class EastPanel extends JPanel {
             long timeUntilNextWatering = controller.getTimeUntilNextWatering();
             // Kontrollera om tiden är negativ
             if (timeUntilNextWatering < 0) {
-                // todo: lägg till mainFrame.timeToWater()
                 timeUntilNextWatering = 0; // Sätt tiden till 0 om den är negativ
             }
             long hours = timeUntilNextWatering / 3600; // Konvertera sekunder till timmar
@@ -334,29 +335,55 @@ public class EastPanel extends JPanel {
     }
 
     public void updateTimeUntilDeath(LocalDateTime timeUntilDeath) {
-        if (controller.getPlantList() == null || controller.getCurrentPlant() == null) {
+        if (controller.getPlantList() == null || controller.getCurrentPlant() == null || timeUntilDeath == null) {
             timeUntilDeathLabel.setText(" ");
         } else {
-            // Calculate the difference between the current time and the given timeUntilDeath
-            LocalDateTime now = LocalDateTime.now();
-            long timeDifferenceMillis = ChronoUnit.MILLIS.between(now, timeUntilDeath);
+            if (controller.getTimeUntilNextWatering() == 0) {
+                // Calculate the difference between the current time and the given timeUntilDeath
+                LocalDateTime now = LocalDateTime.now();
+                long timeDifferenceMillis = ChronoUnit.MILLIS.between(now, timeUntilDeath);
 
-            // Check if the time is negative and set it to 0 if it is
-            if (timeDifferenceMillis < 0) {
-                timeDifferenceMillis = 0;
+                // Check if the time is negative and set it to 0 if it is
+                if (timeDifferenceMillis < 0) {
+                    timeDifferenceMillis = 0;
+                }
+
+                // Convert milliseconds to hours, minutes, and seconds
+                long seconds = timeDifferenceMillis / 1000; // Convert milliseconds to seconds
+                long hours = seconds / 3600;
+                long minutes = (seconds % 3600) / 60;
+                seconds = seconds % 60;
+
+                String formattedTime = String.format("%02d h %02d m %02d s", hours, minutes, seconds);
+
+                timeUntilDeathLabel.setText("<html><div style='text-align: center; font-size: 9px;'>Time until life lost:<br>" + formattedTime + "</div></html>");
+            } else {
+                timeUntilDeathLabel.setText("");
             }
-
-            // Convert milliseconds to hours, minutes, and seconds
-            long seconds = timeDifferenceMillis / 1000; // Convert milliseconds to seconds
-            long hours = seconds / 3600;
-            long minutes = (seconds % 3600) / 60;
-            seconds = seconds % 60;
-
-            String formattedTime = String.format("%02d h %02d m %02d s", hours, minutes, seconds);
-
-            timeUntilDeathLabel.setText("<html><div style='text-align: center; font-size: 9px;'>Time until life lost:<br>" + formattedTime + "</div></html>");
-
         }
+        repaint();
+        revalidate();
+    }
+
+
+
+    public void resetDeathTimer() {
+        // Stoppa den befintliga deathTimer, om den är aktiv
+        if (deathTimer != null) {
+            deathTimer.stop();
+        }
+
+        // Skapa en ny deathTimer
+        deathTimer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LocalDateTime deathTime = controller.getTimeUntilDeath();
+                updateTimeUntilDeath(deathTime);
+            }
+        });
+
+        // Starta den nya deathTimer
+        deathTimer.start();
     }
 
     /**

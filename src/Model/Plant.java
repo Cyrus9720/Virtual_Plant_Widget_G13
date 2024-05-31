@@ -49,7 +49,7 @@ public abstract class Plant {
      * If the plant is not fully grown, increase the plant level
      *
      * @return void
-     * @author Cyrus Shaerpour
+     * @author Cyrus Shaerpour och Roa Jamhour
      */
     public void waterPlant() {
         if (nbrOfLives > 0) {
@@ -58,7 +58,6 @@ public abstract class Plant {
                 if (getTimesWatered() == plantLevel + 1) {
                     setPlantLevel(getPlantLevel() + 1);
                     setTimesWatered(0);
-                    //System.out.println("Plant level " + plantLevel);
                     if (plantLevel == 3) {
                         System.out.println("Plant is fully grown");
                     }
@@ -75,10 +74,14 @@ public abstract class Plant {
                     wateringSoundClip.start();
                 }
             }
+            // Reset the death timer after watering
+            setNewDeathTime();
+
         } else if (nbrOfLives == 0) {
             JOptionPane.showMessageDialog(null, "Your plant is dead! \nWatering won't bring it back ):");
         }
     }
+
 
 
     /**
@@ -96,23 +99,41 @@ public abstract class Plant {
     }
 
     public void setNewDeathTime() {
+        if (lastWatered == null || deathTime == null) {
+            return; // Nullkontroll för lastWatered och deathTime
+        }
+
         LocalDateTime now = LocalDateTime.now();
-        if (deathTime != null && now.isAfter(deathTime)) {
+        System.out.println("Current time: " + now);
+        System.out.println("Last watered time: " + lastWatered);
+        System.out.println("Current death time: " + deathTime);
+
+        // Kontrollera om det är dags att uppdatera dödstiden
+        if (now.isAfter(deathTime)) {
+            System.out.println("Current time is after last watered time and death time.");
+
+            // Minska antalet liv
             decreaseLife();
-            if (nbrOfLives > 0) {
-                // Ställ in en ny dödstid om 1h som exempel
-                deathTime = now.plusSeconds(10);
-                setDeathTime(deathTime);
-                System.out.println("New death time set: " + deathTime + " // plant");
-            } else if (deathTime != null) {
-                deathTime = now.plusSeconds(10);
-                setDeathTime(deathTime);
-                System.out.println("New death time is set to " + deathTime + " // plant");
-            } else if (deathTime == null) {
-                System.err.println("Death time is not set. // plant");
-            }
+
+            // Sätt en ny dödstid
+            deathTime = now.plusMinutes(1);
+            setDeathTime(deathTime);
+
+            // Reset death timer
+            controller.resetDeathTimer();
+
+            System.out.println("Life lost and new death time set: " + deathTime + " // plant");
+        } else {
+            // When watering before death time, a new death time is set.
+            deathTime = now.plusMinutes(1);
+            setDeathTime(deathTime);
+            controller.resetDeathTimer();
+            System.out.println("New death time set: " + deathTime + " // plant");
+
         }
     }
+
+
 
     /**
      * Retrieves the name of the plant.
@@ -250,12 +271,12 @@ public abstract class Plant {
         return name;
     }
 
-    public void setDeathTime(LocalDateTime deathTime) {
-        this.deathTime = deathTime;
+    public void setDeathTime(LocalDateTime newDeathTime) {
+        this.deathTime = newDeathTime;
+        System.out.println("Death time successfully set to: " + this.deathTime);
     }
-
     public LocalDateTime getDeathTime() {
-        return deathTime;
+        return this.deathTime;
     }
 
     public abstract void updateImage();{
