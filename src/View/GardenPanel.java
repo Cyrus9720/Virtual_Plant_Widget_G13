@@ -79,12 +79,12 @@ public class GardenPanel extends JPanel {
         addPlantButton.setSize(150, 30);
         addPlantButton.setFont(customFont);
         addPlantButton.setFocusPainted(false);
-        addPlantButton.setContentAreaFilled(false);
-        addPlantButton.setBorderPainted(false);
+        //addPlantButton.setContentAreaFilled(true);
+        addPlantButton.setBorderPainted(true);
 
         // Set initial foreground color based on the current mode
         if (controller.night) {
-            addPlantButton.setForeground(Color.WHITE);
+            addPlantButton.setForeground(Color.BLACK);
             addPlantButton.setBackground(new Color(13, 12, 29));
         } else {
             addPlantButton.setForeground(Color.BLACK);
