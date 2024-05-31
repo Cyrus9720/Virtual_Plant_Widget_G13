@@ -47,7 +47,7 @@ public abstract class Plant {
      * Method for watering the plant and increasing the plant level
      * If the plant is not fully grown, increase the plant level
      * @return void
-     * @author Cyrus Shaerpour och Roa Jamhour
+     * @author Cyrus Shaerpour and Roa Jamhour
      */
     public void waterPlant() {
         if (nbrOfLives > 0) { // when the plant has more than 0 lives
@@ -98,7 +98,7 @@ public abstract class Plant {
      * If the current time is after the current death time, decreases the plant's life, sets a new death time,
      * and resets the death timer. Otherwise, sets a new death time and resets the death timer.
      *
-     * @author Anna Granberg
+     * @author Anna Granberg and Cyrus Shaerpour
      */
     public void setNewDeathTime() {
         if (lastWatered == null || deathTime == null) {
