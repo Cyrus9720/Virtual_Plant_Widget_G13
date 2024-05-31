@@ -75,12 +75,12 @@ public class Controller {
      * @author Cyrus Shaerpour
      */
     public void checkLife() {
-        if (currentPlant.getNbrOfLives() == 0) {
-            view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
-            view.getMainPanel().updateButtons(getPlantImagePaths());
-            view.getEastPanel().updateAmountOfLife();
-            view.getEastPanel().repaint();
-        }
+        view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
+        view.getMainPanel().updateButtons(getPlantImagePaths());
+        view.getEastPanel().updateLives();
+        view.getEastPanel().updateAmountOfLife();
+        view.getCenterPanel().repaint();
+        view.getEastPanel().repaint();
     }
 
     public void setIsChosen(boolean isChosen){

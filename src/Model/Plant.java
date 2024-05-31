@@ -161,6 +161,7 @@ public abstract class Plant {
         if (nbrOfLives > 0) {
             nbrOfLives--; // Minska livräknaren med ett om den är större än noll
             setNbrOfLives(getNbrOfLives());
+            controller.getView().getEastPanel().updateLives();
         }
     }
 
