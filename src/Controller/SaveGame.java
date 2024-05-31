@@ -35,7 +35,7 @@ public class SaveGame {
                 // Add the formatted timestamp to the end of the line
                 data += " | Closed game; " + timestamp.format(formatter);
 
-                data += " | Death time; " + timeUntilDeath.format(formatter); //TODO kanske ta bort
+               // data += " | Death time; " + timeUntilDeath.format(formatter); //TODO kanske ta bort
 
 
                 if (timeUntilDeath != null) {
