@@ -11,16 +11,16 @@ import java.util.Objects;
 import javax.sound.sampled.Clip;
 
 public abstract class Plant {
-    private String name;
-    private int nbrOfLives;
-    private int timesWatered;
-    private ImageIcon plantPicture;
-    private int plantLevel;
-    private PlantArt plantArt;
-    private LocalDateTime lastWatered;
-    private LocalDateTime deathTime;
-    private Clip wateringSoundClip;
-    private Controller controller;
+    private String name; // name of the plant
+    private int nbrOfLives; // number of lives of the plant
+    private int timesWatered; // number of times the plant has been watered
+    private ImageIcon plantPicture; // Imageicon of the plant
+    private int plantLevel; // Level of the plant
+    private PlantArt plantArt; // Art of the plant
+    private LocalDateTime lastWatered; // LocalDateTime for when plant was last watered
+    private LocalDateTime deathTime; // LocalDateTime for when plant is planned to lose a life
+    private Clip wateringSoundClip; // A clip for the sound effect
+    private Controller controller; // Instance of controller, to be able to use its methods. 
 
     /**
      * Constructor for Plant
@@ -50,17 +50,17 @@ public abstract class Plant {
      * @author Cyrus Shaerpour och Roa Jamhour
      */
     public void waterPlant() {
-        if (nbrOfLives > 0) {
+        if (nbrOfLives > 0) { // when the plant has more than 0 lives
             setTimesWatered(getTimesWatered() + 1);
-            if (plantLevel <= 3) {
+            if (plantLevel <= 3) { // if the plant level is 3 or less
                 if (getTimesWatered() == plantLevel + 1) {
                     setPlantLevel(getPlantLevel() + 1);
                     setTimesWatered(0);
-                    if (plantLevel == 3) {
+                    if (plantLevel == 3) { // if the plant level is 3
                         System.out.println("Plant is fully grown");
                     }
                 }
-                try {
+                try { // logic for audio when watering
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResourceAsStream("/sounds/watering.wav")));
                     wateringSoundClip = AudioSystem.getClip();
                     wateringSoundClip.open(audioInputStream);
@@ -73,10 +73,10 @@ public abstract class Plant {
                 }
             }
 
-            // Reset the death timer after watering
+            // Set new death time after watering plant.
             setNewDeathTime();
 
-        } else if (nbrOfLives == 0) {
+        } else if (nbrOfLives == 0) { // If nbr of lives is 0, show message.
             JOptionPane.showMessageDialog(null, "Your plant is dead! \nWatering won't bring it back ):");
         }
     }
@@ -155,6 +155,12 @@ public abstract class Plant {
     public int getNbrOfLives() {
         return nbrOfLives;
     }
+
+    /**
+     * Sets the number of lives of the plant.
+     *
+     * @param nbrOfLives
+     */
 
     public void setNbrOfLives(int nbrOfLives) {
         this.nbrOfLives = nbrOfLives;
@@ -266,10 +272,21 @@ public abstract class Plant {
         return name;
     }
 
+    /**
+     * Sets the death time of the plant
+     *
+     * @param newDeathTime
+     */
+
     public void setDeathTime(LocalDateTime newDeathTime) {
         this.deathTime = newDeathTime;
-        System.out.println("Death time successfully set to: " + this.deathTime);
     }
+
+    /**
+     * Retrieves the death time of the plant.
+     *
+     * @return deathTime of the plant
+     */
     public LocalDateTime getDeathTime() {
         return this.deathTime;
     }
@@ -285,7 +302,7 @@ public abstract class Plant {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
             formattedLastWatered = lastWatered.format(formatter);
         }catch (Exception e){
-            // System.err.println("Could not format date");
+            System.err.println("Could not format date");
         }
         return String.format("Plant art; %s | Plant name; %s | Plant level; %d | Times watered; %d | Number of lives; %d | Plant picture; %s | Last time watered; %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture, formattedLastWatered);
     }
