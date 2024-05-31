@@ -17,6 +17,7 @@ public class CenterPanel extends JPanel {
     private String name; // Namnet på växten
     private JLabel plantLabel; // Label som visar växtbilden
     private MainPanel mainPanel; // Referens till huvudpanelen
+    private Border border;
     private TitledBorder titledBorder; // En border med text runt panelen för att visa växtnamnet
     private static final int IMAGE_WIDTH = 300; // bredd för skalade bilder
     private static final int IMAGE_HEIGHT = 450; // höjd för skalade bilder
@@ -33,12 +34,10 @@ public class CenterPanel extends JPanel {
 
         this.mainPanel = mainPanel; // Sätter huvudpanelen
 
-        plantPicture = new ImageIcon("src/Images/Background.JPG"); // Laddar standardbilden för växten
-
-        String plantName = controller.getPlantName(); // Hämtar växtnamnet från controller
-        titledBorder = BorderFactory.createTitledBorder("You must choose a plant"); // Skapar en border runt panelen med ett standardmeddelande
+        plantPicture = new ImageIcon("src/Images/deafult.png"); // Laddar standardbilden för växten
         Font myFont = new Font("Bebas Neue", Font.BOLD, 12); // typsnitt för titeltexten
-        titledBorder.setTitleFont(myFont); // lägger till typsnittet
+        border = BorderFactory.createLineBorder(Color.BLACK);
+        titledBorder = BorderFactory.createTitledBorder(border,"You must choose a plant", TitledBorder.CENTER, TitledBorder.TOP, myFont, Color.BLACK); // Skapar en border runt panelen med ett standardmeddelande
         setBorder(titledBorder); // lägger till titelborder på panelen
 
         plantLabel = new JLabel(); // Skapar en label för växtbilden
@@ -103,5 +102,15 @@ public class CenterPanel extends JPanel {
         titledBorder.setTitle(name);
         revalidate();
         repaint();
+    }
+
+    public void centerNight() {
+        setBackground(new Color(47, 49, 73));
+        titledBorder.setTitleColor(Color.WHITE);
+    }
+
+    public void centerDay() {
+        setBackground(new Color(225, 240, 218));
+        titledBorder.setTitleColor(Color.BLACK);
     }
 }
