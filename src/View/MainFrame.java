@@ -54,7 +54,6 @@ public class MainFrame extends JFrame {
         menuBar.setPreferredSize(new Dimension(200,25));
         menuBar.setFont(customFont);
 
-
         JMenuItem gameRules = new JMenuItem("Game Rules"); // knapp för att visa spelregler
         gameRules.setFont(customFont);
         gameRules.addActionListener(new ActionListener() {
@@ -71,7 +70,7 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // showGameHistory();
-                GameHistoryFrame gameHistoryFrame = new GameHistoryFrame();
+                GameHistoryFrame gameHistoryFrame = new GameHistoryFrame(controller);
             }
         });
 
@@ -190,4 +189,5 @@ public class MainFrame extends JFrame {
     public GameRuleFrame getGameRuleFrame() {
         return mainPanel.getGameRuleFrame();
     }
+
 }

@@ -587,11 +587,20 @@ public class Controller {
          * @return True if the user confirms to clear the list, false otherwise.
          * @author Anna Granberg
          */
-        public void setGameToNull () {
-            if (!plantList.isEmpty() || plantList != null) {
+        public void setGameToNull() {
+            if (plantList != null && !plantList.isEmpty()) {
+                // Adjust the color of the dialog box
+                if (night) {
+                    javax.swing.UIManager.put("OptionPane.background", new Color(47, 49, 73));
+                    javax.swing.UIManager.put("Panel.background", new Color(47, 49, 73));
+                    javax.swing.UIManager.put("OptionPane.messageForeground", Color.WHITE); // Set font color for night mode
+                } else {
+                    javax.swing.UIManager.put("OptionPane.background", new Color(225, 240, 218));
+                    javax.swing.UIManager.put("Panel.background", new Color(225, 240, 218));
+                    javax.swing.UIManager.put("OptionPane.messageForeground", Color.BLACK); // Set font color for day mode
+                }
+
                 int confirm = JOptionPane.showConfirmDialog(null, "This action will remove all of your plants. Are you sure you want to do this?", "Confirmation", JOptionPane.YES_NO_OPTION);
-                javax.swing.UIManager.put("OptionPane.background", new Color(225, 240, 218));
-                javax.swing.UIManager.put("Panel.background", new Color(225, 240, 218));
                 ArrayList<Plant> deadPlants = new ArrayList<>();
                 deadPlants = getPlantList();
 
@@ -604,12 +613,24 @@ public class Controller {
                     view.getMainPanel().updateButtons(getPlantImagePaths());
                     JOptionPane.showMessageDialog(null, "All existing plants have been removed.", "Information", JOptionPane.INFORMATION_MESSAGE);
                 }
-            } else if (plantList.isEmpty() || plantList == null) {
+            } else if (plantList == null || plantList.isEmpty()) {
+                // Adjust the color of the dialog box for the second dialog
+                if (night) {
+                    javax.swing.UIManager.put("OptionPane.background", new Color(47, 49, 73));
+                    javax.swing.UIManager.put("Panel.background", new Color(47, 49, 73));
+                    javax.swing.UIManager.put("OptionPane.messageForeground", Color.WHITE); // Set font color for night mode
+                } else {
+                    javax.swing.UIManager.put("OptionPane.background", new Color(225, 240, 218));
+                    javax.swing.UIManager.put("Panel.background", new Color(225, 240, 218));
+                    javax.swing.UIManager.put("OptionPane.messageForeground", Color.BLACK); // Set font color for day mode
+                }
+
                 JOptionPane.showMessageDialog(null, "Your garden is empty! Nothing to remove :)", "Information", JOptionPane.INFORMATION_MESSAGE);
             }
         }
 
-        /**
+
+    /**
          * Removes a plant from the plant list.
          * Displays a confirmation dialog before removing the plant.
          *
@@ -622,11 +643,12 @@ public class Controller {
                 if (night) {
                     javax.swing.UIManager.put("OptionPane.background", new Color(47, 49, 73));
                     javax.swing.UIManager.put("Panel.background", new Color(47, 49, 73));
-
+                    javax.swing.UIManager.put("OptionPane.messageForeground", Color.WHITE); // Set font color for night mode
                 } else {
-                javax.swing.UIManager.put("OptionPane.background", new Color(225, 240, 218));
-                javax.swing.UIManager.put("Panel.background", new Color(225, 240, 218));
-            }
+                    javax.swing.UIManager.put("OptionPane.background", new Color(225, 240, 218));
+                    javax.swing.UIManager.put("Panel.background", new Color(225, 240, 218));
+                    javax.swing.UIManager.put("OptionPane.messageForeground", Color.BLACK); // Set font color for day mode
+                }
 
                 if(isChosen || currentPlant == null){
                     // Visa bekräftelsedialogrutan

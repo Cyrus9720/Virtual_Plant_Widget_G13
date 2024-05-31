@@ -44,6 +44,12 @@ public class AddNewPlantFrame extends JFrame {
 
             JLabel infoLabel = new JLabel("Choose a plant to add to the garden!"); // Skapar en label för att visa instruktioner
             Font customFont = new Font("Bebas Neue", Font.BOLD, 12); // anpassat typsnitt
+            if (controller.night) {
+                infoLabel.setForeground(Color.WHITE);
+
+            } else {
+                infoLabel.setForeground(Color.BLACK); // Ställer textfärg för JLabel
+            }
             infoLabel.setFont(customFont); // lägger typsnittet på label
 
             // Knapp för solros
