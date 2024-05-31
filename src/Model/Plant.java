@@ -81,8 +81,6 @@ public abstract class Plant {
         }
     }
 
-
-
     /**
      * Method for decreasing the number of lives of the plant
      * @author Cyrus Shaerpour
@@ -95,6 +93,13 @@ public abstract class Plant {
         }
     }
 
+    /**
+     * Updates the plant's death time based on the last watering time and current time.
+     * If the current time is after the current death time, decreases the plant's life, sets a new death time,
+     * and resets the death timer. Otherwise, sets a new death time and resets the death timer.
+     *
+     * @author Anna Granberg
+     */
     public void setNewDeathTime() {
         if (lastWatered == null || deathTime == null) {
             return; // Nullkontroll för lastWatered och deathTime
@@ -105,14 +110,14 @@ public abstract class Plant {
         System.out.println("Last watered time: " + lastWatered);
         System.out.println("Current death time: " + deathTime);
 
-        // Kontrollera om det är dags att uppdatera dödstiden
+        // Check if it is time to update the death time based on current death time
         if (now.isAfter(deathTime)) {
             System.out.println("Current time is after last watered time and death time.");
 
-            // Minska antalet liv
+            // decrease life
             decreaseLife();
 
-            // Sätt en ny dödstid
+            // set new death time
             deathTime = now.plusMinutes(1);
             setDeathTime(deathTime);
 
