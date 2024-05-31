@@ -96,28 +96,35 @@ public abstract class Plant {
     }
 
     public void setNewDeathTime() {
-        if (controller.getTimeUntilNextWatering() == 0) {
-            LocalDateTime now = LocalDateTime.now();
-            if (now.isAfter(deathTime)) {
-                decreaseLife();
-                deathTime = now.plusHours(10);
-                setDeathTime(deathTime);
+        lastWatered = getLastWatered();
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println("Current time: " + now);
+        System.out.println("Last watered time: " + lastWatered);
+        System.out.println("Current death time: " + deathTime);
 
-                if (nbrOfLives > 0) {
-                    // Set a new death time
-                    deathTime = now.plusHours(10);
-                    setDeathTime(deathTime);
-                    controller.updateEastPanel();
-                    System.out.println("New death time set: " + deathTime + " // plant");
-                } else {
-                    deathTime = now.plusHours(10);
-                    setDeathTime(deathTime);
-                    controller.updateEastPanel();
-                    System.out.println("New death time is set to " + deathTime + " // plant");
-                }
+        if (now.isAfter(lastWatered)) {
+            System.out.println("Current time is after last watered time.");
+            if (now.isAfter(deathTime)) {
+                System.out.println("Current time is after death time.");
+                decreaseLife();
+
+                // Sätt en ny dödstid
+                deathTime = now.plusSeconds(10);
+                setDeathTime(deathTime);
+                System.out.println("New death time set to: " + deathTime);
+
+                controller.updateEastPanel();
+                System.out.println("Panel updated.");
+
+                System.out.println("New death time set: " + deathTime + " // plant");
+            } else {
+                System.out.println("Current time is NOT after death time. Death time not updated.");
             }
+        } else {
+            System.out.println("Current time is NOT after last watered time.");
         }
     }
+
 
     /**
      * Retrieves the name of the plant.
@@ -248,12 +255,12 @@ public abstract class Plant {
         return name;
     }
 
-    public void setDeathTime(LocalDateTime deathTime) {
-        this.deathTime = deathTime;
+    public void setDeathTime(LocalDateTime newDeathTime) {
+        this.deathTime = newDeathTime;
+        System.out.println("Death time successfully set to: " + this.deathTime);
     }
-
     public LocalDateTime getDeathTime() {
-        return deathTime;
+        return this.deathTime;
     }
 
     /**

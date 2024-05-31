@@ -66,10 +66,6 @@ public class Controller {
         }
     }
 
-    public boolean getIsChosen(){
-        return isChosen;
-    }
-
     public void setIsChosen(boolean isChosen){
         this.isChosen = isChosen;
     }
