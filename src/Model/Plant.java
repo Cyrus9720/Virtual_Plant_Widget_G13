@@ -11,25 +11,24 @@ import java.util.Objects;
 import javax.sound.sampled.Clip;
 
 public abstract class Plant {
-    private String name;
-    private int nbrOfLives;
-    private int timesWatered;
-    private ImageIcon plantPicture;
-    private int plantLevel;
-    private PlantArt plantArt;
-    private LocalDateTime lastWatered;
-    private LocalDateTime deathTime;
-    private Clip wateringSoundClip;
-    private Controller controller;
+    private String name; // name of the plant
+    private int nbrOfLives; // number of lives of the plant
+    private int timesWatered; // number of times the plant has been watered
+    private ImageIcon plantPicture; // Imageicon of the plant
+    private int plantLevel; // Level of the plant
+    private PlantArt plantArt; // Art of the plant
+    private LocalDateTime lastWatered; // LocalDateTime for when plant was last watered
+    private LocalDateTime deathTime; // LocalDateTime for when plant is planned to lose a life
+    private Clip wateringSoundClip; // A clip for the sound effect
+    private Controller controller; // Instance of controller, to be able to use its methods. 
 
     /**
      * Constructor for Plant
-     *
-     * @param controller   controller instansiaton
-     * @param name         Name of the plant
-     * @param plantArt     Art of the plant
+     * @param controller controller instansiaton
+     * @param name Name of the plant
+     * @param plantArt Art of the plant
      * @param plantPicture Picture of the plant
-     * @param plantLevel   Level of the plant
+     * @param plantLevel Level of the plant
      * @author Cyrus Shaerpour
      */
     public Plant(Controller controller, String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered, LocalDateTime deathTime) {
@@ -47,22 +46,21 @@ public abstract class Plant {
     /**
      * Method for watering the plant and increasing the plant level
      * If the plant is not fully grown, increase the plant level
-     *
      * @return void
-     * @author Cyrus Shaerpour och Roa Jamhour
+     * @author Cyrus Shaerpour and Roa Jamhour
      */
     public void waterPlant() {
-        if (nbrOfLives > 0) {
+        if (nbrOfLives > 0) { // when the plant has more than 0 lives
             setTimesWatered(getTimesWatered() + 1);
-            if (plantLevel <= 3) {
+            if (plantLevel <= 3) { // if the plant level is 3 or less
                 if (getTimesWatered() == plantLevel + 1) {
                     setPlantLevel(getPlantLevel() + 1);
                     setTimesWatered(0);
-                    if (plantLevel == 3) {
+                    if (plantLevel == 3) { // if the plant level is 3
                         System.out.println("Plant is fully grown");
                     }
                 }
-                try {
+                try { // logic for audio when watering
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResourceAsStream("/sounds/watering.wav")));
                     wateringSoundClip = AudioSystem.getClip();
                     wateringSoundClip.open(audioInputStream);
@@ -74,30 +72,34 @@ public abstract class Plant {
                     wateringSoundClip.start();
                 }
             }
-            // Reset the death timer after watering
+
+            // Set new death time after watering plant.
             setNewDeathTime();
 
-        } else if (nbrOfLives == 0) {
+        } else if (nbrOfLives == 0) { // If nbr of lives is 0, show message.
             JOptionPane.showMessageDialog(null, "Your plant is dead! \nWatering won't bring it back ):");
         }
     }
 
-
-
     /**
      * Method for decreasing the number of lives of the plant
-     *
-     * @return void
      * @author Cyrus Shaerpour
+     * @return void
      */
     public void decreaseLife() {
         if (nbrOfLives > 0) {
             nbrOfLives--; // Minska livräknaren med ett om den är större än noll
             setNbrOfLives(getNbrOfLives());
-            //controller.checkLife();
         }
     }
 
+    /**
+     * Updates the plant's death time based on the last watering time and current time.
+     * If the current time is after the current death time, decreases the plant's life, sets a new death time,
+     * and resets the death timer. Otherwise, sets a new death time and resets the death timer.
+     *
+     * @author Anna Granberg and Cyrus Shaerpour
+     */
     public void setNewDeathTime() {
         if (lastWatered == null || deathTime == null) {
             return; // Nullkontroll för lastWatered och deathTime
@@ -108,14 +110,14 @@ public abstract class Plant {
         System.out.println("Last watered time: " + lastWatered);
         System.out.println("Current death time: " + deathTime);
 
-        // Kontrollera om det är dags att uppdatera dödstiden
+        // Check if it is time to update the death time based on current death time
         if (now.isAfter(deathTime)) {
             System.out.println("Current time is after last watered time and death time.");
 
-            // Minska antalet liv
+            // decrease life
             decreaseLife();
 
-            // Sätt en ny dödstid
+            // set new death time
             deathTime = now.plusMinutes(1);
             setDeathTime(deathTime);
 
@@ -154,13 +156,18 @@ public abstract class Plant {
         return nbrOfLives;
     }
 
+    /**
+     * Sets the number of lives of the plant.
+     *
+     * @param nbrOfLives
+     */
+
     public void setNbrOfLives(int nbrOfLives) {
         this.nbrOfLives = nbrOfLives;
     }
 
     /**
      * Method for getting the number of times the plant has been watered
-     *
      * @return int Number of times the plant has been watered
      * @author Cyrus Shaerpour
      */
@@ -170,7 +177,6 @@ public abstract class Plant {
 
     /**
      * Method for setting the number of times the plant has been watered
-     *
      * @param timesWatered Number of times the plant has been watered
      * @return void
      * @author Cyrus Shaerpour
@@ -181,7 +187,6 @@ public abstract class Plant {
 
     /**
      * Method for getting the picture of the plant
-     *
      * @return ImageIcon Picture of the plant
      * @author Cyrus Shaerpour
      */
@@ -191,7 +196,6 @@ public abstract class Plant {
 
     /**
      * Method for setting the picture of the plant
-     *
      * @param plantPicture Picture of the plant
      * @return void
      * @author Cyrus Shaerpour
@@ -202,7 +206,6 @@ public abstract class Plant {
 
     /**
      * Method for getting the level of the plant
-     *
      * @return int Level of the plant
      * @author Cyrus Shaerpour
      */
@@ -213,7 +216,6 @@ public abstract class Plant {
 
     /**
      * Method for setting the level of the plant
-     *
      * @param plantLevel Level of the plant
      * @return void
      * @author Cyrus Shaerpour
@@ -224,7 +226,6 @@ public abstract class Plant {
 
     /**
      * Method for getting the plantArt of the plant
-     *
      * @return plantArt
      * @author Anna Granberg
      */
@@ -271,23 +272,27 @@ public abstract class Plant {
         return name;
     }
 
+    /**
+     * Sets the death time of the plant
+     *
+     * @param newDeathTime
+     */
+
     public void setDeathTime(LocalDateTime newDeathTime) {
         this.deathTime = newDeathTime;
-        System.out.println("Death time successfully set to: " + this.deathTime);
     }
+
+    /**
+     * Retrieves the death time of the plant.
+     *
+     * @return deathTime of the plant
+     */
     public LocalDateTime getDeathTime() {
         return this.deathTime;
     }
 
-    public abstract void updateImage();{
-    }
-
-    public abstract void updateDeathImage(); {
-}
-
     /**
      * toString method
-     *
      * @return textOut
      * @author Anna Granberg
      */
@@ -296,10 +301,9 @@ public abstract class Plant {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
             formattedLastWatered = lastWatered.format(formatter);
-        } catch (Exception e) {
-            // System.err.println("Could not format date");
+        }catch (Exception e){
+            System.err.println("Could not format date");
         }
         return String.format("Plant art; %s | Plant name; %s | Plant level; %d | Times watered; %d | Number of lives; %d | Plant picture; %s | Last time watered; %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture, formattedLastWatered);
     }
-    }
-
+}

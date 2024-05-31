@@ -169,7 +169,6 @@ public class EastPanel extends JPanel {
      */
     public void enableWaterButton() {
         Water.setEnabled(true); // Enables the water button
-        controller.getCurrentPlant().setNewDeathTime(); // sätter en ny tid för plantan o dö
         Water.repaint();
     }
 
