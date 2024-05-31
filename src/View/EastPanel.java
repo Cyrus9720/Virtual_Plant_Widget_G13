@@ -95,6 +95,7 @@ public class EastPanel extends JPanel {
         add(threeHeartsLabel, BorderLayout.WEST);
 
         timeUntilDeathLabel = new JLabel();
+        timeUntilDeathLabel.setText("");
         timeUntilDeathLabel.setFont(new Font("Bebas Neue", Font.BOLD, 12));
         add(timeUntilDeathLabel, BorderLayout.SOUTH);
 
@@ -356,9 +357,14 @@ public class EastPanel extends JPanel {
                 String formattedTime = String.format("%02d h %02d m %02d s", hours, minutes, seconds);
 
                 timeUntilDeathLabel.setText("<html><div style='text-align: center; font-size: 9px;'>Time until life lost:<br>" + formattedTime + "</div></html>");
+            } else {
+                timeUntilDeathLabel.setText("");
             }
         }
+        repaint();
+        revalidate();
     }
+
 
 
     public void resetDeathTimer() {

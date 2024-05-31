@@ -116,15 +116,15 @@ public abstract class Plant {
             deathTime = now.plusMinutes(1);
             setDeathTime(deathTime);
 
-            // Uppdatera panelen och återställ dödstimern
-            controller.updateEastPanel();
+            // Reset death timer
             controller.resetDeathTimer();
 
             System.out.println("Life lost and new death time set: " + deathTime + " // plant");
         } else {
-            // When watering before death time, a new death time is set. 
+            // When watering before death time, a new death time is set.
             deathTime = now.plusMinutes(1);
             setDeathTime(deathTime);
+            controller.resetDeathTimer();
             System.out.println("New death time set: " + deathTime + " // plant");
 
         }

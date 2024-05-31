@@ -304,20 +304,6 @@ public class Controller {
     }
 
     /**
-     * Checks the life of the plant and updates the image if the plant has no lives left.
-     *
-     * @author Cyrus Shaerpour
-     */
-    public void checkLife() {
-        if (currentPlant.getNbrOfLives() == 0) {
-            view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
-            view.getMainPanel().updateButtons(getPlantImagePaths());
-            view.getEastPanel().updateAmountOfLife();
-            view.getEastPanel().repaint();
-        }
-    }
-
-    /**
      * Updates the status of the water button based on whether any plant needs watering.
      *
      * @author Anna Granberg
