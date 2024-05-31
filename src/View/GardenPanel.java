@@ -50,6 +50,7 @@ public class GardenPanel extends JPanel {
             plantButton.setIcon(scaledIcon);
             plantButton.setFocusPainted(false);
             plantButton.setBorderPainted(false);
+            plantButton.setContentAreaFilled(false);
 
             plantButton.addActionListener(new ActionListener() {
                 @Override

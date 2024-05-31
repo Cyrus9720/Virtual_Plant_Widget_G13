@@ -246,7 +246,6 @@ public class Controller {
                         currentPlant.updateImage();
                         currentPlant.updateDeathImage();
                         view.getCenterPanel().repaint();
-
                         } else System.out.println("plantList är null");
 
                         night = true;
