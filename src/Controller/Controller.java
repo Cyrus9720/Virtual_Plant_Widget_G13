@@ -233,17 +233,21 @@ public class Controller {
                             p.updateImage();
                             p.updateDeathImage();
                         }
-                        currentPlant = plantList.get(currentPlantIndex);
-                        ImageIcon updatedImage = currentPlant.getPlantPicture();
-                        view.getCenterPanel().updatePlantImage(updatedImage);
-                        view.getMainPanel().updateButtons(getPlantImagePaths());
-                        view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
-                        view.getGardenPanel().updateButtons(getPlantImagePaths());
+                        if (currentPlant != null){
+                            currentPlant = plantList.get(currentPlantIndex);
+                            ImageIcon updatedImage = currentPlant.getPlantPicture();
+                            view.getCenterPanel().updatePlantImage(updatedImage);
+                            view.getMainPanel().updateButtons(getPlantImagePaths());
+                            view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
+                            view.getGardenPanel().updateButtons(getPlantImagePaths());
+
 
 
                         currentPlant.updateImage();
                         currentPlant.updateDeathImage();
                         view.getCenterPanel().repaint();
+
+                        } else System.out.println("plantList är null");
 
                         night = true;
 
@@ -261,7 +265,7 @@ public class Controller {
                             p.updateImage();
                             p.updateDeathImage();
                         }
-
+                        if (currentPlant != null){
                         currentPlant = plantList.get(currentPlantIndex);
                         ImageIcon updatedImage = currentPlant.getPlantPicture();
                         view.getCenterPanel().updatePlantImage(updatedImage);
@@ -272,6 +276,7 @@ public class Controller {
                         currentPlant.updateImage();
                         currentPlant.updateDeathImage();
                         view.getCenterPanel().repaint();
+                        } else System.out.println("plantList är null");
 
                         night = false;
                     }

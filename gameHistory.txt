@@ -18,3 +18,6 @@ Plant name: Sunflower8 | Plant art: SUNFLOWER | Plant level: 1 | Plant Picture: 
 Plant name: Rose6 | Plant art: ROSE | Plant level: 1 | Plant Picture: src/Images/RoseArt1.JPG
 Plant name: Sunflower8 | Plant art: SUNFLOWER | Plant level: 1 | Plant Picture: src/Images/SunflowerDead1.JPG
 Plant name: Rose6 | Plant art: ROSE | Plant level: 1 | Plant Picture: src/Images/RoseArt1.JPG
+Plant name: TomatoPlant6 | Plant art: TOMATO_PLANT | Plant level: 1 | Plant Picture: src/Images/Night_Tomato1.JPG
+Plant name: Rose2 | Plant art: ROSE | Plant level: 1 | Plant Picture: src/Images/Night_Rose1.JPG
+Plant name: MiniTree9 | Plant art: MINI_TREE | Plant level: 2 | Plant Picture: src/Images/Night_Tree2.JPG
