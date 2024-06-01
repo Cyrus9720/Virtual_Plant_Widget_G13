@@ -22,3 +22,6 @@ Plant name: TomatoPlant6 | Plant art: TOMATO_PLANT | Plant level: 1 | Plant Pict
 Plant name: Rose2 | Plant art: ROSE | Plant level: 1 | Plant Picture: src/Images/Night_Rose1.JPG
 Plant name: MiniTree9 | Plant art: MINI_TREE | Plant level: 2 | Plant Picture: src/Images/Night_Tree2.JPG
 Plant name: Blackberry5 | Plant art: BLACKBERRY | Plant level: 0 | Plant Picture: src/Images/Night_Empty.JPG
+Plant name: Blackberry5 | Plant art: BLACKBERRY | Plant level: 0 | Plant Picture: src/Images/Night_Empty.JPG
+Plant name: Blackberry5 | Plant art: BLACKBERRY | Plant level: 0 | Plant Picture: src/Images/Night_Empty.JPG
+Plant name: hej | Plant art: TOMATO_PLANT | Plant level: 2 | Plant Picture: src/Images/Tomatoe2.JPG

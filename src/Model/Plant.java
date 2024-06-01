@@ -47,7 +47,7 @@ public abstract class Plant {
      * Method for watering the plant and increasing the plant level
      * If the plant is not fully grown, increase the plant level
      * @return void
-     * @author Cyrus Shaerpour
+     * @author Cyrus Shaerpour & Roa Jamhour
      */
     public void waterPlant() {
         if (nbrOfLives > 0) {
@@ -85,7 +85,6 @@ public abstract class Plant {
         if (lastWatered == null || deathTime == null) { // Null check for lastWatered and deathTime
             return;
         }
-
         LocalDateTime now = LocalDateTime.now();
         System.out.println("Current time: " + now);
         System.out.println("Last watered time: " + lastWatered);

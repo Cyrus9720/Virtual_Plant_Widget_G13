@@ -84,7 +84,7 @@ public class GardenPanel extends JPanel {
 
         // Set initial foreground color based on the current mode
         if (controller.night) {
-            addPlantButton.setForeground(Color.BLACK);
+            addPlantButton.setForeground(Color.WHITE);
             addPlantButton.setBackground(new Color(13, 12, 29));
         } else {
             addPlantButton.setForeground(Color.BLACK);
