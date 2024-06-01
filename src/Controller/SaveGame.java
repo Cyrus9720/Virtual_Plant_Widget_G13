@@ -15,8 +15,6 @@ import java.util.ArrayList;
  * @author annagranberg
  */
 public class SaveGame {
-    private static LocalDateTime timestamp;
-
     /**
      * Saves the game data to a file, including a timestamp at the end of each line.
      *
@@ -49,40 +47,9 @@ public class SaveGame {
                 writer.newLine();
             }
             System.out.println("Game saved successfully.");
-            setTimestamp(timestamp); // Set the timestamp after saving
         } catch (IOException e) {
             System.err.println("Error saving game: " + e.getMessage());
         }
-    }
-
-    /**
-     * Converts milliseconds to a formatted time string in mm:ss format.
-     *
-     * @param remainingTime
-     * @return the formatted time string
-     */
-
-    public String getFormattedDeathTimer(Duration remainingTime) {
-        if (remainingTime == null) {
-            return null; // or any other default value you prefer
-        } else{
-            // Calculate the end time based on the remaining time from the current time
-            LocalDateTime endTime = LocalDateTime.now().plus(remainingTime);
-
-            // Format the end time using the specified DateTimeFormatter
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-            String formattedEndTime = endTime.format(formatter);
-
-            return formattedEndTime;
-        }
-    }
-
-    public static LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    private static void setTimestamp(LocalDateTime timestamp) {
-        SaveGame.timestamp = timestamp;
     }
 
 }
