@@ -92,7 +92,7 @@ public class GardenPanel extends JPanel {
                     AddNewPlantFrame addNewPlantFrame = new AddNewPlantFrame(controller);
                 } else {
                     JOptionPane.showMessageDialog(GardenPanel.this,
-                            "You can only have 6 plants in your garden. Please remove a plant to continue",
+                            "You can only have 7 plants in your garden. Please remove a plant to continue",
                             "You have too many plants :(", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
