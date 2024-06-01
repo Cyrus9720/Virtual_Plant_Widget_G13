@@ -16,7 +16,7 @@ public class GameRuleFrame extends JFrame {
     private JLabel gameRulesLabel; // JLabel för att visa spelreglerna
     private Controller controller;
 
-    // Storlek för frame size
+    // Size for the frame
     private static final int FRAME_WIDTH = 500;
     private static final int FRAME_HEIGHT = 350;
     private static final Font customFont = new Font("Bebas Neue", Font.BOLD, 12); // Anpassat typsnitt för hela spelet
@@ -30,7 +30,7 @@ public class GameRuleFrame extends JFrame {
         String welcome = "<html> Welcome to Virtual Plant Widgets!\n" +
                 "You've just gained access to your very own virtual garden where you can plant and nurture your own plants. <br/>"
                 + "<br/>";
-        // Text för spelreglerna
+        // Game Rules String
         String rules = "<html><h2 style='margin-bottom: 5px;'>How to Play:</h2>" +
                 "<ul>" +
                 "<li>Add plants to your garden through the 'Garden' on your left.</li>" +
@@ -43,37 +43,35 @@ public class GameRuleFrame extends JFrame {
                 "</ul>" +
                 "<p>Have fun and enjoy your virtual garden!</p>";
 
-
-        gameRulesLabel.setText(welcome + rules); // lägger till spelreglerna på JLabel
-        gameRulesLabel.setFont(customFont); // anpassat typsnitt på JLabel
-        gameRulesLabel.setSize(new Dimension(450, 200)); // Ställer storlek på JLabel
+        gameRulesLabel.setText(welcome + rules); // Adds the game rules to the JLabel
+        gameRulesLabel.setFont(customFont); // Sets custom font for the JLabel
+        gameRulesLabel.setSize(new Dimension(450, 200)); // Sets size for the JLabel
         if (controller.night) {
-            gameRulesLabel.setForeground(new Color(225, 240, 218)); // Ställer textfärg för JLabel
+            gameRulesLabel.setForeground(new Color(225, 240, 218)); // Sets text color for JLabel
         } else {
-            gameRulesLabel.setForeground(new Color(47, 49, 73)); // Ställer textfärg för JLabel
+            gameRulesLabel.setForeground(new Color(47, 49, 73)); // Sets text color for JLabel
         }
-        gameRulesLabel.setBackground(new Color(153, 188, 133)); // Ställer bakgrundsfärg för JLabel
+        gameRulesLabel.setBackground(new Color(153, 188, 133)); // Sets background color for JLabel
 
-        // Skapar olika borders för JLabel
-        Border innerBorder = BorderFactory.createLineBorder(Color.BLACK); // Skapar en inre border
-        Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10); // Skapar en tom border runt JLabel
-        Border compoundBorder = BorderFactory.createCompoundBorder(innerBorder, emptyBorder); // Skapar en sammansatt border
+        // Creates different borders for JLabel
+        Border innerBorder = BorderFactory.createLineBorder(Color.BLACK); // Creates an inner border
+        Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10); // Creates an empty border around JLabel
+        Border compoundBorder = BorderFactory.createCompoundBorder(innerBorder, emptyBorder); // Creates a compound border
 
-        gameRulesLabel.setBorder(compoundBorder); // Tillämpar den sammansatta border på JLabel
+        gameRulesLabel.setBorder(compoundBorder); // Applies the compound border to JLabel
 
-        add(gameRulesLabel, BorderLayout.CENTER); // Lägger till JLabel för spelreglerna i mitten av fönstret
+        add(gameRulesLabel, BorderLayout.CENTER); // Adds JLabel for game rules in the center of the window
 
-        setTitle("Game Rules"); // Sätter titeln på fönstret
+        setTitle("Game Rules"); // Sets the title of the window
         if (controller.night) {
-            getContentPane().setBackground(new Color(47, 49, 73)); // Ställer bakgrundsfärg för fönstret
+            getContentPane().setBackground(new Color(47, 49, 73)); // Sets background color for the window
         } else {
-            getContentPane().setBackground(new Color(225, 240, 218)); // Ställer bakgrundsfärg för fönstret
+            getContentPane().setBackground(new Color(225, 240, 218)); // Sets background color for the window
         }
-        setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT)); // Sätter storlek på fönstret
-        setResizable(false); // Gör fönstret icke-omstoringsbart
-        setVisible(true); // Gör fönstret synligt när det skapas
+        setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT)); // Sets size of the window
+        setResizable(false); // Makes the window non-resizable
+        setVisible(true); // Makes the window visible when created
         centerAndToFront();
-
     }
 
     /**

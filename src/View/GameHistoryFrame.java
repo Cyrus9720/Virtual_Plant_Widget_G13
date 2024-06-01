@@ -20,7 +20,6 @@ public class GameHistoryFrame extends JFrame {
     private static final int IMAGE_HEIGHT = 100;
     private static final int BORDER_PADDING = 20;
     private Controller controller;
-
     private Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
     private JPanel panel;
 
@@ -69,7 +68,7 @@ public class GameHistoryFrame extends JFrame {
 
                 try {
                     ImageIcon originalIcon = new ImageIcon(ImageIO.read(new File(imagePath)));
-                    ImageIcon scaledIcon = scaleImageIcon(originalIcon, IMAGE_WIDTH, IMAGE_HEIGHT); // skala bild
+                    ImageIcon scaledIcon = scaleImageIcon(originalIcon, IMAGE_WIDTH, IMAGE_HEIGHT); // scale Image
                     JLabel imageLabel = new JLabel(scaledIcon);
                     entryPanel.add(imageLabel);
                 } catch (IOException e) {
