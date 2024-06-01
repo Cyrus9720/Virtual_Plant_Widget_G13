@@ -16,11 +16,18 @@ import java.util.ArrayList;
  * Represents a JFrame that displays the game history including information about old plants.
  */
 public class GameHistoryFrame extends JFrame {
+    // Constants for image dimensions and border padding
     private static final int IMAGE_WIDTH = 75;
     private static final int IMAGE_HEIGHT = 100;
     private static final int BORDER_PADDING = 20;
+
+    // Reference to the controller
     private Controller controller;
+
+    // Custom font for UI components
     private Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
+
+    // Main panel for the UI
     private JPanel panel;
 
     /**
