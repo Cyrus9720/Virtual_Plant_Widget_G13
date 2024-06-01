@@ -334,6 +334,16 @@ public class EastPanel extends JPanel {
         }
     }
 
+    /**
+     * Updates the display with the time remaining until the plant dies.
+     * If the plant list, current plant, or timeUntilDeath is null, the label is cleared.
+     * If there is no time remaining until the next watering, the time difference between now and
+     * timeUntilDeath is calculated and displayed. If the time difference is negative, it is set to 0.
+     *
+     * @param timeUntilDeath the time when the plant will die
+     * @author Anna Granberg
+     */
+
     public void updateTimeUntilDeath(LocalDateTime timeUntilDeath) {
         if (controller.getPlantList() == null || controller.getCurrentPlant() == null || timeUntilDeath == null) {
             timeUntilDeathLabel.setText(" ");
@@ -365,13 +375,19 @@ public class EastPanel extends JPanel {
         revalidate();
     }
 
+    /**
+     * Resets the death timer by stopping any active timer and starting a new one.
+     * The new timer triggers every second to update the time until death and player lives.
+     * @author Anna Granberg
+     */
+
     public void resetDeathTimer() {
-        // Stoppa den befintliga deathTimer, om den är aktiv
+        // Stop the current timer, if its active
         if (deathTimer != null) {
             deathTimer.stop();
         }
 
-        // Skapa en ny deathTimer
+        // Create new deathTimer
         deathTimer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -381,7 +397,7 @@ public class EastPanel extends JPanel {
             }
         });
 
-        // Starta den nya deathTimer
+        // Start the new deathTimer
         deathTimer.start();
     }
 
