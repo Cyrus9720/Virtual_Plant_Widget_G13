@@ -82,8 +82,8 @@ public abstract class Plant {
     }
 
     public void setNewDeathTime() {
-        if (lastWatered == null || deathTime == null) {
-            return; // Nullkontroll för lastWatered och deathTime
+        if (lastWatered == null || deathTime == null) { // Null check for lastWatered and deathTime
+            return;
         }
 
         LocalDateTime now = LocalDateTime.now();
@@ -94,13 +94,13 @@ public abstract class Plant {
         if(getNbrOfLives() == 0){
             deathTime = now.minusNanos(1);
             return;
-        } else if (now.isAfter(deathTime)) {        // Kontrollera om det är dags att uppdatera dödstiden
+        } else if (now.isAfter(deathTime)) { // Check if it's time to update the deathTime
             System.out.println("Current time is after last watered time and death time.");
 
-            // Minska antalet liv
+            // Decrease amount of lives
             decreaseLife();
 
-            // Sätt en ny dödstid
+            // Set new deathTime
             deathTime = now.plusMinutes(1);
             setDeathTime(deathTime);
 
@@ -121,7 +121,7 @@ public abstract class Plant {
 
     public void setDeathTimeSwitch(){
         if (lastWatered == null || deathTime == null) {
-            return; // Nullkontroll för lastWatered och deathTime
+            return; // Null check for lastWatered and deathTime
         }
 
 
@@ -136,10 +136,10 @@ public abstract class Plant {
         } else if (now.isAfter(deathTime)) {
             System.out.println("Current time is after last watered time and death time.");
 
-            // Minska antalet liv
+            // Decrease amount of lives
             decreaseLife();
 
-            // Sätt en ny dödstid
+            // Set new deathTime
             deathTime = now.plusMinutes(1);
             setDeathTime(deathTime);
 
