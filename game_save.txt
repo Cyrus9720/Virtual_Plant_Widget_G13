@@ -1,1 +1,1 @@
-Plant art; BLACKBERRY | Plant name; Blackberry7 | Plant level; 0 | Times watered; 0 | Number of lives; 3 | Plant picture; src/Images/Night_Empty.JPG | Last time watered; null | Closed game; 2024-05-31 14:02:13.722 | Death time; 2024-05-31 15:00:31.257 | Boolean night; true
+Plant art; BLACKBERRY | Plant name; Blackberry7 | Plant level; 1 | Times watered; 1 | Number of lives; 2 | Plant picture; src/Images/Blackberry1.JPG | Last time watered; 2024-06-01 13:15:07.618 | Closed game; 2024-06-01 13:15:09.776 | Death time; 2024-06-01 13:16:07.652 | Boolean night; false

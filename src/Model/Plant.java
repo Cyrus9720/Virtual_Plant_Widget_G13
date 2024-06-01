@@ -301,6 +301,12 @@ public abstract class Plant {
         return this.deathTime;
     }
 
+    public abstract void updateImage();{
+    }
+
+    public abstract void updateDeathImage();{
+    }
+
     /**
      * toString method
      * @return textOut
