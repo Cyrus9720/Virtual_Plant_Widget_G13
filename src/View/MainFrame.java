@@ -17,7 +17,7 @@ import java.awt.event.WindowEvent;
  *
  * This class extends {@link javax.swing.JFrame}.
  *
- * @author annagranberg
+ * @author Anna Granberg
  */
 public class MainFrame extends JFrame {
     private Controller controller; // reference to controller
@@ -38,7 +38,7 @@ public class MainFrame extends JFrame {
 
     /**
      * Sets up the main frame by configuring its properties, adding components, and making it visible.
-     * @author annagranberg
+     * @author Anna Granberg
      */
     public void setUpFrame() {
         setTitle("Virtual Plants");
@@ -55,7 +55,7 @@ public class MainFrame extends JFrame {
         menuBar.setFont(customFont);
 
 
-        JMenuItem gameRules = new JMenuItem("Game Rules"); // knapp för att visa spelregler
+        JMenuItem gameRules = new JMenuItem("Game Rules"); // JMenuItem to show Game Rules
         gameRules.setFont(customFont);
         gameRules.addActionListener(new ActionListener() {
             @Override
@@ -65,17 +65,16 @@ public class MainFrame extends JFrame {
         });
 
 
-        JMenuItem gameHistory = new JMenuItem("Game History"); // knapp för att visa history över gamla växter?
+        JMenuItem gameHistory = new JMenuItem("Game History"); // JMenuItem to show Game History
         gameHistory.setFont(customFont);
         gameHistory.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // showGameHistory();
                 GameHistoryFrame gameHistoryFrame = new GameHistoryFrame();
             }
         });
 
-        JMenuItem changeName = new JMenuItem("Change Plant Name");
+        JMenuItem changeName = new JMenuItem("Change Plant Name"); // JMenuItem to change the name of a plant.
         changeName.setFont(customFont);
         changeName.addActionListener(new ActionListener() {
             @Override
@@ -84,7 +83,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        JMenuItem removePlant = new JMenuItem("Remove plant");
+        JMenuItem removePlant = new JMenuItem("Remove plant"); // JMenuItem to remove a plant
         removePlant.setFont(customFont);
         removePlant.addActionListener(new ActionListener() {
             @Override
@@ -93,7 +92,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        JMenuItem newGame = new JMenuItem("Start Over"); // knapp för att starta om spel från början
+        JMenuItem newGame = new JMenuItem("Start Over"); // JMenuItem to remove all the plants.
         newGame.setFont(customFont);
         newGame.setBackground(new Color(225, 78, 78));
         newGame.addActionListener(new ActionListener() {
@@ -114,6 +113,7 @@ public class MainFrame extends JFrame {
         removePlant.setBorder(menuItemBorder);
         changeName.setBorder(menuItemBorder);
 
+        // add the JMenuItem to the MenuBar
         menuBar.add(gameRules);
         menuBar.add(changeName);
         menuBar.add(gameHistory);
@@ -126,14 +126,13 @@ public class MainFrame extends JFrame {
             public void windowClosing(WindowEvent e) {
                 controller.saveGame();
             }
-        });
+        }); // when closing the window, save the game.
 
         pack();
-        setLocationRelativeTo(null);
-        setVisible(true);
+        setLocationRelativeTo(null); // location centered.
+        setVisible(true); // make visible
     }
-
-
+    
     /**
      * Displays gameRulesFrame showing the game rules.
      *
@@ -142,18 +141,43 @@ public class MainFrame extends JFrame {
     public void showRulesDialog() {
         GameRuleFrame gameRuleFrame = new GameRuleFrame();
     }
+
+    /**
+     * Retrieves the CenterPanel.
+     * @return CenterPanel
+     */
     public CenterPanel getCenterPanel() {
         return mainPanel.getCenterPanel();
     }
+
+    /**
+     * Retrieves the EastPanel.
+     * @return EastPanel
+     */
     public EastPanel getEastPanel() {
         return mainPanel.getEastPanel();
     }
+
+    /**
+     * Retrieves the SouthPanel.
+     * @return SouthPanel
+     */
     public SouthPanel getSouthPanel(){
         return mainPanel.getSouthPanel();
     }
+
+    /**
+     * Retrieves the MainPanel.
+     * @return MainPanel
+     */
     public MainPanel getMainPanel(){
         return mainPanel;
     }
+
+    /**
+     * Retrieves the GardenPanel.
+     * @return GardenPanel
+     */
     public GardenPanel getGardenPanel(){
         return mainPanel.getGardenPanel();
     }
