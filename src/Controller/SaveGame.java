@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 /**
  * A utility class for saving game data to a file.
- * @author annagranberg
+ * @author Anna Granberg
  */
 public class SaveGame {
     /**
@@ -32,8 +32,6 @@ public class SaveGame {
 
                 // Add the formatted timestamp to the end of the line
                 data += " | Closed game; " + timestamp.format(formatter);
-
-               // data += " | Death time; " + timeUntilDeath.format(formatter); //TODO kanske ta bort
 
 
                 if (timeUntilDeath != null) {

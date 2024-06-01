@@ -6,8 +6,6 @@ import javax.swing.*;
 import java.time.LocalDateTime;
 
 public class Blackberry extends Plant{
-
-
     private Controller controller;
 
     /**
