@@ -34,6 +34,7 @@ public class Controller {
         } catch (Exception e) {
             System.err.println("Error loading game data: " + e.getMessage());
         }
+
         view = new MainFrame(this);
 
         if (!loadGame.isFileNotEmpty()) {
@@ -58,7 +59,9 @@ public class Controller {
             currentPlantIndex = plantIndex;
             currentPlant = plantList.get(plantIndex); // Uppdatera currentPlant när switchPlant kallas
 
+            currentPlant.setDeathTimeSwitch();
             updateWaterButtonStatus();
+            checkLife();
             view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
             view.getCenterPanel().updatePlantName(currentPlant.getPlantName());
             view.getEastPanel().updateLives();
@@ -69,6 +72,20 @@ public class Controller {
         } else {
             System.err.println("Invalid plant index: " + id);
         }
+    }
+
+    /**
+     * Checks the life of the plant and updates the image if the plant has no lives left.
+     *
+     * @author Cyrus Shaerpour
+     */
+    public void checkLife() {
+        view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
+        view.getMainPanel().updateButtons(getPlantImagePaths());
+        view.getEastPanel().updateLives();
+        view.getEastPanel().updateAmountOfLife(currentPlant.getNbrOfLives());
+        view.getCenterPanel().repaint();
+        view.getEastPanel().repaint();
     }
 
     public void setIsChosen(boolean isChosen){
@@ -204,7 +221,6 @@ public class Controller {
 
                     currentPlant = plantList.get(currentPlantIndex);
                     currentPlant.setLastWatered(LocalDateTime.now());
-
                     currentPlant.waterPlant();
                     currentPlant.setNewDeathTime();
                     ImageIcon updatedImage = currentPlant.getPlantPicture();
@@ -455,7 +471,6 @@ public class Controller {
         public Plant getCurrentPlant() {
         return currentPlant;
         }
-
 
        /**
          * Retrieves the plant name of the first plant in the plant list.

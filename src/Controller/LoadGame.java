@@ -68,22 +68,23 @@ public class LoadGame {
                         break;
                     case SUNFLOWER:
                         plant = new Sunflower(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
+                        plant.setDeathTime(deathTimeData);
                         break;
                     case TOMATO_PLANT:
                         plant = new TomatoPlant(controller,name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
-                        //plant.setDeathTime(plant.calculateDeathTime(lastWatered));
+                        plant.setDeathTime(deathTimeData);
                         break;
                     case BLACKBERRY:
                         plant = new Blackberry(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
-                        //plant.setDeathTime(plant.calculateDeathTime(lastWatered));
+                        plant.setDeathTime(deathTimeData);
                         break;
                     case CACTUS:
                         plant = new Cactus(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
-                        //plant.setDeathTime(plant.calculateDeathTime(lastWatered));
+                        plant.setDeathTime(deathTimeData);
                         break;
                     case MINI_TREE:
                         plant = new MiniTree(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTimeData);
-                        //plant.setDeathTime(plant.calculateDeathTime(lastWatered));
+                        plant.setDeathTime(deathTimeData);
                         break;
                     default:
                         System.err.println("Unknown plant type: " + plantType);

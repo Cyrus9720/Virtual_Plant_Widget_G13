@@ -74,7 +74,7 @@ public class MainPanel extends JPanel
      */
     public void refreshBar() {
         eastPanel.refreshBar();
-        eastPanel.updateAmountOfLife();
+        eastPanel.updateAmountOfLife(controller.getNbrOfLives());
     }
 
     /**
