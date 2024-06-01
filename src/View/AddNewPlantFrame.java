@@ -12,17 +12,19 @@ public class AddNewPlantFrame extends JFrame {
      * Constructs an AddNewPlantFrame with the specified controller.
      *
      * @param controller The controller object to be associated with the frame.
+     * @author Anna Granberg
      */
     public AddNewPlantFrame(Controller controller) {
-        setSize(new Dimension(300, 300)); // Ställer in storleken på fönstret
-        setVisible(true); // Gör fönstret synligt när det skapas
+        setSize(new Dimension(300, 300)); // Sets the size of the frame
+        setVisible(true); // Makes the frame visible
 
-        NewPlantPanel newPlantPanel = new NewPlantPanel(controller); // Skapar en ny panel för att lägga till växter
-        add(newPlantPanel); // Lägger till den nya panelen i fönstret
+        NewPlantPanel newPlantPanel = new NewPlantPanel(controller); // Create a new panel to store plants.
+        add(newPlantPanel); // Adds the panel to the frame.
     }
 
     /**
      * Panel for adding new plants to the garden.
+     * @author Anna Granberg
      */
     private class NewPlantPanel extends JPanel {
         /**
@@ -34,83 +36,87 @@ public class AddNewPlantFrame extends JFrame {
         private int height = 120;
         private int widht = 50;
         private NewPlantPanel(Controller controller) {
-            setBackground(new Color(225, 240, 218)); // bakgrundsfärgen för panelen
-            setLayout(new FlowLayout()); // Ställer in layouten för panelen
+            setBackground(new Color(225, 240, 218)); // background color
+            setLayout(new FlowLayout()); // set layout for the panel
 
-            JLabel infoLabel = new JLabel("Choose a plant to add to the garden!"); // Skapar en label för att visa instruktioner
-            Font customFont = new Font("Bebas Neue", Font.BOLD, 12); // anpassat typsnitt
-            infoLabel.setFont(customFont); // lägger typsnittet på label
+            JLabel infoLabel = new JLabel("Choose a plant to add to the garden!"); // Create a new panel to show instructions
+            Font customFont = new Font("Bebas Neue", Font.BOLD, 12); // custom font
+            infoLabel.setFont(customFont); // set customfont
 
-            // Knapp för solros
+            // Button for sunflower
             JButton sunflowerButton = new JButton("Sunflower");
-            sunflowerButton.setFont(customFont); // anpassat typsnittet på knappen
+            sunflowerButton.setFont(customFont); // custom font
             sunflowerButton.setPreferredSize(new Dimension(height, widht));
             sunflowerButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    controller.addNewSunflower(); // controller-metod för att lägga till en ny solros
-                    AddNewPlantFrame.this.dispose(); // Stänger det aktuella fönstret när knappen trycks
+                    controller.addNewSunflower();// controller-method to add a new plant
+                    AddNewPlantFrame.this.dispose(); // Closes the window when the button is pressed.
                 }
             });
-            // Knapp för ros
+            // Button for rose
             JButton roseButton = new JButton("Rose");
             roseButton.setPreferredSize(new Dimension(height, widht));
-            roseButton.setFont(customFont); // Tillämpar det anpassade typsnittet på knappen
+            roseButton.setFont(customFont); // custom font
             roseButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    controller.addNewRose(); // controller-metod för att lägga till en ny ros
-                    AddNewPlantFrame.this.dispose(); // Stänger det aktuella fönstret när knappen trycks
+                    controller.addNewRose(); // controller-method to add a new plant
+                    AddNewPlantFrame.this.dispose(); // Closes the window when the button is pressed.
                 }
             });
 
-            // Knapp för tomatplanta
+            // Button for tomato plant
             JButton tomatoButton = new JButton("Tomato Plant");
             tomatoButton.setPreferredSize(new Dimension(height, widht));
-            tomatoButton.setFont(customFont); // anpassat typsnittet på knappen
+            tomatoButton.setFont(customFont); // custom font for the text on the button
             tomatoButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    controller.addNewTomatoPlant(); // controller-metod för att lägga till en ny tomatplanta
-                    AddNewPlantFrame.this.dispose(); // Stänger det aktuella fönstret när knappen trycks
+                    controller.addNewTomatoPlant(); // controller-method to add a new plant
+                    AddNewPlantFrame.this.dispose(); // Closes the window when the button is pressed.
                 }
             });
 
+            // button for blackberry plant
             JButton blackberryButton = new JButton("Blackberry");
-            blackberryButton.setFont(customFont);
+            blackberryButton.setFont(customFont); // custom font
             blackberryButton.setPreferredSize(new Dimension(height, widht));
             blackberryButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    controller.addNewBlackberry();
-                    AddNewPlantFrame.this.dispose();
+                    controller.addNewBlackberry();  // controller-method to add a new plant
+                    AddNewPlantFrame.this.dispose(); // Closes the window when the button is pressed.
+
                 }
             });
 
+            // button for mini tree
             JButton miniTreeButton = new JButton("Mini Tree");
-            miniTreeButton.setFont(customFont);
+            miniTreeButton.setFont(customFont); // custom font
             miniTreeButton.setPreferredSize(new Dimension(height, widht));
             miniTreeButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    controller.addNewMiniTree();
-                    AddNewPlantFrame.this.dispose();
+                    controller.addNewMiniTree(); // controller-method to add a new plant
+                    AddNewPlantFrame.this.dispose(); // Closes the window when the button is pressed.
                 }
             });
 
+            // button for cactus
             JButton cactusButton = new JButton("Cactus");
-            cactusButton.setFont(customFont);
+            cactusButton.setFont(customFont); // custom font
             cactusButton.setPreferredSize(new Dimension(height, widht));
             cactusButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    controller.addNewCactus();
-                    AddNewPlantFrame.this.dispose();
+                    controller.addNewCactus(); // controller-method to add a new plant
+                    AddNewPlantFrame.this.dispose(); // Closes the window when the button is pressed.
                 }
             });
 
 
-            // Lägger till knapparna på panelen
+            // Add the buttons to the panel.
             add(infoLabel);
             add(sunflowerButton);
             add(roseButton);
