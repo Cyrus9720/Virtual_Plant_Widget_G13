@@ -132,7 +132,7 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null); // location centered.
         setVisible(true); // make visible
     }
-    
+
     /**
      * Displays gameRulesFrame showing the game rules.
      *

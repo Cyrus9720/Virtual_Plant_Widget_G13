@@ -14,10 +14,10 @@ public class GameRuleFrame extends JFrame {
 
     private JLabel gameRulesLabel; // JLabel för att visa spelreglerna
 
-    // Storlek för frame size
+    // size of the frame
     private static final int FRAME_WIDTH = 500;
     private static final int FRAME_HEIGHT = 350;
-    private static final Font customFont = new Font("Bebas Neue", Font.BOLD, 12); // Anpassat typsnitt för hela spelet
+    private static final Font customFont = new Font("Bebas Neue", Font.BOLD, 12); // Custom font
 
     /**
      * Constructs a GameRuleFrame to display the game rules.
@@ -27,7 +27,7 @@ public class GameRuleFrame extends JFrame {
         String welcome = "<html> Welcome to Virtual Plant Widgets!\n" +
                 "You've just gained access to your very own virtual garden where you can plant and nurture your own plants. <br/>"
                 + "<br/>";
-        // Text för spelreglerna
+        // Text for game rules
         String rules = "<html><h2 style='margin-bottom: 5px;'>How to Play:</h2>" +
                 "<ul>" +
                 "<li>Add plants to your garden through the 'Garden' on your left.</li>" +
@@ -41,25 +41,25 @@ public class GameRuleFrame extends JFrame {
                 "<p>Have fun and enjoy your virtual garden!</p>";
 
 
-        gameRulesLabel.setText(welcome + rules); // lägger till spelreglerna på JLabel
-        gameRulesLabel.setFont(customFont); // anpassat typsnitt på JLabel
-        gameRulesLabel.setSize(new Dimension(450, 200)); // Ställer storlek på JLabel
-        gameRulesLabel.setBackground(new Color(153, 188, 133)); // Ställer bakgrundsfärg för JLabel
+        gameRulesLabel.setText(welcome + rules); // add game rules to the label
+        gameRulesLabel.setFont(customFont); // custom font
+        gameRulesLabel.setSize(new Dimension(450, 200)); // sets size for the label
+        gameRulesLabel.setBackground(new Color(153, 188, 133));
 
-        // Skapar olika borders för JLabel
-        Border innerBorder = BorderFactory.createLineBorder(Color.BLACK); // Skapar en inre border
-        Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10); // Skapar en tom border runt JLabel
-        Border compoundBorder = BorderFactory.createCompoundBorder(innerBorder, emptyBorder); // Skapar en sammansatt border
+        // Create different borders for the label
+        Border innerBorder = BorderFactory.createLineBorder(Color.BLACK); // Creates an inner border
+        Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10); // creates an empty border around label
+        Border compoundBorder = BorderFactory.createCompoundBorder(innerBorder, emptyBorder); // creates a compound border.
 
-        gameRulesLabel.setBorder(compoundBorder); // Tillämpar den sammansatta border på JLabel
+        gameRulesLabel.setBorder(compoundBorder); // Sets the border
 
-        add(gameRulesLabel, BorderLayout.CENTER); // Lägger till JLabel för spelreglerna i mitten av fönstret
+        add(gameRulesLabel, BorderLayout.CENTER); // add label to center of frame
 
-        setTitle("Game Rules"); // Sätter titeln på fönstret
-        getContentPane().setBackground(new Color(225, 240, 218)); // Ställer bakgrundsfärg för fönstret
-        setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT)); // Sätter storlek på fönstret
-        setResizable(false); // Gör fönstret icke-omstoringsbart
-        setVisible(true); // Gör fönstret synligt när det skapas
+        setTitle("Game Rules"); // title
+        getContentPane().setBackground(new Color(225, 240, 218)); // background
+        setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT)); // size
+        setResizable(false); // non-resizable
+        setVisible(true); // makes the frame visible.
         centerAndToFront();
 
     }
