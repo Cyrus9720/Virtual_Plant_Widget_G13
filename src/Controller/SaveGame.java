@@ -55,32 +55,6 @@ public class SaveGame {
         }
     }
 
-    /**
-     * Converts milliseconds to a formatted time string in mm:ss format.
-     *
-     * @param remainingTime
-     * @return the formatted time string
-     */
-
-    public String getFormattedDeathTimer(Duration remainingTime) {
-        if (remainingTime == null) {
-            return null; // or any other default value you prefer
-        } else{
-            // Calculate the end time based on the remaining time from the current time
-            LocalDateTime endTime = LocalDateTime.now().plus(remainingTime);
-
-            // Format the end time using the specified DateTimeFormatter
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-            String formattedEndTime = endTime.format(formatter);
-
-            return formattedEndTime;
-        }
-    }
-
-    public static LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
     private static void setTimestamp(LocalDateTime timestamp) {
         SaveGame.timestamp = timestamp;
     }
