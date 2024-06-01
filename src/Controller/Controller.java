@@ -468,6 +468,11 @@ public class Controller {
             }
         }
 
+        /**
+         * Retrieves the plant active in center panel.
+         * @return The plant list.
+         * @author Cyrus Shaerpour
+         */
         public Plant getCurrentPlant() {
         return currentPlant;
         }
@@ -541,7 +546,7 @@ public class Controller {
          * If a valid name is provided, updates the plant's name,
          * displays a confirmation message, and updates the view accordingly.
          * If the input is invalid (null or empty), displays an error message.
-         * @author Anna Granberg
+         * @author Anna Granberg & Cyrus Shaerpour
          */
         public void changePlantName () {
             if(isChosen){
@@ -563,7 +568,7 @@ public class Controller {
          * Clears the list of plants if the user confirms the action through a JOptionPane.
          *
          * @return True if the user confirms to clear the list, false otherwise.
-         * @author Anna Granberg
+         * @author Anna Granberg & Cyrus Shaerpour
          */
         public void setGameToNull() {
             if (plantList != null && !plantList.isEmpty()) {
