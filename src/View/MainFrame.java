@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-
 /**
  * The MainFrame class represents the main frame of the application.
  * This frame contains the main user interface components, including the main panel
@@ -54,7 +53,7 @@ public class MainFrame extends JFrame {
         menuBar.setPreferredSize(new Dimension(200,25));
         menuBar.setFont(customFont);
 
-        JMenuItem gameRules = new JMenuItem("Game Rules"); // knapp för att visa spelregler
+        JMenuItem gameRules = new JMenuItem("Game Rules"); // button to display game rules
         gameRules.setFont(customFont);
         gameRules.addActionListener(new ActionListener() {
             @Override
@@ -63,8 +62,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-
-        JMenuItem gameHistory = new JMenuItem("Game History"); // knapp för att visa history över gamla växter?
+        JMenuItem gameHistory = new JMenuItem("Game History"); // button to display game history
         gameHistory.setFont(customFont);
         gameHistory.addActionListener(new ActionListener() {
             @Override
@@ -92,7 +90,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        JMenuItem newGame = new JMenuItem("Start Over"); // knapp för att starta om spel från början
+        JMenuItem newGame = new JMenuItem("Start Over"); // button to start the game over
         newGame.setFont(customFont);
         newGame.setBackground(new Color(225, 78, 78));
         newGame.addActionListener(new ActionListener() {
@@ -103,8 +101,8 @@ public class MainFrame extends JFrame {
         });
 
         Border menuItemBorder = BorderFactory.createCompoundBorder(
-        BorderFactory.createLineBorder(Color.BLACK),
-        BorderFactory.createEmptyBorder(4, 8, 4, 8));
+                BorderFactory.createLineBorder(Color.BLACK),
+                BorderFactory.createEmptyBorder(4, 8, 4, 8));
 
         // Set the custom border for each JMenuItem
         gameRules.setBorder(menuItemBorder);
@@ -120,7 +118,7 @@ public class MainFrame extends JFrame {
         menuBar.add(newGame);
         setJMenuBar(menuBar);
 
-        addWindowListener(new WindowAdapter() { // listener för att spara spelet när man trycker på exit
+        addWindowListener(new WindowAdapter() { // listener to save the game when exit button is pressed
             @Override
             public void windowClosing(WindowEvent e) {
                 controller.saveGame();
@@ -132,10 +130,8 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
-
     /**
-     * Displays gameRulesFrame showing the game rules.
-     *
+     * Displays the game rule frame showing the game rules.
      * @author annagranberg
      */
     public void showRulesDialog() {
@@ -147,10 +143,15 @@ public class MainFrame extends JFrame {
      * @return The center panel.
      * @author Cyrus Shaerpour
      */
-
     public CenterPanel getCenterPanel() {
         return mainPanel.getCenterPanel();
     }
+
+    /**
+     * Retrieves the east panel.
+     * @return The east panel.
+     * @author Cyrus Shaerpour
+     */
     public EastPanel getEastPanel() {
         return mainPanel.getEastPanel();
     }
@@ -160,7 +161,7 @@ public class MainFrame extends JFrame {
      * @return The south panel.
      * @author Cyrus Shaerpour
      */
-    public SouthPanel getSouthPanel(){
+    public SouthPanel getSouthPanel() {
         return mainPanel.getSouthPanel();
     }
 
@@ -169,7 +170,7 @@ public class MainFrame extends JFrame {
      * @return The main panel.
      * @author Cyrus Shaerpour
      */
-    public MainPanel getMainPanel(){
+    public MainPanel getMainPanel() {
         return mainPanel;
     }
 
@@ -178,7 +179,7 @@ public class MainFrame extends JFrame {
      * @return The garden panel.
      * @author Cyrus Shaerpour
      */
-    public GardenPanel getGardenPanel(){
+    public GardenPanel getGardenPanel() {
         return mainPanel.getGardenPanel();
     }
 
@@ -190,5 +191,4 @@ public class MainFrame extends JFrame {
     public GameRuleFrame getGameRuleFrame() {
         return mainPanel.getGameRuleFrame();
     }
-
 }
