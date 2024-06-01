@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 /**
  * A utility class for saving game data to a file.
- * @author annagranberg
+ * @author Anna Granberg
  */
 public class SaveGame {
     private static LocalDateTime timestamp;
@@ -49,14 +49,8 @@ public class SaveGame {
                 writer.newLine();
             }
             System.out.println("Game saved successfully.");
-            setTimestamp(timestamp); // Set the timestamp after saving
         } catch (IOException e) {
             System.err.println("Error saving game: " + e.getMessage());
         }
     }
-
-    private static void setTimestamp(LocalDateTime timestamp) {
-        SaveGame.timestamp = timestamp;
-    }
-
 }
