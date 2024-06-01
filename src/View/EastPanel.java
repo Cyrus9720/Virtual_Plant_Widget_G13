@@ -380,7 +380,6 @@ public class EastPanel extends JPanel {
      * The new timer triggers every second to update the time until death and player lives.
      * @author Anna Granberg
      */
-
     public void resetDeathTimer() {
         // Stop the current timer, if its active
         if (deathTimer != null) {
@@ -416,12 +415,12 @@ public class EastPanel extends JPanel {
      * Changes the icon of the night mode button to a sun.
      * @author Cyrus Shaerpour
      */
-         public void sunButton() {
-            ImageIcon sunIcon = new ImageIcon("src/Images/NightTime_Sun.PNG");
-            Image sunImage = sunIcon.getImage();
-            Image scaledSunImage = sunImage.getScaledInstance(60, 50, Image.SCALE_SMOOTH);
-            nightMode.setIcon(new ImageIcon(scaledSunImage));
-        }
+    public void sunButton() {
+        ImageIcon sunIcon = new ImageIcon("src/Images/NightTime_Sun.PNG");
+        Image sunImage = sunIcon.getImage();
+        Image scaledSunImage = sunImage.getScaledInstance(60, 50, Image.SCALE_SMOOTH);
+        nightMode.setIcon(new ImageIcon(scaledSunImage));
+    }
 
     /**
      * Changes the colors of the panel to night mode.
@@ -429,38 +428,38 @@ public class EastPanel extends JPanel {
      */
 
     public void nightColors() {
-            setBackground(new Color(47, 49, 73));
-            pnlButtons.setBackground(new Color(47, 49, 73)); // bakgrundsfärg
-            Water.setBackground(new Color(47, 49, 73));
-            progressbarLabel.setBackground(new Color(47, 49, 73));
-            threeHeartsLabel.setBackground(new Color(47, 49, 73));
-            timeUntilWatering.setBackground(new Color(47, 49, 73));
-            timeUntilDeathLabel.setBackground(new Color(47, 49, 73));
-            pnlButtons.setBackground(new Color(47, 49, 73)); // bakgrundsfärg
-            nightMode.setBackground(new Color(47, 49, 73));
-            titledBorder.setTitleColor(Color.WHITE);
-            timeUntilWatering.setForeground(Color.WHITE);
-            timeUntilDeathLabel.setForeground(Color.WHITE);
-        }
+        setBackground(new Color(47, 49, 73));
+        pnlButtons.setBackground(new Color(47, 49, 73)); // bakgrundsfärg
+        Water.setBackground(new Color(47, 49, 73));
+        progressbarLabel.setBackground(new Color(47, 49, 73));
+        threeHeartsLabel.setBackground(new Color(47, 49, 73));
+        timeUntilWatering.setBackground(new Color(47, 49, 73));
+        timeUntilDeathLabel.setBackground(new Color(47, 49, 73));
+        pnlButtons.setBackground(new Color(47, 49, 73)); // bakgrundsfärg
+        nightMode.setBackground(new Color(47, 49, 73));
+        titledBorder.setTitleColor(Color.WHITE);
+        timeUntilWatering.setForeground(Color.WHITE);
+        timeUntilDeathLabel.setForeground(Color.WHITE);
+    }
 
     /**
      * Changes the colors of the panel to day mode.
      * @author Cyrus Shaerpour
      */
-        public void dayColors() {
-            setBackground(new Color(225, 240, 218));
-            pnlButtons.setBackground(new Color(225, 240, 218)); // bakgrundsfärg
-            Water.setBackground(new Color(225, 240, 218));
-            progressbarLabel.setBackground(new Color(225, 240, 218));
-            threeHeartsLabel.setBackground(new Color(225, 240, 218));
-            timeUntilWatering.setBackground(new Color(225, 240, 218));
-            timeUntilDeathLabel.setBackground(new Color(225, 240, 218));
-            pnlButtons.setBackground(new Color(225, 240, 218));
-            nightMode.setBackground(new Color(225, 240, 218));
-            titledBorder.setTitleColor(Color.BLACK);
-            timeUntilWatering.setForeground(Color.BLACK);
-            timeUntilDeathLabel.setForeground(Color.BLACK);
-        }
+    public void dayColors() {
+        setBackground(new Color(225, 240, 218));
+        pnlButtons.setBackground(new Color(225, 240, 218)); // bakgrundsfärg
+        Water.setBackground(new Color(225, 240, 218));
+        progressbarLabel.setBackground(new Color(225, 240, 218));
+        threeHeartsLabel.setBackground(new Color(225, 240, 218));
+        timeUntilWatering.setBackground(new Color(225, 240, 218));
+        timeUntilDeathLabel.setBackground(new Color(225, 240, 218));
+        pnlButtons.setBackground(new Color(225, 240, 218));
+        nightMode.setBackground(new Color(225, 240, 218));
+        titledBorder.setTitleColor(Color.BLACK);
+        timeUntilWatering.setForeground(Color.BLACK);
+        timeUntilDeathLabel.setForeground(Color.BLACK);
     }
+}
 
 
