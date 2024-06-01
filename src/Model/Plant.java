@@ -277,8 +277,8 @@ public abstract class Plant {
 
     /**
      * Sets the name of the plant.
-     *
      * @param name The name to set for the plant.
+     * @author Cyrus Shaerpour
      */
     public void setName(String name) {
         this.name = name;
@@ -286,8 +286,8 @@ public abstract class Plant {
 
     /**
      * Retrieves the name of the plant.
-     *
      * @return The name of the plant.
+     * @author Cyrus Shaerpour
      */
     public String getName() {
         return name;
@@ -301,9 +301,19 @@ public abstract class Plant {
         return this.deathTime;
     }
 
+    /**
+     * Method for updating the image of the plant
+     * @return void
+     * @author Cyrus Shaerpour
+     */
     public abstract void updateImage();{
     }
 
+    /**
+     * Method for updating the death image of the plant
+     * @return void
+     * @author Cyrus Shaerpour
+     */
     public abstract void updateDeathImage();{
     }
 
