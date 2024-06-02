@@ -1,12 +1,18 @@
 package Model;
 
 import Controller.Controller;
-
 import javax.swing.*;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a Blackberry plant in the application.
+ * This class extends the Plant class and provides specific functionality and behavior
+ * For Blackberry plants, including updating images based on plant level and state.
+ * @author Cyrus
+  */
 public class Blackberry extends Plant{
     private Controller controller;
+
     /**
      * Constructor for Blackberry
      * @param controller

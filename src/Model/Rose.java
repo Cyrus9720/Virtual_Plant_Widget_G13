@@ -100,7 +100,6 @@ public class Rose extends Plant {
      * @return void
      * author Cyrus Shaerpour
      */
-
     @Override
     public void updateDeathImage () {
         if (controller.night) {

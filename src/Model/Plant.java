@@ -4,11 +4,11 @@ import Controller.Controller;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
-import javax.sound.sampled.Clip;
 
 public abstract class Plant {
     private String name;
@@ -146,7 +146,6 @@ public abstract class Plant {
 
             System.out.println("Life lost and new death time set: " + deathTime + " // plant");
         }
-
     }
 
     /**
@@ -163,7 +162,6 @@ public abstract class Plant {
 
     /**
      * Retrieves the name of the plant.
-     *
      * @return The name of the plant.
      */
     public String getPlantName() {
@@ -172,7 +170,6 @@ public abstract class Plant {
 
     /**
      * Retrieves the number of lives of the plant.
-     *
      * @return The number of lives of the plant.
      */
 
@@ -265,7 +262,6 @@ public abstract class Plant {
 
     /**
      * Retrieves the last time the plant was watered.
-     *
      * @return The LocalDateTime object representing the last time the plant was watered.
      */
     public LocalDateTime getLastWatered() {

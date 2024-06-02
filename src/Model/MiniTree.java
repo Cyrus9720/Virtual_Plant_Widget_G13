@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 public class MiniTree extends Plant{
     private Controller controller;
+
     /**
      * Constructor for MiniTree
      * @param controller
