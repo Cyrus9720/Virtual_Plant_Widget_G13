@@ -1,8 +1,6 @@
 package View;
 
 import Controller.Controller;
-import View.AddNewPlantFrame;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
