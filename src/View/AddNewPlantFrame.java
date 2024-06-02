@@ -16,7 +16,6 @@ public class AddNewPlantFrame extends JFrame {
     public AddNewPlantFrame(Controller controller) {
         setSize(new Dimension(300, 300)); // Ställer in storleken på fönstret
         setVisible(true); // Gör fönstret synligt när det skapas
-
         NewPlantPanel newPlantPanel = new NewPlantPanel(controller); // Skapar en ny panel för att lägga till växter
         add(newPlantPanel); // Lägger till den nya panelen i fönstret
     }
@@ -25,15 +24,14 @@ public class AddNewPlantFrame extends JFrame {
      * Panel for adding new plants to the garden.
      */
     private class NewPlantPanel extends JPanel {
+
         /**
          * Constructs a NewPlantPanel with controller.
          *
          * @param controller The controller object associated with the panel.
          */
-
         private int height = 120;
         private int width = 50;
-
         private NewPlantPanel(Controller controller) {
             if (controller.night) {
                 setBackground(new Color(47, 49, 73)); // Set background color for the panel
@@ -41,7 +39,6 @@ public class AddNewPlantFrame extends JFrame {
                 setBackground(new Color(225, 240, 218)); // Set background color for the panel
             }
             setLayout(new FlowLayout()); // Set layout for the panel
-
             JLabel infoLabel = new JLabel("Choose a plant to add to the garden!"); // Create a label to display instructions
             Font customFont = new Font("Bebas Neue", Font.BOLD, 12); // Custom font
             if (controller.night) {
@@ -132,6 +129,5 @@ public class AddNewPlantFrame extends JFrame {
             add(miniTreeButton);
             add(cactusButton);
         }
-
     }
 }

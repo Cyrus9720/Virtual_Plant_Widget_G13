@@ -6,7 +6,6 @@ import javax.swing.ImageIcon;
 import java.time.LocalDateTime;
 
 public class Rose extends Plant {
-
     private Controller controller;
 
     /**

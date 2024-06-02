@@ -1,7 +1,6 @@
 package View;
 
 import Controller.Controller;
-import View.AddNewPlantFrame;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -25,14 +24,11 @@ public class GardenPanel extends JPanel {
         this.plantPaths = plantPaths;
         this.controller = controller;
         plantButtons = new ArrayList<>(); // Initialize the list
-
         setPreferredSize(new Dimension(175, 500));
         setBackground(new Color(225, 240, 218));
         setLayout(new GridLayout(4, 2));
-
         generateButtons();
         addAddPlantButton();
-
         border = BorderFactory.createLineBorder(Color.BLACK);
         titledBorder = BorderFactory.createTitledBorder(border, "Garden", TitledBorder.CENTER, TitledBorder.TOP, customFont, Color.BLACK);
         setBorder(titledBorder);
@@ -58,7 +54,6 @@ public class GardenPanel extends JPanel {
                     controller.switchPlant(e.getActionCommand());
                 }
             });
-
             plantButtons.add(plantButton); // Add each button to the list
             add(plantButton);
         }
@@ -90,8 +85,6 @@ public class GardenPanel extends JPanel {
             addPlantButton.setForeground(Color.BLACK);
             addPlantButton.setBackground(new Color(153, 188, 133));
         }
-
-
         addPlantButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -136,7 +129,6 @@ public class GardenPanel extends JPanel {
         border = BorderFactory.createLineBorder(Color.BLACK);
         titledBorder.setTitleColor(Color.BLACK);
         // Iterate through the list and update each button's color
-
         for (JButton button : plantButtons) {
             button.setForeground(Color.BLACK);
         }

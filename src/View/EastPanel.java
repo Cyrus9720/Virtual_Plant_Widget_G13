@@ -4,14 +4,12 @@ import Controller.Controller;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.TimerTask;
 
 /**
  * The EastPanel class represents the panel containing plant care controls on the east side of the user interface.
@@ -143,8 +141,6 @@ public class EastPanel extends JPanel {
             }
         });
         waterTimer.start();
-
-
         // Create a timer to update the time until next watering and time until death every second
        Timer deathTimer = new Timer(1000, new ActionListener() {
             @Override

@@ -72,7 +72,6 @@ public abstract class Plant {
                     wateringSoundClip.start();
                 }
             }
-
             // Reset the death timer after watering
             setNewDeathTime();
 
@@ -122,7 +121,6 @@ public abstract class Plant {
         if (lastWatered == null || deathTime == null) {
             return; // Null check for lastWatered and deathTime
         }
-
 
         LocalDateTime now = LocalDateTime.now();
         System.out.println("Current time: " + now);

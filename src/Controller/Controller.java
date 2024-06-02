@@ -12,9 +12,8 @@ import java.util.*;
 
 /**
  * The Controller class serves as the main controller for managing the interaction between the model and the view.
- * It handles actions such as switching plants, watering plants, adding new plants, and updating the game sstate.
+ * It handles actions such as switching plants, watering plants, adding new plants, and updating the game state.
  */
-
 public class Controller {
     private MainFrame view;
     private ArrayList<Plant> plantList = new ArrayList<>();
@@ -22,6 +21,7 @@ public class Controller {
     private Plant currentPlant = null;
     private LoadGame loadGame;
     private boolean isChosen = false;
+
     public boolean night = false;
 
     /**
@@ -34,13 +34,11 @@ public class Controller {
         } catch (Exception e) {
             System.err.println("Error loading game data: " + e.getMessage());
         }
-
         view = new MainFrame(this);
 
         if (!loadGame.isFileNotEmpty()) {
             firstTimePlaying();
-        }
-        else {
+        } else {
             night = (night) ? false : true; //Gör en check och rättar till night variable så respektive mode syns vid start up
             buttonPressed(ButtonType.NightMode); //Bytar till rätt day/night mode
         }
@@ -58,7 +56,6 @@ public class Controller {
             setIsChosen(true);
             currentPlantIndex = plantIndex;
             currentPlant = plantList.get(plantIndex); // Uppdatera currentPlant när switchPlant kallas
-
             currentPlant.setDeathTimeSwitch();
             updateWaterButtonStatus();
             checkLife();
@@ -166,7 +163,7 @@ public class Controller {
     /**
      * Adds a new cactus plant to the list of plants.
      * Generates a random name for the plant if plant name is null.
-     * @auhor annagranberg & Cyrus Shaerpour
+     * @auhor Annagranberg & Cyrus Shaerpour
      */
     public void addNewCactus() {
         String newName = promptForPlantName("Cactus");
@@ -183,7 +180,7 @@ public class Controller {
      *
      * @param plantType The type of plant (e.g., "Rose", "Sunflower").
      * @return The entered or randomly generated plant name.
-     * @auhor annagranberg & Cyrus Shaerpour
+     * @auhor Annagranberg & Cyrus Shaerpour
      */
     private String promptForPlantName(String plantType) {
         int response = JOptionPane.showConfirmDialog(null, "Do you want to choose a new name?", "Confirm", JOptionPane.YES_NO_OPTION);
@@ -218,7 +215,6 @@ public class Controller {
                         JOptionPane.showMessageDialog(null, "Please select a plant to water.", "No Plant Selected", JOptionPane.INFORMATION_MESSAGE);
                         return;
                     }
-
                     currentPlant = plantList.get(currentPlantIndex);
                     currentPlant.setLastWatered(LocalDateTime.now());
                     currentPlant.waterPlant();
@@ -242,7 +238,6 @@ public class Controller {
                         view.getGardenPanel().nightGarden();
                         view.getMainPanel().nightMain();
                         view.getSouthPanel().nightSouth();
-
                         night = true;
 
                         for (Plant p : plantList) {
@@ -257,13 +252,10 @@ public class Controller {
                             view.getCenterPanel().updatePlantImage(currentPlant.getPlantPicture());
                             view.getGardenPanel().updateButtons(getPlantImagePaths());
 
-
-
                         currentPlant.updateImage();
                         currentPlant.updateDeathImage();
                         view.getCenterPanel().repaint();
                         } else System.out.println("plantList är null");
-
                         night = true;
 
                     } else {
@@ -273,7 +265,6 @@ public class Controller {
                         view.getGardenPanel().dayGarden();
                         view.getMainPanel().dayMain();
                         view.getSouthPanel().daySouth();
-
                         night = false;
 
                         for (Plant p : plantList) {
@@ -292,7 +283,6 @@ public class Controller {
                         currentPlant.updateDeathImage();
                         view.getCenterPanel().repaint();
                         } else System.out.println("plantList är null");
-
                         night = false;
                     }
                     break;
@@ -372,15 +362,12 @@ public class Controller {
             if (lastWatered != null) {
                 Duration timeSinceLastWatered = Duration.between(lastWatered, currentDateTime);
                 Duration wateringInterval = Duration.ofSeconds(5); // 10 seconds
-
                 // Calculate the time left until the next watering in seconds
                 long timeUntilNextWateringSeconds = wateringInterval.minus(timeSinceLastWatered).getSeconds();
-
                 if (timeUntilNextWateringSeconds <= 0) {
                     //view.getEastPanel().enableWaterButton();
                     return 0; // The plant is due for watering or overdue
                 }
-
                 return timeUntilNextWateringSeconds;
             }
         }
@@ -607,7 +594,6 @@ public class Controller {
                     javax.swing.UIManager.put("Panel.background", new Color(225, 240, 218));
                     javax.swing.UIManager.put("OptionPane.messageForeground", Color.BLACK); // Set font color for day mode
                 }
-
                 JOptionPane.showMessageDialog(null, "Your garden is empty! Nothing to remove :)", "Information", JOptionPane.INFORMATION_MESSAGE);
             }
         }
@@ -659,11 +645,9 @@ public class Controller {
                     } else {
                         JOptionPane.showMessageDialog(null, "You have no plants to remove", ":(", JOptionPane.INFORMATION_MESSAGE);
                     }
-
                     if (!found) {
                         System.err.println("Det finns ingen växt med namnet \"" + plantName + "\" i listan.");
                     }
-
                 } else {
                     JOptionPane.showMessageDialog(null, "You must choose a plant to remove it.");
                 }

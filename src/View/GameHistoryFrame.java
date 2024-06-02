@@ -2,7 +2,6 @@ package View;
 
 import Controller.GameHistoryReader;
 import Controller.Controller;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -20,15 +19,9 @@ public class GameHistoryFrame extends JFrame {
     private static final int IMAGE_WIDTH = 75;
     private static final int IMAGE_HEIGHT = 100;
     private static final int BORDER_PADDING = 20;
-
-    // Reference to the controller
-    private Controller controller;
-
-    // Custom font for UI components
-    private Font customFont = new Font("Bebas Neue", Font.BOLD, 12);
-
-    // Main panel for the UI
-    private JPanel panel;
+    private Controller controller; // Reference to the controller
+    private Font customFont = new Font("Bebas Neue", Font.BOLD, 12); // Custom font for UI components
+    private JPanel panel; // Main panel for the UI
 
     /**
      * Constructs a new GameHistoryFrame.
@@ -69,7 +62,6 @@ public class GameHistoryFrame extends JFrame {
             } else {
                 entryPanel.setBackground(new Color(225, 240, 218));
             }
-
             if (parts.length >= 4) {
                 String imagePath = parts[3].trim().split(":")[1].trim();
 

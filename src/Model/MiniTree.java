@@ -6,9 +6,7 @@ import javax.swing.*;
 import java.time.LocalDateTime;
 
 public class MiniTree extends Plant{
-
     private Controller controller;
-
     /**
      * Constructor for MiniTree
      * @param controller
@@ -44,7 +42,6 @@ public class MiniTree extends Plant{
      * @param nbrOfLives Number of lives
      * @author Cyrus Shaerpour
      */
-
     @Override
     public void setNbrOfLives(int nbrOfLives) {
         super.setNbrOfLives(nbrOfLives);

@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 
 public class Blackberry extends Plant{
     private Controller controller;
-
     /**
      * Constructor for Blackberry
      * @param controller
@@ -112,8 +111,7 @@ public class Blackberry extends Plant{
             } else if (getNbrOfLives() == 0 && getPlantLevel() == 3) {
                 setPlantPicture(new ImageIcon("src/Images/Night_BBD_ead3.JPG"));
             }
-        } else
-        if (getNbrOfLives() == 0 && getPlantLevel() == 1) {
+        } else if (getNbrOfLives() == 0 && getPlantLevel() == 1) {
             setPlantPicture(new ImageIcon("src/Images/BlackberryDead1.JPG"));
         } else if (getNbrOfLives() == 0 && getPlantLevel() == 2) {
             setPlantPicture(new ImageIcon("src/Images/BlackberryDead2.JPG"));

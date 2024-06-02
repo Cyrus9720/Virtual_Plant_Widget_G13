@@ -110,21 +110,18 @@ public class MainFrame extends JFrame {
         newGame.setBorder(menuItemBorder);
         removePlant.setBorder(menuItemBorder);
         changeName.setBorder(menuItemBorder);
-
         menuBar.add(gameRules);
         menuBar.add(changeName);
         menuBar.add(gameHistory);
         menuBar.add(removePlant);
         menuBar.add(newGame);
         setJMenuBar(menuBar);
-
         addWindowListener(new WindowAdapter() { // listener to save the game when exit button is pressed
             @Override
             public void windowClosing(WindowEvent e) {
                 controller.saveGame();
             }
         });
-
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
