@@ -1,7 +1,6 @@
 package View;
 
 import Controller.Controller;
-import View.AddNewPlantFrame;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -25,14 +24,11 @@ public class GardenPanel extends JPanel {
         this.plantPaths = plantPaths;
         this.controller = controller;
         plantButtons = new ArrayList<>(); // Initialize the list
-
         setPreferredSize(new Dimension(175, 500));
         setBackground(new Color(225, 240, 218));
         setLayout(new GridLayout(4, 2));
-
         generateButtons();
         addAddPlantButton();
-
         border = BorderFactory.createLineBorder(Color.BLACK);
         titledBorder = BorderFactory.createTitledBorder(border, "Garden", TitledBorder.CENTER, TitledBorder.TOP, customFont, Color.BLACK);
         setBorder(titledBorder);
@@ -50,6 +46,7 @@ public class GardenPanel extends JPanel {
             plantButton.setIcon(scaledIcon);
             plantButton.setFocusPainted(false);
             plantButton.setBorderPainted(false);
+            plantButton.setContentAreaFilled(false);
 
             plantButton.addActionListener(new ActionListener() {
                 @Override
@@ -57,7 +54,6 @@ public class GardenPanel extends JPanel {
                     controller.switchPlant(e.getActionCommand());
                 }
             });
-
             plantButtons.add(plantButton); // Add each button to the list
             add(plantButton);
         }
@@ -77,14 +73,18 @@ public class GardenPanel extends JPanel {
         addPlantButton.setBackground(new Color(153, 188, 133));
         addPlantButton.setSize(150, 30);
         addPlantButton.setFont(customFont);
+        addPlantButton.setFocusPainted(false);
+        //addPlantButton.setContentAreaFilled(true);
+        addPlantButton.setBorderPainted(true);
 
         // Set initial foreground color based on the current mode
         if (controller.night) {
             addPlantButton.setForeground(Color.WHITE);
+            addPlantButton.setBackground(new Color(13, 12, 29));
         } else {
             addPlantButton.setForeground(Color.BLACK);
+            addPlantButton.setBackground(new Color(153, 188, 133));
         }
-
         addPlantButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -100,6 +100,11 @@ public class GardenPanel extends JPanel {
         add(addPlantButton, BorderLayout.SOUTH);
     }
 
+    /**
+     * Sets the garden panel to night mode.
+     * Changes the background color and the add plant button color.
+     * @author Cyrus Shaerpour
+     */
 
     public void nightGarden() {
         setBackground(new Color(47, 49, 73));
@@ -107,11 +112,17 @@ public class GardenPanel extends JPanel {
         border = BorderFactory.createLineBorder(Color.WHITE);
         titledBorder.setTitleColor(Color.WHITE);
         // Iterate through the list and update each button's color
+        System.out.println(plantButtons.size());
         for (JButton button : plantButtons) {
             button.setForeground(Color.WHITE);
         }
     }
 
+    /**
+     * Sets the garden panel to day mode.
+     * Changes the background color and the add plant button color.
+     * @author Cyrus Shaerpour
+     */
     public void dayGarden() {
         setBackground(new Color(225, 240, 218));
         addPlantButton.setBackground(new Color(153, 188, 133));

@@ -1,33 +1,48 @@
 package Model;
 
 import Controller.Controller;
-
 import javax.swing.*;
 import java.time.LocalDateTime;
 
 public class Cactus extends Plant{
+    private Controller controller;
+
     /**
      * Constructor for Cactus
-     *
-     * @param name         Name of the plant
-     * @param plantArt     Art of the plant
-     * @param nbrOfLives   Number of plant lives
-     * @param timesWatered How many times plant is watered
-     * @param plantPicture Picture of the plant
-     * @param plantLevel   Level of the plant
-     * @param lastWatered  When plant was watered last time
+     * @param controller
+     * @param name
+     * @param plantArt
+     * @param nbrOfLives
+     * @param timesWatered
+     * @param plantPicture
+     * @param plantLevel
+     * @param lastWatered
+     * @param deathTime
+     * @return void
      * @author Cyrus Shaerpour
      */
     public Cactus(Controller controller, String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered, LocalDateTime deathTime) {
         super(controller, name, plantArt, nbrOfLives, timesWatered, plantPicture, plantLevel, lastWatered, deathTime);
+        this.controller = controller;
     }
 
+    /**
+     * Setting the plant level
+     * @param plantLevel Level of the plant
+     * author Cyrus Shaerpour
+     */
     @Override
     public void setPlantLevel(int plantLevel) {
         super.setPlantLevel(plantLevel);
         updateImage();
         System.out.println(getPlantPicture());
     }
+
+    /**
+     * Setting the number of lives
+     * @param nbrOfLives Number of lives
+     * author Cyrus Shaerpour
+     */
 
     @Override
     public void setNbrOfLives(int nbrOfLives) {
@@ -37,27 +52,68 @@ public class Cactus extends Plant{
         System.out.println("We here!");
     }
 
-    private void updateImage() {
-        switch (getPlantLevel()) {
-            case 0:
-                setPlantPicture(new ImageIcon("src/Images/PotArt1.JPG"));
-                break;
-            case 1:
-                setPlantPicture(new ImageIcon("src/Images/Cactus1.JPG"));
-                break;
-            case 2:
-                setPlantPicture(new ImageIcon("src/Images/Cactus2.JPG"));
-                break;
-            case 3:
-                setPlantPicture(new ImageIcon("src/Images/Cactus3.JPG"));
-                break;
-            default:
-                // Handle any other cases or provide a default image
-                break;
+    /**
+     * Update the image of the plant
+     * @return void
+     * author Cyrus Shaerpour
+     */
+    @Override
+    public void updateImage() {
+        if (controller.night) {
+            switch (getPlantLevel()) {
+                case 0:
+                    setPlantPicture(new ImageIcon("src/Images/Night_Empty.JPG"));
+                    break;
+                case 1:
+                    setPlantPicture(new ImageIcon("src/Images/Night_Cactus1.JPG"));
+                    break;
+                case 2:
+                    setPlantPicture(new ImageIcon("src/Images/Night_Cactus2.JPG"));
+                    break;
+                case 3:
+                    setPlantPicture(new ImageIcon("src/Images/Night_Cactus3.JPG"));
+                    break;
+                default:
+                    // Handle any other cases or provide a default image
+                    break;
+            }
+        } else {
+            switch (getPlantLevel()) {
+                case 0:
+                    setPlantPicture(new ImageIcon("src/Images/PotArt1.JPG"));
+                    break;
+                case 1:
+                    setPlantPicture(new ImageIcon("src/Images/Cactus1.JPG"));
+                    break;
+                case 2:
+                    setPlantPicture(new ImageIcon("src/Images/Cactus2.JPG"));
+                    break;
+                case 3:
+                    setPlantPicture(new ImageIcon("src/Images/Cactus3.JPG"));
+                    break;
+                default:
+                    // Handle any other cases or provide a default image
+                    break;
+            }
         }
     }
 
-    private void updateDeathImage() {
+    /**
+     * Update the death image of the plant
+     * @return void
+     * author Cyrus Shaerpour
+     */
+    @Override
+    public void updateDeathImage() {
+        if (controller.night) {
+            if (getNbrOfLives() == 0 && getPlantLevel() == 1) {
+                setPlantPicture(new ImageIcon("src/Images/Night_Cactus_Dead1.JPG"));
+            } else if (getNbrOfLives() == 0 && getPlantLevel() == 2) {
+                setPlantPicture(new ImageIcon("src/Images/Night_Cactus_Dead2.JPG"));
+            } else if (getNbrOfLives() == 0 && getPlantLevel() == 3) {
+                setPlantPicture(new ImageIcon("src/Images/Night_Cactus_Dead3.JPG"));
+            }
+        } else
         if (getNbrOfLives() == 0 && getPlantLevel() == 1) {
             setPlantPicture(new ImageIcon("src/Images/CactusDead1.JPG"));
         } else if (getNbrOfLives() == 0 && getPlantLevel() == 2) {

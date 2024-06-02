@@ -1,7 +1,6 @@
 package View;
 
 import Controller.Controller;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
@@ -12,7 +11,6 @@ import java.awt.*;
  * Den innehåller också en titel som visar växtens namn.
  */
 public class CenterPanel extends JPanel {
-
     private ImageIcon plantPicture; // Bilden på växten
     private String name; // Namnet på växten
     private JLabel plantLabel; // Label som visar växtbilden
@@ -72,7 +70,6 @@ public class CenterPanel extends JPanel {
     // Metod för att uppdatera växtnamnet
     public void updatePlantName(String plantName){
         name = plantName; // Uppdatera växtnamnet
-
         titledBorder.setTitle(name); // Uppdatera titeln
         this.revalidate(); // för att uppdatera titeln
         this.repaint(); // Repaint panelen för att visa den uppdaterade titeln
@@ -104,11 +101,21 @@ public class CenterPanel extends JPanel {
         repaint();
     }
 
+    /**
+     * Sets the center panel to night mode.
+     * Changes the background color of the panel to a darker color and the title text color to white.
+     * Author Cyrus Shaerpour
+     */
     public void centerNight() {
         setBackground(new Color(47, 49, 73));
         titledBorder.setTitleColor(Color.WHITE);
     }
 
+    /**
+     * Sets the center panel to day mode.
+     * Changes the background color of the panel to a lighter color and the title text color to black.
+     * Author Cyrus Shaerpour
+     */
     public void centerDay() {
         setBackground(new Color(225, 240, 218));
         titledBorder.setTitleColor(Color.BLACK);

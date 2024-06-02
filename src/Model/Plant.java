@@ -11,16 +11,16 @@ import java.util.Objects;
 import javax.sound.sampled.Clip;
 
 public abstract class Plant {
-    private String name; // name of the plant
-    private int nbrOfLives; // number of lives of the plant
-    private int timesWatered; // number of times the plant has been watered
-    private ImageIcon plantPicture; // Imageicon of the plant
-    private int plantLevel; // Level of the plant
-    private PlantArt plantArt; // Art of the plant
-    private LocalDateTime lastWatered; // LocalDateTime for when plant was last watered
-    private LocalDateTime deathTime; // LocalDateTime for when plant is planned to lose a life
-    private Clip wateringSoundClip; // A clip for the sound effect
-    private Controller controller; // Instance of controller, to be able to use its methods. 
+    private String name;
+    private int nbrOfLives;
+    private int timesWatered;
+    private ImageIcon plantPicture;
+    private int plantLevel;
+    private PlantArt plantArt;
+    private LocalDateTime lastWatered;
+    private LocalDateTime deathTime;
+    private Clip wateringSoundClip;
+    private Controller controller;
 
     /**
      * Constructor for Plant
@@ -47,20 +47,20 @@ public abstract class Plant {
      * Method for watering the plant and increasing the plant level
      * If the plant is not fully grown, increase the plant level
      * @return void
-     * @author Cyrus Shaerpour and Roa Jamhour
+     * @author Cyrus Shaerpour & Roa Jamhour
      */
     public void waterPlant() {
-        if (nbrOfLives > 0) { // when the plant has more than 0 lives
+        if (nbrOfLives > 0) {
             setTimesWatered(getTimesWatered() + 1);
-            if (plantLevel <= 3) { // if the plant level is 3 or less
+            if (plantLevel <= 3) {
                 if (getTimesWatered() == plantLevel + 1) {
                     setPlantLevel(getPlantLevel() + 1);
                     setTimesWatered(0);
-                    if (plantLevel == 3) { // if the plant level is 3
+                    if (plantLevel == 3) {
                         System.out.println("Plant is fully grown");
                     }
                 }
-                try { // logic for audio when watering
+                try {
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResourceAsStream("/sounds/watering.wav")));
                     wateringSoundClip = AudioSystem.getClip();
                     wateringSoundClip.open(audioInputStream);
@@ -72,52 +72,33 @@ public abstract class Plant {
                     wateringSoundClip.start();
                 }
             }
-
-            // Set new death time after watering plant.
+            // Reset the death timer after watering
             setNewDeathTime();
 
-        } else if (nbrOfLives == 0) { // If nbr of lives is 0, show message.
+        } else if (nbrOfLives == 0) {
             JOptionPane.showMessageDialog(null, "Your plant is dead! \nWatering won't bring it back ):");
         }
     }
 
-    /**
-     * Method for decreasing the number of lives of the plant
-     * @author Cyrus Shaerpour
-     * @return void
-     */
-    public void decreaseLife() {
-        if (nbrOfLives > 0) {
-            nbrOfLives--; // Minska livräknaren med ett om den är större än noll
-            setNbrOfLives(getNbrOfLives());
-        }
-    }
-
-    /**
-     * Updates the plant's death time based on the last watering time and current time.
-     * If the current time is after the current death time, decreases the plant's life, sets a new death time,
-     * and resets the death timer. Otherwise, sets a new death time and resets the death timer.
-     *
-     * @author Anna Granberg and Cyrus Shaerpour
-     */
     public void setNewDeathTime() {
-        if (lastWatered == null || deathTime == null) {
-            return; // Nullkontroll för lastWatered och deathTime
+        if (lastWatered == null || deathTime == null) { // Null check for lastWatered and deathTime
+            return;
         }
-
         LocalDateTime now = LocalDateTime.now();
         System.out.println("Current time: " + now);
         System.out.println("Last watered time: " + lastWatered);
         System.out.println("Current death time: " + deathTime);
 
-        // Check if it is time to update the death time based on current death time
-        if (now.isAfter(deathTime)) {
+        if(getNbrOfLives() == 0){
+            deathTime = now.minusNanos(1);
+            return;
+        } else if (now.isAfter(deathTime)) { // Check if it's time to update the deathTime
             System.out.println("Current time is after last watered time and death time.");
 
-            // decrease life
+            // Decrease amount of lives
             decreaseLife();
 
-            // set new death time
+            // Set new deathTime
             deathTime = now.plusMinutes(1);
             setDeathTime(deathTime);
 
@@ -133,9 +114,52 @@ public abstract class Plant {
             System.out.println("New death time set: " + deathTime + " // plant");
 
         }
+        controller.getView().getEastPanel().updateLives();
     }
 
+    public void setDeathTimeSwitch(){
+        if (lastWatered == null || deathTime == null) {
+            return; // Null check for lastWatered and deathTime
+        }
 
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println("Current time: " + now);
+        System.out.println("Last watered time: " + lastWatered);
+        System.out.println("Current death time: " + deathTime);
+
+        if(getNbrOfLives() == 0){
+            deathTime = now.minusNanos(1);
+            return;
+        } else if (now.isAfter(deathTime)) {
+            System.out.println("Current time is after last watered time and death time.");
+
+            // Decrease amount of lives
+            decreaseLife();
+
+            // Set new deathTime
+            deathTime = now.plusMinutes(1);
+            setDeathTime(deathTime);
+
+            // Reset death timer
+            controller.resetDeathTimer();
+            controller.getView().getEastPanel().updateLives();
+
+            System.out.println("Life lost and new death time set: " + deathTime + " // plant");
+        }
+
+    }
+
+    /**
+     * Method for decreasing the number of lives of the plant
+     * @author Cyrus Shaerpour
+     * @return void
+     */
+    public void decreaseLife() {
+        if (nbrOfLives > 0) {
+            nbrOfLives--; // Minska livräknaren med ett om den är större än noll
+            setNbrOfLives(nbrOfLives);
+        }
+    }
 
     /**
      * Retrieves the name of the plant.
@@ -155,12 +179,6 @@ public abstract class Plant {
     public int getNbrOfLives() {
         return nbrOfLives;
     }
-
-    /**
-     * Sets the number of lives of the plant.
-     *
-     * @param nbrOfLives
-     */
 
     public void setNbrOfLives(int nbrOfLives) {
         this.nbrOfLives = nbrOfLives;
@@ -256,8 +274,8 @@ public abstract class Plant {
 
     /**
      * Sets the name of the plant.
-     *
      * @param name The name to set for the plant.
+     * @author Cyrus Shaerpour
      */
     public void setName(String name) {
         this.name = name;
@@ -265,30 +283,35 @@ public abstract class Plant {
 
     /**
      * Retrieves the name of the plant.
-     *
      * @return The name of the plant.
+     * @author Cyrus Shaerpour
      */
     public String getName() {
         return name;
     }
 
-    /**
-     * Sets the death time of the plant
-     *
-     * @param newDeathTime
-     */
-
     public void setDeathTime(LocalDateTime newDeathTime) {
         this.deathTime = newDeathTime;
+        System.out.println("Death time successfully set to: " + this.deathTime);
+    }
+    public LocalDateTime getDeathTime() {
+        return this.deathTime;
     }
 
     /**
-     * Retrieves the death time of the plant.
-     *
-     * @return deathTime of the plant
+     * Method for updating the image of the plant
+     * @return void
+     * @author Cyrus Shaerpour
      */
-    public LocalDateTime getDeathTime() {
-        return this.deathTime;
+    public abstract void updateImage();{
+    }
+
+    /**
+     * Method for updating the death image of the plant
+     * @return void
+     * @author Cyrus Shaerpour
+     */
+    public abstract void updateDeathImage();{
     }
 
     /**
@@ -302,7 +325,7 @@ public abstract class Plant {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
             formattedLastWatered = lastWatered.format(formatter);
         }catch (Exception e){
-            System.err.println("Could not format date");
+            // System.err.println("Could not format date");
         }
         return String.format("Plant art; %s | Plant name; %s | Plant level; %d | Times watered; %d | Number of lives; %d | Plant picture; %s | Last time watered; %s", plantArt, name, plantLevel, timesWatered, nbrOfLives, plantPicture, formattedLastWatered);
     }

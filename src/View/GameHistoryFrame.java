@@ -1,7 +1,7 @@
 package View;
 
 import Controller.GameHistoryReader;
-
+import Controller.Controller;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -15,28 +15,39 @@ import java.util.ArrayList;
  * Represents a JFrame that displays the game history including information about old plants.
  */
 public class GameHistoryFrame extends JFrame {
-    private static final int IMAGE_WIDTH = 75; // width for image
-    private static final int IMAGE_HEIGHT = 100; // height for image
-    private static final int BORDER_PADDING = 20; // border thickness
-    private Font customFont = new Font("Bebas Neue", Font.BOLD, 12); // custom font
-    private JPanel panel; // panel
+    // Constants for image dimensions and border padding
+    private static final int IMAGE_WIDTH = 75;
+    private static final int IMAGE_HEIGHT = 100;
+    private static final int BORDER_PADDING = 20;
+    private Controller controller; // Reference to the controller
+    private Font customFont = new Font("Bebas Neue", Font.BOLD, 12); // Custom font for UI components
+    private JPanel panel; // Main panel for the UI
 
     /**
      * Constructs a new GameHistoryFrame.
      * @author Anna Granberg
      */
-    public GameHistoryFrame() {
+    public GameHistoryFrame(Controller controller) {
+        this.controller = controller;
         setTitle("Game History");
         setPreferredSize(new Dimension(200,600));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Close only this window on exit
         setResizable(false);
-        setBackground(new Color(225, 240, 218));
+        if (controller.night) {
+            setBackground(new Color(47, 49, 73));
+        } else {
+            setBackground(new Color(225, 240, 218));
+        }
         setFont(customFont);
 
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBackground(new Color(225, 240, 218));
-        panel.setBorder(BorderFactory.createEmptyBorder(BORDER_PADDING, BORDER_PADDING, BORDER_PADDING, BORDER_PADDING)); // to create the border
+        if (controller.night) {
+            panel.setBackground(new Color(47, 49, 73));
+        } else {
+            panel.setBackground(new Color(225, 240, 218));
+        }
+        panel.setBorder(BorderFactory.createEmptyBorder(BORDER_PADDING, BORDER_PADDING, BORDER_PADDING, BORDER_PADDING));
 
         ArrayList<String> gameHistory = getGameHistory(); // Populate game history
 
@@ -46,14 +57,17 @@ public class GameHistoryFrame extends JFrame {
             // panel
             JPanel entryPanel = new JPanel();
             entryPanel.setLayout(new BoxLayout(entryPanel, BoxLayout.Y_AXIS));
-            entryPanel.setBackground(new Color(225, 240, 218));
-
+            if (controller.night) {
+                entryPanel.setBackground(new Color(47, 49, 73));
+            } else {
+                entryPanel.setBackground(new Color(225, 240, 218));
+            }
             if (parts.length >= 4) {
                 String imagePath = parts[3].trim().split(":")[1].trim();
 
                 try {
                     ImageIcon originalIcon = new ImageIcon(ImageIO.read(new File(imagePath)));
-                    ImageIcon scaledIcon = scaleImageIcon(originalIcon, IMAGE_WIDTH, IMAGE_HEIGHT); // scale image
+                    ImageIcon scaledIcon = scaleImageIcon(originalIcon, IMAGE_WIDTH, IMAGE_HEIGHT); // scale Image
                     JLabel imageLabel = new JLabel(scaledIcon);
                     entryPanel.add(imageLabel);
                 } catch (IOException e) {
@@ -66,7 +80,11 @@ public class GameHistoryFrame extends JFrame {
             for (int i = 0; i < parts.length-1; i++) {
                 JLabel label = new JLabel(parts[i].trim());
                 label.setFont(customFont);
-                label.setBackground(new Color(225, 240, 218));
+                if (controller.night) {
+                    label.setForeground(Color.WHITE);
+                } else {
+                    label.setForeground(Color.BLACK);
+                }
                 entryPanel.add(label);
             }
 
@@ -77,7 +95,12 @@ public class GameHistoryFrame extends JFrame {
         add(scrollPane);
 
         Border border = BorderFactory.createLineBorder(Color.BLACK);
-        TitledBorder titledBorder = BorderFactory.createTitledBorder(border, "Old plants", TitledBorder.CENTER, TitledBorder.TOP, customFont, Color.BLACK);
+        TitledBorder titledBorder = BorderFactory.createTitledBorder(border, "Old plants", TitledBorder.CENTER, TitledBorder.TOP, customFont);
+        if (controller.night) {
+            titledBorder.setTitleColor(Color.WHITE);
+        } else {
+            titledBorder.setTitleColor(Color.BLACK);
+        }
         panel.setBorder(titledBorder);
 
         pack(); // Adjust frame size to fit contents

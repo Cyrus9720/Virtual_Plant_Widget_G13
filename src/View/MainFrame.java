@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-
 /**
  * The MainFrame class represents the main frame of the application.
  * This frame contains the main user interface components, including the main panel
@@ -17,7 +16,7 @@ import java.awt.event.WindowEvent;
  *
  * This class extends {@link javax.swing.JFrame}.
  *
- * @author Anna Granberg
+ * @author annagranberg
  */
 public class MainFrame extends JFrame {
     private Controller controller; // reference to controller
@@ -38,7 +37,7 @@ public class MainFrame extends JFrame {
 
     /**
      * Sets up the main frame by configuring its properties, adding components, and making it visible.
-     * @author Anna Granberg
+     * @author annagranberg
      */
     public void setUpFrame() {
         setTitle("Virtual Plants");
@@ -54,8 +53,7 @@ public class MainFrame extends JFrame {
         menuBar.setPreferredSize(new Dimension(200,25));
         menuBar.setFont(customFont);
 
-
-        JMenuItem gameRules = new JMenuItem("Game Rules"); // JMenuItem to show Game Rules
+        JMenuItem gameRules = new JMenuItem("Game Rules"); // button to display game rules
         gameRules.setFont(customFont);
         gameRules.addActionListener(new ActionListener() {
             @Override
@@ -64,17 +62,17 @@ public class MainFrame extends JFrame {
             }
         });
 
-
-        JMenuItem gameHistory = new JMenuItem("Game History"); // JMenuItem to show Game History
+        JMenuItem gameHistory = new JMenuItem("Game History"); // button to display game history
         gameHistory.setFont(customFont);
         gameHistory.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GameHistoryFrame gameHistoryFrame = new GameHistoryFrame();
+                // showGameHistory();
+                GameHistoryFrame gameHistoryFrame = new GameHistoryFrame(controller);
             }
         });
 
-        JMenuItem changeName = new JMenuItem("Change Plant Name"); // JMenuItem to change the name of a plant.
+        JMenuItem changeName = new JMenuItem("Change Plant Name");
         changeName.setFont(customFont);
         changeName.addActionListener(new ActionListener() {
             @Override
@@ -83,7 +81,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        JMenuItem removePlant = new JMenuItem("Remove plant"); // JMenuItem to remove a plant
+        JMenuItem removePlant = new JMenuItem("Remove plant");
         removePlant.setFont(customFont);
         removePlant.addActionListener(new ActionListener() {
             @Override
@@ -92,7 +90,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        JMenuItem newGame = new JMenuItem("Start Over"); // JMenuItem to remove all the plants.
+        JMenuItem newGame = new JMenuItem("Start Over"); // button to start the game over
         newGame.setFont(customFont);
         newGame.setBackground(new Color(225, 78, 78));
         newGame.addActionListener(new ActionListener() {
@@ -103,8 +101,8 @@ public class MainFrame extends JFrame {
         });
 
         Border menuItemBorder = BorderFactory.createCompoundBorder(
-        BorderFactory.createLineBorder(Color.BLACK),
-        BorderFactory.createEmptyBorder(4, 8, 4, 8));
+                BorderFactory.createLineBorder(Color.BLACK),
+                BorderFactory.createEmptyBorder(4, 8, 4, 8));
 
         // Set the custom border for each JMenuItem
         gameRules.setBorder(menuItemBorder);
@@ -112,73 +110,82 @@ public class MainFrame extends JFrame {
         newGame.setBorder(menuItemBorder);
         removePlant.setBorder(menuItemBorder);
         changeName.setBorder(menuItemBorder);
-
-        // add the JMenuItem to the MenuBar
         menuBar.add(gameRules);
         menuBar.add(changeName);
         menuBar.add(gameHistory);
         menuBar.add(removePlant);
         menuBar.add(newGame);
         setJMenuBar(menuBar);
-
-        addWindowListener(new WindowAdapter() { // listener för att spara spelet när man trycker på exit
+        addWindowListener(new WindowAdapter() { // listener to save the game when exit button is pressed
             @Override
             public void windowClosing(WindowEvent e) {
                 controller.saveGame();
             }
-        }); // when closing the window, save the game.
-
+        });
         pack();
-        setLocationRelativeTo(null); // location centered.
-        setVisible(true); // make visible
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     /**
-     * Displays gameRulesFrame showing the game rules.
-     *
+     * Displays the game rule frame showing the game rules.
      * @author annagranberg
      */
     public void showRulesDialog() {
-        GameRuleFrame gameRuleFrame = new GameRuleFrame();
+        GameRuleFrame gameRuleFrame = new GameRuleFrame(controller);
     }
 
     /**
-     * Retrieves the CenterPanel.
-     * @return CenterPanel
+     * Retrieves the center panel.
+     * @return The center panel.
+     * @author Cyrus Shaerpour
      */
     public CenterPanel getCenterPanel() {
         return mainPanel.getCenterPanel();
     }
 
     /**
-     * Retrieves the EastPanel.
-     * @return EastPanel
+     * Retrieves the east panel.
+     * @return The east panel.
+     * @author Cyrus Shaerpour
      */
     public EastPanel getEastPanel() {
         return mainPanel.getEastPanel();
     }
 
     /**
-     * Retrieves the SouthPanel.
-     * @return SouthPanel
+     * Retrieves the south panel.
+     * @return The south panel.
+     * @author Cyrus Shaerpour
      */
-    public SouthPanel getSouthPanel(){
+    public SouthPanel getSouthPanel() {
         return mainPanel.getSouthPanel();
     }
 
     /**
-     * Retrieves the MainPanel.
-     * @return MainPanel
+     * Retrieves the main panel.
+     * @return The main panel.
+     * @author Cyrus Shaerpour
      */
-    public MainPanel getMainPanel(){
+    public MainPanel getMainPanel() {
         return mainPanel;
     }
 
     /**
-     * Retrieves the GardenPanel.
-     * @return GardenPanel
+     * Retrieves the garden panel.
+     * @return The garden panel.
+     * @author Cyrus Shaerpour
      */
-    public GardenPanel getGardenPanel(){
+    public GardenPanel getGardenPanel() {
         return mainPanel.getGardenPanel();
+    }
+
+    /**
+     * Retrieves the game rule frame.
+     * @return The game rule frame.
+     * @return Cyrus Shaerpour
+     */
+    public GameRuleFrame getGameRuleFrame() {
+        return mainPanel.getGameRuleFrame();
     }
 }

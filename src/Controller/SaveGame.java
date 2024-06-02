@@ -15,8 +15,6 @@ import java.util.ArrayList;
  * @author Anna Granberg
  */
 public class SaveGame {
-    private static LocalDateTime timestamp;
-
     /**
      * Saves the game data to a file, including a timestamp at the end of each line.
      *
@@ -35,6 +33,7 @@ public class SaveGame {
                 // Add the formatted timestamp to the end of the line
                 data += " | Closed game; " + timestamp.format(formatter);
 
+
                 if (timeUntilDeath != null) {
                     formattedTime = timeUntilDeath.format(formatter);
                     // Proceed with saving the game using the formattedTime
@@ -43,6 +42,7 @@ public class SaveGame {
                     System.out.println("Death time is not set because it's not time for a new death.");
                 }
                 data += " | Death time; " + formattedTime;
+
                 data += " | Boolean night; " + controller.night;
 
                 writer.write(data);
@@ -53,4 +53,5 @@ public class SaveGame {
             System.err.println("Error saving game: " + e.getMessage());
         }
     }
+
 }

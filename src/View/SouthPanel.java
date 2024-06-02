@@ -1,7 +1,6 @@
 package View;
 
 import Controller.Controller;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
@@ -26,7 +25,6 @@ public class SouthPanel extends JPanel {
         border = BorderFactory.createLineBorder(Color.BLACK);
         titledBorder = BorderFactory.createTitledBorder(border, "Plant information", TitledBorder.CENTER, TitledBorder.TOP, myFont, Color.BLACK);
         setBorder(titledBorder);
-
 
         setBackground(new Color(225, 240, 218));
         setLayout(new BorderLayout());
@@ -94,12 +92,22 @@ public class SouthPanel extends JPanel {
         repaint();
     }
 
+    /**
+     * Sets the south panel to night mode.
+     * Changes the background color and the text color of the plant information label.
+     * @author Cyrus Shaerpour
+     */
     public void nightSouth() {
         setBackground(new Color(47, 49, 73));
         plantInformation.setForeground(Color.WHITE);
         titledBorder.setTitleColor(Color.WHITE);
     }
 
+    /**
+     * Sets the south panel to day mode.
+     * Changes the background color and the text color of the plant information label.
+     * @author Cyrus Shaerpour
+     */
     public void daySouth() {
         setBackground(new Color(225, 240, 218));
         plantInformation.setForeground(Color.BLACK);
