@@ -16,7 +16,7 @@ public class AddNewPlantFrame extends JFrame {
     public AddNewPlantFrame(Controller controller) {
         setSize(new Dimension(300, 300)); // Ställer in storleken på fönstret
         setVisible(true); // Gör fönstret synligt när det skapas
-
+        setLocation(600, 400);
         NewPlantPanel newPlantPanel = new NewPlantPanel(controller); // Skapar en ny panel för att lägga till växter
         add(newPlantPanel); // Lägger till den nya panelen i fönstret
     }

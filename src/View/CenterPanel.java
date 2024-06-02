@@ -8,8 +8,8 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 /**
- * CenterPanel representerar den centrala panelen i användargränssnittet som visar en bild på en växt.
- * Den innehåller också en titel som visar växtens namn.
+ * This class represents the center panel which shows the currently selected plant in the GUI with a title of the plant's name.
+ * @author Anna Granberg & Cyrus Shaerpour
  */
 public class CenterPanel extends JPanel {
 
@@ -23,10 +23,10 @@ public class CenterPanel extends JPanel {
     private static final int IMAGE_HEIGHT = 450; // höjd för skalade bilder
 
     /**
-     * Skapar en ny CenterPanel.
-     *
-     * @param mainPanel  Referens till huvudpanelen
-     * @param controller Referens till Controller för att hämta växtinformation
+     * Constructor for the center panel.
+     * @param mainPanel  Reference to the main panel.
+     * @param controller Reference to the controller
+     * @author Anna Granberg
      */
     public CenterPanel(MainPanel mainPanel, Controller controller) {
         setPreferredSize(new Dimension(450, 500)); // Ställer in önskad storlek för panelen
@@ -48,18 +48,18 @@ public class CenterPanel extends JPanel {
 
 
     /**
-     * Hämtar huvudpanelen som denna CenterPanel är en del av.
-     *
+     * Retrieves the main panel.
      * @return En referens till huvudpanelen.
+     * @author Cyrus Shaerpour
      */
     public MainPanel getMainPanel() {
         return mainPanel;
     }
 
     /**
-     * Uppdaterar bilden på växten i centerpanelen.
-     * @param newImage Den nya bilden som ska visas.
-     * Author Cyrus Shaerpour
+     * Method to update the image of the plant in the center panel.
+     * @param newImage The new image to be shown.
+     * @author Cyrus Shaerpour
      */
     public void updatePlantImage(ImageIcon newImage) {
         plantLabel.setText("");
@@ -69,7 +69,11 @@ public class CenterPanel extends JPanel {
         this.repaint(); // Repaint panelen för att visa den uppdaterade bilden
     }
 
-    // Metod för att uppdatera växtnamnet
+    /**
+     * Method to update the plant's name.
+     * @param plantName Name to be changed to.
+     * @author Anna Granberg
+     */
     public void updatePlantName(String plantName){
         name = plantName; // Uppdatera växtnamnet
 
@@ -79,12 +83,12 @@ public class CenterPanel extends JPanel {
     }
 
     /**
-     * Skalar bilden till storleken på GUI-fönstret
-     * @param imageIcon
-     * @param width
-     * @param height
+     * Scales the image to fit the size of the window
+     * @param imageIcon Icon to be used for the image.
+     * @param width Width of the image.
+     * @param height Height of the image.
      * @return ImageIcon(scaledImage)
-     * Author Cyrus Shaerpour
+     * @author Cyrus Shaerpour
      */
     private ImageIcon scaleImageIcon(ImageIcon imageIcon, int width, int height) {
         Image image = imageIcon.getImage(); // ImageIcon till Image
@@ -94,6 +98,7 @@ public class CenterPanel extends JPanel {
 
     /**
      * Clears the center panel by resetting the plant name, plant picture, and titled border.
+     * @author Anna Granberg
      */
     public void clearCenterPanel() {
         name = "You must choose a plant";
@@ -107,7 +112,7 @@ public class CenterPanel extends JPanel {
     /**
      * Sets the center panel to night mode.
      * Changes the background color of the panel to a darker color and the title text color to white.
-     * Author Cyrus Shaerpour
+     * @author Cyrus Shaerpour
      */
     public void centerNight() {
         setBackground(new Color(47, 49, 73));
@@ -117,7 +122,7 @@ public class CenterPanel extends JPanel {
     /**
      * Sets the center panel to day mode.
      * Changes the background color of the panel to a lighter color and the title text color to black.
-     * Author Cyrus Shaerpour
+     * @author Cyrus Shaerpour
      */
     public void centerDay() {
         setBackground(new Color(225, 240, 218));

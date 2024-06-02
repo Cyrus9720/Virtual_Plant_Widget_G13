@@ -10,16 +10,15 @@ public class Blackberry extends Plant{
 
     /**
      * Constructor for Blackberry
-     * @param controller
-     * @param name
-     * @param plantArt
-     * @param nbrOfLives
-     * @param timesWatered
-     * @param plantPicture
-     * @param plantLevel
-     * @param lastWatered
-     * @param deathTime
-     * @return void
+     * @param controller controller instantiation
+     * @param name Name of the plant
+     * @param plantArt Art of the plant
+     * @param nbrOfLives Amount of Starting Lives for the plant
+     * @param timesWatered Amount of Times the plant has been watered
+     * @param plantPicture Picture of the plant
+     * @param plantLevel Level of the plant
+     * @param lastWatered Last Time and Date the plant was watered
+     * @param deathTime Time and Date of the plant when to reduce/kill the plant
      * @author Cyrus Shaerpour
      */
     public Blackberry(Controller controller, String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered, LocalDateTime deathTime) {
@@ -36,7 +35,6 @@ public class Blackberry extends Plant{
     public void setPlantLevel(int plantLevel) {
         super.setPlantLevel(plantLevel);
         updateImage();
-        System.out.println(getPlantPicture());
     }
 
     /**
@@ -47,78 +45,81 @@ public class Blackberry extends Plant{
     @Override
     public void setNbrOfLives(int nbrOfLives) {
         super.setNbrOfLives(nbrOfLives);
-        updateDeathImage();
-        System.out.println(getPlantPicture());
+        updateImage();
     }
 
     /**
      * Update the image of the plant
-     * @return void
-     * @author Cyrus Shaerpour
+     * @author Cyrus Shaerpour & Malek Borovnjak
      */
     @Override
     public void updateImage() {
-        if (controller.night) {
-            switch (getPlantLevel()) {
-                case 0:
+        switch (getPlantLevel()) {
+            case 0:
+                if(controller.night){
                     setPlantPicture(new ImageIcon("src/Images/Night_Empty.JPG"));
                     break;
-                case 1:
-                    setPlantPicture(new ImageIcon("src/Images/Night_BB1.JPG"));
-                    break;
-                case 2:
-                    setPlantPicture(new ImageIcon("src/Images/Night_BB2.JPG"));
-                    break;
-                case 3:
-                    setPlantPicture(new ImageIcon("src/Images/Night_BB3.JPG"));
-                    break;
-                default:
-                    // Handle any other cases or provide a default image
-                    break;
-            }
-        } else {
-            switch (getPlantLevel()) {
-                case 0:
+                } else{
                     setPlantPicture(new ImageIcon("src/Images/PotArt1.JPG"));
                     break;
-                case 1:
-                    setPlantPicture(new ImageIcon("src/Images/Blackberry1.JPG"));
-                    break;
-                case 2:
-                    setPlantPicture(new ImageIcon("src/Images/Blackberry2.JPG"));
-                    break;
-                case 3:
-                    setPlantPicture(new ImageIcon("src/Images/Blackberry3.JPG"));
-                    break;
-                default:
-                    // Handle any other cases or provide a default image
-                    break;
-            }
-        }
-    }
-
-    /**
-     * Update the image of the plant when it dies
-     * @return void
-     * @author Cyrus Shaerpour
-     */
-    @Override
-    public void updateDeathImage() {
-        if (controller.night) {
-            if (getNbrOfLives() == 0 && getPlantLevel() == 1) {
-                setPlantPicture(new ImageIcon("src/Images/Night_BB_Dead1.JPG"));
-            } else if (getNbrOfLives() == 0 && getPlantLevel() == 2) {
-                setPlantPicture(new ImageIcon("src/Images/Night_BB_Dead2.JPG"));
-            } else if (getNbrOfLives() == 0 && getPlantLevel() == 3) {
-                setPlantPicture(new ImageIcon("src/Images/Night_BBD_ead3.JPG"));
-            }
-        } else
-        if (getNbrOfLives() == 0 && getPlantLevel() == 1) {
-            setPlantPicture(new ImageIcon("src/Images/BlackberryDead1.JPG"));
-        } else if (getNbrOfLives() == 0 && getPlantLevel() == 2) {
-            setPlantPicture(new ImageIcon("src/Images/BlackberryDead2.JPG"));
-        } else if (getNbrOfLives() == 0 && getPlantLevel() == 3) {
-            setPlantPicture(new ImageIcon("src/Images/BlackberryDead3.JPG"));
+                }
+            case 1:
+                if(controller.night){
+                    if(getNbrOfLives() == 0){
+                        setPlantPicture(new ImageIcon("src/Images/Night_BB_Dead1.JPG"));
+                        break;
+                    } else{
+                        setPlantPicture(new ImageIcon("src/Images/Night_BB1.JPG"));
+                        break;
+                    }
+                } else{
+                    if(getNbrOfLives() == 0){
+                        setPlantPicture(new ImageIcon("src/Images/BlackberryDead1.JPG"));
+                        break;
+                    } else{
+                        setPlantPicture(new ImageIcon("src/Images/Blackberry1.JPG"));
+                        break;
+                    }
+                }
+            case 2:
+                if(controller.night){
+                    if(getNbrOfLives() == 0){
+                        setPlantPicture(new ImageIcon("src/Images/Night_BB_Dead2.JPG"));
+                        break;
+                    } else{
+                        setPlantPicture(new ImageIcon("src/Images/Night_BB2.JPG"));
+                        break;
+                    }
+                } else{
+                    if(getNbrOfLives() == 0){
+                        setPlantPicture(new ImageIcon("src/Images/BlackberryDead2.JPG"));
+                        break;
+                    } else{
+                        setPlantPicture(new ImageIcon("src/Images/Blackberry2.JPG"));
+                        break;
+                    }
+                }
+            case 3:
+                if(controller.night){
+                    if(getNbrOfLives() == 0){
+                        setPlantPicture(new ImageIcon("src/Images/Night_BBD_ead3.JPG"));
+                        break;
+                    } else{
+                        setPlantPicture(new ImageIcon("src/Images/Night_BB3.JPG"));
+                        break;
+                    }
+                } else{
+                    if(getNbrOfLives() == 0){
+                        setPlantPicture(new ImageIcon("src/Images/BlackberryDead3.JPG"));
+                        break;
+                    } else{
+                        setPlantPicture(new ImageIcon("src/Images/Blackberry3.JPG"));
+                        break;
+                    }
+                }
+            default:
+                // Handle any other cases or provide a default image
+                break;
         }
     }
 }

@@ -11,16 +11,15 @@ public class MiniTree extends Plant{
 
     /**
      * Constructor for MiniTree
-     * @param controller
-     * @param name
-     * @param plantArt
-     * @param nbrOfLives
-     * @param timesWatered
-     * @param plantPicture
-     * @param plantLevel
-     * @param lastWatered
-     * @param deathTime
-     * @return void
+     * @param controller controller instantiation
+     * @param name Name of the plant
+     * @param plantArt Art of the plant
+     * @param nbrOfLives Amount of Starting Lives for the plant
+     * @param timesWatered Amount of Times the plant has been watered
+     * @param plantPicture Picture of the plant
+     * @param plantLevel Level of the plant
+     * @param lastWatered Last Time and Date the plant was watered
+     * @param deathTime Time and Date of the plant when to reduce/kill the plant
      * @author Cyrus Shaerpour
      */
     public MiniTree(Controller controller, String name, PlantArt plantArt, int nbrOfLives, int timesWatered, ImageIcon plantPicture, int plantLevel, LocalDateTime lastWatered, LocalDateTime deathTime) {
@@ -44,83 +43,84 @@ public class MiniTree extends Plant{
      * @param nbrOfLives Number of lives
      * @author Cyrus Shaerpour
      */
-
     @Override
     public void setNbrOfLives(int nbrOfLives) {
         super.setNbrOfLives(nbrOfLives);
-        updateDeathImage();
+        updateImage();
     }
 
     /**
-     * Update the image of the plant
-     * @return void
-     * @author Cyrus Shaerpour
+     * Update the image of the plant depending on if the GUI is set to night or day mode.
+     * @author Cyrus Shaerpour & Malek Borovnjak
      */
     @Override
     public void updateImage() {
-        if (controller.night) {
-            switch (getPlantLevel()) {
-                case 0:
+        switch (getPlantLevel()) {
+            case 0:
+                if(controller.night){
                     setPlantPicture(new ImageIcon("src/Images/NightEmpty.JPG"));
                     break;
-                case 1:
-                    setPlantPicture(new ImageIcon("src/Images/Night_Tree1.JPG"));
-                    break;
-                case 2:
-                    setPlantPicture(new ImageIcon("src/Images/Night_Tree2.JPG"));
-                    break;
-                case 3:
-                    setPlantPicture(new ImageIcon("src/Images/Night_Tree3.JPG"));
-                    System.out.println("Night");
-                    break;
-                default:
-                    break;
-            }
-        } else {
-            switch (getPlantLevel()) {
-                case 0:
+                } else{
                     setPlantPicture(new ImageIcon("src/Images/PotArt1.JPG"));
-                    System.out.println("Day1");
                     break;
-                case 1:
-                    setPlantPicture(new ImageIcon("src/Images/MiniTree1.JPG"));
-                    break;
-                case 2:
-                    setPlantPicture(new ImageIcon("src/Images/MiniTree2.JPG"));
-                    break;
-                case 3:
-                    setPlantPicture(new ImageIcon("src/Images/MiniTree3.JPG"));
-                    System.out.println("Day");
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-
-    /**
-     * Update the death image of the plant
-     * @return void
-     * @author Cyrus Shaerpour
-     */
-    @Override
-    public void updateDeathImage() {
-        if (controller.night) {
-            if (getNbrOfLives() == 0 && getPlantLevel() == 1) {
-                setPlantPicture(new ImageIcon("src/Images/Night_Tree_Dead1.JPG"));
-            } else if (getNbrOfLives() == 0 && getPlantLevel() == 2) {
-                setPlantPicture(new ImageIcon("src/Images/Night_Tree_Dead2.JPG"));
-            } else if (getNbrOfLives() == 0 && getPlantLevel() == 3) {
-                setPlantPicture(new ImageIcon("src/Images/Night_Tree_Dead3.JPG"));
-            } else {
-                if (getNbrOfLives() == 0 && getPlantLevel() == 1) {
-                    setPlantPicture(new ImageIcon("src/Images/MiniTreeDead1.JPG"));
-                } else if (getNbrOfLives() == 0 && getPlantLevel() == 2) {
-                    setPlantPicture(new ImageIcon("src/Images/MiniTreeDead2.JPG"));
-                } else if (getNbrOfLives() == 0 && getPlantLevel() == 3) {
-                    setPlantPicture(new ImageIcon("src/Images/MiniTreeDead3.JPG"));
                 }
-            }
+            case 1:
+                if(controller.night){
+                    if(getNbrOfLives() == 0){
+                        setPlantPicture(new ImageIcon("src/Images/Night_Tree_Dead1.JPG"));
+                        break;
+                    } else{
+                        setPlantPicture(new ImageIcon("src/Images/Night_Tree1.JPG"));
+                        break;
+                    }
+                } else{
+                    if(getNbrOfLives() == 0){
+                        setPlantPicture(new ImageIcon("src/Images/MiniTreeDead1.JPG"));
+                        break;
+                    } else{
+                        setPlantPicture(new ImageIcon("src/Images/MiniTree1.JPG"));
+                        break;
+                    }
+                }
+            case 2:
+                if(controller.night){
+                    if(getNbrOfLives() == 0){
+                        setPlantPicture(new ImageIcon("src/Images/Night_Tree_Dead2.JPG"));
+                        break;
+                    } else{
+                        setPlantPicture(new ImageIcon("src/Images/Night_Tree2.JPG"));
+                        break;
+                    }
+                } else{
+                    if(getNbrOfLives() == 0){
+                        setPlantPicture(new ImageIcon("src/Images/MiniTreeDead2.JPG"));
+                        break;
+                    } else{
+                        setPlantPicture(new ImageIcon("src/Images/MiniTree2.JPG"));
+                        break;
+                    }
+                }
+            case 3:
+                if(controller.night){
+                    if(getNbrOfLives() == 0){
+                        setPlantPicture(new ImageIcon("src/Images/Night_Tree_Dead3.JPG"));
+                        break;
+                    } else{
+                        setPlantPicture(new ImageIcon("src/Images/Night_Tree3.JPG"));
+                        break;
+                    }
+                } else{
+                    if(getNbrOfLives() == 0){
+                        setPlantPicture(new ImageIcon("src/Images/MiniTreeDead3.JPG"));
+                        break;
+                    } else{
+                        setPlantPicture(new ImageIcon("src/Images/MiniTree3.JPG"));
+                        break;
+                    }
+                }
+            default:
+                // Handle any other cases or provide a default image
+                break;
         }
     }
 }
