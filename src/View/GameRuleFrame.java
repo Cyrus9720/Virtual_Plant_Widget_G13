@@ -8,7 +8,6 @@ import java.awt.*;
 /**
  * GameRuleFrame represents a window displaying the game rules for the game.
  * It contains a JLabel to display the game rules and an image at the bottom as part of the menu.
- * @author Anna Granberg
  */
 public class GameRuleFrame extends JFrame {
     private JLabel gameRulesLabel; // JLabel för att visa spelreglerna
@@ -21,6 +20,7 @@ public class GameRuleFrame extends JFrame {
 
     /**
      * Constructs a GameRuleFrame to display the game rules.
+     * @auhtor Anna Granberg
      */
     public GameRuleFrame(Controller controller) {
         this.controller = controller;
@@ -74,6 +74,7 @@ public class GameRuleFrame extends JFrame {
 
     /**
      * Centers the frame on the screen and brings it to the front.
+     * @author Anna Granberg
      */
     private void centerAndToFront() {
         // Get the screen dimensions

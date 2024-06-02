@@ -9,6 +9,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The GameHistoryWriter class writes the history of dead plants to a file.
+ */
+
 public class GameHistoryWriter {
 
     /**
