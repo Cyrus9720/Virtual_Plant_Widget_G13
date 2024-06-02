@@ -1,12 +1,10 @@
 package Model;
 
 import Controller.Controller;
-
 import javax.swing.*;
 import java.time.LocalDateTime;
 
 public class TomatoPlant extends Plant{
-
     private Controller controller;
 
     /**

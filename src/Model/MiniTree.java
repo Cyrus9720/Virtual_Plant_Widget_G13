@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.time.LocalDateTime;
 
 public class MiniTree extends Plant{
-
     private Controller controller;
 
     /**

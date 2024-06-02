@@ -1,12 +1,12 @@
 package View;
 
 import Controller.Controller;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
-import java.util.ArrayList;
-import java.util.List;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * The MainPanel class represents the main panel of the user interface.
@@ -15,8 +15,7 @@ import java.awt.*;
  * This class extends {@link javax.swing.JPanel}.
  * @author annagranberg
  */
-public class MainPanel extends JPanel
-{
+public class MainPanel extends JPanel {
     private BorderLayout layout; // Layout manager for the panel
     private Controller controller; // Reference to controller
     private CenterPanel centerPanel;
@@ -24,6 +23,7 @@ public class MainPanel extends JPanel
     private SouthPanel southPanel;
     private GardenPanel gardenPanel;
     private GameRuleFrame gameRuleFrame;
+
     /**
      * Constructs a new MainPanel with the specified controller, width, and height.
      *

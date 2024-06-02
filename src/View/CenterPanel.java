@@ -1,7 +1,6 @@
 package View;
 
 import Controller.Controller;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
@@ -12,7 +11,6 @@ import java.awt.*;
  * @author Anna Granberg & Cyrus Shaerpour
  */
 public class CenterPanel extends JPanel {
-
     private ImageIcon plantPicture; // Bilden på växten
     private String name; // Namnet på växten
     private JLabel plantLabel; // Label som visar växtbilden
@@ -76,7 +74,6 @@ public class CenterPanel extends JPanel {
      */
     public void updatePlantName(String plantName){
         name = plantName; // Uppdatera växtnamnet
-
         titledBorder.setTitle(name); // Uppdatera titeln
         this.revalidate(); // för att uppdatera titeln
         this.repaint(); // Repaint panelen för att visa den uppdaterade titeln
